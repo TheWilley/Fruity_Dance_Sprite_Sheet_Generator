@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Studio</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="grid.js"></script>
+</head>
+
+<body onload="addTable()">
+    <!--Bootstrap Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Fruity Dance Sprite Sheet Generator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation)-->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl text-center">
+                <h1></h1>
+                <div id="edit" class="box">
+                    <h2 style="text-decoration: underline;">Edit</h2>
+                    <form style="margin-bottom: 8px">
+                        Rows: <input type="number" step="1" value="1" id="xvalue" onclick="Javascript:addTable()" min="1" max="40"> Width: <input type="number" step="1" value="80" id="cell_width" onclick="Javascript:addTable()" min="80" max="233"> Height:
+                        <input type="number" step="1" value="80" id="cell_height" onclick="Javascript:addTable()" min="80" max="233">
+                    </form>
+
+                    <div id="dyntable">
+                    </div>
+                </div>
+
+                <div id="output" class="box">
+                    <h2 style="text-decoration: underline;">Output</h2>
+
+                    <div id="ContainerCanvas">
+                    </div>
+                </div>
+
+                <div id="text-mapping" class="box">
+                    <h2 style="text-decoration: underline;">Animation Mapping</h2>
+
+                    <textarea id="textarea" cols="30" rows="10" style="max-width: 400px; min-width: 400px; height:120px;"></textarea>
+                </div>
+                <button id="download" class="btn btn-success" style="margin-top: 10px">Download</button>
+                <div id="about">
+                    <p>This webpage is created to generate Fruity Dance Sprite Sheets easily by using the canvas tag in html. It is usually a tedius process to generate these manually, and thus I felt the need to create this. It is not perfect, and the code
+                        is, well lets just say not living up to any standards. It is however fdsgfd
+                    </p>
+                </div>
+            </div>
+        </div>
+</body>
+
+<script>
+    var filecount = -1;
+    var filename;
+
+    function preview_image(event, rownumb, cellnumb) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            // This is where we create the canvas and insert images
+            var img1 = new Image();
+            var ctx = document.getElementById('canvas');
+            if (ctx.getContext) {
+                ctx = ctx.getContext('2d');
+                // Drawing of image
+                img1.onload = function() {
+                    var cell_width = parseInt(document.getElementById("cell_width").value);
+                    var cell_height = parseInt(document.getElementById("cell_height").value);
+
+                    console.log(cellnumb, rownumb);
+                    ctx.drawImage(img1, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
+                };
+
+                img1.src = reader.result;
+            }
+        }
+        console.log(event.target.files[0]);
+        reader.readAsDataURL(event.target.files[0]);
+        filename = event.target.files[0].name;
+
+        var cell = document.getElementById("- " + filecount);
+
+        filecount++;
+    }
+
+    // Download Canvas & Text File
+    const download = document.getElementById('download');
+    download.addEventListener('click', function(e) {
+        const link = document.createElement('a');
+        link.download = 'FruityDanceGen.png';
+        link.href = canvas.toDataURL();
+        link.click();
+        link.delete;
+
+        saveTextAsFile(textarea.value, 'FruityDanceGen.txt');
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>
