@@ -46,25 +46,9 @@ function addTable() {
             var td = document.createElement('TD');
             td.width = cell_width;
             td.height = cell_height;
-            var remotebutton = document.createElement('input');
-            remotebutton.type = "button";
-            remotebutton.value = "Browse...";
-            remotebutton.id = i + "-" + i2;
-            remotebutton.addEventListener("click", function() {
-                // Get current id for button
-                var id = this.id;
-                // Save them
-                var buttonid1 = parseInt(id.charAt(0));
-                var buttonid2 = parseInt(id.charAt(2));
-
-                // Generate the link
-                generatelink(buttonid1, buttonid2);
-                // Click, then remove to allow new input
-                document.getElementById("inputset").click();
-                document.getElementById("inputset").remove();
-                document.getElementById(id).ClassName = "DONE";
-            });
-            td.appendChild(remotebutton);
+            td.setAttribute("ondrop", "drop(event)");
+            td.setAttribute("ondragover", "allowDrop(event)");
+            td.setAttribute("class", i + "-" + i2);
 
             var imagecell = document.createElement('IMG');
             td.appendChild(imagecell);
@@ -72,10 +56,6 @@ function addTable() {
         }
         rowlink = document.createElement('TD');
 
-        // Dynamic link generation for buttons
-        function generatelink(buttonid1, buttonid2) {
-            rowlink.innerHTML = '<input id="inputset" type="file" accept="image/*" onchange="preview_image(event,' + buttonid1 + "," + buttonid2 + ')">';
-        }
         rowlink.id = "rowlink" + i;
         rowlink.className = "rows";
         tr.appendChild(rowlink);
