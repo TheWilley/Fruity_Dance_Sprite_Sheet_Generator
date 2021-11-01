@@ -1,8 +1,37 @@
+@media only screen and (max-width: 1182px) {
+    .sidebar-container {
+        position: initial !important;
+        overflow-x: auto;
+        max-height: 120px;
+    }
+    .post-form {
+        text-align: left;
+    }
+    .result-container {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .thumbnail {
+        max-height: 120px;
+    }
+    #result {
+        border-top: none !important;
+        overflow-y: unset !important;
+    }
+}
+
 .sidebar {
     background-color: rgb(49, 49, 49);
     border-radius: 5px;
     padding: 10px;
     margin-top: 20px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.sidebar-container {
+    width: inherit;
+    position: fixed;
 }
 
 .thumbnail {
@@ -14,7 +43,6 @@
 #result {
     margin-top: 10px;
     border-top: 1px gray solid;
-    max-height: 500px;
-    min-height: 500px;
     overflow-y: auto;
+    max-height: 800px;
 }

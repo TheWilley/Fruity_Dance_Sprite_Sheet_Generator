@@ -1,10 +1,3 @@
-@media only screen and (max-width: 900px) {
-    #edit,
-    #output {
-        overflow-x: scroll;
-    }
-}
-
 html {
     background-color: rgb(43, 43, 43);
 }
@@ -54,6 +47,7 @@ input[type='file'] {
 
 #dyntable {
     padding: 10px;
+    overflow: auto;
 }
 
 #output {
@@ -93,4 +87,12 @@ input[type='file'] {
 
 .box:hover {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.726);
+}
+
+#ContainerCanvas {
+    overflow: auto;
+}
+
+.navbar-dark .navbar-toggler {
+    margin-right: 14px;
 }

@@ -32,16 +32,18 @@
 
     <!--Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation)-->
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-sm-2 text-center">
-                <div class="sidebar">
-                    <form id='post-form' class='post-form' method='post'>
-                        <label for='files'>Select multiple files: </label>
-                        <input style="margin: 0 auto;" id='files' type='file' multiple/>
-                        <output id='result' />
-                    </form>
-
-                    <h3 style="text-decoration: underline;">Images</h3>
+        <div class="row justify-content-left">
+            <div class="col-xl-2 text-center">
+                <div class="sidebar-container">
+                    <div class="sidebar">
+                        <form id='post-form' class='post-form' method='post'>
+                            <div>
+                                <label for='files'>Select multiple files: </label>
+                            </div>
+                            <input style="margin: 0 auto;" id='files' type='file' multiple/>
+                            <output id='result' />
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-10 text-center">
@@ -133,6 +135,7 @@
                     picReader.addEventListener("load", function(event) {
                         var picFile = event.target;
                         var div = document.createElement("div");
+                        div.setAttribute("class", "result-container");
                         div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
                             "title='" + picFile.name + "' draggable='true' ondragstart='drag(event)' id='" + imagenumb + "'/>";
                         output.insertBefore(div, null);
