@@ -78,7 +78,7 @@ function addTable() {
     // Reset text element
     document.getElementById("textarea").value = "";
     // Generate text in textarea
-    for (l = 0; l < xvalue; l++) {
+    for (l = 1; l < xvalue; l++) {
         document.getElementById("textarea").value += "Animation " + l + "\n";
     }
     document.getElementById("textarea").value += "Held";

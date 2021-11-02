@@ -1,8 +1,8 @@
-@media only screen and (max-width: 1182px) {
+@media only screen and (max-width: 1199px) {
     .sidebar-container {
         position: initial !important;
         overflow-x: auto;
-        max-height: 120px;
+        max-height: 140px;
     }
     .post-form {
         text-align: left;
@@ -15,7 +15,6 @@
         max-height: 120px;
     }
     #result {
-        border-top: none !important;
         overflow-y: unset !important;
     }
 }
@@ -45,4 +44,8 @@
     border-top: 1px gray solid;
     overflow-y: auto;
     max-height: 800px;
+}
+
+#files {
+    width: 160px;
 }

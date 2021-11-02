@@ -6,15 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup-js/popup-js.css">
     <link rel="stylesheet" href="sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="grid.js"></script>
+    <script src="popup-js/popup-js.js"></script>
 </head>
 
 <body onload="addTable()">
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Fruity Dance Sprite Sheet Generator</a>
+        <a class="navbar-brand" href="#" style="margin-left: 10px;">Fruity Dance Sprite Sheet Generator</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,8 +43,9 @@
                         <form id='post-form' class='post-form' method='post'>
                             <div>
                                 <label for='files'>Select multiple files: </label>
+                                <br>
+                                <input style="margin: 0 auto;" id='files' type='file' multiple/>
                             </div>
-                            <input style="margin: 0 auto;" id='files' type='file' multiple/>
                             <output id='result' />
                         </form>
                     </div>
@@ -51,7 +56,11 @@
                 <div id="edit" class="box">
                     <h2 style="text-decoration: underline;">Edit</h2>
                     <form style="margin-bottom: 8px">
-                        Rows: <input type="number" step="1" value="1" id="xvalue" onclick="Javascript:addTable()" min="1" max="40"> Width: <input type="number" step="1" value="80" id="cell_width" onclick="Javascript:addTable()" min="80" max="233"> Height:
+                        <label>Rows:</label>
+                        <input type="number" step="1" value="1" id="xvalue" onclick="Javascript:addTable()" min="1" max="40">
+                        <label>Width:</label>
+                        <input type="number" step="1" value="80" id="cell_width" onclick="Javascript:addTable()" min="80" max="233">
+                        <label>Height:</label>
                         <input type="number" step="1" value="80" id="cell_height" onclick="Javascript:addTable()" min="80" max="233">
                     </form>
 
@@ -74,8 +83,8 @@
                 </div>
                 <button id="download" class="btn btn-success" style="margin-top: 10px">Download</button>
                 <div id="about">
-                    <p>This webpage is created to generate Fruity Dance Sprite Sheets easily by using the canvas tag in html. It is usually a tedius process to generate these manually, and thus I felt the need to create this. It is not perfect, and the code
-                        is, well lets just say not living up to any standards. It is however fdsgfd
+                    <p>This webpage is created to generate Fruity Dance Sprite Sheets by using the canvas tag in html. It is usually a tedius process to generate these manually, and thus I felt the need to create this. It is not perfect, and the code is,
+                        well lets just say not living up to any standards, but when I can I'll try to improve it.
                     </p>
                 </div>
             </div>
@@ -167,6 +176,8 @@
         var target_class = ev.target.className;
         var buttonid1 = parseInt(target_class.charAt(0));
         var buttonid2 = parseInt(target_class.charAt(2));
+
+        document.getElementById(data).setAttribute("draggable", "false")
 
         preview_image(document.getElementById(data).src, buttonid1, buttonid2);
     }

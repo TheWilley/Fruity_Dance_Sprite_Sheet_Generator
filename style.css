@@ -58,6 +58,7 @@ input[type='file'] {
 #text-mapping {
     padding: 10px;
     background-color: #212529;
+    overflow-x: auto;
 }
 
 #about {
