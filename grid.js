@@ -1,94 +1,107 @@
-function addTable() {
+function refresh() {
     // Get table id and refresh
-    var maintable = document.getElementById("maintable");
+    let maintable = document.getElementById("maintable");
     if (maintable != null) {
         maintable.remove();
     }
 
     // Get form id and refresh
-    var target_form = document.getElementById("form");
-    console.log(target_form);
+    let target_form = document.getElementById("form");
     if (target_form != null) {
         target_form.remove();
     }
 
-    // Get target DIV
-    var targsdiv = document.getElementById("dyntable");
-    // Create table and assign ID
-    var newtable = document.createElement('TABLE');
-    newtable.id = "maintable";
-    newtable.ClassName = "table table-bordered";
+    // Reset text element
+    document.getElementById("textarea").value = "";
+}
 
-    // Get values
+function addTable() {
+    // Refresh tables
+    refresh();
+
+    // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
     var cell_width = parseInt(document.getElementById("cell_width").value);
     var cell_height = parseInt(document.getElementById("cell_height").value);
 
+    // Get elements node
+    var textarea = document.getElementById("textarea");
+    var target_div = document.getElementById("dyntable");
+    var container_canvas = document.getElementById("ContainerCanvas");
+    var canvas = document.getElementById("canvas");
+
+    // Create table and assign ID
+    var newtable = document.createElement('TABLE');
+    newtable.setAttribute("id", "maintable");
+
     // Create head
-    var theadrow = document.createElement('TR');
-    for (var j = 1; j <= 8; j++) {
+    var thead_row = document.createElement('TR');
 
-        var thead = document.createElement('TD');
-        thead.width = cell_width;
-        thead.height = 20;
+    // Generate 8 cells
+    for (let i = 1; i <= 8; i++) {
+        let thead = document.createElement('TD');
+        thead.setAttribute("width", cell_width)
+        thead.setAttribute("height", 20)
 
-        thead.appendChild(document.createTextNode("Frame" + j));
-        newtable.appendChild(theadrow);
-        theadrow.appendChild(thead);
+        // Append all elements
+        newtable.appendChild(thead_row);
+        thead_row.appendChild(thead);
+        thead.appendChild(document.createTextNode("Frame" + i));
     }
 
     // Loop trough and add rows
-    for (var i = 0; i < xvalue; i++) {
-        var tr = document.createElement('TR');
-        tr.id = "row" + i;
-        newtable.appendChild(tr);
-        for (var i2 = 0; i2 <= 7; i2++) {
-            var td = document.createElement('TD');
-            td.width = cell_width;
-            td.height = cell_height;
-            td.setAttribute("ondrop", "drop(event)");
-            td.setAttribute("ondragover", "allowDrop(event)");
-            td.setAttribute("class", i + "-" + i2);
+    for (let i = 0; i < xvalue; i++) {
+        // Generate tanle rows
+        let table_row = document.createElement('TR');
+        table_row.setAttribute("id", "row" + i);
+        newtable.appendChild(table_row);
 
-            var imagecell = document.createElement('IMG');
-            td.appendChild(imagecell);
-            tr.appendChild(td);
+        for (let j = 0; j <= 7; j++) {
+            // Generate table cells
+            let table_cell = document.createElement('TD');
+            table_cell.setAttribute("width", cell_width);
+            table_cell.setAttribute("height", cell_height);
+            table_cell.setAttribute("id", i + "-" + j);
+            table_cell.classList.add('dropzone')
+
+            // Generate image cells
+            let image_cell = document.createElement('IMG');
+            image_cell.setAttribute("id", "img" + i + "-" + j);
+            image_cell.setAttribute("class", "immg-grid");
+            table_cell.appendChild(image_cell);
+            table_row.appendChild(table_cell);
         }
-        rowlink = document.createElement('TD');
-
-        rowlink.id = "rowlink" + i;
-        rowlink.className = "rows";
-        tr.appendChild(rowlink);
     }
-    targsdiv.appendChild(newtable);
+    target_div.appendChild(newtable);
 
     // Canvas Creation
-    var ContainerCanvas = document.getElementById("ContainerCanvas");
-    var canvas = document.getElementById("canvas");
-
-    var CanvasElement = document.createElement('canvas');
+    let canvas_element = document.createElement('canvas');
     if (canvas != null) {
         canvas.remove();
     }
-    CanvasElement.height = cell_height * xvalue;
-    CanvasElement.width = cell_width * 8;
-    CanvasElement.id = "canvas";
-    ContainerCanvas.appendChild(CanvasElement);
 
-    // Reset text element
-    document.getElementById("textarea").value = "";
+    canvas_element.setAttribute("height", cell_height * xvalue);
+    canvas_element.setAttribute("width", cell_width * 8);
+    canvas_element.setAttribute("id", "canvas");
+    container_canvas.appendChild(canvas_element);
+
     // Generate text in textarea
     for (l = 1; l < xvalue; l++) {
-        document.getElementById("textarea").value += "Animation " + l + "\n";
+        textarea.value += "Animation " + l + "\n";
     }
-    document.getElementById("textarea").value += "Held";
+    textarea.value += "Held";
 }
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs) {
-    var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
-    var downloadLink = document.createElement("a");
+    // Create all varaibles
+    let textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+    let downloadLink = document.createElement("a");
+
+    // Set attributes
     downloadLink.download = fileNameToSaveAs;
     downloadLink.innerHTML = "Download File";
+
+    // Browser Dependent
     if (window.webkitURL != null) {
         // Chrome allows the link to be clicked
         // without actually adding it to the DOM.
@@ -101,6 +114,5 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
         downloadLink.style.display = "none";
         document.body.appendChild(downloadLink);
     }
-
     downloadLink.click();
 }

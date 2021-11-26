@@ -1,5 +1,9 @@
+/*/ HTML elements /*/
+
 html {
     background-color: rgb(43, 43, 43);
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -13,7 +17,7 @@ h2 {
 
 table,
 td {
-    border: 1px solid rgb(141, 141, 141) !important;
+    border: 1px solid rgb(141, 141, 141);
     padding: 12px;
 }
 
@@ -67,6 +71,15 @@ input[type='file'] {
     font-size: 20px;
 }
 
+#ContainerCanvas {
+    overflow: auto;
+}
+
+.immg-grid {
+    width: 100%;
+    height: 100%;
+}
+
 .rows {
     display: none;
 }
@@ -90,10 +103,17 @@ input[type='file'] {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.726);
 }
 
-#ContainerCanvas {
-    overflow: auto;
-}
-
 .navbar-dark .navbar-toggler {
     margin-right: 14px;
+}
+
+.drop-target {
+    border: green 4px dashed;
+    transition: all 0.4s;
+    padding: 1px;
+}
+
+.can-drop {
+    opacity: 0.2;
+    transition: opacity 0.4s;
 }

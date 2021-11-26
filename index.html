@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="invalid-dropzone">
 
 <head>
     <title>Studio</title>
@@ -11,8 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="grid.js"></script>
-    <script src="popup-js/popup-js.js"></script>
 </head>
 
 <body onload="addTable()">
@@ -57,11 +55,11 @@
                     <h2 style="text-decoration: underline;">Edit</h2>
                     <form style="margin-bottom: 8px">
                         <label>Rows:</label>
-                        <input type="number" step="1" value="1" id="xvalue" onclick="Javascript:addTable()" min="1" max="40">
+                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:addTable()" min="1" max="40">
                         <label>Width:</label>
-                        <input type="number" step="1" value="80" id="cell_width" onclick="Javascript:addTable()" min="80" max="233">
+                        <input type="number" step="1" value="80" id="cell_width" onchange="Javascript:addTable()" min="80" max="233">
                         <label>Height:</label>
-                        <input type="number" step="1" value="80" id="cell_height" onclick="Javascript:addTable()" min="80" max="233">
+                        <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:addTable()" min="80" max="233">
                     </form>
 
                     <div id="dyntable">
@@ -91,101 +89,14 @@
         </div>
 </body>
 
-<script>
-    var filecount = 0;
-    var filename;
-
-    function preview_image(image, rownumb, cellnumb) {
-        // This is where we create the canvas and insert images
-        var img1 = new Image();
-        img1.src = image;
-        var ctx = document.getElementById('canvas');
-        if (ctx.getContext) {
-            ctx = ctx.getContext('2d');
-            // Drawing of image
-            img1.onload = function() {
-                var cell_width = parseInt(document.getElementById("cell_width").value);
-                var cell_height = parseInt(document.getElementById("cell_height").value);
-
-                ctx.drawImage(img1, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
-            };
-        }
-
-        filecount++;
-    }
-
-    // Download Canvas & Text File
-    const download = document.getElementById('download');
-    download.addEventListener('click', function(e) {
-        const link = document.createElement('a');
-        link.download = 'FruityDanceGen.png';
-        link.href = canvas.toDataURL();
-        link.click();
-        link.delete;
-
-        saveTextAsFile(textarea.value, 'FruityDanceGen.txt');
-    });
-
-    // Get multiple files
-    window.onload = function() {
-        //Check File API support
-        if (window.File && window.FileList && window.FileReader) {
-            var filesInput = document.getElementById("files");
-            filesInput.addEventListener("change", function(event) {
-                var files = event.target.files; //FileList object
-                var output = document.getElementById("result");
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    //Only pics
-                    if (!file.type.match('image'))
-                        continue;
-                    var picReader = new FileReader();
-                    var imagenumb = 0;
-                    picReader.addEventListener("load", function(event) {
-                        var picFile = event.target;
-                        var div = document.createElement("div");
-                        div.setAttribute("class", "result-container");
-                        div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-                            "title='" + picFile.name + "' draggable='true' ondragstart='drag(event)' id='" + imagenumb + "'/>";
-                        output.insertBefore(div, null);
-                        imagenumb++;
-                    });
-                    //Read the image
-                    picReader.readAsDataURL(file);
-                }
-            });
-        } else {
-            console.log("Your browser does not support File API");
-        }
-    }
-
-    // Functions for drag and drop
-    function allowDrop(ev) {
-        ev.preventDefault();
-    }
-
-    function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
-
-    function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
-
-        var target_class = ev.target.className;
-        var buttonid1 = parseInt(target_class.charAt(0));
-        var buttonid2 = parseInt(target_class.charAt(2));
-
-        document.getElementById(data).setAttribute("draggable", "false")
-
-        preview_image(document.getElementById(data).src, buttonid1, buttonid2);
-    }
-</script>
-
 <!--Bootstrap Resources-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="graphichandler.js"></script>
+<script src="grid.js"></script>
+<script src="draghandler.js"></script>
+<script src="popup-js/popup-js.js"></script>
 
 </html>

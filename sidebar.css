@@ -42,7 +42,7 @@
 #result {
     margin-top: 10px;
     border-top: 1px gray solid;
-    overflow-y: auto;
+
     max-height: 800px;
 }
 
