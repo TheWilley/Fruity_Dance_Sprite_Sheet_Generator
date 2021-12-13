@@ -144,6 +144,8 @@ input[type='file'] {
     top: -150px;
     background-color: rgba(0, 0, 0, 0.336);
     border-bottom: 2px solid black;
+    margin-top: -150px;
+    transition: transform 0.4s cubic-bezier(0.61, 1, 0.88, 1);
 }
 
 #popup_image {

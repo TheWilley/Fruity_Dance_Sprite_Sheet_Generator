@@ -1,41 +1,23 @@
-function PreviewImage() {
-    let id = null;
-    const elem = document.getElementById("popup");
-    let pos = -150;
-    clearInterval(id);
-    id = setInterval(frame, 1);
+// formula     http://easings.net/
+// description https://stackoverflow.com/questions/8316882/what-is-an-easing-function
+// x: percent
+// t: current time,
+// b: beginning value,
+// c: change in value,
+// d: duration
 
-    elem.style.top = "-150px";
+function easeOutSine(x) {
+    return Math.sin((x * Math.PI) / 2);
+}
+
+function PreviewImage(show) {
+    document.getElementById("popup").style.transform = "translate(-50%, 300px)";
     document.getElementById("mouse-circle").style.opacity = "100%";
-
-    function frame() {
-        if (pos == 0) {
-            clearInterval(id);
-        } else {
-            pos += 3;
-            elem.style.top = pos + "px";
-        }
-    }
 }
 
 function StopPreviewImage() {
-    let id = null;
-    const elem = document.getElementById("popup");
-    let pos = 0;
-    clearInterval(id);
-    id = setInterval(frame, 1);
-
+    document.getElementById("popup").style.transform = "translate(-50%, 150px)";
     document.getElementById("mouse-circle").style.opacity = "0%";
-
-
-    function frame() {
-        if (pos == -150) {
-            clearInterval(id);
-        } else {
-            pos -= 3;
-            elem.style.top = pos + "px";
-        }
-    }
 }
 
 function refresh() {

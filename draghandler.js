@@ -17,7 +17,7 @@ interact('.draggable').draggable({
             orginal_positioon_x = x;
             orginal_positioon_y = y;
 
-            PreviewImage();
+            PreviewImage(true);
 
             document.getElementById("popup_image").src = target.src;
         },
