@@ -2,6 +2,9 @@
 var orginal_positioon_x = 0;
 var orginal_positooon_y = 0;
 
+var immage_offset_y = 0;
+var immage_offset_x = 0;
+
 // Drag managment
 interact('.draggable').draggable({
     listeners: {
@@ -13,6 +16,10 @@ interact('.draggable').draggable({
 
             orginal_positioon_x = x;
             orginal_positioon_y = y;
+
+            PreviewImage();
+
+            document.getElementById("popup_image").src = target.src;
         },
         move(event) {
             var target = event.target
@@ -27,6 +34,21 @@ interact('.draggable').draggable({
             target.setAttribute('data-x', x)
             target.setAttribute('data-y', y)
         },
+        end(event) {
+            if (event.relatedTarget == null) {
+                let target_element = document.getElementById(event.target.id)
+                    // translate the element
+                target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
+
+                // update the posiion attributes
+                target_element.setAttribute('data-x', orginal_positioon_x);
+                target_element.setAttribute('data-y', orginal_positioon_y);
+
+                event.target.classList.remove("isdragged");
+
+                StopPreviewImage();
+            }
+        }
     }
 })
 
@@ -35,7 +57,8 @@ interact(".dropzone")
     .dropzone({
         ondrop: function(event) {
             // Get target id and split it
-            var target_id = event.target.id;
+            let target_id = event.target.id;
+            let target_element = document.getElementById(event.relatedTarget.id)
             var rownumb = parseInt(target_id.charAt(0));
             var cellnumb = parseInt(target_id.charAt(2));
 
@@ -44,7 +67,17 @@ interact(".dropzone")
             console.log(document.getElementById(event.relatedTarget.id).src);
 
             document.getElementById("img" + rownumb + "-" + cellnumb).src = document.getElementById(event.relatedTarget.id).src;
-            document.getElementById(event.relatedTarget.id).remove();
+
+            // Go back to otiginal position
+            target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
+            target_element.setAttribute('data-x', orginal_positioon_x);
+            target_element.setAttribute('data-y', orginal_positioon_y);
+
+            event.target.classList.remove('drop-target')
+            event.relatedTarget.classList.remove('can-drop')
+            event.relatedTarget.classList.remove("isdragged");
+
+            StopPreviewImage();
         },
         ondragenter: function(event) {
             var dropzoneElement = event.target
@@ -58,23 +91,6 @@ interact(".dropzone")
                 // remove the drop feedback style
             event.target.classList.remove('drop-target')
             draggableElement.classList.remove('can-drop')
-        }
-    })
-    .on('dropactivate', function(event) {
-        event.target.classList.add('drop-activated');
-    })
-
-// Invalid dropzone managment
-interact(".invalid-dropzone")
-    .dropzone({
-        ondrop: function(event) {
-            let target_element = document.getElementById(event.relatedTarget.id)
-                // translate the element
-            target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
-
-            // update the posiion attributes
-            target_element.setAttribute('data-x', orginal_positioon_x);
-            target_element.setAttribute('data-y', orginal_positioon_y);
         }
     })
     .on('dropactivate', function(event) {

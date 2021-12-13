@@ -1,4 +1,33 @@
 var filecount = 0;
+sessionStorage.imagenumb = 0;
+
+document.onreadystatechange = () => {
+    if (document.readyState === 'complete') {
+        addTable();
+    }
+};
+
+function LockParamters() {
+    let xvalue = document.getElementById("xvalue");
+    let cell_width = document.getElementById("cell_width");
+    let cell_height = document.getElementById("cell_height");
+    let unlocked = document.getElementById("lock-off");
+    let locked = document.getElementById("lock-on");
+    if (xvalue.disabled == true) {
+        xvalue.disabled = false;
+        cell_width.disabled = false;
+        cell_height.disabled = false;
+        locked.style.display = "none";
+        unlocked.style.display = "block"
+    } else {
+        xvalue.disabled = true;
+        cell_width.disabled = true;
+        cell_height.disabled = true;
+        locked.style.display = "block";
+        unlocked.style.display = "none"
+    }
+}
+
 
 function preview_image(image, rownumb, cellnumb) {
     // This is where we create the canvas and insert images
@@ -46,15 +75,14 @@ window.onload = function() {
                 if (!file.type.match('image'))
                     continue;
                 var picReader = new FileReader();
-                var imagenumb = 0;
                 picReader.addEventListener("load", function(event) {
                     var picFile = event.target;
                     var div = document.createElement("div");
                     div.setAttribute("class", "result-container");
                     div.innerHTML = "<img class='thumbnail draggable' src='" + picFile.result + "'" +
-                        "title='" + picFile.name + "' id='imagenumb" + imagenumb + "'/>";
+                        "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
                     output.insertBefore(div, null);
-                    imagenumb++;
+                    sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
                 });
                 //Read the image
                 picReader.readAsDataURL(file);

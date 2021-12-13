@@ -26,6 +26,7 @@
     margin-top: 20px;
     margin-left: 14px;
     margin-right: 14px;
+    position: relative;
 }
 
 .sidebar-container {
@@ -42,10 +43,26 @@
 #result {
     margin-top: 10px;
     border-top: 1px gray solid;
-
     max-height: 800px;
 }
 
 #files {
     width: 160px;
+}
+
+.fixed-wrapper {
+    position: absolute;
+}
+
+​.parent {
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.isdragged {
+    position: absolute;
+    transition: width 2s;
 }

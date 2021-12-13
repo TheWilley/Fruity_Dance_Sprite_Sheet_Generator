@@ -1,3 +1,43 @@
+function PreviewImage() {
+    let id = null;
+    const elem = document.getElementById("popup");
+    let pos = -150;
+    clearInterval(id);
+    id = setInterval(frame, 1);
+
+    elem.style.top = "-150px";
+    document.getElementById("mouse-circle").style.opacity = "100%";
+
+    function frame() {
+        if (pos == 0) {
+            clearInterval(id);
+        } else {
+            pos += 3;
+            elem.style.top = pos + "px";
+        }
+    }
+}
+
+function StopPreviewImage() {
+    let id = null;
+    const elem = document.getElementById("popup");
+    let pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 1);
+
+    document.getElementById("mouse-circle").style.opacity = "0%";
+
+
+    function frame() {
+        if (pos == -150) {
+            clearInterval(id);
+        } else {
+            pos -= 3;
+            elem.style.top = pos + "px";
+        }
+    }
+}
+
 function refresh() {
     // Get table id and refresh
     let maintable = document.getElementById("maintable");
