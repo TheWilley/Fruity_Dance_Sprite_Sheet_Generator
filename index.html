@@ -15,7 +15,6 @@
 
 <body>
     <div id="mouse-circle"></div>
-
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#" style="margin-left: 10px;">Fruity Dance Sprite Sheet Generator</a>
@@ -24,11 +23,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator">Github</a>
                 </li>
             </ul>
         </div>
@@ -41,10 +37,10 @@
                 <div class="sidebar-container">
                     <div class="sidebar">
                         <form id='post-form' class='post-form' method='post'>
-                            <div>
-                                <label for='files'>Select multiple files: </label>
-                                <br>
-                                <input style="margin: 0 auto;" id='files' type='file' multiple/>
+                            <div style="position: relative; width: fit-content;">
+                                <label for='files'><em id="label">Select multiple files: </em>
+                                    <input style="margin: 0 auto;" id='files' type='file' multiple hidden/>
+                                </label>
                             </div>
                             <output id='result'>
                         </form>
@@ -58,7 +54,7 @@
                         <img id="popup_image">
                     </div>
                     <h2 style="text-decoration: underline;">Edit</h2>
-                    <form style="margin-bottom: 8px">
+                    <form id="settings" style="margin-bottom: 8px">
                         <label>Rows:</label>
                         <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:addTable()" min="1" max="40">
                         <label>Width:</label>
@@ -102,10 +98,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <!--Custom Resources-->
-<script src="graphichandler.js"></script>
-<script src="grid.js"></script>
-<script src="draghandler.js"></script>
-<script src="mousehandler.js"></script>
-<script src="popup-js/popup-js.js"></script>
+<script src="scripts/graphichandler.js"></script>
+<script src="scripts/grid.js"></script>
+<script src="scripts/draghandler.js"></script>
+<script src="scripts/mousehandler.js"></script>
+<script src="scripts/popup-js/popup-js.js"></script>
+<script src="scripts/smoothpreview.js"></script>
+
 
 </html>

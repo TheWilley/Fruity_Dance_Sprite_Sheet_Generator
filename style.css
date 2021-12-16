@@ -1,5 +1,16 @@
 /*/ HTML elements /*/
 
+@media only screen and (max-width: 889px) {
+    #settings {
+        width: 140px;
+        margin: 0 auto;
+    }
+    #settings input {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
 html {
     background-color: rgb(43, 43, 43);
     width: 100%;
@@ -136,22 +147,20 @@ input[type='file'] {
 #popup {
     width: 100%;
     height: 150px;
-    border-radius: 5px;
     margin: 0 auto;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: -150px;
-    background-color: rgba(0, 0, 0, 0.336);
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid rgb(0, 0, 0);
     margin-top: -150px;
+    background-image: url(Images/transparent.jpg);
     transition: transform 0.4s cubic-bezier(0.61, 1, 0.88, 1);
 }
 
 #popup_image {
     max-width: 50%;
     height: 100%;
-    border-radius: 20px;
 }
 
 #mouse-circle {
@@ -165,4 +174,53 @@ input[type='file'] {
     pointer-events: none;
     transition: opacity 0.2s;
     opacity: 0%;
+}
+
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+    0%,
+    100% {
+        transform: rotate(0)
+    }
+    20%,
+    60% {
+        transform: rotate(-25deg)
+    }
+    40%,
+    80% {
+        transform: rotate(10deg)
+    }
+}
+
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+}
+
+#lock-on:hover {
+    filter: invert(13%) sepia(90%) saturate(3982%) hue-rotate(356deg) brightness(93%) contrast(94%);
+    transition: all 0.4s;
+}
+
+#lock-off:hover {
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+    transition: all 0.4s;
+}
+
+#label {
+    text-decoration: underline;
+    color: rgb(122, 122, 255);
+    font-family: monospace;
+    font-size: 1em;
+}
+
+#label:hover {
+    color: rgb(247, 247, 255);
 }

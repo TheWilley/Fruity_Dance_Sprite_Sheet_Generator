@@ -35,19 +35,15 @@
 }
 
 .thumbnail {
-    width: 100%;
     margin: 5px;
+    min-height: 40px;
+    max-height: 120px;
     border: 1px gray solid;
 }
 
 #result {
     margin-top: 10px;
-    border-top: 1px gray solid;
     max-height: 800px;
-}
-
-#files {
-    width: 160px;
 }
 
 .fixed-wrapper {
@@ -65,4 +61,8 @@
 .isdragged {
     position: absolute;
     transition: width 2s;
+}
+
+#upload_files {
+    width: 100%;
 }
