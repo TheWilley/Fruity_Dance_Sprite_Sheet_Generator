@@ -39,6 +39,7 @@
     min-height: 40px;
     max-height: 120px;
     border: 1px gray solid;
+    width: 150px;
 }
 
 #result {

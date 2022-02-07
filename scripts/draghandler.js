@@ -9,8 +9,8 @@ var immage_offset_x = 0;
 interact('.draggable').draggable({
     listeners: {
         start(event) {
-            var target = event.target
-                // keep the dragged position in the data-x/data-y attributes
+            var target = event.target;
+            // Keep the dragged position in the data-x/data-y attributes
             var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
             var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
@@ -22,8 +22,8 @@ interact('.draggable').draggable({
             document.getElementById("popup_image").src = target.src;
         },
         move(event) {
-            var target = event.target
-                // keep the dragged position in the data-x/data-y attributes
+            var target = event.target;
+            // Keep the dragged position in the data-x/data-y attributes
             var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
             var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
@@ -36,8 +36,8 @@ interact('.draggable').draggable({
         },
         end(event) {
             if (event.relatedTarget == null) {
-                let target_element = document.getElementById(event.target.id)
-                    // translate the element
+                let target_element = document.getElementById(event.target.id);
+                // translate the element
                 target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
 
                 // update the posiion attributes

@@ -40,7 +40,7 @@ function addTable() {
     // Generate 8 cells
     for (let i = 1; i <= 8; i++) {
         let thead = document.createElement('TD');
-        thead.setAttribute("width", cell_width)
+        thead.setAttribute("width", 80)
         thead.setAttribute("height", 20)
 
         // Append all elements
@@ -59,8 +59,6 @@ function addTable() {
         for (let j = 0; j <= 7; j++) {
             // Generate table cells
             let table_cell = document.createElement('TD');
-            table_cell.setAttribute("width", cell_width);
-            table_cell.setAttribute("height", cell_height);
             table_cell.setAttribute("id", i + "-" + j);
             table_cell.classList.add('dropzone')
 
@@ -72,6 +70,7 @@ function addTable() {
             table_row.appendChild(table_cell);
         }
     }
+    // 
     target_div.appendChild(newtable);
 
     // Canvas Creation

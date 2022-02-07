@@ -13,12 +13,15 @@ function LockParamters() {
     let cell_height = document.getElementById("cell_height");
     let unlocked = document.getElementById("lock-off");
     let locked = document.getElementById("lock-on");
+
     if (xvalue.disabled == true) {
         xvalue.disabled = false;
         cell_width.disabled = false;
         cell_height.disabled = false;
         locked.style.display = "none";
         unlocked.style.display = "block"
+
+        notify("Locked!");
     } else {
         xvalue.disabled = true;
         cell_width.disabled = true;
