@@ -1,22 +1,27 @@
-let objectCollection = [];
+let cellCollection = [];
+let currentCell;
 
-let currentObject;
+class grid {
+    constructor(cellPosition) {
+        this.cellPosition = cellPosition;
+    }
+}
 
 // Image class constructor
-class ImageObject {
-    constructor(imageID, imageSrc, imageGridPosition, imageGridOffset) {
+class ImageObject extends grid {
+    constructor(imageID, imageSrc, cellPosition, imageGridOffset) {
         this.imageID = imageID;
         this.imageSrc = imageSrc;
-        this.imageGridPosition = imageGridPosition;
+        super(cellPosition)
         this.imageGridOffset = imageGridOffset;
     }
 }
 
 // Add object to the collection array
 function addObject(object) {
-    objectCollection[object.imageGridPosition[0]][object.imageGridPosition[1]] = object;
+    cellCollection[object.imageGridPosition[0]][object.imageGridPosition[1]] = object;
 }
 
 function getCurrentObject() {
-    preview_image_edit(document.getElementById('img' + currentObject.imageID).src, currentObject.imageGridOffset[0], currentObject.imageGridOffset[1]);
+    preview_image_edit(document.getElementById('img' + currentCell.imageID).src, currentCell.imageGridOffset[0], currentCell.imageGridOffset[1]);
 }

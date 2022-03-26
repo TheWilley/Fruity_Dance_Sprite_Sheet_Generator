@@ -58,13 +58,14 @@ input[type='file'] {
     padding: 14px;
 }
 
-#maintable {
-    margin: 0 auto;
+#dyntable_container {
+    margin: 10px;
 }
 
 #dyntable {
     padding: 10px;
     overflow: auto;
+    margin: 0 auto;
 }
 
 #output {

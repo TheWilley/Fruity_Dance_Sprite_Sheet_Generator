@@ -1,8 +1,13 @@
 function refresh() {
     // Get table id and refresh
-    let maintable = document.getElementById("maintable");
-    if (maintable != null) {
-        maintable.remove();
+    let dyntable = document.getElementById("dyntable");
+    console.log(dyntable)
+    if (dyntable != null) {
+        for (let row of dyntable.rows) {
+            console.log(row.dataset.row)
+            if (row.dataset.row > parseInt(document.getElementById("xvalue").value))
+                dyntable.deleteRow(row.dataset.row)
+        }
     }
 
     // Get form id and refresh
@@ -16,9 +21,6 @@ function refresh() {
 }
 
 function addTable() {
-    // Refresh tables
-    refresh();
-
     // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
     var cell_width = parseInt(document.getElementById("cell_width").value);
@@ -26,45 +28,29 @@ function addTable() {
 
     // Get elements node
     var textarea = document.getElementById("textarea");
-    var target_div = document.getElementById("dyntable");
     var ContainerCanvas = document.getElementById("ContainerCanvas");
     var canvas = document.getElementById("canvas");
 
     // Create table and assign ID
-    var newtable = document.createElement('TABLE');
-    newtable.setAttribute("id", "maintable");
-
-    // Create head
-    var thead_row = document.createElement('TR');
-
-    // Generate 8 cells
-    for (let i = 1; i <= 8; i++) {
-        let thead = document.createElement('TD');
-        thead.setAttribute("width", 80)
-        thead.setAttribute("height", 20)
-
-        // Append all elements
-        newtable.appendChild(thead_row);
-        thead_row.appendChild(thead);
-        thead.appendChild(document.createTextNode("Frame" + i));
-    }
+    var dyntable = document.getElementById("dyntable");
 
     // Loop trough and add rows
     for (let i = 0; i < xvalue; i++) {
+
+
         // Generate tanle rows
         let table_row = document.createElement('TR');
-        table_row.setAttribute("id", "row" + i);
-        newtable.appendChild(table_row);
+        table_row.setAttribute("data-row", i);
+        dyntable.appendChild(table_row);
 
         /* For every row, add another row to the 2D array in @getSet.js.
         This way, the array is dynamic. */
-        objectCollection.push([]);
+        cellCollection.push([]);
 
         for (let j = 0; j <= 7; j++) {
             // Generate table cells
             let table_cell = document.createElement('TD');
-            let id = i + "v" + j;
-            table_cell.setAttribute("id", id);
+            table_cell.setAttribute("data-column", j);
             table_cell.classList.add('dropzone')
 
             // Generate image cells
@@ -72,9 +58,9 @@ function addTable() {
             let image_controls = document.createElement('SPAN');
 
             // Set all image_cell attributes
-            image_cell.setAttribute("id", "img" + id);
+            image_cell.setAttribute("data-image", j);
             image_cell.setAttribute("class", "immg-grid");
-            image_cell.onclick = function() { show_controls(id) };
+            image_cell.onclick = function() { show_controls(j) };
 
             // Set all image_controlls attributes
             image_controls.setAttribute("id", "image_controls")
@@ -85,8 +71,6 @@ function addTable() {
             table_row.appendChild(table_cell);
         }
     }
-    // 
-    target_div.appendChild(newtable);
 
     // Canvas Creation
     let canvas_element = document.createElement('canvas');
@@ -104,6 +88,9 @@ function addTable() {
         textarea.value += "Animation " + l + "\n";
     }
     textarea.value += "Held";
+
+    // Refresh tables
+    refresh();
 }
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs) {
@@ -136,16 +123,16 @@ function show_controls(id) {
     var clon = temp.content.cloneNode(true);
     document.getElementById(id).querySelector("#image_controls").appendChild(clon);
 
-    for (let i = 0; i < objectCollection.length; i++) {
-        let innerArrayLength = objectCollection[i].length;
+    for (let i = 0; i < cellCollection.length; i++) {
+        let innerArrayLength = cellCollection[i].length;
 
         for (let j = 0; j < innerArrayLength; i++) {
-            console.log(objectCollection[i][j].imageID, id);
-            if (objectCollection[i][j].imageID == id) {
-                document.getElementById("Xoffset").value = objectCollection[i][j].imageGridOffset[0];
-                document.getElementById("Yoffset").value = objectCollection[i][j].imageGridOffset[1];
+            console.log(cellCollection[i][j].imageID, id);
+            if (cellCollection[i][j].imageID == id) {
+                document.getElementById("Xoffset").value = cellCollection[i][j].imageGridOffset[0];
+                document.getElementById("Yoffset").value = cellCollection[i][j].imageGridOffset[1];
 
-                currentObject = objectCollection[i][j];
+                currentCell = cellCollection[i][j];
 
                 break;
             }
