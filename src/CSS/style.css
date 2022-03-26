@@ -92,6 +92,8 @@ input[type='file'] {
     width: 70px;
     height: 70px;
     border: 1px solid rgb(7, 104, 7);
+    position: relative;
+    z-index: 0;
 }
 
 .rows {
@@ -130,6 +132,10 @@ input[type='file'] {
 .can-drop {
     opacity: 0.2;
     transition: opacity 0.4s;
+}
+
+.dropzone {
+    position: relative;
 }
 
 .locks {
@@ -197,4 +203,11 @@ input[type='file'] {
 
 #label:hover {
     color: rgb(247, 247, 255);
+}
+
+#image_controls {
+    left: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translate(-50%, 0.75rem);
 }

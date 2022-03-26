@@ -1,0 +1,10 @@
+#image_controls {
+    z-index: 1;
+}
+
+#image_controls_interface {
+    border: 2px black solid;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.80);
+    padding: 5px;
+}
