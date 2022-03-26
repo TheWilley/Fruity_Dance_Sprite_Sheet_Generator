@@ -1,9 +1,9 @@
 // Move images
-var orginal_positioon_x = 0;
-var orginal_positooon_y = 0;
+let orginal_position_x = 0;
+let orginal_positon_y = 0;
 
-var immage_offset_y = 0;
-var immage_offset_x = 0;
+let image_offset_y = 0;
+let image_offset_x = 0;
 
 // Drag managment
 interact('.draggable').draggable({
@@ -14,7 +14,7 @@ interact('.draggable').draggable({
             var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
             var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-            orginal_positioon_x = x;
+            orginal_position_x = x;
             orginal_positioon_y = y;
 
             PreviewImage(true);
@@ -38,10 +38,10 @@ interact('.draggable').draggable({
             if (event.relatedTarget == null) {
                 let target_element = document.getElementById(event.target.id);
                 // translate the element
-                target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
+                target_element.style.transform = 'translate(' + orginal_position_x + 'px, ' + orginal_positioon_y + 'px)';
 
                 // update the posiion attributes
-                target_element.setAttribute('data-x', orginal_positioon_x);
+                target_element.setAttribute('data-x', orginal_position_x);
                 target_element.setAttribute('data-y', orginal_positioon_y);
 
                 event.target.classList.remove("isdragged");
@@ -62,15 +62,17 @@ interact(".dropzone")
             var rownumb = parseInt(target_id.charAt(0));
             var cellnumb = parseInt(target_id.charAt(2));
 
-            // Run function to insert images into canvas
-            preview_image(document.getElementById(event.relatedTarget.id).src, rownumb, cellnumb);
-            console.log(document.getElementById(event.relatedTarget.id).src);
+            // Add object to an array
+            addObject(new ImageObject(target_id, document.getElementById(event.relatedTarget.id).src, [rownumb, cellnumb], [0, 0]));
 
-            document.getElementById("img" + rownumb + "-" + cellnumb).src = document.getElementById(event.relatedTarget.id).src;
+            // Run function to insert images into canvas    
+            preview_image(document.getElementById(event.relatedTarget.id).src, rownumb, cellnumb);
+
+            document.getElementById("img" + rownumb + "v" + cellnumb).src = document.getElementById(event.relatedTarget.id).src;
 
             // Go back to otiginal position
-            target_element.style.transform = 'translate(' + orginal_positioon_x + 'px, ' + orginal_positioon_y + 'px)';
-            target_element.setAttribute('data-x', orginal_positioon_x);
+            target_element.style.transform = 'translate(' + orginal_position_x + 'px, ' + orginal_positioon_y + 'px)';
+            target_element.setAttribute('data-x', orginal_position_x);
             target_element.setAttribute('data-y', orginal_positioon_y);
 
             event.target.classList.remove('drop-target')
