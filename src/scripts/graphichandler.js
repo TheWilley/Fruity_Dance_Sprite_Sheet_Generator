@@ -51,15 +51,7 @@ function preview_image(image, rownumb, cellnumb) {
     filecount++;
 }
 
-function preview_image_edit(image) {
-    let rownumb, cellnumb;
-
-    rownumb = currentObject.imageGridPosition[0];
-    cellnumb = currentObject.imageGridPosition[1];
-
-    let offsetx = parseInt(document.getElementById("Xoffset").value);
-    let offsety = parseInt(document.getElementById("Yoffset").value);
-
+function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
     // This is where we create the canvas and insert images
     let GeneratedCanvas = new Image();
     GeneratedCanvas.src = image;
@@ -78,8 +70,8 @@ function preview_image_edit(image) {
             ctx.clip(region, "evenodd");
             ctx.clearRect(cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
 
-            ctx.drawImage(GeneratedCanvas, (cell_width * cellnumb) + offsetx, (cell_height * rownumb) + offsety, cell_width, cell_height);
-            currentObject.imageGridOffset = [offsetx, offsety];
+            ctx.drawImage(GeneratedCanvas, (cell_width * cellnumb) + Xoffset, (cell_height * rownumb) + Yoffset, cell_width, cell_height);
+            currentObject.imageGridOffset = [Xoffset, Yoffset];
         };
     }
 }

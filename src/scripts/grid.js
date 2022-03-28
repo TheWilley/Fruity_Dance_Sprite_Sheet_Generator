@@ -1,25 +1,3 @@
-function refresh() {
-    // Get table id and refresh
-    let dyntable = document.getElementById("dyntable");
-    console.log(dyntable)
-    if (dyntable != null) {
-        for (let row of dyntable.rows) {
-            console.log(row.dataset.row)
-            if (row.dataset.row > parseInt(document.getElementById("xvalue").value))
-                dyntable.deleteRow(row.dataset.row)
-        }
-    }
-
-    // Get form id and refresh
-    let target_form = document.getElementById("form");
-    if (target_form != null) {
-        target_form.remove();
-    }
-
-    // Reset text element
-    document.getElementById("textarea").value = "";
-}
-
 function addTable() {
     // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
@@ -34,23 +12,35 @@ function addTable() {
     // Create table and assign ID
     var dyntable = document.getElementById("dyntable");
 
+    cellCollection = [];
+    dyntable.innerHTML = "";
+
     // Loop trough and add rows
-    for (let i = 0; i < xvalue; i++) {
-
-
-        // Generate tanle rows
-        let table_row = document.createElement('TR');
-        table_row.setAttribute("data-row", i);
-        dyntable.appendChild(table_row);
-
+    for (let x = 0; x < xvalue; x++) {
         /* For every row, add another row to the 2D array in @getSet.js.
         This way, the array is dynamic. */
         cellCollection.push([]);
 
-        for (let j = 0; j <= 7; j++) {
+        for (let y = 0; y <= 7; y++) {
+            // Here we add a tempobject to the grid to store for later usage
+            let tempobject = new ImageObject(x, y);
+            cellCollection[x][y] = tempobject;
+        }
+    }
+
+    for (let i = 0; i < cellCollection.length; i++) {
+        // Generate tanle rows
+        let table_row = document.createElement('TR');
+        dyntable.appendChild(table_row);
+
+        // get the size of the inner array
+        var innerArrayLength = cellCollection[i].length;
+        // loop the inner array
+        for (let j = 0; j < innerArrayLength; j++) {
             // Generate table cells
             let table_cell = document.createElement('TD');
-            table_cell.setAttribute("data-column", j);
+            table_cell.setAttribute("data-x", i);
+            table_cell.setAttribute("data-y", j);
             table_cell.classList.add('dropzone')
 
             // Generate image cells
@@ -58,9 +48,8 @@ function addTable() {
             let image_controls = document.createElement('SPAN');
 
             // Set all image_cell attributes
-            image_cell.setAttribute("data-image", j);
             image_cell.setAttribute("class", "immg-grid");
-            image_cell.onclick = function() { show_controls(j) };
+            image_cell.onclick = function() { show_controls(this) };
 
             // Set all image_controlls attributes
             image_controls.setAttribute("id", "image_controls")
@@ -83,14 +72,14 @@ function addTable() {
     canvas_element.setAttribute("id", "canvas");
     ContainerCanvas.appendChild(canvas_element);
 
+    // Reset text element
+    document.getElementById("textarea").value = "";
+
     // Generate text in textarea
     for (l = 1; l < xvalue; l++) {
         textarea.value += "Animation " + l + "\n";
     }
     textarea.value += "Held";
-
-    // Refresh tables
-    refresh();
 }
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs) {
@@ -119,23 +108,28 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
 }
 
 function show_controls(id) {
-    var temp = document.getElementsByTagName("template")[0];
-    var clon = temp.content.cloneNode(true);
-    document.getElementById(id).querySelector("#image_controls").appendChild(clon);
+    let currentObject = id;
 
-    for (let i = 0; i < cellCollection.length; i++) {
-        let innerArrayLength = cellCollection[i].length;
+    let Xoffset = document.querySelector('#Xoffset');
+    let Yoffset = document.querySelector('#Yoffset');
 
-        for (let j = 0; j < innerArrayLength; i++) {
-            console.log(cellCollection[i][j].imageID, id);
-            if (cellCollection[i][j].imageID == id) {
-                document.getElementById("Xoffset").value = cellCollection[i][j].imageGridOffset[0];
-                document.getElementById("Yoffset").value = cellCollection[i][j].imageGridOffset[1];
+    var rownumb = currentObject.parentNode.dataset.x;
+    var cellnumb = currentObject.parentNode.dataset.y;
 
-                currentCell = cellCollection[i][j];
+    if (currentObject.src != "") {
+        Xoffset.value = cellCollection[rownumb][cellnumb].xOffset;
+        Yoffset.value = cellCollection[rownumb][cellnumb].yOffset;
 
-                break;
-            }
-        }
+        console.log(currentObject.parentNode);
+    }
+
+    Xoffset.onchange = function() {
+        cellCollection[rownumb][cellnumb].xOffset = Xoffset.value;
+        preview_image_edit(currentObject.Src, rownumb, cellnumb, Xoffset, Yoffset);
+    };
+
+    Yoffset.onchange = function() {
+        cellCollection[rownumb][cellnumb].yOffset = Yoffset.value;
+        preview_image_edit(currentObject.Src, rownumb, cellnumb, Xoffset, Yoffset);
     }
 }

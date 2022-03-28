@@ -62,6 +62,14 @@
                         <label>Height:</label>
                         <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:addTable()" min="80" max="233">
                     </form>
+
+                    <form id="image_controls_settings" style="margin-bottom: 8px">
+                        <label>X:</label>
+                        <input type="number" step="1" value="0" id="Xoffset" min="-200" max="100">
+                        <label>Y:</label>
+                        <input type="number" step="1" value="0" id="Yoffset" min="-200" max="200">
+                    </form>
+
                     <img src="Images/iconmonstr-lock-16.svg" class="locks" id="lock-off" onclick="LockParamters();">
                     <img src="Images/iconmonstr-lock-2.svg" class="locks" id="lock-on" style="display: none;" onclick="LockParamters();">
 
@@ -94,15 +102,7 @@
         </div>
 
         <template id = "image_controls">  
-            <div id="image_controls_interface">
-                <form id="image_controls_settings" style="margin-bottom: 8px">
-                    <h1> OFFFSET </h1>
-                    <label>X:</label>
-                    <input type="number" step="1" value="0" id="Xoffset" onchange="getCurrentObject()" min="-200" max="100">
-                    <label>Y:</label>
-                    <input type="number" step="1" value="0" id="Yoffset" onchange="getCurrentObject()" min="-200" max="200">
-                </form>
-                </div>
+
         </template>
 </body>
 
