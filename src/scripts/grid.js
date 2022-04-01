@@ -1,24 +1,4 @@
-function refresh() {
-    // Get table id and refresh
-    let maintable = document.getElementById("maintable");
-    if (maintable != null) {
-        maintable.remove();
-    }
-
-    // Get form id and refresh
-    let target_form = document.getElementById("form");
-    if (target_form != null) {
-        target_form.remove();
-    }
-
-    // Reset text element
-    document.getElementById("textarea").value = "";
-}
-
 function addTable() {
-    // Refresh tables
-    refresh();
-
     // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
     var cell_width = parseInt(document.getElementById("cell_width").value);
@@ -26,45 +6,41 @@ function addTable() {
 
     // Get elements node
     var textarea = document.getElementById("textarea");
-    var target_div = document.getElementById("dyntable");
     var ContainerCanvas = document.getElementById("ContainerCanvas");
     var canvas = document.getElementById("canvas");
 
     // Create table and assign ID
-    var newtable = document.createElement('TABLE');
-    newtable.setAttribute("id", "maintable");
+    var dyntable = document.getElementById("dyntable");
 
-    // Create head
-    var thead_row = document.createElement('TR');
-
-    // Generate 8 cells
-    for (let i = 1; i <= 8; i++) {
-        let thead = document.createElement('TD');
-        thead.setAttribute("width", 80)
-        thead.setAttribute("height", 20)
-
-        // Append all elements
-        newtable.appendChild(thead_row);
-        thead_row.appendChild(thead);
-        thead.appendChild(document.createTextNode("Frame" + i));
-    }
+    cellCollection = [];
+    dyntable.innerHTML = "";
 
     // Loop trough and add rows
-    for (let i = 0; i < xvalue; i++) {
-        // Generate tanle rows
-        let table_row = document.createElement('TR');
-        table_row.setAttribute("id", "row" + i);
-        newtable.appendChild(table_row);
-
+    for (let x = 0; x < xvalue; x++) {
         /* For every row, add another row to the 2D array in @getSet.js.
         This way, the array is dynamic. */
-        objectCollection.push([]);
+        cellCollection.push([]);
 
-        for (let j = 0; j <= 7; j++) {
+        for (let y = 0; y <= 7; y++) {
+            // Here we add a tempobject to the grid to store for later usage
+            let tempobject = new ImageObject(x, y);
+            cellCollection[x][y] = tempobject;
+        }
+    }
+
+    for (let i = 0; i < cellCollection.length; i++) {
+        // Generate tanle rows
+        let table_row = document.createElement('TR');
+        dyntable.appendChild(table_row);
+
+        // get the size of the inner array
+        var innerArrayLength = cellCollection[i].length;
+        // loop the inner array
+        for (let j = 0; j < innerArrayLength; j++) {
             // Generate table cells
             let table_cell = document.createElement('TD');
-            let id = i + "v" + j;
-            table_cell.setAttribute("id", id);
+            table_cell.setAttribute("data-x", i);
+            table_cell.setAttribute("data-y", j);
             table_cell.classList.add('dropzone')
 
             // Generate image cells
@@ -72,9 +48,8 @@ function addTable() {
             let image_controls = document.createElement('SPAN');
 
             // Set all image_cell attributes
-            image_cell.setAttribute("id", "img" + id);
             image_cell.setAttribute("class", "immg-grid");
-            image_cell.onclick = function() { show_controls(id) };
+            image_cell.onclick = function() { show_controls(this) };
 
             // Set all image_controlls attributes
             image_controls.setAttribute("id", "image_controls")
@@ -85,8 +60,6 @@ function addTable() {
             table_row.appendChild(table_cell);
         }
     }
-    // 
-    target_div.appendChild(newtable);
 
     // Canvas Creation
     let canvas_element = document.createElement('canvas');
@@ -98,6 +71,9 @@ function addTable() {
     canvas_element.setAttribute("width", cell_width * 8);
     canvas_element.setAttribute("id", "canvas");
     ContainerCanvas.appendChild(canvas_element);
+
+    // Reset text element
+    document.getElementById("textarea").value = "";
 
     // Generate text in textarea
     for (l = 1; l < xvalue; l++) {
@@ -132,23 +108,28 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
 }
 
 function show_controls(id) {
-    var temp = document.getElementsByTagName("template")[0];
-    var clon = temp.content.cloneNode(true);
-    document.getElementById(id).querySelector("#image_controls").appendChild(clon);
+    let currentObject = id;
 
-    for (let i = 0; i < objectCollection.length; i++) {
-        let innerArrayLength = objectCollection[i].length;
+    let Xoffset = document.querySelector('#Xoffset');
+    let Yoffset = document.querySelector('#Yoffset');
 
-        for (let j = 0; j < innerArrayLength; i++) {
-            console.log(objectCollection[i][j].imageID, id);
-            if (objectCollection[i][j].imageID == id) {
-                document.getElementById("Xoffset").value = objectCollection[i][j].imageGridOffset[0];
-                document.getElementById("Yoffset").value = objectCollection[i][j].imageGridOffset[1];
+    var rownumb = currentObject.parentNode.dataset.x;
+    var cellnumb = currentObject.parentNode.dataset.y;
 
-                currentObject = objectCollection[i][j];
+    if (currentObject.src != "") {
+        Xoffset.value = cellCollection[rownumb][cellnumb].xOffset;
+        Yoffset.value = cellCollection[rownumb][cellnumb].yOffset;
 
-                break;
-            }
-        }
+        console.log(currentObject.src);
+    }
+
+    Xoffset.onchange = function() {
+        cellCollection[rownumb][cellnumb].xOffset = Xoffset.value;
+        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
+    };
+
+    Yoffset.onchange = function() {
+        cellCollection[rownumb][cellnumb].yOffset = Yoffset.value;
+        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
     }
 }

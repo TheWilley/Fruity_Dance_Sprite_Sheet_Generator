@@ -62,10 +62,21 @@
                         <label>Height:</label>
                         <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:addTable()" min="80" max="233">
                     </form>
+
+                    <form id="image_controls_settings" style="margin-bottom: 8px">
+                        <label>X:</label>
+                        <input type="number" step="1" value="0" id="Xoffset" min="-200" max="100">
+                        <label>Y:</label>
+                        <input type="number" step="1" value="0" id="Yoffset" min="-200" max="200">
+                    </form>
+
                     <img src="Images/iconmonstr-lock-16.svg" class="locks" id="lock-off" onclick="LockParamters();">
                     <img src="Images/iconmonstr-lock-2.svg" class="locks" id="lock-on" style="display: none;" onclick="LockParamters();">
 
-                    <div id="dyntable">
+                    <div id="dyntable_container">
+                        <table id="dyntable">
+                            <thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>
+                        </table>
                     </div>
                 </div>
 
@@ -91,15 +102,7 @@
         </div>
 
         <template id = "image_controls">  
-            <div id="image_controls_interface">
-                <form id="image_controls_settings" style="margin-bottom: 8px">
-                    <h1> OFFFSET </h1>
-                    <label>X:</label>
-                    <input type="number" step="1" value="0" id="Xoffset" onchange="getCurrentObject()" min="-200" max="100">
-                    <label>Y:</label>
-                    <input type="number" step="1" value="0" id="Yoffset" onchange="getCurrentObject()" min="-200" max="200">
-                </form>
-                </div>
+
         </template>
 </body>
 

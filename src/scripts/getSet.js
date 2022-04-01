@@ -1,22 +1,21 @@
-let objectCollection = [];
+let cellCollection = [];
+let currentCell;
 
-let currentObject;
-
-// Image class constructor
-class ImageObject {
-    constructor(imageID, imageSrc, imageGridPosition, imageGridOffset) {
-        this.imageID = imageID;
-        this.imageSrc = imageSrc;
-        this.imageGridPosition = imageGridPosition;
-        this.imageGridOffset = imageGridOffset;
+class grid {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
     }
 }
 
-// Add object to the collection array
-function addObject(object) {
-    objectCollection[object.imageGridPosition[0]][object.imageGridPosition[1]] = object;
+// Image class constructor
+class ImageObject extends grid {
+    constructor(x, y, xOffset, yOffset, imageSrc) {
+        super(x, y);
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.imageSrc = imageSrc;
+    }
 }
 
-function getCurrentObject() {
-    preview_image_edit(document.getElementById('img' + currentObject.imageID).src, currentObject.imageGridOffset[0], currentObject.imageGridOffset[1]);
-}
+function getCurrentObject() {}

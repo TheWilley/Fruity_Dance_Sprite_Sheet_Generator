@@ -57,18 +57,19 @@ interact(".dropzone")
     .dropzone({
         ondrop: function(event) {
             // Get target id and split it
-            let target_id = event.target.id;
+            let target = event.target;
+            let relatedTarget = event.relatedTarget;
             let target_element = document.getElementById(event.relatedTarget.id)
-            var rownumb = parseInt(target_id.charAt(0));
-            var cellnumb = parseInt(target_id.charAt(2));
 
-            // Add object to an array
-            addObject(new ImageObject(target_id, document.getElementById(event.relatedTarget.id).src, [rownumb, cellnumb], [0, 0]));
+            var rownumb = target.dataset.x;
+            var cellnumb = target.dataset.y;
+
+            cellCollection[rownumb][cellnumb].imageSrc = relatedTarget.src;
 
             // Run function to insert images into canvas    
-            preview_image(document.getElementById(event.relatedTarget.id).src, rownumb, cellnumb);
+            preview_image(target_element.src, rownumb, cellnumb);
 
-            document.getElementById("img" + rownumb + "v" + cellnumb).src = document.getElementById(event.relatedTarget.id).src;
+            event.target.firstChild.src = target_element.src;
 
             // Go back to otiginal position
             target_element.style.transform = 'translate(' + orginal_position_x + 'px, ' + orginal_positioon_y + 'px)';
