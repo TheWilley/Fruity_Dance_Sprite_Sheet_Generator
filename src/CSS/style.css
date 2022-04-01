@@ -124,9 +124,10 @@ input[type='file'] {
 }
 
 .drop-target {
-    border: green 4px dashed;
+    border-radius: 50%;
+    background-color: rgba(74, 238, 74, 0.068);
     transition: all 0.4s;
-    padding: 1px;
+    padding: -20px;
 }
 
 .can-drop {
