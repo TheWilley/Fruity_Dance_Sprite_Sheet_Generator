@@ -120,16 +120,16 @@ function show_controls(id) {
         Xoffset.value = cellCollection[rownumb][cellnumb].xOffset;
         Yoffset.value = cellCollection[rownumb][cellnumb].yOffset;
 
-        console.log(currentObject.parentNode);
+        console.log(currentObject.src);
     }
 
     Xoffset.onchange = function() {
         cellCollection[rownumb][cellnumb].xOffset = Xoffset.value;
-        preview_image_edit(currentObject.Src, rownumb, cellnumb, Xoffset, Yoffset);
+        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
     };
 
     Yoffset.onchange = function() {
         cellCollection[rownumb][cellnumb].yOffset = Yoffset.value;
-        preview_image_edit(currentObject.Src, rownumb, cellnumb, Xoffset, Yoffset);
+        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
     }
 }

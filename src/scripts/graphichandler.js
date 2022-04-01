@@ -44,6 +44,9 @@ function preview_image(image, rownumb, cellnumb) {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
+            console.log(GeneratedCanvas, (cell_width * cellnumb), cell_height * rownumb, cell_width, cell_height)
+
+
             ctx.drawImage(GeneratedCanvas, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
         };
     }
@@ -57,12 +60,16 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
     GeneratedCanvas.src = image;
 
     let ctx = document.getElementById('canvas');
+
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
+
         // Drawing of image
         GeneratedCanvas.onload = function() {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
+
+            ctx.save();
 
             // Create clipping path
             let region = new Path2D();
@@ -70,8 +77,9 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
             ctx.clip(region, "evenodd");
             ctx.clearRect(cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
 
-            ctx.drawImage(GeneratedCanvas, (cell_width * cellnumb) + Xoffset, (cell_height * rownumb) + Yoffset, cell_width, cell_height);
-            currentObject.imageGridOffset = [Xoffset, Yoffset];
+            ctx.restore();
+
+            ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
         };
     }
 }
