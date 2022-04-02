@@ -13,7 +13,7 @@ function addTable() {
     var dyntable = document.getElementById("dyntable");
 
     cellCollection = [];
-    dyntable.innerHTML = "";
+    dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td><td> </td></thead>';
 
     // Loop trough and add rows
     for (let x = 0; x < xvalue; x++) {
@@ -112,9 +112,11 @@ function show_controls(id) {
 
     let Xoffset = document.querySelector('#Xoffset');
     let Yoffset = document.querySelector('#Yoffset');
-
+    
     var rownumb = currentObject.parentNode.dataset.x;
     var cellnumb = currentObject.parentNode.dataset.y;
+    
+    document.getElementById("clickedImmage").textContent = rownumb + "," + cellnumb;
 
     if (currentObject.src != "") {
         Xoffset.value = cellCollection[rownumb][cellnumb].xOffset;
