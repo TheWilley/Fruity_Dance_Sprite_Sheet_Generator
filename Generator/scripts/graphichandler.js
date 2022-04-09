@@ -52,6 +52,9 @@ function preview_image(image, rownumb, cellnumb) {
     }
 
     filecount++;
+
+    //Start animation
+    startAnimation((Number(rownumb)));
 }
 
 function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
