@@ -65,6 +65,8 @@ interact(".dropzone")
             var cellnumb = target.dataset.y;
 
             cellCollection[rownumb][cellnumb].imageSrc = relatedTarget.src;
+            cellCollection[rownumb][cellnumb].xOffset = 0;
+            cellCollection[rownumb][cellnumb].yOffset = 0;
 
             // Run function to insert images into canvas    
             preview_image(target_element.src, rownumb, cellnumb);

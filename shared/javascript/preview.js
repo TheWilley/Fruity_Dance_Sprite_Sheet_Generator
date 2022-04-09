@@ -7,14 +7,17 @@ function stopAnimation() {
 }
 
 function startAnimation(row) {
-    const speed = 400; //in millisecond(ms)
+    const speed = 5433; //in millisecond(ms)
 
     animationInterval = setInterval(() => {
         var spriteSheet = document.getElementById("gifPreview" + (row + 1));
         if (cellCollection[row][position].imageSrc != null) {
             spriteSheet.src = cellCollection[row][position].imageSrc;
+            spriteSheet.style.objectPosition = cellCollection[row][position].xOffset + "px " + cellCollection[row][position].yOffset + "px";
+            console.log(cellCollection[row][position].xOffset + "px" + cellCollection[row][position].yOffset + "px");
         } else {
             spriteSheet.src = '';
+
         }
 
         if (position < 7) {
