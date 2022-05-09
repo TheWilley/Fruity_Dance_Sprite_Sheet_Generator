@@ -20,8 +20,6 @@ function LockParamters() {
         cell_height.disabled = false;
         locked.style.display = "none";
         unlocked.style.display = "block"
-
-        notify("Locked!");
     } else {
         xvalue.disabled = true;
         cell_width.disabled = true;
@@ -44,9 +42,6 @@ function preview_image(image, rownumb, cellnumb) {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
-            console.log(GeneratedCanvas, (cell_width * cellnumb), cell_height * rownumb, cell_width, cell_height)
-
-
             ctx.drawImage(GeneratedCanvas, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
         };
     }
@@ -54,7 +49,7 @@ function preview_image(image, rownumb, cellnumb) {
     filecount++;
 
     //Start animation
-    startAnimation((Number(rownumb)));
+    //startAnimation((Number(rownumb)));
 }
 
 function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {

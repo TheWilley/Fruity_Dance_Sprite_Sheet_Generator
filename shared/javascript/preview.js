@@ -17,7 +17,6 @@ function startAnimation(row) {
             console.log(cellCollection[row][position].xOffset + "px" + cellCollection[row][position].yOffset + "px");
         } else {
             spriteSheet.src = '';
-
         }
 
         if (position < 7) {

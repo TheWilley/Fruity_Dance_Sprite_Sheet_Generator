@@ -1,4 +1,17 @@
-#image_controls_settings {
-    margin: 12px;
+#img_wrapper {
     padding: 5px;
+    margin: 0 auto;
+    border: white solid;
+    overflow: hidden; 
+    display: block; 
+    position: relative;
+}
+
+#img_container{
+    position: absolute;
+}
+
+#img_element{
+    width: 100%;
+    height: 100%;
 }

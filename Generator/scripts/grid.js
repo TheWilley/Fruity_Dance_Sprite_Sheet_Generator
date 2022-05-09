@@ -13,7 +13,7 @@ function addTable() {
     var dyntable = document.getElementById("dyntable");
 
     cellCollection = [];
-    dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td><td>Preview</td></thead>';
+    dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>';
 
     // Loop trough and add rows
     for (let x = 0; x < xvalue; x++) {
@@ -61,14 +61,6 @@ function addTable() {
         }
     }
 
-    for (var i = 1, row; row = dyntable.rows[i]; i++) {
-        gifPreview = row.insertCell(-1);
-        let image_cell = document.createElement('IMG');
-        image_cell.id = "gifPreview" + i;
-        image_cell.className = "immg-grid"
-        gifPreview.appendChild(image_cell);
-    }
-
     // Canvas Creation
     let canvas_element = document.createElement('canvas');
     if (canvas != null) {
@@ -113,33 +105,4 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
         document.body.appendChild(downloadLink);
     }
     downloadLink.click();
-}
-
-function show_controls(id) {
-    let currentObject = id;
-
-    let Xoffset = document.querySelector('#Xoffset');
-    let Yoffset = document.querySelector('#Yoffset');
-
-    var rownumb = currentObject.parentNode.dataset.x;
-    var cellnumb = currentObject.parentNode.dataset.y;
-
-    document.getElementById("clickedImmage").textContent = rownumb + "," + cellnumb;
-
-    if (currentObject.src != "") {
-        Xoffset.value = cellCollection[rownumb][cellnumb].xOffset;
-        Yoffset.value = cellCollection[rownumb][cellnumb].yOffset;
-
-        console.log(currentObject.src);
-    }
-
-    Xoffset.onchange = function() {
-        cellCollection[rownumb][cellnumb].xOffset = Xoffset.value;
-        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
-    };
-
-    Yoffset.onchange = function() {
-        cellCollection[rownumb][cellnumb].yOffset = Yoffset.value;
-        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset.value, Yoffset.value);
-    }
 }
