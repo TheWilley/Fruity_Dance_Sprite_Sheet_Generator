@@ -1,4 +1,4 @@
-let cellCollection = [];
+export let cellCollection: (string | any[])[] = [];
 let currentCell;
 
 class grid {
