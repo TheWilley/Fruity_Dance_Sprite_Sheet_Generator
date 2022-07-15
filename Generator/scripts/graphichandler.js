@@ -8,6 +8,8 @@ document.onreadystatechange = () => {
 };
 
 function LockParamters() {
+    let xoffsetform = document.getElementById("offsetX");
+    let yoffsetform = document.getElementById("offsetY");
     let xvalue = document.getElementById("xvalue");
     let cell_width = document.getElementById("cell_width");
     let cell_height = document.getElementById("cell_height");

@@ -33,9 +33,9 @@ function addTable() {
         let table_row = document.createElement('TR');
         dyntable.appendChild(table_row);
 
-        // get the size of the inner array
+        // Get the size of the inner array
         var innerArrayLength = cellCollection[i].length;
-        // loop the inner array
+        // Loop the inner array
         for (let j = 0; j < innerArrayLength; j++) {
             // Generate table cells
             let table_cell = document.createElement('TD');

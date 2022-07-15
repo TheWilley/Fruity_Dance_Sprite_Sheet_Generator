@@ -1,6 +1,7 @@
 let cellCollection = [];
 let currentCell;
 
+// Grid class
 class grid {
     constructor(x, y) {
         this.x = x;
@@ -17,5 +18,3 @@ class ImageObject extends grid {
         this.imageSrc = imageSrc;
     }
 }
-
-function getCurrentObject() {}
