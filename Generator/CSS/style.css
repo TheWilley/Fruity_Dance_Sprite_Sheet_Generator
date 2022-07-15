@@ -215,4 +215,5 @@ input[type='file'] {
 
 #offset input{
     max-width: 80px;
+    margin-bottom: 13px;
 }

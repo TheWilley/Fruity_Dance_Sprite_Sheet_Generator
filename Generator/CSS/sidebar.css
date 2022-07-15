@@ -30,8 +30,9 @@
 }
 
 .sidebar-container {
-    width: inherit;
-    position: fixed;
+    width:auto;
+    position: sticky;
+    top: 20px;
 }
 
 .thumbnail {
