@@ -1,66 +1,60 @@
-var img_wrapper = document.querySelector('#img_wrapper'), 
-img_container = document.querySelector('#img_container'), 
-img_element = document.querySelector('#img_element'), 
-x = 0, 
-y = 0, 
-mousedown = false; 
+var img_wrapper = document.querySelector('#img_wrapper'),
+    img_container = document.querySelector('#img_container'),
+    img_element = document.querySelector('#img_element'),
+    x = 0,
+    y = 0,
+    previousObject = null,
+    mousedown = false;
 
 function show_controls(currentObject) {
-    img_wrapper.style.width = document.getElementById("cell_width").value + "px";
-    img_wrapper.style.height = document.getElementById("cell_height").value + "px";
-    img_element.style.width = document.getElementById("cell_width").value + "px";
-    img_element.style.height = document.getElementById("cell_height").value + "px";    
+    // Get input for X and Y
+    let xoffsetform = document.getElementById("offsetX");
+    let yoffsetform = document.getElementById("offsetY");
 
-    document.getElementById("img_element").src = currentObject.src;
-
-    img_container.style.left = 0;
-    img_container.style.top = 0;
-
-    let Xoffset = 0;
-    let Yoffset = 0;
-
+    // Get row / cell number
     var rownumb = currentObject.parentNode.dataset.x;
     var cellnumb = currentObject.parentNode.dataset.y;
 
-    if (currentObject.src != "") {
-        img_container.style.left = cellCollection[rownumb][cellnumb].xOffset;
-        img_container.style.top = cellCollection[rownumb][cellnumb].yOffset;
-    } 
-    addEventListeners(currentObject, rownumb, cellnumb, Xoffset, Yoffset);
-}
+    // Function variable for event
+    const setnumb = function () {
+        cellCollection[rownumb][cellnumb].xOffset = xoffsetform.value;
+        cellCollection[rownumb][cellnumb].yOffset = yoffsetform.value;
 
-function addEventListeners(currentObject, rownumb, cellnumb, Xoffset, Yoffset) {
-    img_container.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        mousedown = true;
-        x = img_container.offsetLeft - e.clientX;
-        y = img_container.offsetTop - e.clientY;
-    }, true);
+        setClear(true);
 
-    img_container.addEventListener('mouseup', function(e) {
-        mousedown = false;
-    }, true);
+        cellCollection.forEach(row => {
+            row.forEach(cell => {
+                if(cell.imageSrc != undefined) {
+                    preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset)
+                }
+            });
+        })
+    }
 
-    img_container.addEventListener('mousemove', function(e) {
-        if (mousedown) {
-            img_container.style.left = e.clientX + x + 'px';
-            img_container.style.top = e.clientY + y + 'px';
+    // Unbind all events
+    if (currentObject != previousObject) { $(xoffsetform).unbind(); $(yoffsetform).unbind(); }
 
-            cellCollection[rownumb][cellnumb].xOffset = e.clientX + x;
-            cellCollection[rownumb][cellnumb].yOffset = e.clientY + y;
-            Xoffset = e.clientX + x;
-            Yoffset = e.clientY + y;
-            preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset, Yoffset);
-        }
-    }, true);
+    // First check if object has been accessed before
+    if (previousObject != null) { previousObject.style.border = "none" };
 
-    
-    img_container.addEventListener('dblclick', function(e) {
-        img_container.style.left = 0;
-        img_container.style.top = 0;
+    // Make the previous object the current one
+    previousObject = currentObject;
 
-        cellCollection[rownumb][cellnumb].xOffset = 0;
-        cellCollection[rownumb][cellnumb].yOffset = 0;
-        preview_image_edit(currentObject.src, rownumb, cellnumb, Xoffset, Yoffset);
-    }, true);
+    // Apply green border
+    currentObject.style.border = "green solid 3px";
+
+    // Get offset
+    if (previousObject != null) {
+        // Get stored values
+        Xoffset = cellCollection[rownumb][cellnumb].xOffset;
+        Yoffset = cellCollection[rownumb][cellnumb].yOffset;
+
+        // Set values
+        xoffsetform.value = Xoffset;
+        yoffsetform.value = Yoffset;
+
+        // Add event listeners
+        $(xoffsetform).change(setnumb);
+        $(yoffsetform).change(setnumb);
+    }
 }

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revisedMousePosY = 0;
 
     function delayMouseFollow() {
-        requestAnimationFrame(delayMouseFollow);
+        //requestAnimationFrame(delayMouseFollow);
 
         revisedMousePosX += (mousePosX - revisedMousePosX) / delay;
         revisedMousePosY += (mousePosY - revisedMousePosY) / delay;

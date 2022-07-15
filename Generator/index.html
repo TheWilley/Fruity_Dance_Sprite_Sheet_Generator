@@ -64,9 +64,10 @@
                         <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:addTable()" min="80" max="233">
                     </form>
 
-                    <div id="img_wrapper" style="margin-bottom: 8px">
-                        <div id="img_container"> <img id="img_element"></div>
-                    </div>
+                    <form id="offset">
+                        <input id="offsetX" type="number" min="0">
+                        <input id="offsetY" type="number" min="0">
+                    </form>
 
                     <img src="Images/iconmonstr-lock-16.svg" class="locks" id="lock-off" onclick="LockParamters();">
                     <img src="Images/iconmonstr-lock-2.svg" class="locks" id="lock-on" style="display: none;" onclick="LockParamters();">

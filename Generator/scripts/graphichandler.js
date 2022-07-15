@@ -38,7 +38,7 @@ function preview_image(image, rownumb, cellnumb) {
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
         // Drawing of image
-        GeneratedCanvas.onload = function() {
+        GeneratedCanvas.onload = function () {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
@@ -52,39 +52,40 @@ function preview_image(image, rownumb, cellnumb) {
     //startAnimation((Number(rownumb)));
 }
 
+var clear = false;
+
 function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
     // This is where we create the canvas and insert images
     let GeneratedCanvas = new Image();
     GeneratedCanvas.src = image;
 
-    let ctx = document.getElementById('canvas');
+    let canvas = document.getElementById('canvas');
 
-    if (ctx.getContext) {
-        ctx = ctx.getContext('2d');
+    if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+
+        if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
+
+        setClear(false);
 
         // Drawing of image
-        GeneratedCanvas.onload = function() {
+        GeneratedCanvas.onload = function () {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
-            ctx.save();
-
             // Create clipping path
-            let region = new Path2D();
-            region.rect(cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
-            ctx.clip(region, "evenodd");
-            ctx.clearRect(cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
-
-            ctx.restore();
-
             ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
         };
     }
 }
 
+function setClear(e) {
+    clear = e;
+}
+
 // Download Canvas & Text File
 const download = document.getElementById('download');
-download.addEventListener('click', function(e) {
+download.addEventListener('click', function (e) {
     const link = document.createElement('a');
     link.download = 'FruityDanceGen.png';
     link.href = canvas.toDataURL();
@@ -95,12 +96,12 @@ download.addEventListener('click', function(e) {
 });
 
 // Get multiple files
-window.onload = function() {
+window.onload = function () {
     //Check File API support
     if (window.File && window.FileList && window.FileReader) {
         var filesInput = document.getElementById("files");
 
-        filesInput.addEventListener("change", function(event) {
+        filesInput.addEventListener("change", function (event) {
             var files = event.target.files;
             var output = document.getElementById("result");
             for (var i = 0; i < files.length; i++) {
@@ -109,7 +110,7 @@ window.onload = function() {
                 if (!file.type.match('image'))
                     continue;
                 var picReader = new FileReader();
-                picReader.addEventListener("load", function(event) {
+                picReader.addEventListener("load", function (event) {
                     var picFile = event.target;
 
                     var div = document.createElement("div");
