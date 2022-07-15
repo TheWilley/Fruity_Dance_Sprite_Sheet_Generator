@@ -217,3 +217,11 @@ input[type='file'] {
     max-width: 80px;
     margin-bottom: 13px;
 }
+
+#delete {
+    color: red;
+    cursor: pointer;
+    display: block;
+    width: 50px;
+    margin: 0 auto
+}

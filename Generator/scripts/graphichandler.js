@@ -1,4 +1,5 @@
 var filecount = 0;
+var selectedItem;
 sessionStorage.imagenumb = 0;
 
 document.onreadystatechange = () => {
@@ -40,6 +41,8 @@ function preview_image(image, rownumb, cellnumb) {
     let GeneratedCanvas = new Image();
     GeneratedCanvas.src = image;
 
+    console.log(image);
+
     let ctx = document.getElementById('canvas');
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
@@ -70,8 +73,13 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
 
+        // Check if the whole canvas is being cleared
         if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
 
+        // Check if a part of the canvas is being cleared
+        if(image == "") {ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), parseInt(document.getElementById("cell_width").value), parseInt(document.getElementById("cell_height").value)) }
+
+        // Bool restore
         setClear(false);
 
         // Drawing of image
@@ -134,4 +142,20 @@ window.onload = function () {
     } else {
         console.log("Your browser does not support File API");
     }
+}
+
+function remove() {
+    currentObject = selectedItem;
+    // Get row / cell number
+    var rownumb = currentObject.parentNode.dataset.x;
+    var cellnumb = currentObject.parentNode.dataset.y;
+
+    // Step 1, remove from array
+    cellCollection[rownumb][cellnumb] = new Object();
+
+    // Step 2, remove from grid
+    currentObject.src = "";
+
+    // Step 3, remove from canvas
+    preview_image_edit("", rownumb, cellnumb), 0, 0;
 }

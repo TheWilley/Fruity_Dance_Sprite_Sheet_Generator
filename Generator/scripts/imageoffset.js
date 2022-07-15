@@ -7,6 +7,7 @@ var img_wrapper = document.querySelector('#img_wrapper'),
     mousedown = false;
 
 function show_controls(currentObject) {
+    selectedItem = currentObject;
     // Get input for X and Y
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
