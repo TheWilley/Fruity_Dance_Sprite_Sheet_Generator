@@ -18,12 +18,16 @@ function LockParamters() {
         xvalue.disabled = false;
         cell_width.disabled = false;
         cell_height.disabled = false;
+        xoffsetform.disabled = false;
+        yoffsetform.disabled = false;
         locked.style.display = "none";
         unlocked.style.display = "block"
     } else {
         xvalue.disabled = true;
         cell_width.disabled = true;
         cell_height.disabled = true;
+        xoffsetform.disabled = true;
+        yoffsetform.disabled = true;
         locked.style.display = "block";
         unlocked.style.display = "none"
     }

@@ -11,6 +11,14 @@ function show_controls(currentObject) {
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
 
+    if(xoffsetform.value == "") {
+        xoffsetform.disabled = true;
+        yoffsetform.disabled = true;
+    } else {
+        xoffsetform.disabled = false;
+        yoffsetform.disabled = false;
+    }
+
     // Get row / cell number
     var rownumb = currentObject.parentNode.dataset.x;
     var cellnumb = currentObject.parentNode.dataset.y;
