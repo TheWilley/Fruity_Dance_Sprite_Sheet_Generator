@@ -1,4 +1,21 @@
 function addTable() {
+    // Check if there is any image added and warn user
+    var allCellsEmpty = true;
+
+    cellCollection.forEach(e1 => {
+        e1.forEach(e2 => {
+            if (!e2.imageSrc == "") {
+                allCellsEmpty = false;
+            }
+        })
+    })
+
+    if (!allCellsEmpty) {
+        if (!confirm('This action will clear the canvas! Continue?')) {
+            return;
+        }
+    }
+    
     // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
     var cell_width = parseInt(document.getElementById("cell_width").value);
