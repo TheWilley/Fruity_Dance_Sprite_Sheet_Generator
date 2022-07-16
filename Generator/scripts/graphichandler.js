@@ -9,30 +9,37 @@ document.onreadystatechange = () => {
 };
 
 function LockParamters() {
-    let xoffsetform = document.getElementById("offsetX");
-    let yoffsetform = document.getElementById("offsetY");
-    let xvalue = document.getElementById("xvalue");
-    let cell_width = document.getElementById("cell_width");
-    let cell_height = document.getElementById("cell_height");
-    let unlocked = document.getElementById("lock-off");
-    let locked = document.getElementById("lock-on");
+    var elements = [
+        document.getElementById("offsetX"),
+        document.getElementById("offsetY"),
+        document.getElementById("xvalue"),
+        document.getElementById("cell_width"),
+        document.getElementById("cell_height"),
+        document.getElementById("lock-off"),
+        document.getElementById("lock-on")
+    ]
 
     if (xvalue.disabled == true) {
-        xvalue.disabled = false;
-        cell_width.disabled = false;
-        cell_height.disabled = false;
-        xoffsetform.disabled = false;
-        yoffsetform.disabled = false;
-        locked.style.display = "none";
-        unlocked.style.display = "block"
+        elements.forEach(e => {
+            if(e.id == "lock-on") {
+                e.style.display = "none"
+            } else if (e.id == "lock-off") {
+                e.style.display = "block";
+            } else {
+                e.disabled = false;
+            }
+        })
+
     } else {
-        xvalue.disabled = true;
-        cell_width.disabled = true;
-        cell_height.disabled = true;
-        xoffsetform.disabled = true;
-        yoffsetform.disabled = true;
-        locked.style.display = "block";
-        unlocked.style.display = "none"
+        elements.forEach(e => {
+            if(e.id == "lock-on") {
+                e.style.display = "block"
+            } else if (e.id == "lock-off") {
+                e.style.display = "none";
+            } else {
+                e.disabled = true;
+            }
+        })
     }
 }
 
@@ -47,7 +54,7 @@ function preview_image(image, rownumb, cellnumb) {
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
         // Drawing of image
-        GeneratedCanvas.onload = function () {
+        GeneratedCanvas.onload = function() {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
@@ -77,13 +84,13 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
         if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
 
         // Check if a part of the canvas is being cleared
-        if(image == "") {ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), parseInt(document.getElementById("cell_width").value), parseInt(document.getElementById("cell_height").value)) }
+        if (image == "") { ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), parseInt(document.getElementById("cell_width").value), parseInt(document.getElementById("cell_height").value)) }
 
         // Bool restore
         setClear(false);
 
         // Drawing of image
-        GeneratedCanvas.onload = function () {
+        GeneratedCanvas.onload = function() {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
@@ -99,7 +106,7 @@ function setClear(e) {
 
 // Download Canvas & Text File
 const download = document.getElementById('download');
-download.addEventListener('click', function (e) {
+download.addEventListener('click', function(e) {
     const link = document.createElement('a');
     link.download = 'FruityDanceGen.png';
     link.href = canvas.toDataURL();
@@ -110,12 +117,12 @@ download.addEventListener('click', function (e) {
 });
 
 // Get multiple files
-window.onload = function () {
+window.onload = function() {
     //Check File API support
     if (window.File && window.FileList && window.FileReader) {
         var filesInput = document.getElementById("files");
 
-        filesInput.addEventListener("change", function (event) {
+        filesInput.addEventListener("change", function(event) {
             var files = event.target.files;
             var output = document.getElementById("result");
             for (var i = 0; i < files.length; i++) {
@@ -124,7 +131,7 @@ window.onload = function () {
                 if (!file.type.match('image'))
                     continue;
                 var picReader = new FileReader();
-                picReader.addEventListener("load", function (event) {
+                picReader.addEventListener("load", function(event) {
                     var picFile = event.target;
 
                     var div = document.createElement("div");
