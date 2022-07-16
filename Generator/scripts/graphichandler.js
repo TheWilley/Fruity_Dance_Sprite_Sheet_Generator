@@ -1,5 +1,4 @@
-var filecount = 0;
-var selectedItem;
+var filecount = 0, selectedItem;
 sessionStorage.imagenumb = 0;
 
 document.onreadystatechange = () => {
@@ -21,10 +20,16 @@ function LockParamters() {
 
     if (xvalue.disabled == true) {
         elements.forEach(e => {
-            if(e.id == "lock-on") {
+            if (e.id == "lock-on") {
                 e.style.display = "none"
             } else if (e.id == "lock-off") {
                 e.style.display = "block";
+            } else if ((e.id == "offsetX" || e.id == "offsetY") && selectedItem != null) {
+                if (selectedItem.getAttribute('src') == null) {
+                    e.disabled = true;
+                } else {
+                    e.disabled = false;
+                }
             } else {
                 e.disabled = false;
             }
@@ -32,7 +37,7 @@ function LockParamters() {
 
     } else {
         elements.forEach(e => {
-            if(e.id == "lock-on") {
+            if (e.id == "lock-on") {
                 e.style.display = "block"
             } else if (e.id == "lock-off") {
                 e.style.display = "none";

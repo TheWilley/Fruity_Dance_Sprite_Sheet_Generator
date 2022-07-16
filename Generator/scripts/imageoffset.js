@@ -12,7 +12,8 @@ function show_controls(currentObject) {
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
 
-    if(xoffsetform.value == "") {
+    console.log(currentObject.getAttribute("src")) 
+    if(currentObject.getAttribute("src") == null) {
         xoffsetform.disabled = true;
         yoffsetform.disabled = true;
     } else {
