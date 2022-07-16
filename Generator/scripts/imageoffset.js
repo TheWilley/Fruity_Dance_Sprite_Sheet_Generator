@@ -6,19 +6,24 @@ var img_wrapper = document.querySelector('#img_wrapper'),
     previousObject = null,
     mousedown = false;
 
+function disableElementSpecificControls(enabled) {
+    let xoffsetform = document.getElementById("offsetX");
+    let yoffsetform = document.getElementById("offsetY");
+
+    xoffsetform.disabled = enabled;
+    yoffsetform.disabled = enabled;
+}
+
 function show_controls(currentObject) {
     selectedItem = currentObject;
     // Get input for X and Y
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
 
-    console.log(currentObject.getAttribute("src")) 
-    if(currentObject.getAttribute("src") == null) {
-        xoffsetform.disabled = true;
-        yoffsetform.disabled = true;
+    if (currentObject.getAttribute("src") == null) {
+        disableElementSpecificControls(true);
     } else {
-        xoffsetform.disabled = false;
-        yoffsetform.disabled = false;
+        disableElementSpecificControls(false);
     }
 
     // Get row / cell number
@@ -26,7 +31,7 @@ function show_controls(currentObject) {
     var cellnumb = currentObject.parentNode.dataset.y;
 
     // Function variable for event
-    const setnumb = function () {
+    const setnumb = function() {
         cellCollection[rownumb][cellnumb].xOffset = xoffsetform.value;
         cellCollection[rownumb][cellnumb].yOffset = yoffsetform.value;
 
@@ -34,7 +39,7 @@ function show_controls(currentObject) {
 
         cellCollection.forEach(row => {
             row.forEach(cell => {
-                if(cell.imageSrc != undefined) {
+                if (cell.imageSrc != undefined) {
                     preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset)
                 }
             });
@@ -42,7 +47,8 @@ function show_controls(currentObject) {
     }
 
     // Unbind all events
-    if (currentObject != previousObject) { $(xoffsetform).unbind(); $(yoffsetform).unbind(); }
+    if (currentObject != previousObject) { $(xoffsetform).unbind();
+        $(yoffsetform).unbind(); }
 
     // First check if object has been accessed before
     if (previousObject != null) { previousObject.style.border = "none" };
@@ -68,3 +74,16 @@ function show_controls(currentObject) {
         $(yoffsetform).change(setnumb);
     }
 }
+
+$(function() {
+    $("body").click(function(e) {
+        // Check if click is inside the grid
+        if (!e.target.classList.contains('immg-grid')) {
+            // Disable all offsets
+            disableElementSpecificControls(true)
+
+            // Remove border
+            if (selectedItem != undefined) { selectedItem.style.border = "none" };
+        }
+    });
+})
