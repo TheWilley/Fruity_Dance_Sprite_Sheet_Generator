@@ -161,8 +161,8 @@ function remove() {
     cellCollection[rownumb][cellnumb] = new Object();
 
     // Step 2, remove from grid
-    currentObject.src = "";
+    currentObject.removeAttribute("src");
 
     // Step 3, remove from canvas
-    preview_image_edit("", rownumb, cellnumb), 0, 0;
+    preview_image_edit("", cellnumb, rownumb, 0, 0);
 }
