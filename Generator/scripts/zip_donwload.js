@@ -1,8 +1,3 @@
-/*/ 
-Author: c4software
-Link: https://gist.github.com/c4software/981661f1f826ad34c2a5dc11070add0f
-/*/
-
 function downloadZIP(canvas, text, filename) {
     var zip = new JSZip();
     var zipFilename = `${filename}.zip`;

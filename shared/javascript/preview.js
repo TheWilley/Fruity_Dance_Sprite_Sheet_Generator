@@ -1,70 +1,87 @@
 /**
  * FPS control by elundmark
  * https://gist.github.com/elundmark/38d3596a883521cb24f5
- */ 
+ */
 
-var x = 0;
-var fps = 4;
-var now;
-var then = Date.now();
-var interval = 1000 / fps;
-var delta;
+class preview {
+    constructor(row, fps) {
+        this.row = row;
+        this.fps = fps;
 
-function draw() {
-    // Generate settings
-    var originalCanvas = document.getElementById("canvas"),
-        startClippingX = 0,
-        startClippingY = 0,
-        clippingWidth = 80,
-        clippingHeight = 80,
-        pasteX = 0,
-        pasteY = 0,
-        pasteWidth = 80,
-        pasteHeight = 80
+        // Default
+        this.then = Date.now();
+        this.interval = 1000 / this.fps;
+        this.now;
+        this.delta;
+        this.bind; // The bind is used by the requestAnimationFrame to avoid binding many times
+        this.width = document.getElementById("cell_width").value;
+        this.height = document.getElementById("cell_height").value;
 
-    // Update the x variable
-    startClippingX = x;
-
-    // Get the previewCanvas
-    var previewCanvas = document.getElementById("gifPreview");
-    var context = previewCanvas.getContext("2d");
-
-    // Set the height and width
-    previewCanvas.width = document.getElementById("cell_width").value;
-    previewCanvas.height = document.getElementById("cell_height").value;
-
-    // Clear the canvas
-    context.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-
-    // Draw the image
-    context.drawImage(
-        originalCanvas,
-        startClippingX,
-        startClippingY,
-        clippingWidth,
-        clippingHeight,
-        pasteX,
-        pasteY,
-        pasteWidth,
-        pasteHeight
-    );
-
-    // Add to the x
-    x += 80;
-}
-
-function startAnimation(row) {
-    // Call for animation
-    window.requestAnimationFrame(startAnimation);
-
-    now = Date.now();
-    delta = now - then;
-
-    if (delta > interval) {
-        then = now - (delta % interval);
-        draw();
+        // Set the height and width
+        this.previewCanvas = document.getElementById("gifPreview");
+        this.previewCanvas.width = this.width;
+        this.previewCanvas.height = this.height * this.row;
+        
+        // Image position
+        this.x = 0;
     }
-    if (x > 80 * 7) {
-        x = 0;
+
+    nextFrame() {
+        // Generate settings
+        console.log(this.x)
+        var originalCanvas = document.getElementById("canvas"),
+            startClippingX = 0,
+            startClippingY = (this.height * this.row) - this.height,
+            clippingWidth = this.width,
+            clippingHeight = this.height,
+            pasteX = 0,
+            pasteY = (this.height * this.row) - this.height,
+            pasteWidth = this.width,
+            pasteHeight = this.height
+
+        // Update the x variable
+        startClippingX = this.x;
+
+        // Get the previewCanvas
+        var context = this.previewCanvas.getContext("2d");
+
+        // Clear the canvas
+        context.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+
+        // Draw the image
+        context.drawImage(
+            originalCanvas,
+            startClippingX,
+            startClippingY,
+            clippingWidth,
+            clippingHeight,
+            pasteX,
+            pasteY,
+            pasteWidth,
+            pasteHeight
+        );
+
+        // Add to the x
+        this.x += parseInt(this.width);
+    }
+
+    start() {
+        if (this.bind == undefined) {
+            this.bind = this.start.bind(this)
+        }
+
+        // Call for animation
+        window.requestAnimationFrame(this.bind);
+
+        this.now = Date.now();
+        this.delta = this.now - this.then;
+
+        if (this.delta > this.interval) {
+            this.then = this.now - (this.delta % this.interval);
+            this.nextFrame()
+        }
+        if (this.x > this.width * 7) {
+            this.x = 0;
+        }
     }
 }
