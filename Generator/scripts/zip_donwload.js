@@ -3,18 +3,25 @@ Author: c4software
 Link: https://gist.github.com/c4software/981661f1f826ad34c2a5dc11070add0f
 /*/
 
-function downloadZIP(canvas, text) {
-    console.log(text);
+function downloadZIP(canvas, text, filename) {
     var zip = new JSZip();
-    var zipFilename = "zipFilename.zip";
+    var zipFilename = `${filename}.zip`;
     var output = new Image();
     output.src = canvas.toDataURL();
 
-    // Zip image and text file
-    zip.file("fruityDanceGen.png", output.src.substring(output.src.indexOf(',')+1), {base64: true});
-    zip.file("fruityDanceGen.txt", text)
+    // Check for invalid characters in filename
+    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
+        alert("Illegal file name!")
+    } else {
+        // Zip image and text file
+        zip.file(`${filename}.png`, output.src.substring(output.src.indexOf(',') + 1), { base64: true });
+        zip.file(`${filename}.txt`, text)
 
-    zip.generateAsync({ type: 'blob' }).then(function (content) {
-        saveAs(content, zipFilename);
-    });
+        // Save file
+        zip.generateAsync({ type: 'blob' }).then(function (content) {
+            saveAs(content, zipFilename);
+        });
+    }
+
+
 }

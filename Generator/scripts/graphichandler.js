@@ -113,7 +113,7 @@ function setClear(e) {
 // Download Canvas & Text File
 const download = document.getElementById('download');
 download.addEventListener('click', function(e) {
-    downloadZIP(canvas, document.getElementById("textarea").value);
+    downloadZIP(canvas, document.getElementById("textarea").value, document.getElementById("filename").value);
 });
 
 // Get multiple files
