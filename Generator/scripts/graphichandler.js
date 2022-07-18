@@ -1,4 +1,5 @@
-var filecount = 0, selectedItem;
+var filecount = 0,
+    selectedItem;
 sessionStorage.imagenumb = 0;
 
 document.onreadystatechange = () => {
@@ -112,13 +113,10 @@ function setClear(e) {
 // Download Canvas & Text File
 const download = document.getElementById('download');
 download.addEventListener('click', function(e) {
-    const link = document.createElement('a');
-    link.download = 'FruityDanceGen.png';
-    link.href = canvas.toDataURL();
-    link.click();
-    link.delete;
+    document.getElementById("canvas_output").src = canvas.toDataURL();
+    console.log( document.querySelector("#canvas_output").src)
 
-    saveTextAsFile(textarea.value, 'FruityDanceGen.txt');
+    downloadZIP();
 });
 
 // Get multiple files
