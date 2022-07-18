@@ -5,12 +5,14 @@
         width: 140px;
         margin: 0 auto;
     }
+
     #settings input {
         width: 100%;
         margin: 0 auto;
     }
 }
 
+/*/ Elements /*/
 html {
     background-color: rgb(43, 43, 43);
     width: 100%;
@@ -40,55 +42,7 @@ input[type='file'] {
     color: transparent;
 }
 
-#edit {
-    margin-top: 20px;
-    background-color: #212529;
-    position: relative;
-    overflow: hidden;
-}
-
-#Container {
-    width: 800px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 14px;
-}
-
-#dyntable_container {
-    margin: 10px;
-}
-
-#dyntable {
-    padding: 10px;
-    overflow: auto;
-    margin: 0 auto;
-}
-
-#output {
-    padding: 10px;
-    background-color: #212529;
-}
-
-#text-mapping {
-    padding: 10px;
-    background-color: #212529;
-    overflow-x: auto;
-}
-
-#about {
-    border-top: 1px gray solid;
-    margin-top: 10px;
-    font-size: 20px;
-}
-
-#ContainerCanvas {
-    overflow: auto;
-}
-
+/*/ Classes /*/
 .immg-grid {
     width: 70px;
     height: 70px;
@@ -143,6 +97,59 @@ input[type='file'] {
     margin: 0 auto;
     width: 40px;
     height: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+#edit {
+    margin-top: 20px;
+    background-color: #212529;
+    position: relative;
+    overflow: hidden;
+}
+
+#Container {
+    width: 800px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 14px;
+}
+
+#dyntable_container {
+    margin: 10px;
+}
+
+#dyntable {
+    padding: 10px;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+#output {
+    padding: 10px;
+    background-color: #212529;
+}
+
+#text-mapping {
+    padding: 10px;
+    background-color: #212529;
+    overflow-x: auto;
+}
+
+#about {
+    border-top: 1px gray solid;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#ContainerCanvas {
+    overflow: auto;
 }
 
 #result {
@@ -213,7 +220,7 @@ input[type='file'] {
     transform: translate(-50%, 0.75rem);
 }
 
-#offset input{
+#offset input {
     max-width: 80px;
     margin-bottom: 13px;
 }
@@ -226,10 +233,11 @@ input[type='file'] {
     margin: 0 auto
 }
 
-.hidden {
-    display: none;
-}
-
 #fiename {
     display: block;
+}
+
+#img_element {
+    width: 100%;
+    height: 100%;
 }

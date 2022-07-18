@@ -43,11 +43,6 @@
     width: 150px;
 }
 
-#result {
-    margin-top: 10px;
-    max-height: 800px;
-}
-
 .fixed-wrapper {
     position: absolute;
 }
@@ -63,6 +58,11 @@
 .isdragged {
     position: absolute;
     transition: width 2s;
+}
+
+#result {
+    margin-top: 10px;
+    max-height: 800px;
 }
 
 #upload_files {
