@@ -242,3 +242,11 @@ input[type='file'] {
     width: 100%;
     height: 100%;
 }
+
+#gifPreview {
+    border: rgb(64, 64, 64) 1px solid !important;
+}
+
+#preview {
+    background-color: #212529;
+}

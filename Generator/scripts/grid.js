@@ -38,6 +38,9 @@ function addTable() {
         This way, the array is dynamic. */
         cellCollection.push([]);
 
+        // Create preview
+        let prev = new preview(x + 1, 4);
+
         for (let y = 0; y <= 7; y++) {
             // Here we add a tempobject to the grid to store for later usage
             let tempobject = new ImageObject(x, y);

@@ -9,6 +9,7 @@ class preview {
         this.fps = fps;
 
         // Default
+        this.pause = false;
         this.then = Date.now();
         this.interval = 1000 / this.fps;
         this.now;
@@ -21,14 +22,13 @@ class preview {
         this.previewCanvas = document.getElementById("gifPreview");
         this.previewCanvas.width = this.width;
         this.previewCanvas.height = this.height * this.row;
-        
+
         // Image position
         this.x = 0;
     }
 
     nextFrame() {
         // Generate settings
-        console.log(this.x)
         var originalCanvas = document.getElementById("canvas"),
             startClippingX = 0,
             startClippingY = (this.height * this.row) - this.height,
@@ -70,6 +70,11 @@ class preview {
             this.bind = this.start.bind(this)
         }
 
+        if (this.pause == true) {
+            console.log("Use the restart() function to resume")
+            return;
+        }
+        
         // Call for animation
         window.requestAnimationFrame(this.bind);
 
@@ -83,5 +88,14 @@ class preview {
         if (this.x > this.width * 7) {
             this.x = 0;
         }
+    }
+
+    stop() {
+        this.pause = true;
+    }
+
+    restart() {
+        this.pause = false;
+        this.start();
     }
 }
