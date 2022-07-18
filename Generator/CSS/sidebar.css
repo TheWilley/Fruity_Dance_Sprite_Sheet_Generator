@@ -19,6 +19,7 @@
     }
 }
 
+/*/ Classes /*/
 .sidebar {
     background-color: rgb(49, 49, 49);
     border-radius: 5px;
@@ -60,6 +61,7 @@
     transition: width 2s;
 }
 
+/*/ ID's /*/
 #result {
     margin-top: 10px;
     max-height: 800px;
