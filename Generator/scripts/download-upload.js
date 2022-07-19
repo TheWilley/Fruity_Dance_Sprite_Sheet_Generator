@@ -89,6 +89,7 @@ function clearData() {
         return;
     }
 
+    // Reset local storage
     localStorage.setItem("images", "")
     localStorage.setItem("imagenumb", "")
 

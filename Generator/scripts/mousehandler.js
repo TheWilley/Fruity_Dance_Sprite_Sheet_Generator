@@ -21,8 +21,3 @@ function delayMouseFollow() {
     mouseCircle.style.left = revisedMousePosX + 'px';
 }
 delayMouseFollow();
-
-
-$(window).bind('beforeunload', function(){
-    return 'Your changes might not be saved';
-})

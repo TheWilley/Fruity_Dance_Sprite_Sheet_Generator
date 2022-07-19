@@ -117,14 +117,19 @@ function remove() {
     var rownumb = currentObject.parentNode.dataset.x;
     var cellnumb = currentObject.parentNode.dataset.y;
 
-    // Step 3, remove from canvas
+    // Step 1, remove from canvas
     preview_image_edit("", rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset);
 
-    // Step 1, remove from array
+    // Step 2, remove from array
     cellCollection[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
     cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
     cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
-    // Step 2, remove from grid
+    // Step 3, remove from grid
     currentObject.src = "data:,";
 }
+
+// Before leave
+$(window).bind('beforeunload', function(){
+    return 'Your changes might not be saved';
+})
