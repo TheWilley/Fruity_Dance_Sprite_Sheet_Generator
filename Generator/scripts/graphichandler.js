@@ -94,7 +94,7 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
         if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
 
         // Check if a part of the canvas is being cleared
-        if (image == "") { console.log(Number(rownumb),  Number(cellnumb), Xoffset, cell_height * rownumb + Number(Yoffset), cell_width, cell_height); ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
+        if (image == "") { console.log(Number(rownumb), Number(cellnumb), Xoffset, cell_height * rownumb + Number(Yoffset), cell_width, cell_height); ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
         // Bool restore
         setClear(false);
@@ -129,7 +129,15 @@ function remove() {
     currentObject.src = "data:,";
 }
 
+function configPreview(e) {
+    var previewObjects = [];
+    for(var i = 0; i < document.getElementById("xvalue").value; i++) {
+        console.log(i);
+        previewObjects[i] = new preview((i + 1), 4).start();
+    }
+}
+
 // Before leave
-$(window).bind('beforeunload', function(){
-    return 'Your changes might not be saved';
+$(window).bind('beforeunload', function () {
+    //return 'Your changes might not be saved';
 })

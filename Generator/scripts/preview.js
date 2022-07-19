@@ -46,7 +46,7 @@ class preview {
         var context = this.previewCanvas.getContext("2d");
 
         // Clear the canvas
-        context.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+        context.clearRect(pasteX, pasteY, pasteWidth, pasteHeight);
 
         // Draw the image
         context.drawImage(
@@ -67,6 +67,7 @@ class preview {
 
     start() {
         if (this.bind == undefined) {
+            console.log("dsfsdd")
             this.bind = this.start.bind(this)
         }
 
