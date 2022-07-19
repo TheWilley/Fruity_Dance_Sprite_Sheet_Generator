@@ -85,7 +85,7 @@ window.onload = function () {
 }
 
 function clearData() {
-    if (!confirm('This action will remove ALL DATA. Continue?')) {
+    if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
         return;
     }
 

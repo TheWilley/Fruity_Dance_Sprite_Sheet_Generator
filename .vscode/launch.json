@@ -6,7 +6,7 @@
             "type": "firefox",
             "request": "launch",
             "reAttach": true,
-            "file": "C:\\xampp\\htdocs\\LGOS\\Studio\\Generator\\index.html",
+            "file": "C:\\xampp\\htdocs\\LGOS\\Studio\\generator\\index.html",
             "pathMappings": [
                 {
                     "url": "file:///C:",
