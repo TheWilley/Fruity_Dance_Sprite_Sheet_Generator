@@ -1,4 +1,8 @@
-function addTable() {
+function addTable() { 
+    // Add all elements from last time
+    document.getElementById("result").innerHTML = localStorage.getItem("images")
+    sessionStorage.imagenumb = localStorage.getItem("imagenumb");
+    
     // Check if there is any image added and warn user
     var allCellsEmpty = true;
 

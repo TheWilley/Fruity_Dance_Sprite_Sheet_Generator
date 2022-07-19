@@ -36,7 +36,7 @@ window.onload = function () {
         filesInput.addEventListener("change", function (event) {
             // Get files and output element
             var files = event.target.files;
-            files = [...files].filter( s => s.type.includes("image") )
+            files = [...files].filter(s => s.type.includes("image"))
             var output = document.getElementById("result");
 
             // Go trough all files
@@ -46,7 +46,7 @@ window.onload = function () {
                 //Only pics and files under 1mb (1.000.000 bytes)
                 if (!file.type.match('image') || parseInt(file.size) > 1000000) {
                     // To stop spaming
-                    if(files.length <= 1) {
+                    if (files.length <= 1) {
                         alert("File too big or not an image")
                     }
                     continue;
@@ -67,9 +67,13 @@ window.onload = function () {
 
                     // Insert the combined div and image
                     output.insertBefore(div, null);
-                    
+
                     // Keep track of the number of files
                     sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
+
+                    // Add div to local storage
+                    localStorage.setItem("images", document.getElementById("result").innerHTML);
+                    localStorage.setItem("imagenumb", sessionStorage.imagenumb)
                 });
                 //Read the image
                 picReader.readAsDataURL(file);
@@ -78,4 +82,15 @@ window.onload = function () {
     } else {
         alert("Your browser does not support File API");
     }
+}
+
+function clearData() {
+    if (!confirm('This action will remove ALL DATA. Continue?')) {
+        return;
+    }
+
+    localStorage.setItem("images", "")
+    localStorage.setItem("imagenumb", "")
+
+    location.reload();
 }
