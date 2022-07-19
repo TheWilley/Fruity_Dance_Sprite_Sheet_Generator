@@ -86,22 +86,23 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
 
+        // Get width and height
+        let cell_width = parseInt(document.getElementById("cell_width").value);
+        let cell_height = parseInt(document.getElementById("cell_height").value);
+
         // Check if the whole canvas is being cleared
         if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
 
         // Check if a part of the canvas is being cleared
-        if (image == "") { ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), parseInt(document.getElementById("cell_width").value), parseInt(document.getElementById("cell_height").value)) }
+        if (image == "") { console.log(Number(rownumb),  Number(cellnumb), Xoffset, cell_height * rownumb + Number(Yoffset), cell_width, cell_height); ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
         // Bool restore
         setClear(false);
 
         // Drawing of image
         GeneratedCanvas.onload = function () {
-            let cell_width = parseInt(document.getElementById("cell_width").value);
-            let cell_height = parseInt(document.getElementById("cell_height").value);
-
             // Create clipping path
-            ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
+            ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Xoffset, cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
         };
     }
 }
@@ -116,12 +117,12 @@ function remove() {
     var rownumb = currentObject.parentNode.dataset.x;
     var cellnumb = currentObject.parentNode.dataset.y;
 
+    // Step 3, remove from canvas
+    preview_image_edit("", rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset);
+
     // Step 1, remove from array
     cellCollection[rownumb][cellnumb] = new Object();
 
     // Step 2, remove from grid
     currentObject.removeAttribute("src");
-
-    // Step 3, remove from canvas
-    preview_image_edit("", cellnumb, rownumb, 0, 0);
 }

@@ -78,7 +78,8 @@ function show_controls(currentObject) {
 $(function() {
     $("body").click(function(e) {
         // Check if click is inside the grid
-        if (!e.target.classList.contains('immg-grid')) {
+        if (!e.target.classList.contains('immg-grid') && !e.target.classList.contains('offsetControlls') ) {
+            console.log(e.target)
             // Disable all offsets
             disableElementSpecificControls(true)
 
