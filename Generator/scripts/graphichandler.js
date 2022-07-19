@@ -60,7 +60,7 @@ function preview_image(image, rownumb, cellnumb) {
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
         // Drawing of image
-        GeneratedCanvas.onload = function() {
+        GeneratedCanvas.onload = function () {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
@@ -96,7 +96,7 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
         setClear(false);
 
         // Drawing of image
-        GeneratedCanvas.onload = function() {
+        GeneratedCanvas.onload = function () {
             let cell_width = parseInt(document.getElementById("cell_width").value);
             let cell_height = parseInt(document.getElementById("cell_height").value);
 
@@ -108,47 +108,6 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
 
 function setClear(e) {
     clear = e;
-}
-
-// Download Canvas & Text File
-const download = document.getElementById('download');
-download.addEventListener('click', function(e) {
-    downloadZIP(canvas, document.getElementById("textarea").value, document.getElementById("filename").value);
-});
-
-// Get multiple files
-window.onload = function() {
-    //Check File API support
-    if (window.File && window.FileList && window.FileReader) {
-        var filesInput = document.getElementById("files");
-
-        filesInput.addEventListener("change", function(event) {
-            var files = event.target.files;
-            var output = document.getElementById("result");
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                //Only pics
-                if (!file.type.match('image'))
-                    continue;
-                var picReader = new FileReader();
-                picReader.addEventListener("load", function(event) {
-                    var picFile = event.target;
-
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "result-container");
-
-                    div.innerHTML = "<img class='thumbnail draggable' src='" + picFile.result + "'" +
-                        "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
-                    output.insertBefore(div, null);
-                    sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
-                });
-                //Read the image
-                picReader.readAsDataURL(file);
-            }
-        });
-    } else {
-        console.log("Your browser does not support File API");
-    }
 }
 
 function remove() {
