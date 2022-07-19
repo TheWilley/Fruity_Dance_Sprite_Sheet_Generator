@@ -20,7 +20,7 @@ function show_controls(currentObject) {
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
 
-    if (currentObject.getAttribute("src") == null) {
+    if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {
         disableElementSpecificControls(true);
     } else {
         disableElementSpecificControls(false);
@@ -79,7 +79,6 @@ $(function() {
     $("body").click(function(e) {
         // Check if click is inside the grid
         if (!e.target.classList.contains('immg-grid') && !e.target.classList.contains('offsetControlls') ) {
-            console.log(e.target)
             // Disable all offsets
             disableElementSpecificControls(true)
 

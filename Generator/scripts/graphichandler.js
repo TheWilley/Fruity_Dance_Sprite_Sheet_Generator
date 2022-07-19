@@ -121,8 +121,10 @@ function remove() {
     preview_image_edit("", rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset);
 
     // Step 1, remove from array
-    cellCollection[rownumb][cellnumb] = new Object();
+    cellCollection[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
+    cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
+    cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
     // Step 2, remove from grid
-    currentObject.removeAttribute("src");
+    currentObject.src = "data:,";
 }
