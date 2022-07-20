@@ -12,6 +12,7 @@ class preview {
         this.pause = false;
         this.then = Date.now();
         this.interval = 1000 / this.fps;
+        this.frame = 0;
         this.now;
         this.delta;
         this.bind; // The bind is used by the requestAnimationFrame to avoid binding many times
@@ -61,6 +62,19 @@ class preview {
             pasteHeight
         );
 
+        // First stroke the text
+        context.font = "15px serif"
+        context.strokeStyle = "black";
+        context.lineWidth = 3;
+        context.strokeText(this.frame, 0, pasteY + 12);
+
+        // Then fill it
+        context.fillStyle = "white";
+        context.fillText(this.frame + 1, 0, pasteY + 12);
+
+        // Go to next frame
+        this.frame++;
+
         // Add to the x
         this.x += parseInt(this.width);
     }
@@ -71,10 +85,9 @@ class preview {
         }
 
         if (this.pause == true) {
-            console.log("Use the restart() function to resume")
             return;
         }
-        
+
         // Call for animation
         window.requestAnimationFrame(this.bind);
 
@@ -87,6 +100,7 @@ class preview {
         }
         if (this.x > this.width * 7) {
             this.x = 0;
+            this.frame = 0;
         }
     }
 

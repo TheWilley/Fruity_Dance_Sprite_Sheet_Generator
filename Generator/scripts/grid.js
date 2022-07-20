@@ -1,8 +1,8 @@
-function addTable() { 
+function addTable() {
     // Add all elements from last time
     document.getElementById("result").innerHTML = localStorage.getItem("images")
     sessionStorage.imagenumb = localStorage.getItem("imagenumb");
-    
+
     // Check if there is any image added and warn user
     var allCellsEmpty = true;
 
@@ -19,7 +19,7 @@ function addTable() {
             return;
         }
     }
-    
+
     // Get elements value
     var xvalue = parseInt(document.getElementById("xvalue").value);
     var cell_width = parseInt(document.getElementById("cell_width").value);
@@ -43,9 +43,12 @@ function addTable() {
         cellCollection.push([]);
 
         // Create preview
-        let temp = new preview(x + 1, 4);
-        previewObjects.push(temp);
-        temp.start();
+        console.log(x, previewObjects.length, x >= previewObjects.lenght)
+        if (x >= previewObjects.lenght || previewObjects.length == 0) {
+            let temp = new preview(x + 1, 4);
+            previewObjects.push(temp);
+            temp.start();
+        } 
 
         for (let y = 0; y <= 7; y++) {
             // Here we add a tempobject to the grid to store for later usage
@@ -75,7 +78,7 @@ function addTable() {
 
             // Set all image_cell attributes
             image_cell.setAttribute("class", "immg-grid");
-            image_cell.onclick = function() { show_controls(this) };
+            image_cell.onclick = function () { show_controls(this) };
 
             // Set all image_controlls attributes
             image_controls.setAttribute("id", "image_controls")

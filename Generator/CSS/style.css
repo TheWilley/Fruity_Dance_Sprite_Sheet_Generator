@@ -250,3 +250,7 @@ input[type='file'] {
 #preview {
     background-color: #212529;
 }
+
+#preview-buttons {
+    margin: 12px;
+}
