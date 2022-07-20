@@ -150,8 +150,10 @@ $(window).bind('beforeunload', function () {
 window.addEventListener("scroll", (event) => {
     if(this.scrollY >= 45) {
         document.getElementsByClassName("sidebar")[0].classList.add("fixedSidebar")
+        document.getElementsByClassName("sidebar-container")[0].classList.add("fixedContainer")
     } else {
         document.getElementsByClassName("sidebar")[0].classList.remove("fixedSidebar")
+        document.getElementsByClassName("sidebar-container")[0].classList.remove("fixedContainer")
     }
 });
 
