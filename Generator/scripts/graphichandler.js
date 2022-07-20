@@ -17,7 +17,7 @@ function LockParamters() {
         document.getElementById("cell_width"),
         document.getElementById("cell_height"),
         document.getElementById("lock-off"),
-        document.getElementById("lock-on")
+        document.getElementById("lock-on"),
     ]
 
     if (xvalue.disabled == true) {

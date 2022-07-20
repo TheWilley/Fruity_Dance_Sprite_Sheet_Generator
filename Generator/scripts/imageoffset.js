@@ -9,9 +9,11 @@ var img_wrapper = document.querySelector('#img_wrapper'),
 function disableElementSpecificControls(enabled) {
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
+    let remove = document.getElementById("delete");
 
     xoffsetform.disabled = enabled;
     yoffsetform.disabled = enabled;
+    remove.disabled = enabled;
 }
 
 function show_controls(currentObject) {

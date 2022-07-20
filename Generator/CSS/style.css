@@ -227,11 +227,9 @@ input[type='file'] {
 }
 
 #delete {
-    color: red;
-    cursor: pointer;
     display: block;
-    width: 50px;
-    margin: 0 auto
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
 
 #fiename {
