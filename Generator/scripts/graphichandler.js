@@ -1,5 +1,6 @@
 var filecount = 0,
-    selectedItem;
+    selectedItem,
+    previewObjects = [];
 sessionStorage.imagenumb = 0;
 
 document.onreadystatechange = () => {
@@ -130,10 +131,17 @@ function remove() {
 }
 
 function configPreview(e) {
-    var previewObjects = [];
-    for(var i = 0; i < document.getElementById("xvalue").value; i++) {
-        console.log(i);
-        previewObjects[i] = new preview((i + 1), 4).start();
+    if(e == true) {
+        previewObjects.forEach(obj => {
+            if(obj.getPauseState == true) {
+                console.log(obj.getPauseState);
+                obj.restart()
+            }
+        })
+    } else {
+        previewObjects.forEach(obj => {
+            obj.stop()
+        })
     }
 }
 

@@ -67,7 +67,6 @@ class preview {
 
     start() {
         if (this.bind == undefined) {
-            console.log("dsfsdd")
             this.bind = this.start.bind(this)
         }
 
@@ -98,5 +97,9 @@ class preview {
     restart() {
         this.pause = false;
         this.start();
+    }
+
+    get getPauseState() {
+        return this.pause
     }
 }

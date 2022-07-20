@@ -43,7 +43,9 @@ function addTable() {
         cellCollection.push([]);
 
         // Create preview
-        let prev = new preview(x + 1, 4);
+        let temp = new preview(x + 1, 4);
+        previewObjects.push(temp);
+        temp.start();
 
         for (let y = 0; y <= 7; y++) {
             // Here we add a tempobject to the grid to store for later usage
