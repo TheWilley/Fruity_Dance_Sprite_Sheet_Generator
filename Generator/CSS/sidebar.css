@@ -17,6 +17,11 @@
     #result {
         overflow-y: unset !important;
     }
+    #topbar {
+        position: sticky;
+        top: 10px;
+        z-index: 300;
+    }
 }
 
 /*/ Classes /*/
@@ -28,6 +33,8 @@
     margin-left: 14px;
     margin-right: 14px;
     position: relative;
+
+    transition: all 0.5s;
 }
 
 .sidebar-container {
@@ -69,4 +76,10 @@
 
 #upload_files {
     width: 100%;
+}
+
+.fixedSidebar {
+    margin: 0 !important;
+    background-color: #1c1c1c !important;
+    transition: all 0.5s;
 }

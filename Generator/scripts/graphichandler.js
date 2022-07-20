@@ -55,8 +55,6 @@ function preview_image(image, rownumb, cellnumb) {
     let GeneratedCanvas = new Image();
     GeneratedCanvas.src = image;
 
-    console.log(image);
-
     let ctx = document.getElementById('canvas');
     if (ctx.getContext) {
         ctx = ctx.getContext('2d');
@@ -95,7 +93,7 @@ function preview_image_edit(image, rownumb, cellnumb, Xoffset, Yoffset) {
         if (clear) { ctx.clearRect(0, 0, canvas.width, canvas.height) };
 
         // Check if a part of the canvas is being cleared
-        if (image == "") { console.log(Number(rownumb), Number(cellnumb), Xoffset, cell_height * rownumb + Number(Yoffset), cell_width, cell_height); ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
+        if (image == "") { ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
         // Bool restore
         setClear(false);
@@ -131,10 +129,9 @@ function remove() {
 }
 
 function configPreview(e) {
-    if(e == true) {
+    if (e == true) {
         previewObjects.forEach(obj => {
-            if(obj.getPauseState == true) {
-                console.log(obj.getPauseState);
+            if (obj.getPauseState == true) {
                 obj.restart()
             }
         })
@@ -149,3 +146,12 @@ function configPreview(e) {
 $(window).bind('beforeunload', function () {
     //return 'Your changes might not be saved';
 })
+
+window.addEventListener("scroll", (event) => {
+    if(this.scrollY >= 45) {
+        document.getElementsByClassName("sidebar")[0].classList.add("fixedSidebar")
+    } else {
+        document.getElementsByClassName("sidebar")[0].classList.remove("fixedSidebar")
+    }
+});
+
