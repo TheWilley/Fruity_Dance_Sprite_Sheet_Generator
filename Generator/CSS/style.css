@@ -124,11 +124,11 @@ input[type='file'] {
 
 #dyntable_container {
     margin: 10px;
+    overflow: auto;
 }
 
 #dyntable {
     padding: 10px;
-    overflow: auto;
     margin: 0 auto;
 }
 
@@ -173,6 +173,7 @@ input[type='file'] {
     margin-top: -150px;
     background-image: url("../Images/transparent.jpg");
     transition: transform 0.4s cubic-bezier(0.61, 1, 0.88, 1);
+    z-index: 2;
 }
 
 #popup_image {

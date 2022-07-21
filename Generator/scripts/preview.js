@@ -65,7 +65,7 @@ class preview {
         // First stroke the text
         context.font = "15px serif"
         context.strokeStyle = "black";
-        context.lineWidth = 3;
+        context.lineWidth = 2;
         context.strokeText(this.frame, 0, pasteY + 12);
 
         // Then fill it
