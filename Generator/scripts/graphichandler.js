@@ -110,6 +110,16 @@ function setClear(e) {
     clear = e;
 }
 
+function redraw() {
+    cellCollection.forEach(row => {
+        row.forEach(cell => {
+            if (cell.imageSrc != undefined) {
+                preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset)
+            }
+        });
+    })
+}
+
 function remove() {
     currentObject = selectedItem;
     // Get row / cell number
@@ -126,6 +136,9 @@ function remove() {
 
     // Step 3, remove from grid
     currentObject.src = "data:,";
+    
+    // Step 4, redraw
+    redraw()
 }
 
 function configPreview(e) {

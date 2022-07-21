@@ -39,13 +39,7 @@ function show_controls(currentObject) {
 
         setClear(true);
 
-        cellCollection.forEach(row => {
-            row.forEach(cell => {
-                if (cell.imageSrc != undefined) {
-                    preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset)
-                }
-            });
-        })
+        redraw()
     }
 
     // Unbind all events
