@@ -1,4 +1,7 @@
 # Fruity Dance Sprite Sheet Generator
+
+![Logotype](logotype.png)
+
 Yes, there are alot of sprite sheet generators on the internet, but I still belive this project server a purpose. 
 This generator was specifically made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. This means that you don't have to change settings such as the height and width of the image manually, as this program does all that automatically. The plugin is actually rather specific on how the image is supposed to look. 
 

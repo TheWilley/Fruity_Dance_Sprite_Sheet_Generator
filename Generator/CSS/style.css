@@ -213,6 +213,7 @@ input[type='file'] {
 
 #label:hover {
     color: rgb(247, 247, 255);
+    cursor: pointer;
 }
 
 #image_controls {
