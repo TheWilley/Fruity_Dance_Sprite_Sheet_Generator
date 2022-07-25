@@ -1,7 +1,14 @@
 function addTable() {
     // Add all elements from last time
-    document.getElementById("result").innerHTML = localStorage.getItem("images")
+    document.getElementById("result").innerHTML = localStorage.getItem("images");
     sessionStorage.imagenumb = localStorage.getItem("imagenumb");
+
+    // Create trashcan
+    document.getElementById("result").appendChild(function () {
+        let p = document.createElement("p");
+        p.innerHTML = "sdfdssf";
+        return p;
+    }());
 
     // Check if there is any image added and warn user
     var allCellsEmpty = true;
@@ -114,29 +121,4 @@ function addTable() {
         textarea.value += "Animation " + l + "\n";
     }
     textarea.value += "Held";
-}
-
-function saveTextAsFile(textToWrite, fileNameToSaveAs) {
-    // Create all varaibles
-    let textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
-    let downloadLink = document.createElement("a");
-
-    // Set attributes
-    downloadLink.download = fileNameToSaveAs;
-    downloadLink.innerHTML = "Download File";
-
-    // Browser Dependent
-    if (window.webkitURL != null) {
-        // Chrome allows the link to be clicked
-        // without actually adding it to the DOM.
-        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-    } else {
-        // Firefox requires the link to be added to the DOM
-        // before it can be clicked.
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-        downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
-    }
-    downloadLink.click();
 }
