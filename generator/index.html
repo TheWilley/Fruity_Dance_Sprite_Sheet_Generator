@@ -15,8 +15,8 @@
 </head>
 
 <body>
-    <div id="mouse-circle"></div>
-    <div class="hidden"> <img id="canvas_output"></img>
+    <div class="domElement" id="mouse-circle"></div>
+    <div class="hidden"> <img class="domElement" id="canvas_output"></img>
     </div>
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -109,7 +109,7 @@
                     <textarea id="textarea" cols="30" rows="10" style="max-width: 400px; min-width: 400px; height:120px;"></textarea>
                 </div>
                 <input id="filename" placeholder="Filename..."> <br>
-                <button id="download" class="btn btn-success" style="margin-top: 10px">Download</button>
+                <button id="download" class="domElement btn btn-success" style="margin-top: 10px">Download</button>
                 <button id="clear" class="btn btn-danger" style="margin-top: 10px" onclick="clearData()">Clear Stored Images</button>
                 <div id="about">
                     <p>This webpage is created to generate Fruity Dance Sprite Sheets! To see more info and to find the source code, go the the github page. 
@@ -125,6 +125,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <!--Custom Resources-->
+<script src="scripts/domvariables.js"></script>
 <script src="scripts/graphichandler.js"></script>
 <script src="scripts/getSet.js"></script>
 <script src="scripts/grid.js"></script>
