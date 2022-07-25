@@ -33,7 +33,6 @@ function addTable() {
     var cell_height = parseInt(document.getElementById("cell_height").value);
 
     // Get elements node
-    var textarea = document.getElementById("textarea");
     var ContainerCanvas = document.getElementById("ContainerCanvas");
     var canvas = document.getElementById("canvas");
 
@@ -114,11 +113,11 @@ function addTable() {
     ContainerCanvas.appendChild(canvas_element);
 
     // Reset text element
-    document.getElementById("textarea").value = "";
-
+    state.textarea.value = "";
+    
     // Generate text in textarea
     for (l = 1; l < xvalue; l++) {
-        textarea.value += "Animation " + l + "\n";
+        state.textarea.value += "Animation " + l + "\n";
     }
-    textarea.value += "Held";
+    state.textarea.value += "Held";
 }

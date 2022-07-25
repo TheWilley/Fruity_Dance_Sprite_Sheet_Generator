@@ -20,8 +20,8 @@ function downloadZIP(canvas, text, filename) {
 }
 
 // Download Canvas & Text File
-domObjects.getId("download").addEventListener('click', function (e) {
-    downloadZIP(canvas, document.getElementById("textarea").value, document.getElementById("filename").value);
+state.download.addEventListener('click', function (e) {
+    downloadZIP(canvas, state.textarea.value, state.filename.value);
 });
 
 // Get multiple files
@@ -36,7 +36,6 @@ window.onload = function () {
             // Get files and output element
             var files = event.target.files;
             files = [...files].filter(s => s.type.includes("image"))
-            var output = document.getElementById("result");
 
             // Go trough all files
             for (var i = 0; i < files.length; i++) {
@@ -65,13 +64,13 @@ window.onload = function () {
                         "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
                     // Insert the combined div and image
-                    output.insertBefore(div, null);
+                    state.result.insertBefore(div, null);
 
                     // Keep track of the number of files
                     sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
 
                     // Add div to local storage
-                    localStorage.setItem("images", document.getElementById("result").innerHTML);
+                    localStorage.setItem("images", state.result.innerHTML);
                     localStorage.setItem("imagenumb", sessionStorage.imagenumb)
                 });
                 //Read the image

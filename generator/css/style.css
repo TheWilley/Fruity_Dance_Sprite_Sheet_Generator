@@ -93,12 +93,6 @@ input[type='file'] {
     position: relative;
 }
 
-.locks {
-    margin: 0 auto;
-    width: 40px;
-    height: 40px;
-}
-
 .hidden {
     display: none;
 }
@@ -181,7 +175,7 @@ input[type='file'] {
     height: 100%;
 }
 
-#mouse-circle {
+#mouseCircle {
     position: absolute;
     width: 34px;
     height: 34px;
@@ -192,16 +186,6 @@ input[type='file'] {
     pointer-events: none;
     transition: opacity 0.2s;
     opacity: 0%;
-}
-
-#lock-on:hover {
-    filter: invert(13%) sepia(90%) saturate(3982%) hue-rotate(356deg) brightness(93%) contrast(94%);
-    transition: all 0.4s;
-}
-
-#lock-off:hover {
-    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
-    transition: all 0.4s;
 }
 
 #label {

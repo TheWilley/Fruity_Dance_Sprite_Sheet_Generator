@@ -1,22 +1,18 @@
-// Object to collect DOM elements
-var domObjects = {
-    objects: [],
-    getId: function (query) {
-        let result;
-        this.objects.forEach(e => {
-            if (e.id.indexOf(query) > -1) {
-                result = e;
-            }
-        })
-        return result;
-    },
-    getElements: function () {
-        // Factory
-        document.querySelectorAll(".domElement").forEach(function (element, i) {
-            domObjects.objects[i] = element;
-        })
+/**
+ * Thanks to u/PotbellyPlatypus for the help
+ */
+
+// Create object
+const state = {}
+
+// Populate object
+function populateState(state) {
+    const elems = document.querySelectorAll('.domElement')
+    for (const elem of elems) {
+        if (elem.id) { state[elem.id] = elem }
+        else { throw new Error("Element " + elem + " does not have an ID. All instances with the 'domElement' class must have an ID!") }
     }
 }
 
-domObjects.getElements();
-
+populateState(state);
+console.log(state)

@@ -9,47 +9,6 @@ document.onreadystatechange = () => {
     }
 };
 
-function LockParamters() {
-    var elements = [
-        document.getElementById("offsetX"),
-        document.getElementById("offsetY"),
-        document.getElementById("xvalue"),
-        document.getElementById("cell_width"),
-        document.getElementById("cell_height"),
-        document.getElementById("lock-off"),
-        document.getElementById("lock-on"),
-    ]
-
-    if (xvalue.disabled == true) {
-        elements.forEach(e => {
-            if (e.id == "lock-on") {
-                e.style.display = "none"
-            } else if (e.id == "lock-off") {
-                e.style.display = "block";
-            } else if ((e.id == "offsetX" || e.id == "offsetY") && selectedItem != null) {
-                if (selectedItem.getAttribute('src') == null) {
-                    e.disabled = true;
-                } else {
-                    e.disabled = false;
-                }
-            } else {
-                e.disabled = false;
-            }
-        })
-
-    } else {
-        elements.forEach(e => {
-            if (e.id == "lock-on") {
-                e.style.display = "block"
-            } else if (e.id == "lock-off") {
-                e.style.display = "none";
-            } else {
-                e.disabled = true;
-            }
-        })
-    }
-}
-
 function preview_image(image, rownumb, cellnumb) {
     // This is where we create the canvas and insert images
     let GeneratedCanvas = new Image();

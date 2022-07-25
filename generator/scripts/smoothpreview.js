@@ -1,9 +1,9 @@
 function PreviewImage(show) {
     document.getElementById("popup").style.transform = "translate(-50%, 300px)";
-    document.getElementById("mouse-circle").style.opacity = "100%";
+    state.mouseCircle.style.opacity = "100%";
 }
 
 function StopPreviewImage() {
     document.getElementById("popup").style.transform = "translate(-50%, 150px)";
-    document.getElementById("mouse-circle").style.opacity = "0%";
+    state.mouseCircle.style.opacity = "0%";
 }
