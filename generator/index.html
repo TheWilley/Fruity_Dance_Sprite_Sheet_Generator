@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/sidebar.css">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
     <script src="scripts/dist/jszip.js"></script>
     <script src="scripts/dist/filesaver.js"></script>
     <script src="scripts/dist/bob.standalone.min.js" integrity="sha384-bNHeeplAM1irD/uoPzeG85JYde0kafKS1sPvj0Lmm3HGOWxZGHc+fRtoz/soppDB"></script>
@@ -17,6 +18,8 @@
 </head>
 
 <body>
+    <div class="domElement" id="mouseCircle"></div>
+    <div class="hidden"><img id="canvas_output"></div>
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#" style="margin-left: 10px;">Fruity Dance Sprite Sheet Generator</a>
@@ -137,7 +140,6 @@
     crossorigin="anonymous"></script>
 
 <!--Custom Resources-->
-<script src="scripts/generate.js"></script>
 <script src="scripts/domvariables.js"></script>
 <script src="scripts/graphichandler.js"></script>
 <script src="scripts/getSet.js"></script>
