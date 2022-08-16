@@ -86,6 +86,12 @@ var eventListeners = function() {
         downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
     });
 
+    document.onreadystatechange = () => {
+        if (document.readyState === 'complete') {
+            addTable();
+        }
+    };
+
     // Get multiple files
     window.onload = function() {
         //Check File API support
@@ -98,4 +104,19 @@ var eventListeners = function() {
             alert("Your browser does not support File API");
         }
     }
+
+    window.addEventListener("scroll", (event) => {
+        if (this.scrollY >= 45) {
+            document.getElementsByClassName("sidebar")[0].classList.add("fixedSidebar")
+            document.getElementsByClassName("sidebar-container")[0].classList.add("fixedContainer")
+        } else {
+            document.getElementsByClassName("sidebar")[0].classList.remove("fixedSidebar")
+            document.getElementsByClassName("sidebar-container")[0].classList.remove("fixedContainer")
+        }
+    });
+
+    // Before leave
+    $(window).bind('beforeunload', function() {
+        //return 'Your changes might not be saved';
+    })
 }()

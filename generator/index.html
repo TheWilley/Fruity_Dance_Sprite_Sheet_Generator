@@ -75,7 +75,7 @@
                         <input id="offsetX" class="offsetControlls" type="number" min="0" disabled>
                         <input id="offsetY" class="offsetControlls" type="number" min="0" disabled>
                         <label>:Y-offset</label>
-                        <button class="btn btn-warning btn-sm" id="delete" onclick="remove()" disabled> Delete </button>
+                        <button class="btn btn-warning btn-sm" id="delete" onclick="graphicHandler.remove()" disabled> Delete </button>
                     </form>
 
                     <div id="dyntable_container">
@@ -96,9 +96,9 @@
                     <h2 style="text-decoration: underline;">Preview</h2>
 
                     <div id="preview-buttons">
-                        <button id="start" class="btn btn-outline-light btn-sm" onclick="configPreview(true)"> Start
+                        <button id="start" class="btn btn-outline-light btn-sm" onclick="graphicHandler.configPreview(true)"> Start
                             Preview </button>
-                        <button id="pause" class="btn btn-outline-light btn-sm" onclick="configPreview(false)"> Pause
+                        <button id="pause" class="btn btn-outline-light btn-sm" onclick="graphicHandler.configPreview(false)"> Pause
                             Preview </button>
                     </div>
 
@@ -137,7 +137,7 @@
     crossorigin="anonymous"></script>
 
 <!--Custom Resources-->
-<script src="scripts/elementCatcher.js"></script>
+<script src="scripts/dist/elementCatcher.js"></script>
 <script>const state = new elementCatcher({"id":"app", "getElementsWith": "id"})</script>
 <script src="scripts/graphichandler.js"></script>
 <script src="scripts/getSet.js"></script>

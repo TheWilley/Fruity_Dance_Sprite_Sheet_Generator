@@ -17,7 +17,7 @@ function disableElementSpecificControls(enabled) {
 }
 
 function show_controls(currentObject) {
-    selectedItem = currentObject;
+    graphicHandler.get().selectedItem = currentObject;
     // Get input for X and Y
     let xoffsetform = document.getElementById("offsetX");
     let yoffsetform = document.getElementById("offsetY");
@@ -37,9 +37,9 @@ function show_controls(currentObject) {
         cellCollection[rownumb][cellnumb].xOffset = xoffsetform.value;
         cellCollection[rownumb][cellnumb].yOffset = yoffsetform.value;
 
-        setClear(true);
+        graphicHandler.get().clear = true;
 
-        redraw()
+        graphicHandler.redraw()
     }
 
     // Unbind all events
@@ -79,7 +79,7 @@ $(function() {
             disableElementSpecificControls(true)
 
             // Remove border
-            if (selectedItem != undefined) { selectedItem.style.border = "none" };
+            if (graphicHandler.get().selectedItem != undefined) { graphicHandler.get().selectedItem.style.border = "none" };
         }
     });
 })

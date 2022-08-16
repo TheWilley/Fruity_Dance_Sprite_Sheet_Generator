@@ -43,12 +43,12 @@ function addTable() {
     dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>';
 
     // Stop all objects
-    previewObjects.forEach(object => {
+    graphicHandler.get().previewObjects.forEach(object => {
         object.stop();
     })
 
     // Clear preview array
-    previewObjects.length = [];
+    graphicHandler.get().previewObjects.length = [];
 
     // Loop trough and add rows
     for (let x = 0; x < xvalue; x++) {
@@ -58,7 +58,7 @@ function addTable() {
 
         // Create new preview objects
         let temp = new preview(x + 1, 2);
-        previewObjects.push(temp);
+        graphicHandler.get().previewObjects.push(temp);
         temp.start();
 
         for (let y = 0; y <= 7; y++) {

@@ -71,7 +71,7 @@ interact(".dropzone")
             cellCollection[rownumb][cellnumb].yOffset = 0;
 
             // Run function to insert images into canvas    
-            preview_image(target_element.src, rownumb, cellnumb);
+            graphicHandler.preview_image(target_element.src, rownumb, cellnumb);
 
             event.target.firstChild.src = target_element.src;
 
