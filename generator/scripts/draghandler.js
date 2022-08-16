@@ -44,7 +44,6 @@ var dragHandler = function() {
                     target_element.setAttribute('data-y', original_position_y);
 
                     event.target.classList.remove("isdragged");
-
                     graphicHandler.stopPreviewImage();
                 }
             }
