@@ -1,38 +1,38 @@
-function downloadZIP(canvas, text, filename) {
-    var zip = new JSZip();
-    var zipFilename = `${filename}.zip`;
-    var output = new Image();
-    output.src = canvas.toDataURL();
+var downloadUpload = function() {
+    return {
+        downloadZIP: function(canvas, text, filename) {
+            var zip = new JSZip();
+            var zipFilename = `${filename}.zip`;
+            var output = new Image().src = canvas.toDataURL();
 
-    // Check for invalid characters in filename
-    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
-        alert("Illegal file name!")
-    } else {
-        // Zip image and text file
-        zip.file(`${filename}.png`, output.src.substring(output.src.indexOf(',') + 1), { base64: true });
-        zip.file(`${filename}.txt`, text)
+            // Check for invalid characters in filename
+            if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
+                alert("Illegal file name!")
+            } else {
+                // Zip image and text file
+                zip.file(`${filename}.png`, output.src.substring(output.src.indexOf(',') + 1), { base64: true });
+                zip.file(`${filename}.txt`, text)
 
-        // Save file
-        zip.generateAsync({ type: 'blob' }).then(function (content) {
-            saveAs(content, zipFilename);
-        });
-    }
-}
+                // Save file
+                zip.generateAsync({ type: 'blob' }).then(function(content) {
+                    saveAs(content, zipFilename);
+                });
+            }
+        },
 
-// Download Canvas & Text File
-state.download.addEventListener('click', function (e) {
-    downloadZIP(canvas, state.textarea.value, state.filename.value);
-});
+        clearData: function() {
+            if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
+                return;
+            }
 
-// Get multiple files
-window.onload = function () {
-    //Check File API support
-    if (window.File && window.FileList && window.FileReader) {
-        // THe input element
-        var filesInput = document.getElementById("files");
+            // Reset local storage
+            localStorage.setItem("images", "")
+            localStorage.setItem("imagenumb", "")
 
-        // An event listener, checks when button is clicked and file is submited
-        filesInput.addEventListener("change", function (event) {
+            location.reload();
+        },
+
+        uploadFiles: function() {
             // Get files and output element
             var files = event.target.files;
             files = [...files].filter(s => s.type.includes("image"))
@@ -52,7 +52,7 @@ window.onload = function () {
 
                 // Check if file has been loaded
                 var picReader = new FileReader();
-                picReader.addEventListener("load", function (event) {
+                picReader.addEventListener("load", function(event) {
                     var picFile = event.target;
 
                     // Create div for image
@@ -76,20 +76,26 @@ window.onload = function () {
                 //Read the image
                 picReader.readAsDataURL(file);
             }
-        });
-    } else {
-        alert("Your browser does not support File API");
+        }
     }
-}
+}()
 
-function clearData() {
-    if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
-        return;
+var eventListeners = function() {
+    // Download Canvas & Text File
+    state.download.addEventListener('click', function(e) {
+        downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
+    });
+
+    // Get multiple files
+    window.onload = function() {
+        //Check File API support
+        if (window.File && window.FileList && window.FileReader) {
+            // An event listener, checks when button is clicked and file is submited
+            state.files.addEventListener("change", function(event) {
+                downloadUpload.uploadFiles();
+            });
+        } else {
+            alert("Your browser does not support File API");
+        }
     }
-
-    // Reset local storage
-    localStorage.setItem("images", "")
-    localStorage.setItem("imagenumb", "")
-
-    location.reload();
-}
+}()
