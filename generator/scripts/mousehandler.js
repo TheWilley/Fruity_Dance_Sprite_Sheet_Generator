@@ -1,22 +1,25 @@
-let mousePosX = 0,
-    mousePosY = 0
+var mouseHandler = function() {
+    let mousePosX = 0;
+    let mousePosY = 0;
+    let delay = 6;
+    let revisedMousePosX = 0;
+    let revisedMousePosY = 0;
 
-$(document).on("mousemove", function (e) {
-    mousePosX = e.pageX;
-    mousePosY = e.pageY;
-});
+    // Mouse move
+    $(document).on("mousemove", function(e) {
+        mousePosX = e.pageX;
+        mousePosY = e.pageY;
+    });
 
-let delay = 6,
-    revisedMousePosX = 0,
-    revisedMousePosY = 0;
+    function delayMouseFollow() {
+        requestAnimationFrame(delayMouseFollow);
 
-function delayMouseFollow() {
-    requestAnimationFrame(delayMouseFollow);
+        revisedMousePosX += (mousePosX - revisedMousePosX) / delay;
+        revisedMousePosY += (mousePosY - revisedMousePosY) / delay;
 
-    revisedMousePosX += (mousePosX - revisedMousePosX) / delay;
-    revisedMousePosY += (mousePosY - revisedMousePosY) / delay;
+        state.mouseCircle.style.top = revisedMousePosY + 'px';
+        state.mouseCircle.style.left = revisedMousePosX + 'px';
+    }
 
-    state.mouseCircle.style.top = revisedMousePosY + 'px';
-    state.mouseCircle.style.left = revisedMousePosX + 'px';
-}
-delayMouseFollow();
+    delayMouseFollow();
+}()

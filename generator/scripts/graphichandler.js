@@ -96,8 +96,18 @@ var graphicHandler = function() {
                 })
             }
         },
+
+        previewImage: (show) => {
+            document.getElementById("popup").style.transform = "translate(-50%, 300px)";
+            state.mouseCircle.style.opacity = "100%";
+        },
         
-        get: function() {
+        stopPreviewImage: () => {
+            document.getElementById("popup").style.transform = "translate(-50%, 150px)";
+            state.mouseCircle.style.opacity = "0%";
+        },
+        
+        get: () => {
             return {
                 selectedItem: selectedItem,
                 previewObjects: previewObjects,

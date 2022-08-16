@@ -86,9 +86,10 @@ var eventListeners = function() {
         downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
     });
 
+    // Add table when ready
     document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
-            addTable();
+            table.addTable();
         }
     };
 
@@ -105,6 +106,7 @@ var eventListeners = function() {
         }
     }
 
+    // Check scroll
     window.addEventListener("scroll", (event) => {
         if (this.scrollY >= 45) {
             document.getElementsByClassName("sidebar")[0].classList.add("fixedSidebar")
