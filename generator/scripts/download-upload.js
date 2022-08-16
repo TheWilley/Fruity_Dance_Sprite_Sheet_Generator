@@ -3,7 +3,8 @@ var downloadUpload = function() {
         downloadZIP: function(canvas, text, filename) {
             var zip = new JSZip();
             var zipFilename = `${filename}.zip`;
-            var output = new Image().src = canvas.toDataURL();
+            var output = new Image();
+            output.src = canvas.toDataURL();
 
             // Check for invalid characters in filename
             if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
@@ -109,11 +110,11 @@ var eventListeners = function() {
     // Check scroll
     window.addEventListener("scroll", (event) => {
         if (this.scrollY >= 45) {
-            document.getElementsByClassName("sidebar")[0].classList.add("fixedSidebar")
-            document.getElementsByClassName("sidebar-container")[0].classList.add("fixedContainer")
+            state.sidebar.classList.add("fixedSidebar")
+            state.sidebarContainer.classList.add("fixedContainer")
         } else {
-            document.getElementsByClassName("sidebar")[0].classList.remove("fixedSidebar")
-            document.getElementsByClassName("sidebar-container")[0].classList.remove("fixedContainer")
+            state.sidebar.classList.remove("fixedSidebar")
+            state.sidebarContainer.classList.remove("fixedContainer")
         }
     });
 

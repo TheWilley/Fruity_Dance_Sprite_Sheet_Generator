@@ -2,21 +2,14 @@ var imageOffset = function () {
     var previousObject = null
 
     function disableElementSpecificControls(enabled) {
-        let xoffsetform = document.getElementById("offsetX");
-        let yoffsetform = document.getElementById("offsetY");
-        let remove = document.getElementById("delete");
-
-        xoffsetform.disabled = enabled;
-        yoffsetform.disabled = enabled;
-        remove.disabled = enabled;
+        state.offsetX.disabled = enabled;
+        state.offsetY.disabled = enabled;
+        state.delete.disabled = enabled;
     }
 
     return {
         show_controls: (currentObject) => {
             graphicHandler.get().selectedItem = currentObject;
-            // Get input for X and Y
-            let xoffsetform = document.getElementById("offsetX");
-            let yoffsetform = document.getElementById("offsetY");
 
             if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {
                 disableElementSpecificControls(true);
@@ -30,8 +23,8 @@ var imageOffset = function () {
 
             // Function variable for event
             const setnumb = function () {
-                cellCollection[rownumb][cellnumb].xOffset = xoffsetform.value;
-                cellCollection[rownumb][cellnumb].yOffset = yoffsetform.value;
+                cellCollection[rownumb][cellnumb].xOffset = state.offsetX.value;
+                cellCollection[rownumb][cellnumb].yOffset = state.offsetY.value;
 
                 graphicHandler.get().clear = true;
 
@@ -40,8 +33,8 @@ var imageOffset = function () {
 
             // Unbind all events
             if (currentObject != previousObject) {
-                $(xoffsetform).unbind();
-                $(yoffsetform).unbind();
+                $(state.offsetX).unbind();
+                $(state.offsetY).unbind();
             }
 
             // First check if object has been accessed before
@@ -60,13 +53,13 @@ var imageOffset = function () {
                 Yoffset = cellCollection[rownumb][cellnumb].yOffset;
 
                 // Set values
-                xoffsetform.value = Xoffset;
-                yoffsetform.value = Yoffset;
+                state.offsetX.value = Xoffset;
+                state.offsetY.value = Yoffset;
 
                 // Add event listeners
-                $(xoffsetform).change(setnumb);
-                $(yoffsetform).change(setnumb);
+                $(state.offsetX).change(setnumb);
+                $(state.offsetY).change(setnumb);
             }
         }
     }
-}
+}()

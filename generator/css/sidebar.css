@@ -1,5 +1,5 @@
 @media only screen and (max-width: 1199px) {
-    .sidebar-container {
+    #sidebarContainer {
         position: initial !important;
         overflow-x: auto;
         max-height: 140px;
@@ -25,7 +25,7 @@
 }
 
 /*/ Classes /*/
-.sidebar {
+#sidebar {
     background-color: rgb(49, 49, 49);
     border-radius: 5px;
     padding: 10px;
@@ -37,7 +37,7 @@
     transition: all 0.5s;
 }
 
-.sidebar-container {
+#sidebarContainer {
     width:auto;
     position: sticky;
     top: 20px;

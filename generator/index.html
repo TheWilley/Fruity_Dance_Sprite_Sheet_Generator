@@ -38,8 +38,8 @@
     <div class="container-fluid">
         <div class="row justify-content-left">
             <div id="topbar" class="col-xl-2 text-center">
-                <div class="sidebar-container">
-                    <div class="sidebar">
+                <div id="sidebarContainer">
+                    <div id="sidebar">
                         <form id='post-form' class='post-form' method='post'>
                             <div style="position: relative; width: fit-content;">
                                 <label for='files'><em id="label">Select multiple files: </em>
@@ -60,13 +60,13 @@
                     <h2 style="text-decoration: underline;">Edit</h2>
                     <form id="settings" style="margin-bottom: 8px">
                         <label>Rows:</label>
-                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:addTable()" min="1"
+                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:table.addTable()" min="1"
                             max="40">
                         <label>Width:</label>
-                        <input type="number" step="1" value="80" id="cell_width" onchange="Javascript:addTable()"
+                        <input type="number" step="1" value="80" id="cell_width" onchange="Javascript:table.addTable()"
                             min="80" max="233">
                         <label>Height:</label>
-                        <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:addTable()"
+                        <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:table.addTable()"
                             min="80" max="233">
                     </form>
 
@@ -139,9 +139,9 @@
 <!--Custom Resources-->
 <script src="scripts/dist/elementCatcher.js"></script>
 <script>const state = new elementCatcher({"id":"app", "getElementsWith": "id"})</script>
+<script src="scripts/grid.js"></script>
 <script src="scripts/graphichandler.js"></script>
 <script src="scripts/getSet.js"></script>
-<script src="scripts/grid.js"></script>
 <script src="scripts/draghandler.js"></script>
 <script src="scripts/mousehandler.js"></script>
 <script src="scripts/smoothpreview.js"></script>

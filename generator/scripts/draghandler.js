@@ -18,7 +18,7 @@ var dragHandler = function() {
                 // Here we show the user the image in its true proportions
                 graphicHandler.previewImage();
 
-                document.getElementById("popup_image").src = target.src;
+                state.popup_image.src = target.src;
             },
             move(event) {
                 var target = event.target;

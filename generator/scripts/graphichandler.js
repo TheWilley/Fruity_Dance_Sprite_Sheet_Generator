@@ -10,13 +10,13 @@ var graphicHandler = function() {
             let GeneratedCanvas = new Image();
             GeneratedCanvas.src = image;
 
-            let ctx = document.getElementById('canvas');
+            let ctx = state.canvas;
             if (ctx.getContext) {
                 ctx = ctx.getContext('2d');
                 // Drawing of image
                 GeneratedCanvas.onload = function() {
-                    let cell_width = parseInt(document.getElementById("cell_width").value);
-                    let cell_height = parseInt(document.getElementById("cell_height").value);
+                    let cell_width = parseInt(state.cell_width.value);
+                    let cell_height = parseInt(state.cell_height.value);
 
                     ctx.drawImage(GeneratedCanvas, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
                 };
@@ -98,12 +98,12 @@ var graphicHandler = function() {
         },
 
         previewImage: (show) => {
-            document.getElementById("popup").style.transform = "translate(-50%, 300px)";
+            state.popup.style.transform = "translate(-50%, 300px)";
             state.mouseCircle.style.opacity = "100%";
         },
         
         stopPreviewImage: () => {
-            document.getElementById("popup").style.transform = "translate(-50%, 150px)";
+            state.popup.style.transform = "translate(-50%, 150px)";
             state.mouseCircle.style.opacity = "0%";
         },
         

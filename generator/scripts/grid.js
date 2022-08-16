@@ -2,11 +2,11 @@ var table = function() {
     return {
         addTable: () => {
             // Add all elements from last time
-            document.getElementById("result").innerHTML = localStorage.getItem("images");
+            state.result.innerHTML = localStorage.getItem("images");
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
             // Create trashcan
-            document.getElementById("result").appendChild(function() {
+            state.result.appendChild(function() {
                 let p = document.createElement("p");
                 p.innerHTML = "sdfdssf";
                 return p;
@@ -29,20 +29,8 @@ var table = function() {
                 }
             }
 
-            // Get elements value
-            var xvalue = parseInt(document.getElementById("xvalue").value);
-            var cell_width = parseInt(document.getElementById("cell_width").value);
-            var cell_height = parseInt(document.getElementById("cell_height").value);
-
-            // Get elements node
-            var ContainerCanvas = document.getElementById("ContainerCanvas");
-            var canvas = document.getElementById("canvas");
-
-            // Create table and assign ID
-            var dyntable = document.getElementById("dyntable");
-
             cellCollection = [];
-            dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>';
+            state.dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>';
 
             // Stop all objects
             graphicHandler.get().previewObjects.forEach(object => {
@@ -53,7 +41,7 @@ var table = function() {
             graphicHandler.get().previewObjects.length = [];
 
             // Loop trough and add rows
-            for (let x = 0; x < xvalue; x++) {
+            for (let x = 0; x < state.xvalue.value; x++) {
                 /* For every row, add another row to the 2D array in @getSet.js.
                 This way, the array is dynamic. */
                 cellCollection.push([]);
@@ -73,7 +61,7 @@ var table = function() {
             for (let i = 0; i < cellCollection.length; i++) {
                 // Generate tanle rows
                 let table_row = document.createElement('TR');
-                dyntable.appendChild(table_row);
+                state.dyntable.appendChild(table_row);
 
                 // Get the size of the inner array
                 var innerArrayLength = cellCollection[i].length;
@@ -91,7 +79,7 @@ var table = function() {
 
                     // Set all image_cell attributes
                     image_cell.setAttribute("class", "immg-grid");
-                    image_cell.onclick = function() { show_controls(this) };
+                    image_cell.onclick = function() { imageOffset.show_controls(this) };
 
                     // Set all image_controlls attributes
                     image_controls.setAttribute("id", "image_controls")
@@ -105,20 +93,23 @@ var table = function() {
 
             // Canvas Creation
             let canvas_element = document.createElement('canvas');
-            if (canvas != null) {
-                canvas.remove();
+            if (state.canvas != null) {
+                state.canvas.remove();
             }
 
-            canvas_element.setAttribute("height", cell_height * xvalue);
-            canvas_element.setAttribute("width", cell_width * 8);
+            canvas_element.setAttribute("height", state.cell_height.value * state.xvalue.value);
+            canvas_element.setAttribute("width", state.cell_width.value * 8);
             canvas_element.setAttribute("id", "canvas");
-            ContainerCanvas.appendChild(canvas_element);
+            state.ContainerCanvas.appendChild(canvas_element);
 
             // Reset text element
             state.textarea.value = "";
 
+            // Add to object
+            state.addElement(canvas_element);
+
             // Generate text in textarea
-            for (l = 1; l < xvalue; l++) {
+            for (l = 1; l < state.xvalue.value; l++) {
                 state.textarea.value += "Animation " + l + "\n";
             }
             state.textarea.value += "Held";

@@ -29,11 +29,11 @@
 
         return document.getElementById(this.#object.id)
     }
-    
+
     start() {
         for (const element of this.#object.directChildren ? this.app.childNodes : this.app.getElementsByTagName("*")) {
             switch (this.#object.getElementsWith) {
-                case 'id': 
+                case 'id':
                     if (this.#object.ignoreClass) { if (!element.id && element.classList.contains(this.#object.ignoreClass)) this[element.id] = element }
                     else if (this.#object.includeClass) { if (element.id && element.classList.contains(this.#object.includeClass)) this[element.id] = element }
                     else if (element.id) { this[element.id] = element }
@@ -55,6 +55,28 @@
                     break;
                 default:
                     this.error(`'${this.#object.getElementsWith}' is not a valid 'getElementsWith' value (id, class, all, allAsArray)`)
+            }
+        }
+    }
+
+    addElement(element) {
+        if (Array.isArray(element)) {
+            element.forEach(e => {
+                if (e.id) {
+                    this[e.id] = e;
+                } else if (e.classList.length > 0) {
+                    this.elements.push(e);
+                } else {
+                    this.error("Element has no id or class")
+                }
+            })
+        } else {
+            if (element.id) {
+                this[element.id] = element;
+            } else if (element.classList.length > 0) {
+                this.elements.push(element);
+            } else {
+                this.error("Element has no id or class")
             }
         }
     }

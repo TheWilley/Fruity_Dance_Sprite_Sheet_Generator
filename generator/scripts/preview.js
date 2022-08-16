@@ -16,11 +16,11 @@ class preview {
         this.now;
         this.delta;
         this.bind; // The bind is used by the requestAnimationFrame to avoid binding many times
-        this.width = document.getElementById("cell_width").value;
-        this.height = document.getElementById("cell_height").value;
+        this.width = state.cell_width.value;
+        this.height = state.cell_height.value;
 
         // Set the height and width
-        this.previewCanvas = document.getElementById("gifPreview");
+        this.previewCanvas = state.gifPreview;
         this.previewCanvas.width = this.width;
         this.previewCanvas.height = this.height * this.row;
 
@@ -30,7 +30,7 @@ class preview {
 
     nextFrame() {
         // Generate settings
-        var originalCanvas = document.getElementById("canvas"),
+        var originalCanvas = state.canvas,
             startClippingX = 0,
             startClippingY = (this.height * this.row) - this.height,
             clippingWidth = this.width,
