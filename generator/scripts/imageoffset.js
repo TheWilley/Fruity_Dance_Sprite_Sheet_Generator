@@ -1,20 +1,20 @@
 var imageOffset = function () {
     var previousObject = null
 
-    function disableElementSpecificControls(enabled) {
-        state.offsetX.disabled = enabled;
-        state.offsetY.disabled = enabled;
-        state.delete.disabled = enabled;
-    }
-
     return {
+        disableControls: function(enabled) {
+            state.offsetX.disabled = enabled;
+            state.offsetY.disabled = enabled;
+            state.delete.disabled = enabled;
+        },
+
         show_controls: (currentObject) => {
             graphicHandler.setSelectedItem(currentObject);
 
             if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {
-                disableElementSpecificControls(true);
+                this.disableControls(true);
             } else {
-                disableElementSpecificControls(false);
+                this.disableControls(false);
             }
 
             // Get row / cell number

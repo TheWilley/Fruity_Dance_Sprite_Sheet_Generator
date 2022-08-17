@@ -81,6 +81,9 @@ var graphicHandler = function () {
 
             // Step 4, redraw
             this.redraw()
+
+            // Step 5, disable controls
+            imageOffset.disableControls()
         },
 
         configPreview: function (e) {
