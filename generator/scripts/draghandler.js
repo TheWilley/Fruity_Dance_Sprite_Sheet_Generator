@@ -69,17 +69,14 @@ var dragHandler = function () {
             target_element.setAttribute('data-y', original_position_y);
 
             event.target.classList.remove('drop-target');
-            event.relatedTarget.classList.remove('can-drop');
-            event.relatedTarget.classList.remove("isdragged");
+            event.relatedTarget.classList.remove('can-drop', 'isdragged');
 
             graphicHandler.previewImage(false);
         },
         ondragenter: function (event) {
-            var dropzoneElement = event.target
-            var draggableElement = event.relatedTarget
             // Feedback the possibility of a drop
-            dropzoneElement.classList.add('drop-target')
-            draggableElement.classList.add('can-drop')
+            event.target.classList.add('drop-target')
+            event.relatedTarget.classList.add('can-drop')
         },
         ondragleave: function (event) {
             var draggableElement = event.relatedTarget
@@ -95,6 +92,14 @@ var dragHandler = function () {
         ondrop: function(event) {
             event.relatedTarget.remove()
             graphicHandler.previewImage(false);
+            event.target.style.background = "#ffc107";
+        },
+        ondragenter: function (event) {
+            // Feedback the possibility of a drop
+            event.target.style.background = "red";
+        },
+        ondragleave: function (event) {
+            event.target.style.background = "#ffc107";
         }
     })
 }()

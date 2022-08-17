@@ -98,7 +98,16 @@ var graphicHandler = function () {
         },
 
         previewImage: function (e) {
-            if (e) { popup.style.transform = "translate(-50%, 300px)"; state.mouseCircle.style.opacity = "100%"; } else { state.popup.style.transform = "translate(-50%, 150px)"; state.mouseCircle.style.opacity = "0%" };
+            if (e) {
+                popup.style.transform = "translate(-50%, 300px)";
+                state.mouseCircle.style.opacity = "100%";
+                state.delete.style.border = "3px dashed red"
+            } else {
+                state.popup.style.transform = "translate(-50%, 150px)";
+                state.mouseCircle.style.opacity = "0%"
+                state.delete.style.border = "none"
+
+            };
         },
 
         // Getters
