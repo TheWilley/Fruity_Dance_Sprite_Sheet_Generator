@@ -48,6 +48,8 @@ var table = function() {
                     // Here we add a tempobject to the grid to store for later usage
                     let tempobject = new ImageObject(x, y);
                     cellCollection[x][y] = tempobject;
+                    cellCollection[x][y].xOffset = 0;
+                    cellCollection[x][y].yOffset = 0;
                 }
             }
 

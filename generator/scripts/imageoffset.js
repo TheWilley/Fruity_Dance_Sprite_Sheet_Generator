@@ -39,7 +39,7 @@ var imageOffset = function () {
             }
 
             // First check if object has been accessed before
-            if (previousObject != null) { previousObject.style.border = "none" };
+            if (previousObject != null) { previousObject.style.border = "1px solid gray" };
 
             // Make the previous object the current one
             previousObject = currentObject;
