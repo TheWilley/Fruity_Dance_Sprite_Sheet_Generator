@@ -1,11 +1,11 @@
-var graphicHandler = function() {
+var graphicHandler = function () {
     var selectedItem;
     var previewObjects = [];
     var clear = false;
     sessionStorage.imagenumb = 0;
 
     return {
-        preview_image: function(image, rownumb, cellnumb) {
+        preview_image: function (image, rownumb, cellnumb) {
             // This is where we create the canvas and insert images
             let GeneratedCanvas = new Image();
             GeneratedCanvas.src = image;
@@ -14,7 +14,7 @@ var graphicHandler = function() {
             if (ctx.getContext) {
                 ctx = ctx.getContext('2d');
                 // Drawing of image
-                GeneratedCanvas.onload = function() {
+                GeneratedCanvas.onload = function () {
                     let cell_width = parseInt(state.cell_width.value);
                     let cell_height = parseInt(state.cell_height.value);
 
@@ -23,7 +23,7 @@ var graphicHandler = function() {
             }
         },
 
-        preview_image_edit: function(image, rownumb, cellnumb, Xoffset, Yoffset) {
+        preview_image_edit: function (image, rownumb, cellnumb, Xoffset, Yoffset) {
             // This is where we create the canvas and insert images
             let GeneratedCanvas = new Image();
             GeneratedCanvas.src = image;
@@ -45,14 +45,14 @@ var graphicHandler = function() {
                 clear = false;
 
                 // Drawing of image
-                GeneratedCanvas.onload = function() {
+                GeneratedCanvas.onload = function () {
                     // Create clipping path
                     ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
                 };
             }
         },
 
-        redraw: function() {
+        redraw: function () {
             cellCollection.forEach(row => {
                 row.forEach(cell => {
                     if (cell.imageSrc != undefined) {
@@ -62,7 +62,7 @@ var graphicHandler = function() {
             })
         },
 
-        remove: function() {
+        remove: function () {
             currentObject = selectedItem;
             // Get row / cell number
             var rownumb = currentObject.parentNode.dataset.x;
@@ -83,7 +83,7 @@ var graphicHandler = function() {
             this.redraw()
         },
 
-        configPreview: function(e) {
+        configPreview: function (e) {
             if (e == true) {
                 previewObjects.forEach(obj => {
                     if (obj.getPauseState == true) {
@@ -97,32 +97,29 @@ var graphicHandler = function() {
             }
         },
 
-        previewImage: function(show) {
-            state.popup.style.transform = "translate(-50%, 300px)";
-            state.mouseCircle.style.opacity = "100%";
+        previewImage: function (e) {
+            if (e) { popup.style.transform = "translate(-50%, 300px)"; state.mouseCircle.style.opacity = "100%"; } else { state.popup.style.transform = "translate(-50%, 150px)"; state.mouseCircle.style.opacity = "0%" };
         },
-        
-        stopPreviewImage: function() {
-            state.popup.style.transform = "translate(-50%, 150px)";
-            state.mouseCircle.style.opacity = "0%";
-        },
-        
+
         // Getters
-        getSelectedItem: function() {
+        getSelectedItem: function () {
             return selectedItem;
         },
-        getPreviewObjects: function() {
+
+        getPreviewObjects: function () {
             return previewObjects;
         },
-        getClear: function() {
+
+        getClear: function () {
             return clear;
         },
 
         // Setters
-        setSelectedItem: function(e) {
+        setSelectedItem: function (e) {
             selectedItem = e;
         },
-        setClear: function(e) {
+
+        setClear: function (e) {
             clear = e;
         },
     }

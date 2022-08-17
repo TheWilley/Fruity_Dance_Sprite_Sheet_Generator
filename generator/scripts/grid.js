@@ -5,13 +5,6 @@ var table = function() {
             state.result.innerHTML = localStorage.getItem("images");
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
-            // Create trashcan
-            state.result.appendChild(function() {
-                let p = document.createElement("p");
-                p.innerHTML = "sdfdssf";
-                return p;
-            }());
-
             // Check if there is any image added and warn user
             var allCellsEmpty = true;
 
