@@ -93,6 +93,7 @@ var dragHandler = function () {
             event.relatedTarget.remove()
             graphicHandler.previewImage(false);
             event.target.style.background = "#ffc107";
+            localStorage.setItem("images", state.result.innerHTML);
         },
         ondragenter: function (event) {
             // Feedback the possibility of a drop
