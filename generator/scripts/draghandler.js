@@ -99,21 +99,4 @@ var dragHandler = function() {
         .on('dropactivate', function(event) {
             event.target.classList.add('drop-activated');
         })
-
-    return {
-        // Functions for drag and drop
-        allowDrop: (ev) => {
-            ev.preventDefault();
-        },
-
-        drag: (ev) => {
-            ev.dataTransfer.setData("text", ev.target.id);
-        },
-
-        drop: (ev) => {
-            ev.preventDefault();
-            let data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-        }
-    }
 }()
