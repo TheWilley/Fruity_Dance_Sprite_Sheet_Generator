@@ -61,7 +61,7 @@ var downloadUpload = function() {
                     div.setAttribute("class", "result-container");
 
                     // Insert the image
-                    div.innerHTML = "<img class='thumbnail draggable' src='" + picFile.result + "'" +
+                    div.innerHTML = "<img class='thumbnail draggable col0' src='" + picFile.result + "'" +
                         "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
                     // Insert the combined div and image
@@ -91,6 +91,7 @@ var eventListeners = function() {
     document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
             table.addTable();
+            graphicHandler.ctx()
         }
     };
 

@@ -114,6 +114,51 @@ var graphicHandler = function () {
             };
         },
 
+        filterClass: function() {
+            for (e of document.querySelectorAll(".thumbnail")) {
+                if (!e.classList.contains(state.collection.value)) {
+                    e.style.display = "none"
+                } else {
+                    e.style.display = "block"
+                }
+            }
+            localStorage.setItem("images", state.result.innerHTML);
+        },
+
+        ctx: function () {
+            const contextMenu = CtxMenu(".thumbnail");
+
+            const classNames = function () {
+                var temp = []
+                for (let i = 0; i < 10; i++) {
+                    temp.push("col" + i)
+
+                    contextMenu.addItem(`Collection ${i}`, function () {
+                        changeClass(contextMenu._elementClicked, "col" + i)
+                    });
+
+                    var option = document.createElement("option");
+                    option.value = "col" + i;
+                    option.innerHTML = `Collection ${i}`;
+                    state.collection.appendChild(option)
+
+                    graphicHandler.filterClass()
+                }
+                return temp;
+            }()
+
+            const changeClass = function (element, className) {
+                for (n of classNames) {
+                    if (n != className) {
+                        element.classList.remove(n)
+                    } else {
+                        element.classList.add(className)
+                    }
+                }
+                graphicHandler.filterClass()
+            }
+        },
+
         // Getters
         getSelectedItem: function () {
             return selectedItem;
@@ -134,6 +179,6 @@ var graphicHandler = function () {
 
         setClear: function (e) {
             clear = e;
-        },
+        }
     }
 }()

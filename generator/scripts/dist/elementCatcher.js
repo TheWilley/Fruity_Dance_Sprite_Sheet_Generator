@@ -5,7 +5,7 @@
  * 
  * @author TheWilley
  */
- class elementCatcher {
+ class ElementCatcher {
     #object
 
     constructor(object) {
@@ -17,7 +17,7 @@
     }
 
     error(message) {
-        alert("[[elementCatcher]] Error - " + message)
+        alert("[[ElementCatcher]] Error - " + message)
         throw new Error(message)
     }
 

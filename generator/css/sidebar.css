@@ -22,6 +22,9 @@
         top: 10px;
         z-index: 300;
     }
+    #collection {
+        display: table;
+    }
 }
 
 /*/ Classes /*/
