@@ -9,7 +9,7 @@ var imageOffset = function () {
 
     return {
         show_controls: (currentObject) => {
-            graphicHandler.get().selectedItem = currentObject;
+            graphicHandler.setSelectedItem(currentObject);
 
             if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {
                 disableElementSpecificControls(true);
@@ -26,7 +26,8 @@ var imageOffset = function () {
                 cellCollection[rownumb][cellnumb].xOffset = state.offsetX.value;
                 cellCollection[rownumb][cellnumb].yOffset = state.offsetY.value;
 
-                graphicHandler.get().clear = true;
+                graphicHandler.setClear(true);
+                console.log(graphicHandler.getClear())
 
                 graphicHandler.redraw()
             }

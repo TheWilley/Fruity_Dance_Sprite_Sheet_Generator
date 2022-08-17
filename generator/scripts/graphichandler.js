@@ -42,7 +42,7 @@ var graphicHandler = function() {
                 if (image == "") { ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
                 // Bool restore
-                this.setClear(false);
+                clear = false;
 
                 // Drawing of image
                 GeneratedCanvas.onload = function() {
@@ -97,22 +97,33 @@ var graphicHandler = function() {
             }
         },
 
-        previewImage: (show) => {
+        previewImage: function(show) {
             state.popup.style.transform = "translate(-50%, 300px)";
             state.mouseCircle.style.opacity = "100%";
         },
         
-        stopPreviewImage: () => {
+        stopPreviewImage: function() {
             state.popup.style.transform = "translate(-50%, 150px)";
             state.mouseCircle.style.opacity = "0%";
         },
         
-        get: () => {
-            return {
-                selectedItem: selectedItem,
-                previewObjects: previewObjects,
-                clear: clear
-            }
-        }
+        // Getters
+        getSelectedItem: function() {
+            return selectedItem;
+        },
+        getPreviewObjects: function() {
+            return previewObjects;
+        },
+        getClear: function() {
+            return clear;
+        },
+
+        // Setters
+        setSelectedItem: function(e) {
+            selectedItem = e;
+        },
+        setClear: function(e) {
+            clear = e;
+        },
     }
 }()
