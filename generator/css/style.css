@@ -201,13 +201,6 @@ input[type='file'] {
     cursor: pointer;
 }
 
-#image_controls {
-    left: 50%;
-    position: absolute;
-    top: 100%;
-    transform: translate(-50%, 0.75rem);
-}
-
 #offset input {
     max-width: 80px;
     margin-bottom: 13px;

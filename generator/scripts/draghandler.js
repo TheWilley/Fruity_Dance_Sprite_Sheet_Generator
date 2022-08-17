@@ -96,7 +96,6 @@ var dragHandler = function () {
             localStorage.setItem("images", state.result.innerHTML);
         },
         ondragenter: function (event) {
-            // Feedback the possibility of a drop
             event.target.style.background = "red";
         },
         ondragleave: function (event) {

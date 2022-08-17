@@ -1,6 +1,17 @@
-var table = function() {
+var table = function () {
     return {
-        addTable: () => {
+        generateImage: function () {
+            // Generate image cells
+            let image = document.createElement('IMG');
+
+            // Set all image_cell attributes
+            image.setAttribute("class", "immg-grid");
+            image.onclick = function () { imageOffset.show_controls(this) };
+
+            return image;
+        },
+
+        addTable: function () {
             // Add all elements from last time
             state.result.innerHTML = localStorage.getItem("images");
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
@@ -68,20 +79,11 @@ var table = function() {
                     table_cell.setAttribute("data-y", j);
                     table_cell.classList.add('dropzone')
 
-                    // Generate image cells
-                    let image_cell = document.createElement('IMG');
-                    let image_controls = document.createElement('SPAN');
-
-                    // Set all image_cell attributes
-                    image_cell.setAttribute("class", "immg-grid");
-                    image_cell.onclick = function() { imageOffset.show_controls(this) };
-
-                    // Set all image_controlls attributes
-                    image_controls.setAttribute("id", "image_controls")
+                    // Generate image
+                    image_cell = this.generateImage();
 
                     // Append all elemments
                     table_cell.appendChild(image_cell);
-                    table_cell.appendChild(image_controls);
                     table_row.appendChild(table_cell);
                 }
             }

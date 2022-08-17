@@ -76,14 +76,15 @@ var graphicHandler = function () {
             cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
             cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
-            // Step 3, remove from grid
-            currentObject.src = "data:,";
+            // Step 3, remove regenerate and remove from grid
+            currentObject.parentNode.appendChild(table.generateImage());
+            currentObject.remove();
 
             // Step 4, redraw
             this.redraw()
 
             // Step 5, disable controls
-            imageOffset.disableControls()
+            imageOffset.disableControls(true)
         },
 
         configPreview: function (e) {

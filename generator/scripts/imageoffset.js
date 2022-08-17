@@ -8,7 +8,7 @@ var imageOffset = function () {
             state.delete.disabled = enabled;
         },
 
-        show_controls: (currentObject) => {
+        show_controls: function(currentObject) {
             graphicHandler.setSelectedItem(currentObject);
 
             if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {

@@ -60,8 +60,8 @@
                     <h2 style="text-decoration: underline;">Edit</h2>
                     <form id="settings" style="margin-bottom: 8px">
                         <label>Rows:</label>
-                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:table.addTable()" min="1"
-                            max="40">
+                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:table.addTable()"
+                            min="1" max="40">
                         <label>Width:</label>
                         <input type="number" step="1" value="80" id="cell_width" onchange="Javascript:table.addTable()"
                             min="80" max="999">
@@ -75,7 +75,8 @@
                         <input id="offsetX" class="offsetControlls" type="number" min="-999" disabled>
                         <input id="offsetY" class="offsetControlls" type="number" min="-999" disabled>
                         <label>:Y-offset</label>
-                        <button class="btn btn-warning btn-sm" id="delete" onclick="graphicHandler.remove()" disabled> Delete </button>
+                        <button class="btn btn-warning btn-sm" id="delete" onclick="graphicHandler.remove()" disabled>
+                            Delete </button>
                     </form>
 
                     <div id="dyntable_container">
@@ -86,9 +87,7 @@
 
                 <div id="output" class="box">
                     <h2 style="text-decoration: underline;">Output</h2>
-
                     <div id="ContainerCanvas">
-
                     </div>
                 </div>
 
@@ -96,9 +95,11 @@
                     <h2 style="text-decoration: underline;">Preview</h2>
 
                     <div id="preview-buttons">
-                        <button id="start" class="btn btn-outline-light btn-sm" onclick="graphicHandler.configPreview(true)"> Start
+                        <button id="start" class="btn btn-outline-light btn-sm"
+                            onclick="graphicHandler.configPreview(true)"> Start
                             Preview </button>
-                        <button id="pause" class="btn btn-outline-light btn-sm" onclick="graphicHandler.configPreview(false)"> Pause
+                        <button id="pause" class="btn btn-outline-light btn-sm"
+                            onclick="graphicHandler.configPreview(false)"> Pause
                             Preview </button>
                     </div>
 
@@ -109,7 +110,8 @@
                     <h2 style="text-decoration: underline;">Animation Names</h2>
 
                     <textarea id="textarea" class="domElement" cols="30" rows="10"
-                        style="max-width: 400px; min-width: 400px; height:120px;"></textarea>
+                        style="max-width: 400px; min-width: 400px; height:120px;">
+                    </textarea>
                 </div>
                 <input id="filename" placeholder="Filename..."> <br>
                 <button id="download" class="btn btn-success" style="margin-top: 10px">Download</button>
@@ -138,7 +140,7 @@
 
 <!--Custom Resources-->
 <script src="scripts/dist/elementCatcher.js"></script>
-<script>const state = new elementCatcher({id: "app", getElementsWith: "id"})</script>
+<script>const state = new elementCatcher({ id: "app", getElementsWith: "id" })</script>
 <script src="scripts/grid.js"></script>
 <script src="scripts/graphichandler.js"></script>
 <script src="scripts/getSet.js"></script>
