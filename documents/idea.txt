@@ -1,0 +1,6 @@
+Collections
+===========
+We use classes to either hide or show images. 
+
+An image will be assigned a class based on user preference (right click menu) and we can then show or hide all images based on class. 
+This also means that local storage still can save all images as html.
