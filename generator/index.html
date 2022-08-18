@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/sidebar.css">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="scripts/dist/gif-frames.min.js"></script>
     <script src="scripts/dist/jszip.js"></script>
     <script src="scripts/dist/filesaver.js"></script>
     <script src="scripts/dist/ctxmenu.min/ctxmenu.min.js"></script>
@@ -18,6 +19,7 @@
 
 <body id="app">
     <div id="mouseCircle"></div>
+    <div id="gifFrames"></div>
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#" style="margin-left: 10px;">Fruity Dance Sprite Sheet Generator</a>
@@ -43,9 +45,14 @@
                     <div id="sidebar">
                         <form id='post-form' class='post-form' method='post'>
                             <div style="position: relative; width: fit-content;">
-                                <label for='files'><em id="label">Select multiple files: </em>
+                                <label for='files'><em id="label">Upload Images... </em>
                                     <input style="margin: 0 auto;" id='files' type='file'
-                                        accept="image/png, image/gif, image/jpeg" multiple hidden />
+                                        accept="image/png, image/jpeg" multiple hidden />
+                                </label>
+
+                                <label for='gifFile'><em id="label"> Upload Gif... </em>
+                                    <input style="margin: 0 auto;" id='gifFile' type='file'
+                                        accept="image/gif" hidden />
                                 </label>
                                 <select name="collections" id="collection" onchange="graphicHandler.filterClass()"></select>
                             </div>

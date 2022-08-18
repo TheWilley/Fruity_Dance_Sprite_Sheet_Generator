@@ -1,6 +1,31 @@
-var downloadUpload = function() {
+var downloadUpload = function () {
+    function createImage(picFile, src) {
+        // Create div for image
+        var div = document.createElement("div");
+        div.setAttribute("class", "result-container");
+
+        if (src == null) {
+            // Insert the image
+            div.innerHTML = "<img class='thumbnail draggable col0' src='" + picFile.result + "'" +
+                "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+        } else {
+            // Insert the image
+            div.innerHTML = "<img class='thumbnail draggable col0' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+        }
+
+        // Insert the combined div and image
+        state.result.insertBefore(div, null);
+
+        // Keep track of the number of files
+        sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
+
+        // Add div to local storage
+        localStorage.setItem("images", state.result.innerHTML);
+        localStorage.setItem("imagenumb", sessionStorage.imagenumb)
+    }
+
     return {
-        downloadZIP: function(canvas, text, filename) {
+        downloadZIP: function (canvas, text, filename) {
             var zip = new JSZip();
             var zipFilename = `${filename}.zip`;
             var output = new Image();
@@ -15,13 +40,13 @@ var downloadUpload = function() {
                 zip.file(`${filename}.txt`, text)
 
                 // Save file
-                zip.generateAsync({ type: 'blob' }).then(function(content) {
+                zip.generateAsync({ type: 'blob' }).then(function (content) {
                     saveAs(content, zipFilename);
                 });
             }
         },
 
-        clearData: function() {
+        clearData: function () {
             if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
                 return;
             }
@@ -33,7 +58,33 @@ var downloadUpload = function() {
             location.reload();
         },
 
-        uploadFiles: function() {
+        uploadGif: function () {
+            var maxFrames = 20;
+            var file = URL.createObjectURL(event.target.files[0]);
+
+            //Only pics and files under 10mb (10.000.000 bytes)
+            if (parseInt(file.size) > 10000000) {
+                alert("File too big or not an image")
+            } else {
+            gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                .then(function (frameData) {
+                    frameData.forEach(function (frame, i) {
+                        if (i < maxFrames) {
+                            state.gifFrames.appendChild(frameData[i].getImage());
+                        }
+                    })
+
+                    for (frame of state.gifFrames.childNodes) {
+                        createImage(null, frame.toDataURL())
+                    }
+
+                    state.gifFrames.innerHTML = "";
+
+                }).catch(console.error.bind(console));
+            }
+        },
+
+        uploadFiles: function () {
             // Get files and output element
             var files = event.target.files;
             files = [...files].filter(s => s.type.includes("image"))
@@ -42,8 +93,8 @@ var downloadUpload = function() {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
 
-                //Only pics and files under 1mb (1.000.000 bytes)
-                if (!file.type.match('image') || parseInt(file.size) > 1000000) {
+                //Only pics and files under 10mb (10.000.000 bytes)
+                if (!file.type.match('image') || parseInt(file.size) > 10000000) {
                     // To stop spaming
                     if (files.length <= 1) {
                         alert("File too big or not an image")
@@ -53,26 +104,8 @@ var downloadUpload = function() {
 
                 // Check if file has been loaded
                 var picReader = new FileReader();
-                picReader.addEventListener("load", function(event) {
-                    var picFile = event.target;
-
-                    // Create div for image
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "result-container");
-
-                    // Insert the image
-                    div.innerHTML = "<img class='thumbnail draggable col0' src='" + picFile.result + "'" +
-                        "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
-
-                    // Insert the combined div and image
-                    state.result.insertBefore(div, null);
-
-                    // Keep track of the number of files
-                    sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
-
-                    // Add div to local storage
-                    localStorage.setItem("images", state.result.innerHTML);
-                    localStorage.setItem("imagenumb", sessionStorage.imagenumb)
+                picReader.addEventListener("load", function (event) {
+                    createImage(event.target);
                 });
                 //Read the image
                 picReader.readAsDataURL(file);
@@ -81,9 +114,9 @@ var downloadUpload = function() {
     }
 }()
 
-var eventListeners = function() {
+var eventListeners = function () {
     // Download Canvas & Text File
-    state.download.addEventListener('click', function(e) {
+    state.download.addEventListener('click', function (e) {
         downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
     });
 
@@ -96,12 +129,16 @@ var eventListeners = function() {
     };
 
     // Get multiple files
-    window.onload = function() {
+    window.onload = function () {
         //Check File API support
         if (window.File && window.FileList && window.FileReader) {
             // An event listener, checks when button is clicked and file is submited
-            state.files.addEventListener("change", function(event) {
+            state.files.addEventListener("change", function (event) {
                 downloadUpload.uploadFiles();
+            });
+
+            state.gifFile.addEventListener("change", function (event) {
+                downloadUpload.uploadGif();
             });
         } else {
             alert("Your browser does not support File API");
@@ -120,7 +157,7 @@ var eventListeners = function() {
     });
 
     // Before leaving page
-    $(window).bind('beforeunload', function() {
-        return 'Your changes might not be saved';
+    $(window).bind('beforeunload', function () {
+        //return 'Your changes might not be saved';
     })
 }()
