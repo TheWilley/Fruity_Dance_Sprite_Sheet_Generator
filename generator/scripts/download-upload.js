@@ -108,7 +108,7 @@ var eventListeners = function() {
         }
     }
 
-    // Check scroll
+    // Check scroll position
     window.addEventListener("scroll", (event) => {
         if (this.scrollY >= 45) {
             state.sidebar.classList.add("fixedSidebar")
@@ -119,8 +119,8 @@ var eventListeners = function() {
         }
     });
 
-    // Before leave
+    // Before leaving page
     $(window).bind('beforeunload', function() {
-        //return 'Your changes might not be saved';
+        return 'Your changes might not be saved';
     })
 }()

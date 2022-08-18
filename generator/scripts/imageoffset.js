@@ -11,7 +11,8 @@ var imageOffset = function () {
         show_controls: function(currentObject) {
             graphicHandler.setSelectedItem(currentObject);
 
-            if (currentObject.getAttribute("src") == null || currentObject.getAttribute("src") == "data:,") {
+            // Disable controls if the image src is not found
+            if (currentObject.getAttribute("src") == null) {
                 this.disableControls(true);
             } else {
                 this.disableControls(false);
@@ -35,7 +36,7 @@ var imageOffset = function () {
                 $(state.offsetY).unbind();
             }
 
-            // First check if object has been accessed before
+            // Check if object has been accessed before
             if (previousObject != null) { previousObject.style.border = "1px solid gray" };
 
             // Make the previous object the current one

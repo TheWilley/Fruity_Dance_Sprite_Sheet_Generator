@@ -21,7 +21,6 @@ var graphicHandler = function () {
 
                 // Drawing of image
                 GeneratedCanvas.onload = function () {
-                    // Create clipping path
                     ctx.drawImage(GeneratedCanvas, cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height);
                 };
             }
