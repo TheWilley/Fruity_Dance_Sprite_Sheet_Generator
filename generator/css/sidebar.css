@@ -3,6 +3,7 @@
         position: initial !important;
         overflow-x: auto;
         max-height: 140px;
+        border-radius: 5px;
     }
     .post-form {
         text-align: left;
@@ -75,7 +76,7 @@
 /*/ ID's /*/
 #result {
     margin-top: 10px;
-    max-height: 800px;
+    max-height: 630px;
 }
 
 #upload_files {
