@@ -6,11 +6,11 @@ var downloadUpload = function () {
 
         if (src == null) {
             // Insert the image
-            div.innerHTML = "<img class='thumbnail draggable col0' src='" + picFile.result + "'" +
+            div.innerHTML = "<img class='thumbnail draggable" + state.collection.value + "' src='" + picFile.result + "'" +
                 "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
         } else {
             // Insert the image
-            div.innerHTML = "<img class='thumbnail draggable col0' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+            div.innerHTML = "<img class='thumbnail draggable " + state.collection.value+ "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
         }
 
         // Insert the combined div and image
