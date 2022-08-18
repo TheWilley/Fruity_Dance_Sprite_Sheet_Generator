@@ -26,9 +26,6 @@ var imageOffset = function () {
                 cellCollection[rownumb][cellnumb].xOffset = state.offsetX.value;
                 cellCollection[rownumb][cellnumb].yOffset = state.offsetY.value;
 
-                graphicHandler.setClear(true);
-                console.log(graphicHandler.getClear())
-
                 graphicHandler.redraw()
             }
 

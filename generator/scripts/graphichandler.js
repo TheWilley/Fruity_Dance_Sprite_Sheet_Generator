@@ -1,7 +1,6 @@
 var graphicHandler = function () {
     var selectedItem;
     var previewObjects = [];
-    var clear = false;
     sessionStorage.imagenumb = 0;
 
     return {
@@ -23,7 +22,7 @@ var graphicHandler = function () {
             }
         },
 
-        preview_image_edit: function (image, rownumb, cellnumb, Xoffset, Yoffset) {
+        preview_image_edit: function (image, rownumb, cellnumb, Xoffset, Yoffset, clear) {
             // This is where we create the canvas and insert images
             let GeneratedCanvas = new Image();
             GeneratedCanvas.src = image;
@@ -35,14 +34,8 @@ var graphicHandler = function () {
                 let cell_width = parseInt(state.cell_width.value);
                 let cell_height = parseInt(state.cell_height.value);
 
-                // Check if the whole canvas is being cleared
-                if (clear) { ctx.clearRect(0, 0, state.canvas.width, state.canvas.height) };
-
-                // Check if a part of the canvas is being cleared
-                if (image == "") { ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
-
-                // Bool restore
-                clear = false;
+                // Check if whole canvas is being cleared or only part of it
+                switch(clear) {case "wholeCanvas": ctx.clearRect(0, 0, state.canvas.width, state.canvas.height); case "partOfCanvas": ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
                 // Drawing of image
                 GeneratedCanvas.onload = function () {
@@ -56,7 +49,7 @@ var graphicHandler = function () {
             cellCollection.forEach(row => {
                 row.forEach(cell => {
                     if (cell.imageSrc != undefined) {
-                        this.preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset)
+                        this.preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset, "wholeCanvas")
                     }
                 });
             })
@@ -69,7 +62,7 @@ var graphicHandler = function () {
             var cellnumb = currentObject.parentNode.dataset.y;
 
             // Step 1, remove from canvas
-            this.preview_image_edit("", rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset);
+            this.preview_image_edit(null, rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset, "partOfCanvas");
 
             // Step 2, remove from array
             cellCollection[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
@@ -168,17 +161,9 @@ var graphicHandler = function () {
             return previewObjects;
         },
 
-        getClear: function () {
-            return clear;
-        },
-
         // Setters
         setSelectedItem: function (e) {
             selectedItem = e;
         },
-
-        setClear: function (e) {
-            clear = e;
-        }
     }
 }()
