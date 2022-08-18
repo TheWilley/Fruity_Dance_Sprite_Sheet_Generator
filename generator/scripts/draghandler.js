@@ -60,7 +60,7 @@ var dragHandler = function () {
             cellCollection[rownumb][cellnumb].yOffset = 0;
 
             // Run function to insert images into canvas    
-            graphicHandler.preview_image(target_element.src, rownumb, cellnumb);
+            graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);
             event.target.firstChild.src = target_element.src;
 
             // Go back to otiginal position

@@ -4,25 +4,7 @@ var graphicHandler = function () {
     sessionStorage.imagenumb = 0;
 
     return {
-        preview_image: function (image, rownumb, cellnumb) {
-            // This is where we create the canvas and insert images
-            let GeneratedCanvas = new Image();
-            GeneratedCanvas.src = image;
-
-            let ctx = state.canvas;
-            if (ctx.getContext) {
-                ctx = ctx.getContext('2d');
-                // Drawing of image
-                GeneratedCanvas.onload = function () {
-                    let cell_width = parseInt(state.cell_width.value);
-                    let cell_height = parseInt(state.cell_height.value);
-
-                    ctx.drawImage(GeneratedCanvas, cell_width * cellnumb, cell_height * rownumb, cell_width, cell_height);
-                };
-            }
-        },
-
-        preview_image_edit: function (image, rownumb, cellnumb, Xoffset, Yoffset, clear) {
+        generateCanvas: function (image, rownumb, cellnumb, Xoffset = 0, Yoffset = 0, clear) {
             // This is where we create the canvas and insert images
             let GeneratedCanvas = new Image();
             GeneratedCanvas.src = image;
@@ -49,7 +31,7 @@ var graphicHandler = function () {
             cellCollection.forEach(row => {
                 row.forEach(cell => {
                     if (cell.imageSrc != undefined) {
-                        this.preview_image_edit(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset, "wholeCanvas")
+                        this.generateCanvas(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset, "wholeCanvas")
                     }
                 });
             })
@@ -62,7 +44,7 @@ var graphicHandler = function () {
             var cellnumb = currentObject.parentNode.dataset.y;
 
             // Step 1, remove from canvas
-            this.preview_image_edit(null, rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset, "partOfCanvas");
+            this.generateCanvas(null, rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset, "partOfCanvas");
 
             // Step 2, remove from array
             cellCollection[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
