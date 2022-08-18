@@ -14,15 +14,15 @@ The rules can be sumarized as such:
 Simply clone the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it. 
 
 ## Feautures
-* Right click on an image to sort it into a "collection". 
+* Right click on an image to sort it into a "collection".  <br>
 ![](readme-stuff/2022-08-18-12-52-34.png)
-* Upload images or a gif to auto extract its frames (max 10mb).
+* Upload images or a gif to auto extract its frames (max 10mb). <br>
 ![](readme-stuff/2022-08-18-12-56-14.png)
-* Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet.
+* Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
 ![](readme-stuff/2022-08-18-13-01-00.png)
-* Drag and drop images into the grid to place them! You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image.
+* Drag and drop images into the grid to place them! You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
 ![](readme-stuff/2022-08-18-13-07-48.png)
-* Watch your sprite sheet live with the preview section.
+* Watch your sprite sheet live with the preview section. <br>
 ![](readme-stuff/2022-08-18-13-14-02.png)
 * Edit the name of animations and the ZIP!
 ![](readme-stuff/2022-08-18-13-21-01.png)
