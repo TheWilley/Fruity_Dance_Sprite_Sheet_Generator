@@ -85,7 +85,6 @@ var graphicHandler = function () {
                 state.popup.style.transform = "translate(-50%, 150px)";
                 state.mouseCircle.style.opacity = "0%"
                 state.delete.style.border = "none"
-
             };
         },
 
