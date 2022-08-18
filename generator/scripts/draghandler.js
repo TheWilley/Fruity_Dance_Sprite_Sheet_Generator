@@ -61,6 +61,7 @@ var dragHandler = function () {
 
             // Run function to insert images into canvas    
             graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);
+            graphicHandler.redraw()
             event.target.firstChild.src = target_element.src;
 
             // Go back to otiginal position
