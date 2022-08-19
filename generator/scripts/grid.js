@@ -58,7 +58,7 @@ var table = function () {
                 cellCollection.push([]);
 
                 // Create new preview objects
-                let temp = new preview(x + 1, 4);
+                let temp = new Preview(x + 1, 4);
                 graphicHandler.getPreviewObjects().push(temp);
                 temp.start();
 

@@ -21,7 +21,7 @@
     <!-- Used behind the scenes, not part of layout-->
     <div id="mouseCircle"></div>
     <div id="gifFrames"></div>
-    
+
     <!--Bootstrap Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#" style="margin-left: 10px;">Fruity Dance Sprite Sheet Generator</a>
@@ -39,7 +39,7 @@
         </div>
     </nav>
 
-    <!--Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation)-->
+    <!-- Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation) -->
     <div class="container-fluid">
         <div class="row justify-content-left">
             <div id="topbar" class="col-xl-2 text-center">
@@ -63,6 +63,8 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- The edit section-->
             <div class="col-xl-10 text-center">
                 <div id="edit" class="box">
                     <div id="popup">
@@ -96,12 +98,14 @@
                     </div>
                 </div>
 
+                <!-- The output section -->
                 <div id="output" class="box">
                     <h2 style="text-decoration: underline;">Output</h2>
                     <div id="ContainerCanvas">
                     </div>
                 </div>
 
+                <!-- The preview section -->
                 <div id="preview" class="box">
                     <h2 style="text-decoration: underline;">Preview</h2>
 
@@ -117,6 +121,7 @@
                     <canvas id="gifPreview" width="80" height="80"> </canvas>
                 </div>
 
+                <!-- The animation names section -->
                 <div id="text-mapping" class="box">
                     <h2 style="text-decoration: underline;">Animation Names</h2>
 
@@ -124,10 +129,14 @@
                         style="max-width: 400px; min-width: 400px; height:120px;">
                     </textarea>
                 </div>
+
+                <!-- The download section -->
                 <input id="filename" placeholder="Filename..."> <br>
                 <button id="download" class="btn btn-success" style="margin-top: 10px">Download</button>
                 <button id="clear" class="btn btn-danger" style="margin-top: 10px"
                     onclick="downloadUpload.clearData()">Clear Stored Images</button>
+
+                <!-- Footer -->
                 <div id="about">
                     <p>This webpage is created to generate Fruity Dance Sprite Sheets! To see more info and to find the
                         source code, go the the github page.

@@ -1,10 +1,10 @@
-let cellCollection = [];
-let currentCell;
+var cellCollection = [];
+var currentCell;
 
 /**
- * Grid class
+ * Grid class used to get x and y positions in table
  */
-class grid {
+class TablePositions {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -12,9 +12,9 @@ class grid {
 }
 
 /**
- * Image class constructor
+ * Image class
  */
-class ImageObject extends grid {
+class ImageObject extends TablePositions {
     constructor(x, y, xOffset, yOffset, imageSrc) {
         super(x, y);
         this.xOffset = xOffset;

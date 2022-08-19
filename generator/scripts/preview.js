@@ -1,11 +1,11 @@
 /**
  * Generates the preview canvas element
  * 
- * FPS control by elundmark
+ * FPS control by codetheory.in, archived by elundmark
  * https://gist.github.com/elundmark/38d3596a883521cb24f5
  */
 
-class preview {
+class Preview {
     constructor(row, fps) {
         this.row = row;
         this.fps = fps;
