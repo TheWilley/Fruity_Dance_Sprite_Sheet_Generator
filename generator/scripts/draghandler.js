@@ -1,9 +1,12 @@
 var dragHandler = function () {
-    // Original position
+    // Original positions
     let original_position_x = 0;
     let original_position_y = 0;
 
-    // Drag managment
+    
+    /**
+     * Drag managment
+     */
     interact('.draggable').draggable({
         listeners: {
             start(event) {
@@ -46,7 +49,9 @@ var dragHandler = function () {
         }
     })
 
-    // Grid dropzone managment
+    /**
+     * Grid dropzone managment
+     */
     interact(".dropzone").dropzone({
         ondrop: function (event) {
             // Get target id and split it
@@ -91,9 +96,16 @@ var dragHandler = function () {
 
     interact("#delete").dropzone({
         ondrop: function(event) {
+            // Remove element
             event.relatedTarget.remove()
+
+            // Disable the preview
             graphicHandler.previewImage(false);
+
+            // Reset delete button color
             event.target.style.background = "#ffc107";
+
+            // Update stored images
             localStorage.setItem("images", state.result.innerHTML);
         },
         ondragenter: function (event) {
