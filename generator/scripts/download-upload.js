@@ -1,4 +1,9 @@
 var downloadUpload = function () {
+    /**
+     * Creates a new image element and appends it to a collection
+     * @param {File} picFile - An image file
+     * @param {*} src - An image src
+     */
     function createImage(picFile, src) {
         // Create div for image
         var div = document.createElement("div");
@@ -25,6 +30,12 @@ var downloadUpload = function () {
     }
 
     return {
+        /**
+         * Compress sprite sheet along with a text file into a ZIP, then downloads it
+         * @param {Object} canvas - The canvas element (sprite sheet)
+         * @param {*} text - The animations names 
+         * @param {*} filename - The filename of the exported ZIP
+         */
         downloadZIP: function (canvas, text, filename) {
             var zip = new JSZip();
             var zipFilename = `${filename}.zip`;
@@ -46,6 +57,9 @@ var downloadUpload = function () {
             }
         },
 
+        /**
+         * Removes all stored image elements
+         */
         clearData: function () {
             if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
                 return;
@@ -58,6 +72,9 @@ var downloadUpload = function () {
             location.reload();
         },
 
+        /**
+         * Uploads gif and seperates its frames
+         */
         uploadGif: function () {
             var maxFrames = 20;
             var file = URL.createObjectURL(event.target.files[0]);
@@ -84,6 +101,9 @@ var downloadUpload = function () {
             }
         },
 
+        /**
+         * Uploads image files
+         */
         uploadFiles: function () {
             // Get files and output element
             var files = event.target.files;
@@ -107,6 +127,7 @@ var downloadUpload = function () {
                 picReader.addEventListener("load", function (event) {
                     createImage(event.target);
                 });
+
                 //Read the image
                 picReader.readAsDataURL(file);
             }
@@ -115,12 +136,17 @@ var downloadUpload = function () {
 }()
 
 var eventListeners = function () {
-    // Download Canvas & Text File
+
+    /**
+     * Checks if download button has been clicked
+     */
     state.download.addEventListener('click', function (e) {
         downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
     });
 
-    // Add table when ready
+    /**
+     * Creates table when website has loaded
+     */
     document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
             table.addTable();
@@ -128,15 +154,18 @@ var eventListeners = function () {
         }
     };
 
-    // Get multiple files
+    /**
+     * Uploads file(s)
+     */
     window.onload = function () {
         //Check File API support
         if (window.File && window.FileList && window.FileReader) {
-            // An event listener, checks when button is clicked and file is submited
+            // Checks when button is clicked and image file(s) have been submited
             state.files.addEventListener("change", function (event) {
                 downloadUpload.uploadFiles();
             });
 
+            // Checks when button is clicked and gif file have been submited
             state.gifFile.addEventListener("change", function (event) {
                 downloadUpload.uploadGif();
             });
@@ -145,7 +174,9 @@ var eventListeners = function () {
         }
     }
 
-    // Check scroll position
+    /**
+     * Checks scroll position
+     */
     window.addEventListener("scroll", (event) => {
         if (this.scrollY >= 45) {
             state.sidebar.classList.add("fixedSidebar")
@@ -156,7 +187,9 @@ var eventListeners = function () {
         }
     });
 
-    // Before leaving page
+    /**
+     * Runs Before leaving page
+     */
     $(window).bind('beforeunload', function () {
         //return 'Your changes might not be saved';
     })
