@@ -100,7 +100,7 @@ var graphicHandler = function () {
          */
         previewImage: function (preview) {
             if (preview) {
-                popup.style.transform = "translate(-50%, 300px)";
+                popup.style.transform = "translate(-50%, 290px)";
                 state.mouseCircle.style.opacity = "100%";
                 state.delete.style.border = "3px dashed red"
             } else {
