@@ -2,7 +2,7 @@
 
 <div align=center> <img src='logotype.png'> <br> <h3> A generator for the Fruity Dance plugin</h3> </div> <br>
 
-This generator was specifically made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. You don't have to change settings such as the height and width of the sprite sheet manually, as this generator does all that automatically. The plugin is actually rather specific on how the image is supposed to look. 
+This generator was specifically made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. You don't have to change settings such as the height and width of the sprite sheet manually, as this generator does all that automatically.
 
 ## The Plugin Rules
 The rules can be sumarized as such:
