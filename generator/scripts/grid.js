@@ -1,5 +1,9 @@
 var table = function () {
     return {
+        /**
+         * Generates an image element
+         * @returns {object} - The image element
+         */
         generateImage: function () {
             // Generate image cells
             let image = document.createElement('IMG');
@@ -11,6 +15,9 @@ var table = function () {
             return image;
         },
 
+        /**
+         * Creates the editor table
+         */
         addTable: function () {
             // Add all elements from last time
             state.result.innerHTML = localStorage.getItem("images");
