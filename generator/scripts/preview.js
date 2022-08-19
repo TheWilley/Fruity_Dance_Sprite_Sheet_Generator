@@ -1,4 +1,6 @@
 /**
+ * Generates the preview canvas element
+ * 
  * FPS control by elundmark
  * https://gist.github.com/elundmark/38d3596a883521cb24f5
  */
@@ -8,7 +10,7 @@ class preview {
         this.row = row;
         this.fps = fps;
 
-        // Default
+        // Default values
         this.pause = false;
         this.then = Date.now();
         this.interval = 1000 / this.fps;

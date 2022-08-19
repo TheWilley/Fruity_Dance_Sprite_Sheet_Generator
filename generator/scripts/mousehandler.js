@@ -5,12 +5,17 @@ var mouseHandler = function() {
     let revisedMousePosX = 0;
     let revisedMousePosY = 0;
 
-    // Mouse move
+    /**
+     * Detects when mouse is moving
+     */
     $(document).on("mousemove", function(e) {
         mousePosX = e.pageX;
         mousePosY = e.pageY;
     });
 
+    /**
+     * Delays circle movement
+     */
     function delayMouseFollow() {
         requestAnimationFrame(delayMouseFollow);
 

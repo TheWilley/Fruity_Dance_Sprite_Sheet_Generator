@@ -2,12 +2,20 @@ var imageOffset = function () {
     var previousObject = null
 
     return {
+        /**
+         * Enables or disables the offset & delete settings
+         * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
+         */
         disableControls: function(enabled) {
             state.offsetX.disabled = enabled;
             state.offsetY.disabled = enabled;
             state.delete.disabled = enabled;
         },
 
+        /**
+         * Shows controls for a cell in the table
+         * @param {object} currentObject - The target image element in the table
+         */
         show_controls: function(currentObject) {
             graphicHandler.setSelectedItem(currentObject);
 
