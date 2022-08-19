@@ -39,7 +39,7 @@ var graphicHandler = function () {
          * Redraws canvas
          */
         redraw: function () {
-            cellCollection.forEach(row => {
+            imageInfo.getCellCollection().forEach(row => {
                 row.forEach(cell => {
                     if (cell.imageSrc != undefined) {
                         this.generateCanvas(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset, "wholeCanvas")
@@ -58,12 +58,12 @@ var graphicHandler = function () {
             var cellnumb = currentObject.parentNode.dataset.y;
 
             // Step 1, remove from canvas
-            this.generateCanvas(null, rownumb, cellnumb, cellCollection[rownumb][cellnumb].xOffset, cellCollection[rownumb][cellnumb].yOffset, "partOfCanvas");
+            this.generateCanvas(null, rownumb, cellnumb, imageInfo.getCellCollection()[rownumb][cellnumb].xOffset, imageInfo.getCellCollection()[rownumb][cellnumb].yOffset, "partOfCanvas");
 
             // Step 2, remove from array
-            cellCollection[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
-            cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
-            cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
+            imageInfo.getCellCollection()[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
+            imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
+            imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
             // Step 3, remove regenerate and remove from grid
             currentObject.parentNode.appendChild(table.generateImage());

@@ -26,7 +26,7 @@ var table = function () {
             // Check if there is any image added and warn user
             var allCellsEmpty = true;
 
-            cellCollection.forEach(e1 => {
+            imageInfo.getCellCollection().forEach(e1 => {
                 e1.forEach(e2 => {
                     if (!e2.imageSrc == "") {
                         allCellsEmpty = false;
@@ -54,7 +54,7 @@ var table = function () {
             for (let x = 0; x < state.xvalue.value; x++) {
                 /* For every row, add another row to the 2D array in @getSet.js.
                 This way, the array is dynamic. */
-                cellCollection.push([]);
+                imageInfo.getCellCollection().push([]);
 
                 // Create new preview objects
                 let temp = new Preview(x + 1, 4);
@@ -64,19 +64,19 @@ var table = function () {
                 for (let y = 0; y <= 7; y++) {
                     // Here we add a tempobject to the grid to store for later usage
                     let tempobject = new ImageObject(x, y);
-                    cellCollection[x][y] = tempobject;
-                    cellCollection[x][y].xOffset = 0;
-                    cellCollection[x][y].yOffset = 0;
+                    imageInfo.getCellCollection()[x][y] = tempobject;
+                    imageInfo.getCellCollection()[x][y].xOffset = 0;
+                    imageInfo.getCellCollection()[x][y].yOffset = 0;
                 }
             }
 
-            for (let i = 0; i < cellCollection.length; i++) {
+            for (let i = 0; i < imageInfo.getCellCollection().length; i++) {
                 // Generate tanle rows
                 let table_row = document.createElement('TR');
                 state.dyntable.appendChild(table_row);
 
                 // Get the size of the inner array
-                var innerArrayLength = cellCollection[i].length;
+                var innerArrayLength = imageInfo.getCellCollection()[i].length;
                 // Loop the inner array
                 for (let j = 0; j < innerArrayLength; j++) {
                     // Generate table cells

@@ -32,8 +32,8 @@ var imageOffset = function () {
 
             // Function variable for event
             const setnumb = function () {
-                cellCollection[rownumb][cellnumb].xOffset = state.offsetX.value;
-                cellCollection[rownumb][cellnumb].yOffset = state.offsetY.value;
+                imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = state.offsetX.value;
+                imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = state.offsetY.value;
 
                 graphicHandler.redraw()
             }
@@ -56,8 +56,8 @@ var imageOffset = function () {
             // Get offset
             if (previousObject != null) {
                 // Get stored values
-                Xoffset = cellCollection[rownumb][cellnumb].xOffset;
-                Yoffset = cellCollection[rownumb][cellnumb].yOffset;
+                Xoffset = imageInfo.getCellCollection()[rownumb][cellnumb].xOffset;
+                Yoffset = imageInfo.getCellCollection()[rownumb][cellnumb].yOffset;
 
                 // Set values
                 state.offsetX.value = Xoffset;

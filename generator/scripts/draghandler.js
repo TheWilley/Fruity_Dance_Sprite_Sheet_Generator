@@ -59,10 +59,10 @@ var dragHandler = function () {
             var rownumb = event.target.dataset.x;
             var cellnumb = event.target.dataset.y;
 
-            // Set cellCollection
-            cellCollection[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
-            cellCollection[rownumb][cellnumb].xOffset = 0;
-            cellCollection[rownumb][cellnumb].yOffset = 0;
+            // Set imageInfo.getCellCollection()
+            imageInfo.getCellCollection()[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
+            imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = 0;
+            imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = 0;
 
             // Run function to insert images into canvas    
             graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);
