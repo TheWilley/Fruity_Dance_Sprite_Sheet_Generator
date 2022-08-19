@@ -1,6 +1,6 @@
 # Fruity Dance Sprite Sheet Generator
 
-<div align=center> <img width="200px"src='logotype.png'> <br> <h3> A Editor & Generator for the Fruity Dance plugin</h3> </div> <br>
+<div align=center> <img width="200px"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>
 
 This project was made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. For instance, you don't have to change the height and width of the sprite sheet manually, as this generator does all that automatically.
 
