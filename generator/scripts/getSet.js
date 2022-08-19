@@ -2,21 +2,12 @@ var cellCollection = [];
 var currentCell;
 
 /**
- * Grid class used to get x and y positions in table
+ *  Class used to store info about images
  */
-class TablePositions {
-    constructor(x, y) {
+class ImageObject {
+    constructor(x, y, xOffset, yOffset, imageSrc) {
         this.x = x;
         this.y = y;
-    }
-}
-
-/**
- * Image class
- */
-class ImageObject extends TablePositions {
-    constructor(x, y, xOffset, yOffset, imageSrc) {
-        super(x, y);
         this.xOffset = xOffset;
         this.yOffset = yOffset;
         this.imageSrc = imageSrc;
