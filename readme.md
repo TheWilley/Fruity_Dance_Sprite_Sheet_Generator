@@ -1,8 +1,8 @@
 # Fruity Dance Sprite Sheet Generator
 
-<div align=center> <img src='logotype.png'> <br> <h3> A generator for the Fruity Dance plugin</h3> </div> <br>
+<div align=center> <img width="200px"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>
 
-This generator was specifically made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. You don't have to change the height and width of the sprite sheet manually, as this generator does all that automatically.
+This project was made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. For instance, you don't have to change the height and width of the sprite sheet manually, as this generator does all that automatically.
 
 ## The Plugin Rules
 The rules can be sumarized as such:
@@ -20,15 +20,15 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 ![](readme-stuff/2022-08-18-12-56-14.png)
 * Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
 ![](readme-stuff/2022-08-18-13-01-00.png)
-* Drag and drop images into the grid to place them! You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
+* Drag and drop images into the grid to place them. You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
 ![](readme-stuff/2022-08-18-13-07-48.png)
 * Watch your sprite sheet live with the preview section. <br>
 ![](readme-stuff/2022-08-18-13-14-02.png)
-* Edit the name of animations and the ZIP!
+* Edit the name of animations and the ZIP.
 ![](readme-stuff/2022-08-18-13-21-01.png)
  
 ### Libaries
-* bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc / Copyright (c) 2011-2018 The Bootstrap Authors - https://github.com/twbs/bootstrap
+* bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
 * CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
 * ElementCatcher - MIT - Copyright (c) 2022 TheWilley - https://github.com/TheWilley/ElementCatcher
 * FileSaver.js - MIT - Copyright (c) 2016 Eli Grey - https://github.com/eligrey/FileSaver.js
