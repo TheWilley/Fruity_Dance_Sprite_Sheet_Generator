@@ -4,6 +4,15 @@ var graphicHandler = function () {
     sessionStorage.imagenumb = 0;
 
     return {
+        /**
+         * Inserts an image to the canvas
+         * @param {string} image - The image src 
+         * @param {number} rownumb - The row number (Y)
+         * @param {number} cellnumb - The cell number (X)
+         * @param {number} Xoffset - The image offset in the X axis
+         * @param {number} Yoffset - The image offset in the Y axis
+         * @param {('wholeCanvas'|'partOfCanvas')} clear - How much of the canvas to be cleared
+         */
         generateCanvas: function (image, rownumb, cellnumb, Xoffset = 0, Yoffset = 0, clear) {
             // This is where we create the canvas and insert images
             let GeneratedCanvas = new Image();
@@ -26,6 +35,9 @@ var graphicHandler = function () {
             }
         },
 
+        /**
+         * Redraws canvas
+         */
         redraw: function () {
             cellCollection.forEach(row => {
                 row.forEach(cell => {
@@ -36,6 +48,9 @@ var graphicHandler = function () {
             })
         },
 
+        /**
+         * Removes an image from the table
+         */
         remove: function () {
             currentObject = selectedItem;
             // Get row / cell number
@@ -61,8 +76,12 @@ var graphicHandler = function () {
             imageOffset.disableControls(true)
         },
 
-        configPreview: function (e) {
-            if (e == true) {
+        /**
+         * Restarts or stops the preview
+         * @param {boolean} restart - True: Restart preview; False: Stop preview;
+         */
+        configPreview: function (restart) {
+            if (restart == true) {
                 previewObjects.forEach(obj => {
                     if (obj.getPauseState == true) {
                         obj.restart()
@@ -75,8 +94,12 @@ var graphicHandler = function () {
             }
         },
 
-        previewImage: function (e) {
-            if (e) {
+        /**
+         * Start or stop the preview of an image when draging an image
+         * @param {*} preview - True: Start preview; False: Stop preview;
+         */
+        previewImage: function (preview) {
+            if (preview) {
                 popup.style.transform = "translate(-50%, 300px)";
                 state.mouseCircle.style.opacity = "100%";
                 state.delete.style.border = "3px dashed red"
@@ -87,6 +110,9 @@ var graphicHandler = function () {
             };
         },
 
+        /**
+         * Only show elements based on which collection user wants to see 
+         */
         filterClass: function() {
             for (e of document.querySelectorAll(".thumbnail")) {
                 if (!e.classList.contains(state.collection.value)) {
@@ -98,9 +124,16 @@ var graphicHandler = function () {
             localStorage.setItem("images", state.result.innerHTML);
         },
 
+        /**
+         * Context menu creation 
+         */
         ctx: function () {
             const contextMenu = CtxMenu(".thumbnail");
 
+            /**
+             * Generates an array for the options in the context menu
+             * @returns {Array} - An array with <option/> elements
+             */
             const classNames = function () {
                 var temp = []
                 for (let i = 0; i < 10; i++) {
@@ -120,6 +153,11 @@ var graphicHandler = function () {
                 return temp;
             }()
 
+            /**
+             * Changes the class name of an element and removed old ones based on `classNames`
+             * @param {Object} element - The element to change class of
+             * @param {string} className - The new class name
+             */
             const changeClass = function (element, className) {
                 for (n of classNames) {
                     if (n != className) {
@@ -132,7 +170,7 @@ var graphicHandler = function () {
             }
         },
 
-        // Getters
+        /*/ Getters /*/
         getSelectedItem: function () {
             return selectedItem;
         },
@@ -141,7 +179,7 @@ var graphicHandler = function () {
             return previewObjects;
         },
 
-        // Setters
+        /*/ Setters /*/
         setSelectedItem: function (e) {
             selectedItem = e;
         },
