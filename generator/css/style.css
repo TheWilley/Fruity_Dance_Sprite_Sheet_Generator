@@ -90,7 +90,7 @@ input[type='file'] {
     transition: opacity 0.4s;
 }
 
-.dropzone {
+.dropzones {
     position: relative;
 }
 
@@ -235,4 +235,10 @@ input[type='file'] {
 
 #gifFrames {
     display: none;
+}
+
+#dropzoneTemplate {
+    width: 100px;
+    height: 100px;
+    background-color: #212529;
 }

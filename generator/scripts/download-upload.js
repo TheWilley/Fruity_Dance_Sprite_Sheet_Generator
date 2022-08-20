@@ -15,7 +15,7 @@ var downloadUpload = function () {
                 "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
         } else {
             // Insert the image
-            div.innerHTML = "<img class='thumbnail draggable " + state.collection.value+ "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+            div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
         }
 
         // Insert the combined div and image
@@ -79,25 +79,25 @@ var downloadUpload = function () {
             var maxFrames = 20;
             var file = URL.createObjectURL(event.target.files[0]);
 
-            //Only pics and files under 10mb (10.000.000 bytes)
+            // Only pics and files under 10mb (10.000.000 bytes)
             if (parseInt(file.size) > 10000000) {
                 alert("File too big or not an image")
             } else {
-            gifFrames({ url: file, frames: "all", outputType: 'canvas' })
-                .then(function (frameData) {
-                    frameData.forEach(function (frame, i) {
-                        if (i < maxFrames) {
-                            state.gifFrames.appendChild(frameData[i].getImage());
+                gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                    .then(function (frameData) {
+                        frameData.forEach(function (frame, i) {
+                            if (i < maxFrames) {
+                                state.gifFrames.appendChild(frameData[i].getImage());
+                            }
+                        })
+
+                        for (frame of state.gifFrames.childNodes) {
+                            createImage(null, frame.toDataURL())
                         }
-                    })
 
-                    for (frame of state.gifFrames.childNodes) {
-                        createImage(null, frame.toDataURL())
-                    }
+                        state.gifFrames.innerHTML = "";
 
-                    state.gifFrames.innerHTML = "";
-
-                }).catch(console.error.bind(console));
+                    }).catch(console.error.bind(console));
             }
         },
 
@@ -122,26 +122,145 @@ var downloadUpload = function () {
                     continue;
                 }
 
+                console.log(file)
+
                 // Check if file has been loaded
                 var picReader = new FileReader();
                 picReader.addEventListener("load", function (event) {
                     createImage(event.target);
+                    console.log(event.target)
                 });
 
                 //Read the image
                 picReader.readAsDataURL(file);
             }
-        }
+        },
+        saveJson: function () {
+            var object = {
+                rows: state.xvalue.value,
+                width: state.cell_width.value,
+                height: state.cell_height.value,
+                tableObject: imageInfo.getCellCollection(),
+            }
+
+            // Create a blob of the data
+            var fileToSave = new Blob([JSON.stringify(object, undefined, 2)], {
+                type: 'application/json'
+            });
+
+            // Save the file
+            saveAs(fileToSave, "savedSpritSheet.json");
+        },
+        importJson: function () {
+            var file;
+
+            // Create input
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = ".json";
+
+            // Check for upload
+            input.onchange = _ => {
+                file = input.files[0];
+
+                //Only json and files under 10mb (10.000.000 bytes)
+                if (!file.type.match('.json') || parseInt(file.size) > 10000000) {
+                    alert("File too big or not json");
+                } else {
+                    const reader = new FileReader();
+                    reader.addEventListener('load', (event) => {
+                        const json = atob(event.target.result.substring(29));
+                        const result = JSON.parse(json);
+
+                        state.xvalue.value = result.rows;
+                        state.cell_width.value = result.width;
+                        state.cell_height.value = result.height;
+
+                        table.addTable();
+                        imageInfo.setCellCollection(result.tableObject);
+
+                        graphicHandler.redraw();
+                    });
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // Click and remove
+            input.click();
+            input.remove()
+        },
+
+        pond: function () {
+            var getDataUrl = function (file) {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    createImage(null, reader.result);
+                }
+                reader.readAsDataURL(file);
+            }
+
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
+            FilePond.registerPlugin(FilePondPluginFileValidateType);
+
+            const inputElement = document.querySelector('#files');
+            const uploadImage = FilePond.create(inputElement, {
+                maxFileSize: "10mb",
+                allowFileTypeValidation: true,
+                acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
+                credits: false,
+                onaddfile: (error) => {
+                    if (error) {
+                        return;
+                    }
+
+                    for (image of uploadImage.getFiles()) {
+                        if (image.fileType == "image/gif") {
+                            gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                                .then(function (frameData) {
+                                    frameData.forEach(function (frame, i) {
+                                        if (i < maxFrames) {
+                                            state.gifFrames.appendChild(frameData[i].getImage());
+                                        }
+                                    })
+
+                                    for (frame of state.gifFrames.childNodes) {
+                                        createImage(null, frame.toDataURL())
+                                    }
+
+                                    state.gifFrames.innerHTML = "";
+
+                                }).catch(console.error.bind(console));
+                        } else {
+                            getDataUrl(image.file);
+                        }
+                        uploadImage.removeFile(files);
+                    }
+                }
+            });
+        }()
     }
 }()
 
 var eventListeners = function () {
+    /**
+     * Checks if download sprite sheet button has been clicked
+     */
+    state.downloadSpriteSheet.addEventListener('click', function (e) {
+        downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
+    });
 
     /**
-     * Checks if download button has been clicked
-     */
-    state.download.addEventListener('click', function (e) {
-        downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
+    * Checks if download Json button has been clicked sdfsd
+    */
+    state.downloadJson.addEventListener('click', function (e) {
+        downloadUpload.saveJson();
+    });
+
+    /**
+    * Checks if upload Json button has been clicked
+    */
+    state.uploadJson.addEventListener('click', function (e) {
+        downloadUpload.importJson();
     });
 
     /**
@@ -161,14 +280,16 @@ var eventListeners = function () {
         //Check File API support
         if (window.File && window.FileList && window.FileReader) {
             // Checks when button is clicked and image file(s) have been submited
-            state.files.addEventListener("change", function (event) {
+            state.files.addEventListener("change", function () {
                 downloadUpload.uploadFiles();
             });
 
             // Checks when button is clicked and gif file have been submited
-            state.gifFile.addEventListener("change", function (event) {
+            state.gifFile.addEventListener("change", function () {
                 downloadUpload.uploadGif();
             });
+
+
         } else {
             alert("Your browser does not support File API");
         }

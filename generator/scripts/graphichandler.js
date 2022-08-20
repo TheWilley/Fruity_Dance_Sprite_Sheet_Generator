@@ -39,6 +39,7 @@ var graphicHandler = function () {
          * Redraws canvas
          */
         redraw: function () {
+            console.log(imageInfo.getCellCollection());
             imageInfo.getCellCollection().forEach(row => {
                 row.forEach(cell => {
                     if (cell.imageSrc != undefined) {

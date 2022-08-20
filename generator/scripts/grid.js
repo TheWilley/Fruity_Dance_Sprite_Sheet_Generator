@@ -40,6 +40,7 @@ var table = function () {
                 }
             }
 
+            imageInfo.setCellCollection([]);
             state.dyntable.innerHTML = '<thead><td width="80" height="20">Frame1</td><td width="80" height="20">Frame2</td><td width="80" height="20">Frame3</td><td width="80" height="20">Frame4</td><td width="80" height="20">Frame5</td><td width="80" height="20">Frame6</td><td width="80" height="20">Frame7</td><td width="80" height="20">Frame8</td></thead>';
 
             // Stop all objects
@@ -61,29 +62,22 @@ var table = function () {
                 graphicHandler.getPreviewObjects().push(temp);
                 temp.start();
 
+                // Generate tanle rows
+                let table_row = document.createElement('TR');
+                state.dyntable.appendChild(table_row);
+
                 for (let y = 0; y <= 7; y++) {
                     // Here we add a tempobject to the grid to store for later usage
                     let tempobject = new ImageObject(x, y);
                     imageInfo.getCellCollection()[x][y] = tempobject;
                     imageInfo.getCellCollection()[x][y].xOffset = 0;
                     imageInfo.getCellCollection()[x][y].yOffset = 0;
-                }
-            }
 
-            for (let i = 0; i < imageInfo.getCellCollection().length; i++) {
-                // Generate tanle rows
-                let table_row = document.createElement('TR');
-                state.dyntable.appendChild(table_row);
-
-                // Get the size of the inner array
-                var innerArrayLength = imageInfo.getCellCollection()[i].length;
-                // Loop the inner array
-                for (let j = 0; j < innerArrayLength; j++) {
                     // Generate table cells
                     let table_cell = document.createElement('TD');
-                    table_cell.setAttribute("data-x", i);
-                    table_cell.setAttribute("data-y", j);
-                    table_cell.classList.add('dropzone')
+                    table_cell.setAttribute("data-x", x);
+                    table_cell.setAttribute("data-y", y);
+                    table_cell.classList.add('dropzones')
 
                     // Generate image
                     image_cell = this.generateImage();

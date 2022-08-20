@@ -1,11 +1,15 @@
 var imageInfo = function () {
     var cellCollection = [];
-    var currentCell;
 
     return {
         /*/ Getters /*/
         getCellCollection: function () {
             return cellCollection;
+        },
+
+        /*/ Setters /*/
+        setCellCollection: function(e) {
+            cellCollection = e;
         }
     }
 }()

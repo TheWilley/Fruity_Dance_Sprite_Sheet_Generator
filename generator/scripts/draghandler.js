@@ -52,7 +52,7 @@ var dragHandler = function () {
     /**
      * Grid dropzone managment
      */
-    interact(".dropzone").dropzone({
+    interact(".dropzones").dropzone({
         ondrop: function (event) {
             // Get target id and split it
             var target_element = document.getElementById(event.relatedTarget.id);
