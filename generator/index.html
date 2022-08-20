@@ -14,6 +14,7 @@
     <script src="scripts/dist/jszip.js"></script>
     <script src="scripts/dist/filesaver.js"></script>
     <script src="scripts/dist/ctxmenu.min/ctxmenu.min.js"></script>
+    <script src="scripts/dist/filepond/addons/filepond-plugin-file-encode.min.js"></script>
     <script src="scripts/dist/filepond/addons/filepond-plugin-file-validate-type.min.js"></script>
     <script src="scripts/dist/filepond/addons/filepond-plugin-file-validate-size.min.js"></script>
     <script src="scripts/dist/filepond/filepond.js"></script>
@@ -52,15 +53,9 @@
                 <div id="sidebarContainer">
                     <div id="sidebar">
                         <form id='post-form' class='post-form' method='post'>
-                            <div style="position: relative; width: fit-content;">
-                                <label for='files'><em id="label">Upload Images... </em>
-                                    <input style="margin: 0 auto;" id='files' type='file' accept="image/png, image/jpeg"
-                                        multiple hidden />
-                                </label>
+                            <div style="position: relative;">
+                                <input style="margin: 0 auto;" id='files' type='file' multiple hidden />
 
-                                <label for='gifFile'><em id="label"> Upload Gif... </em>
-                                    <input style="margin: 0 auto;" id='gifFile' type='file' accept="image/gif" hidden />
-                                </label>
                                 <select name="collections" id="collection"
                                     onchange="graphicHandler.filterClass()"></select>
                             </div>
@@ -149,11 +144,8 @@
                 <div>
                     <button id="downloadJson" class="btn btn-primary" style="margin-top: 10px">Save Sprite Sheet
                         (json)</button>
-                    <button type="submit" id="uploadJson" class="btn btn-primary" style="margin-top: 10px">Upload Sprite
-                        Sheet
-                    </button>
-                    
-                    <input type="file" />
+                    <input id="uploadJson" type="file" style="margin-top: 10px">
+                    </input>
 
                 </div>
 

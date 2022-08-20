@@ -1,10 +1,9 @@
 var downloadUpload = function () {
     /**
      * Creates a new image element and appends it to a collection
-     * @param {File} picFile - An image file
      * @param {*} src - An image src
      */
-    function createImage(picFile, src) {
+    function createImage(src) {
         // Create div for image
         var div = document.createElement("div");
         div.setAttribute("class", "result-container");
@@ -71,70 +70,6 @@ var downloadUpload = function () {
 
             location.reload();
         },
-
-        /**
-         * Uploads gif and seperates its frames
-         */
-        uploadGif: function () {
-            var maxFrames = 20;
-            var file = URL.createObjectURL(event.target.files[0]);
-
-            // Only pics and files under 10mb (10.000.000 bytes)
-            if (parseInt(file.size) > 10000000) {
-                alert("File too big or not an image")
-            } else {
-                gifFrames({ url: file, frames: "all", outputType: 'canvas' })
-                    .then(function (frameData) {
-                        frameData.forEach(function (frame, i) {
-                            if (i < maxFrames) {
-                                state.gifFrames.appendChild(frameData[i].getImage());
-                            }
-                        })
-
-                        for (frame of state.gifFrames.childNodes) {
-                            createImage(null, frame.toDataURL())
-                        }
-
-                        state.gifFrames.innerHTML = "";
-
-                    }).catch(console.error.bind(console));
-            }
-        },
-
-        /**
-         * Uploads image files
-         */
-        uploadFiles: function () {
-            // Get files and output element
-            var files = event.target.files;
-            files = [...files].filter(s => s.type.includes("image"))
-
-            // Go trough all files
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-
-                //Only pics and files under 10mb (10.000.000 bytes)
-                if (!file.type.match('image') || parseInt(file.size) > 10000000) {
-                    // To stop spaming
-                    if (files.length <= 1) {
-                        alert("File too big or not an image")
-                    }
-                    continue;
-                }
-
-                console.log(file)
-
-                // Check if file has been loaded
-                var picReader = new FileReader();
-                picReader.addEventListener("load", function (event) {
-                    createImage(event.target);
-                    console.log(event.target)
-                });
-
-                //Read the image
-                picReader.readAsDataURL(file);
-            }
-        },
         saveJson: function () {
             var object = {
                 rows: state.xvalue.value,
@@ -151,90 +86,83 @@ var downloadUpload = function () {
             // Save the file
             saveAs(fileToSave, "savedSpritSheet.json");
         },
-        importJson: function () {
-            var file;
-
-            // Create input
-            let input = document.createElement('input');
-            input.type = 'file';
-            input.accept = ".json";
-
-            // Check for upload
-            input.onchange = _ => {
-                file = input.files[0];
-
-                //Only json and files under 10mb (10.000.000 bytes)
-                if (!file.type.match('.json') || parseInt(file.size) > 10000000) {
-                    alert("File too big or not json");
-                } else {
-                    const reader = new FileReader();
-                    reader.addEventListener('load', (event) => {
-                        const json = atob(event.target.result.substring(29));
-                        const result = JSON.parse(json);
-
-                        state.xvalue.value = result.rows;
-                        state.cell_width.value = result.width;
-                        state.cell_height.value = result.height;
-
-                        table.addTable();
-                        imageInfo.setCellCollection(result.tableObject);
-
-                        graphicHandler.redraw();
-                    });
-                    reader.readAsDataURL(file);
-                }
-            };
-
-            // Click and remove
-            input.click();
-            input.remove()
-        },
 
         pond: function () {
-            var getDataUrl = function (file) {
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    createImage(null, reader.result);
-                }
-                reader.readAsDataURL(file);
-            }
-
+            FilePond.registerPlugin(FilePondPluginFileEncode);
             FilePond.registerPlugin(FilePondPluginFileValidateSize);
             FilePond.registerPlugin(FilePondPluginFileValidateType);
 
-            const inputElement = document.querySelector('#files');
-            const uploadImage = FilePond.create(inputElement, {
+            var extractFrames = function (file) {
+                maxFrames = 20;
+
+                gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                    .then(function (frameData) {
+                        frameData.forEach(function (frame, i) {
+                            if (i < maxFrames) {
+                                state.gifFrames.appendChild(frameData[i].getImage());
+                            }
+                        })
+
+                        for (frame of state.gifFrames.childNodes) {
+                            createImage(frame.toDataURL())
+                        }
+
+                        state.gifFrames.innerHTML = "";
+
+                    }).catch(console.error.bind(console));
+            }
+
+            const uploadImage = FilePond.create(document.querySelector('#files'), {
+                // Settings
                 maxFileSize: "10mb",
                 allowFileTypeValidation: true,
                 acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
                 credits: false,
+
+                // When a file has been added
                 onaddfile: (error) => {
                     if (error) {
                         return;
                     }
 
+                    // For every image
                     for (image of uploadImage.getFiles()) {
                         if (image.fileType == "image/gif") {
-                            gifFrames({ url: file, frames: "all", outputType: 'canvas' })
-                                .then(function (frameData) {
-                                    frameData.forEach(function (frame, i) {
-                                        if (i < maxFrames) {
-                                            state.gifFrames.appendChild(frameData[i].getImage());
-                                        }
-                                    })
-
-                                    for (frame of state.gifFrames.childNodes) {
-                                        createImage(null, frame.toDataURL())
-                                    }
-
-                                    state.gifFrames.innerHTML = "";
-
-                                }).catch(console.error.bind(console));
+                            extractFrames(image.getFileEncodeDataURL())
                         } else {
-                            getDataUrl(image.file);
+                            createImage(image.getFileEncodeDataURL());
                         }
+                        // Remove files after they have been uploaded
                         uploadImage.removeFile(files);
                     }
+                }
+            });
+
+            var handleJson = function (json) {
+                state.xvalue.value = json.rows;
+                state.cell_width.value = json.width;
+                state.cell_height.value = json.height;
+
+                table.addTable();
+                imageInfo.setCellCollection(json.tableObject);
+
+                graphicHandler.redraw();
+            }
+
+            const uploadJson = FilePond.create(document.querySelector('#uploadJson'), {
+                // Settings
+                maxFileSize: "10mb",
+                allowFileTypeValidation: true,
+                acceptedFileTypes: ['application/json'],
+                credits: false,
+
+                // When a file has been added
+                onaddfile: (error) => {
+                    if (error) {
+                        return;
+                    }
+
+                    handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
                 }
             });
         }()
@@ -257,13 +185,6 @@ var eventListeners = function () {
     });
 
     /**
-    * Checks if upload Json button has been clicked
-    */
-    state.uploadJson.addEventListener('click', function (e) {
-        downloadUpload.importJson();
-    });
-
-    /**
      * Creates table when website has loaded
      */
     document.onreadystatechange = () => {
@@ -272,28 +193,6 @@ var eventListeners = function () {
             graphicHandler.ctx()
         }
     };
-
-    /**
-     * Uploads file(s)
-     */
-    window.onload = function () {
-        //Check File API support
-        if (window.File && window.FileList && window.FileReader) {
-            // Checks when button is clicked and image file(s) have been submited
-            state.files.addEventListener("change", function () {
-                downloadUpload.uploadFiles();
-            });
-
-            // Checks when button is clicked and gif file have been submited
-            state.gifFile.addEventListener("change", function () {
-                downloadUpload.uploadGif();
-            });
-
-
-        } else {
-            alert("Your browser does not support File API");
-        }
-    }
 
     /**
      * Checks scroll position

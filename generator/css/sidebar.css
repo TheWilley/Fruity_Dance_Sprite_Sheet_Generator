@@ -83,6 +83,11 @@
     width: 100%;
 }
 
+#fiels {
+    width: 100%;
+}
+
+
 .fixedSidebar {
     margin: 0 !important;
     background-color: #1c1c1c !important;
@@ -93,4 +98,14 @@
 .fixedContainer {
     box-shadow: 0px 0px 13px 8px rgba(0, 0, 0, 0.53);
     transition: all 0.7s;
+}
+
+/* the background color of the filepond drop area */
+.filepond--panel-root {
+    background-color: rgb(56, 56, 56) !important;
+}
+
+/* the background color of the drop circle */
+.filepond--drip-blob {
+    background-color: rgb(24, 24, 24) !important; 
 }
