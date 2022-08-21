@@ -109,7 +109,7 @@ var downloadUpload = function () {
             const uploadImage = FilePond.create(document.querySelector('#files'), {
                 // Settings
                 labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-                maxFileSize: "2mb",
+                maxFileSize: config.settings.maxUploadSize ? config.settings.maxUploadSize: "2mb",
                 allowMultiple: true,
                 maxFiles: 20,
                 allowFileTypeValidation: true,
