@@ -27,6 +27,24 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 * Edit the name of animations and the ZIP.
 ![](readme-stuff/2022-08-18-13-21-01.png)
  
+## Configure the generator
+The current configuration is set to give the best user experience, but you may reconfigure the generator if you want to.
+Note that the generator can become very unstable if you enter higher values!
+
+You can find the config variable `settings` in `generator/scripts/conifg.js`. The current config looks like this:
+```javascript
+/*/ Removing a key will reset it to default /*/
+
+var settings = {
+    maxRows: 40, // Max amount of allowed rows
+    minWidth: 80, // Minimum cell width
+    maxWidth: 150, // Maximum cell width
+    minHeight: 80, // Minimum cell height
+    maxHeight: 150, // Maximum cell height
+    maxUploadSize: "2mb" // Max image upload size
+}
+```
+
 ## Libaries
 * bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
 * CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
@@ -36,24 +54,6 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 * interact.js - MIT - Copyright (c) 2012-present Taye Adeyemi - https://github.com/taye/interact.js
 * Jquery - MIT - Copyright (c) 2015 The jQuery Foundation - https://github.com/jquery/jquery
 * JSZip - MIT - Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso - https://github.com/Stuk/jszip
-
-## Configure the generator
-The current configuration is set to give the best user experience, but you may reconfigure if you want to.
-Note that the generator can become very unstable if you enter higher values!
-
-You can find the config variable `settings` in `generator/scripts/conifg.js`. The current config looks like this:
-```javascript
-/*/ Removing a key will reset it to default /*/
-
-var settings = {
-    maxRows: 40, // Max amount of allowed rows
-    minWidth: 80, // Minimum width
-    maxWidth: 150, // Maximum width
-    minHeight: 80, // Minimum height
-    maxHeight: 150, // Maximum height
-    maxUploadSize: "2mb" // Max image upload size
-}
-```
 
 ## Issues
 Plase create a new issue if you find a bug or a missing feature. Thanks.
