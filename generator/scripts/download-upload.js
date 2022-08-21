@@ -68,7 +68,7 @@ var downloadUpload = function () {
         saveJson: function () {
             var object = {
                 spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
-                rows: state.xvalue.value,
+                rows: state.rows.value,
                 width: state.cell_width.value,
                 height: state.cell_height.value,
                 tableObject: imageInfo.getCellCollection(),
@@ -142,7 +142,7 @@ var downloadUpload = function () {
             });
 
             var handleJson = function (json) {
-                state.xvalue.value = json.rows;
+                state.rows.value = json.rows;
                 state.cell_width.value = json.width;
                 state.cell_height.value = json.height;
 
@@ -236,7 +236,7 @@ var eventListeners = function () {
                 if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
 
 
-                if (event.target.id == "xvalue" || event.target.id == "cell_width" || event.target.id == "cell_height") {
+                if (event.target.id == "rows" || event.target.id == "cell_width" || event.target.id == "cell_height") {
                     table.addTable();
                 }
             });

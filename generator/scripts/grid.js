@@ -52,7 +52,7 @@ var table = function () {
             graphicHandler.getPreviewObjects().length = [];
 
             // Loop trough and add rows
-            for (let x = 0; x < state.xvalue.value; x++) {
+            for (let x = 0; x < state.rows.value; x++) {
                 /* For every row, add another row to the 2D array in @getSet.js.
                 This way, the array is dynamic. */
                 imageInfo.getCellCollection().push([]);
@@ -94,7 +94,7 @@ var table = function () {
                 state.canvas.remove();
             }
 
-            canvas_element.setAttribute("height", state.cell_height.value * state.xvalue.value);
+            canvas_element.setAttribute("height", state.cell_height.value * state.rows.value);
             canvas_element.setAttribute("width", state.cell_width.value * 8);
             canvas_element.setAttribute("id", "canvas");
             state.ContainerCanvas.appendChild(canvas_element);
@@ -106,7 +106,7 @@ var table = function () {
             state.addElement(canvas_element);
 
             // Generate text in textarea
-            for (l = 1; l < state.xvalue.value; l++) {
+            for (l = 1; l < state.rows.value; l++) {
                 state.textarea.value += "Animation " + l + "\n";
             }
             state.textarea.value += "Held";
