@@ -74,20 +74,17 @@
                     <h2 style="text-decoration: underline;">Edit</h2>
                     <form id="settings" style="margin-bottom: 8px">
                         <label>Rows:</label>
-                        <input type="number" step="1" value="1" id="xvalue" onchange="Javascript:table.addTable()"
-                            min="1" max="40">
+                        <input type="number" step="1" value="1" id="xvalue" min="1" max="40">
                         <label>Width:</label>
-                        <input type="number" step="1" value="80" id="cell_width" onchange="Javascript:table.addTable()"
-                            min="80" max="999">
+                        <input type="number" step="1" value="80" id="cell_width" min="80" max="150">
                         <label>Height:</label>
-                        <input type="number" step="1" value="80" id="cell_height" onchange="Javascript:table.addTable()"
-                            min="80" max="999">
+                        <input type="number" step="1" value="80" id="cell_height" min="80" max="150">
                     </form>
 
                     <form id="offset" onsubmit="return false">
                         <label>X-offset:</label>
-                        <input id="offsetX" class="offsetControlls" type="number" min="-999" disabled>
-                        <input id="offsetY" class="offsetControlls" type="number" min="-999" disabled>
+                        <input id="offsetX" class="offsetControlls" type="number" max="150" min="-150" disabled>
+                        <input id="offsetY" class="offsetControlls" type="number" max="150" min="-150" disabled>
                         <label>:Y-offset</label>
                         <button class="btn btn-warning btn-sm" id="delete" onclick="graphicHandler.remove()" disabled>
                             Delete </button>
@@ -139,7 +136,8 @@
                             class="row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
                             <h3 class="text-decoration-underline">Sprite Sheet</h3>
                             <div class="col-5 align-items-center">
-                                <input id="filename" class="form-text" style="width: 100%" placeholder="Filename..."> <br>
+                                <input id="filename" class="form-text" style="width: 100%" placeholder="Filename...">
+                                <br>
                             </div>
                             <div class="col-5 d-grid">
                                 <button id="downloadSpriteSheet" class="btn btn-success">Download
@@ -155,7 +153,7 @@
                                 </input>
                             </div>
                             <div class="col-5 d-grid">
-                                <button id="downloadJson" style="height: 76px" class="btn btn-primary">Save Sprite Sheet
+                                <button id="downloadJson" style="height: 76px" class="btn btn-success">Save Sprite Sheet
                                     (json)</button>
                             </div>
                         </div>

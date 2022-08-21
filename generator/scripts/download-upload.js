@@ -133,7 +133,7 @@ var downloadUpload = function () {
                                 uploadImage.removeFile(image);
                             }
                         } catch (err) {
-                            if(err instanceof TypeError) {
+                            if (err instanceof TypeError) {
                                 console.log("Invalid File")
                             }
                         }
@@ -224,4 +224,22 @@ var eventListeners = function () {
     $(window).bind('beforeunload', function () {
         //return 'Your changes might not be saved';
     })
+
+    /**
+     * Checks if element values are too high or low
+     */
+    const allElements = new ElementCatcher({ id: "app", getElementsWith: "allAsArray" })
+    for (element of allElements.elements) {
+        if (element.getAttribute("max") && element.getAttribute("min")) {
+            $(element).bind('change', function (event) {
+                if (parseInt(event.target.value) > parseInt(event.target.getAttribute("max"))) event.target.value = parseInt(event.target.getAttribute("max"));
+                if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
+
+
+                if (event.target.id == "xvalue" || event.target.id == "cell_width" || event.target.id == "cell_height") {
+                    table.addTable();
+                }
+            });
+        }
+    }
 }()
