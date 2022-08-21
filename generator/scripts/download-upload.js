@@ -8,14 +8,9 @@ var downloadUpload = function () {
         var div = document.createElement("div");
         div.setAttribute("class", "result-container");
 
-        if (src == null) {
-            // Insert the image
-            div.innerHTML = "<img class='thumbnail draggable" + state.collection.value + "' src='" + picFile.result + "'" +
-                "title='" + picFile.name + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
-        } else {
-            // Insert the image
-            div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
-        }
+        // Insert the image
+        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+
 
         // Insert the combined div and image
         state.result.insertBefore(div, null);
@@ -72,6 +67,7 @@ var downloadUpload = function () {
         },
         saveJson: function () {
             var object = {
+                spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
                 rows: state.xvalue.value,
                 width: state.cell_width.value,
                 height: state.cell_height.value,
@@ -88,9 +84,7 @@ var downloadUpload = function () {
         },
 
         pond: function () {
-            FilePond.registerPlugin(FilePondPluginFileEncode);
-            FilePond.registerPlugin(FilePondPluginFileValidateSize);
-            FilePond.registerPlugin(FilePondPluginFileValidateType);
+            FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
 
             var extractFrames = function (file) {
                 maxFrames = 20;
@@ -114,26 +108,35 @@ var downloadUpload = function () {
 
             const uploadImage = FilePond.create(document.querySelector('#files'), {
                 // Settings
-                maxFileSize: "10mb",
+                labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
+                maxFileSize: "2mb",
+                allowMultiple: true,
+                maxFiles: 20,
                 allowFileTypeValidation: true,
                 acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
                 credits: false,
 
-                // When a file has been added
-                onaddfile: (error) => {
+                onaddfile: (error, file) => {
                     if (error) {
-                        return;
+                        return
                     }
 
                     // For every image
-                    for (image of uploadImage.getFiles()) {
-                        if (image.fileType == "image/gif") {
-                            extractFrames(image.getFileEncodeDataURL())
-                        } else {
-                            createImage(image.getFileEncodeDataURL());
+                    for (i = 0; i < uploadImage.getFiles().length; i++) {
+                        image = uploadImage.getFile(i);
+                        try {
+                            if (image.fileType == "image/gif") {
+                                extractFrames(image.getFileEncodeDataURL())
+                                uploadImage.removeFile(image);
+                            } else {
+                                createImage(image.getFileEncodeDataURL());
+                                uploadImage.removeFile(image);
+                            }
+                        } catch (err) {
+                            if(err instanceof TypeError) {
+                                console.log("Invalid File")
+                            }
                         }
-                        // Remove files after they have been uploaded
-                        uploadImage.removeFile(files);
                     }
                 }
             });
@@ -151,19 +154,27 @@ var downloadUpload = function () {
 
             const uploadJson = FilePond.create(document.querySelector('#uploadJson'), {
                 // Settings
+                labelIdle: 'Drag & Drop your <b> JSON </b> file or <span class="filepond--label-action"> Browse </span>',
                 maxFileSize: "10mb",
                 allowFileTypeValidation: true,
                 acceptedFileTypes: ['application/json'],
                 credits: false,
+                labelFileProcessingError: (error) => {
+                    return error.body;
+                },
 
-                // When a file has been added
-                onaddfile: (error) => {
-                    if (error) {
-                        return;
+                server: {
+                    process: (fieldName, file, metadata, load, error, progress, abort) => {
+                        if (JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))).spriteSheetId == "cWqgPFdGN5") {
+                            handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
+                            setTimeout(() => {
+                                uploadJson.removeFile();
+                            }, 500)
+                        } else {
+                            error(`File is not a sprite sheet!`)
+                        }
                     }
-
-                    handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
-                }
+                },
             });
         }()
     }

@@ -5,24 +5,30 @@
         max-height: 140px;
         border-radius: 5px;
     }
+
     .post-form {
         text-align: left;
     }
+
     .result-container {
         display: inline-block;
         margin-right: 20px;
     }
+
     .thumbnail {
         max-height: 120px;
     }
+
     #result {
         overflow-y: unset !important;
     }
+
     #topbar {
         position: sticky;
         top: 10px;
         z-index: 300;
     }
+
     #collection {
         display: table;
     }
@@ -42,7 +48,7 @@
 }
 
 #sidebarContainer {
-    width:auto;
+    width: auto;
     position: sticky;
     top: 20px;
     transition: all 0.7s;
@@ -100,6 +106,8 @@
     transition: all 0.7s;
 }
 
+/*/ Filepond /*/
+
 /* the background color of the filepond drop area */
 .filepond--panel-root {
     background-color: rgb(56, 56, 56) !important;
@@ -107,5 +115,10 @@
 
 /* the background color of the drop circle */
 .filepond--drip-blob {
-    background-color: rgb(24, 24, 24) !important; 
+    background-color: rgb(24, 24, 24) !important;
+}
+
+/* the text color of the drop label*/
+.filepond--drop-label {
+    color: rgb(159, 159, 159) !important;
 }
