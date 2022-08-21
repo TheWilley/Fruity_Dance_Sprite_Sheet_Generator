@@ -56,7 +56,7 @@
                             <div style="position: relative;">
                                 <input style="margin: 0 auto;" id='files' type='file' multiple hidden />
 
-                                <select name="collections" id="collection"
+                                <select name="collections" class="form-select" id="collection"
                                     onchange="graphicHandler.filterClass()"></select>
                             </div>
                             <output id='result'>
@@ -132,26 +132,47 @@
                 </div>
 
                 <!-- The download section -->
-                <div>
-                    <input id="filename" placeholder="Filename..."> <br>
-                    <button id="downloadSpriteSheet" class="btn btn-success" style="margin-top: 10px">Download Sprite
-                        Sheet</button>
-                </div>
-                <div>
-                    <button id="clear" class="btn btn-danger" style="margin-top: 10px"
-                        onclick="downloadUpload.clearData()">Clear Stored Images</button>
-                </div>
-                <div>
-                    <button id="downloadJson" class="btn btn-primary" style="margin-top: 10px">Save Sprite Sheet
-                        (json)</button>
-                    <input id="uploadJson" type="file" style="margin-top: 10px">
-                    </input>
-
+                <div id="export" class="box">
+                    <h2 style="text-decoration: underline;"> Settings </h2>
+                    <div class="container" style="max-width: 48rem;">
+                        <div
+                            class="row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+                            <h3 class="text-decoration-underline">Sprite Sheet</h3>
+                            <div class="col-5 align-items-center">
+                                <input id="filename" class="form-text" style="width: 100%" placeholder="Filename..."> <br>
+                            </div>
+                            <div class="col-5 d-grid">
+                                <button id="downloadSpriteSheet" class="btn btn-success">Download
+                                    Sprite
+                                    Sheet</button>
+                            </div>
+                        </div>
+                        <div
+                            class="row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+                            <h3 class="text-decoration-underline">Json</h3>
+                            <div class="col-5">
+                                <input id="uploadJson" type="file">
+                                </input>
+                            </div>
+                            <div class="col-5 d-grid">
+                                <button id="downloadJson" style="height: 76px" class="btn btn-primary">Save Sprite Sheet
+                                    (json)</button>
+                            </div>
+                        </div>
+                        <div class="row mb-2 p-2 border border-dark bg-secondary bg-opacity-10 rounded">
+                            <h3 class="text-decoration-underline">Stored Images</h3>
+                            <div class="col">
+                                <button id="clear" class="btn btn-danger" onclick="downloadUpload.clearData()">Clear
+                                    Stored Images</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Footer -->
                 <div id="about">
-                    <p>This webpage is created to generate Fruity Dance Sprite Sheets! To see more info and to find the
+                    <p>This webpage is created to generate Fruity Dance Sprite Sheets! To see more info and to find
+                        the
                         source code, go the the github page.
                     </p>
                 </div>

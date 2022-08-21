@@ -68,6 +68,10 @@ input[type='file'] {
     border-radius: 4px;
     border: 1px solid #ccc;
     margin: 14px;
+
+    padding: 10px;
+    background-color: #212529;
+    overflow-x: auto;
 }
 
 .box:hover {
@@ -101,7 +105,6 @@ input[type='file'] {
 /*/ ID's /*/
 #edit {
     margin-top: 20px;
-    background-color: #212529;
     position: relative;
     overflow: hidden;
 }
@@ -125,11 +128,6 @@ input[type='file'] {
 #dyntable {
     padding: 10px;
     margin: 0 auto;
-}
-
-#output {
-    padding: 10px;
-    background-color: #212529;
 }
 
 #text-mapping {
@@ -223,10 +221,6 @@ input[type='file'] {
 
 #gifPreview {
     border: rgb(64, 64, 64) 1px solid !important;
-}
-
-#preview {
-    background-color: #212529;
 }
 
 #preview-buttons {
