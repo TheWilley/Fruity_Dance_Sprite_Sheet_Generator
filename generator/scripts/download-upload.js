@@ -109,7 +109,7 @@ var downloadUpload = function () {
             const uploadImage = FilePond.create(document.querySelector('#files'), {
                 // Settings
                 labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-                maxFileSize: config.settings.maxUploadSize ? config.settings.maxUploadSize: "2mb",
+                maxFileSize: config.settings.maxUploadSize ? config.settings.maxUploadSize : "2mb",
                 allowMultiple: true,
                 maxFiles: 20,
                 allowFileTypeValidation: true,
@@ -234,7 +234,6 @@ var eventListeners = function () {
             $(element).bind('change', function (event) {
                 if (parseInt(event.target.value) > parseInt(event.target.getAttribute("max"))) event.target.value = parseInt(event.target.getAttribute("max"));
                 if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
-
 
                 if (event.target.id == "rows" || event.target.id == "cell_width" || event.target.id == "cell_height") {
                     table.addTable();
