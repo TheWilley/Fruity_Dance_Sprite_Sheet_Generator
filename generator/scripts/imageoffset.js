@@ -7,9 +7,9 @@ var imageOffset = function () {
          * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
          */
         disableControls: function(enabled) {
-            state.offsetX.disabled = enabled;
-            state.offsetY.disabled = enabled;
-            state.delete.disabled = enabled;
+            state.offsetX.classList.add("disabled");
+            state.offsetY.classList.add("disabled");
+            state.delete.classList.add("disabled");
         },
 
         /**
