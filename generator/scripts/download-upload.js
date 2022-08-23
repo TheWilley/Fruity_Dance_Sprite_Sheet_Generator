@@ -7,6 +7,11 @@ var downloadUpload = function () {
      * 
      */
     function compressImage(file, div) {
+        /**
+         * Converts a blob to base64
+         * @param {Object} blob - A blob object in the dataURL format
+         * @returns 
+         */
         function convertToBase64(blob) {
             return new Promise((resolve) => {
                 var reader = new FileReader();
@@ -44,6 +49,9 @@ var downloadUpload = function () {
         }
 
         return {
+            /**
+             * Initiates the compression
+             */
             init: function () {
                 // Settings
                 const MAX_WIDTH = config.settings.maxWidth;
@@ -85,7 +93,7 @@ var downloadUpload = function () {
      * @param {*} src - An image src
      */
     async function createImage(src) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             var div = document.createElement("div");
             div.setAttribute("class", "result-container");
             compressImage(src, div).init();
@@ -93,9 +101,14 @@ var downloadUpload = function () {
         })
     }
 
-    function insertImage(url, div) {
+    /**
+     * 
+     * @param {string} image - An image object in base64
+     * @param {Object} div - The div containg the image
+     */
+    function insertImage(image, div) {
         // Insert the image
-        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + url + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + image + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
         // Insert the combined div and image
         state.result.insertBefore(div, null);
@@ -150,6 +163,10 @@ var downloadUpload = function () {
 
             location.reload();
         },
+
+        /**
+         * Saves a json file containing data about sprite sheet
+         */
         saveJson: function () {
             var object = {
                 spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
@@ -168,11 +185,20 @@ var downloadUpload = function () {
             saveAs(fileToSave, "savedSpritSheet.json");
         },
 
+        /**
+         * Creates drag and drop functionality
+         */
         pond: function () {
             FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
+
+            /**
+             * Extracts all frames from a gif file
+             * @param {Object} file - A gif file
+             * @returns 
+             */
             var extractFrames = async function (file) {
                 return new Promise((resolve) => {
-                    maxFrames = 20;
+                    maxFrames = config.settings.maxAllowedGifFrames;
                     gifFrames({ url: file, frames: "all", outputType: 'canvas' })
                         .then(function (frameData) {
                             frameData.forEach(function (frame, i) {
@@ -192,6 +218,9 @@ var downloadUpload = function () {
                 })
             }
 
+            /**
+             * FilePond instance for images / gifs
+             */
             const uploadImage = FilePond.create(document.querySelector('#files'), {
                 // Settings
                 labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
@@ -227,6 +256,10 @@ var downloadUpload = function () {
                 }
             });
 
+            /**
+             * Handles and manages uploaded json data
+             * @param {string} json - The json containing sprite sheet data
+             */
             var handleJson = function (json) {
                 state.rows.value = json.rows;
                 state.cell_width.value = json.width;
@@ -238,6 +271,9 @@ var downloadUpload = function () {
                 graphicHandler.redraw();
             }
 
+            /**
+             * Filepond instance for json files
+             */
             const uploadJson = FilePond.create(document.querySelector('#uploadJson'), {
                 // Settings
                 labelIdle: 'Drag & Drop your <b> JSON </b> file or <span class="filepond--label-action"> Browse </span>',
@@ -318,7 +354,6 @@ var eventListeners = function () {
         eventListeners.checkMinMax(event);
         if (table.checkEmptyCells()) table.addTable();
     });
-
 
     return {
         /**

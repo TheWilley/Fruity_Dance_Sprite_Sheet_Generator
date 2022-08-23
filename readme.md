@@ -32,9 +32,8 @@ The current configuration is set to give the best user experience, but you may r
 
 You can find the config variable `settings` in `generator/scripts/conifg.js`. The current config looks like this:
 ```javascript
-/*/ Removing a key will reset it to default /*/
-
     var settings = {
+        /*/ Canvas settings /*/
         maxRows: 40, // Max amount of allowed rows
 
         minWidth: 80, // Minimum cell width
@@ -47,7 +46,10 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         maxXOffset: 150, // Maximum X-offset
         maxYOffset: 150, // Maximum Y-offset
         
-        maxUploadSize: "2mb" // Max image upload size
+        /*/ Upload settings /*/
+        maxUploadSize: "8mb", // Max image upload size
+        compressionRate: 0.5, // The image compression rate
+        maxAllowedGifFrames: 30 // Limit how many frames of a gif to export
     }
 ```
 
@@ -55,6 +57,7 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
 * bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
 * CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
 * ElementCatcher - MIT - Copyright (c) 2022 TheWilley - https://github.com/TheWilley/ElementCatcher
+* filepond - MIT - Copyright (c) 2019 PQINA | Rik Schennink - https://github.com/pqina/filepond
 * FileSaver.js - MIT - Copyright (c) 2016 Eli Grey - https://github.com/eligrey/FileSaver.js
 * gif-frames - MIT - Copyright (c) 2017 Ben Wiley - https://github.com/benwiley4000/gif-frames
 * interact.js - MIT - Copyright (c) 2012-present Taye Adeyemi - https://github.com/taye/interact.js

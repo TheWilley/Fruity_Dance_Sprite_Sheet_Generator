@@ -1,5 +1,8 @@
 var table = function () {
     return {
+        /**
+         * Itterates table and inserts images from object
+         */
         iterateTable: function () {
             for (var i = 1, row; row = state.dyntable.rows[i]; i++) {
                 for (var j = 0, col; col = row.cells[j]; j++) {
@@ -10,6 +13,10 @@ var table = function () {
             }
         },
 
+        /**
+         * Checks if all cells are empty in the table
+         * @returns True | False
+         */
         checkEmptyCells: function () {
             // Check if there is any image added and warn user
             var allCellsEmpty = true;
