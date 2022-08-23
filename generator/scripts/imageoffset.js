@@ -6,17 +6,17 @@ var imageOffset = function () {
          * Enables or disables the offset & delete settings
          * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
          */
-        disableControls: function(enabled) {
-            state.offsetX.classList.add("disabled");
-            state.offsetY.classList.add("disabled");
-            state.delete.classList.add("disabled");
+        disableControls: function (enabled) {
+            state.offsetX.disabled = enabled;
+            state.offsetY.disabled = enabled;
+            state.delete.disabled = enabled;
         },
 
         /**
          * Shows controls for a cell in the table
          * @param {object} currentObject - The target image element in the table
          */
-        show_controls: function(currentObject) {
+        show_controls: function (currentObject) {
             graphicHandler.setSelectedItem(currentObject);
 
             // Disable controls if the image src is not found
@@ -29,14 +29,6 @@ var imageOffset = function () {
             // Get row / cell number
             var rownumb = currentObject.parentNode.dataset.x;
             var cellnumb = currentObject.parentNode.dataset.y;
-
-            // Function variable for event
-            const setnumb = function () {
-                imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = state.offsetX.value;
-                imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = state.offsetY.value;
-
-                graphicHandler.redraw()
-            }
 
             // Unbind all events
             if (currentObject != previousObject) {
@@ -63,9 +55,13 @@ var imageOffset = function () {
                 state.offsetX.value = Xoffset;
                 state.offsetY.value = Yoffset;
 
-                // Add event listeners
-                $(state.offsetX).change(setnumb);
-                $(state.offsetY).change(setnumb);
+                $([state.offsetX, state.offsetY]).change(function (event) {
+                    eventListeners.checkMinMax(event);
+
+                    imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = state.offsetX.value;
+                    imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = state.offsetY.value;
+                    graphicHandler.redraw()
+                })
             }
         }
     }

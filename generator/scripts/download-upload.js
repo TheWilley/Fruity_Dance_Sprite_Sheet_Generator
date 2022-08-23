@@ -228,16 +228,21 @@ var eventListeners = function () {
     /**
      * Checks if element values are too high or low
      */
-    const allElements = [state.rows, state.cell_width, state.cell_height];
-    for (element of allElements) {
-        $(element).bind('change', function (event) {
-            console.log(element)
+    $([state.rows, state.cell_width, state.cell_height]).change(function (event) {
+        eventListeners.checkMinMax(event);
+
+        table.addTable();
+    });
+
+    return {
+        /**
+         * Checks if the current value is under its minimum / over its maximum
+         * @param {object} event 
+         */
+        checkMinMax: function (event) {
+            console.log(typeof(event))
             if (parseInt(event.target.value) > parseInt(event.target.getAttribute("max"))) event.target.value = parseInt(event.target.getAttribute("max"));
             if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
-
-            if (event.target.id == "rows" || event.target.id == "cell_width" || event.target.id == "cell_height") {
-                table.addTable();
-            }
-        });
+        }
     }
 }()
