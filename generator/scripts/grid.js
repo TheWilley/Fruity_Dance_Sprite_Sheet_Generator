@@ -3,7 +3,9 @@ var table = function () {
         iterateTable: function () {
             for (var i = 1, row; row = state.dyntable.rows[i]; i++) {
                 for (var j = 0, col; col = row.cells[j]; j++) {
-                    col.childNode.src = imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc
+                    if(imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc != null) {
+                        col.childNodes[0].src = imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc
+                    }
                 }
             }
         },
