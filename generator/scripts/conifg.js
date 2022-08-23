@@ -20,7 +20,7 @@ var config = function () {
         maxYOffset: 150, // Maximum Y-offset
         
         /*/ Upload settings /*/
-        maxUploadSize: "2mb", // Max image upload size
+        maxUploadSize: "8mb", // Max image upload size
         compressionRate: 0.5 // The image compression rate
     }
 

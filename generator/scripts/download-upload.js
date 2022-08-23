@@ -1,5 +1,4 @@
 var downloadUpload = function () {
-
     /**
      * Compresses image when uploading.
      * 
@@ -7,7 +6,17 @@ var downloadUpload = function () {
      * @param {Object} file - The image file
      * 
      */
-    async function compressImage(file, div) {
+    function compressImage(file, div) {
+        function convertToBase64(blob) {
+            return new Promise((resolve) => {
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function () {
+                    resolve(reader.result);
+                }
+            })
+        }
+
         /**
          * Calculates size of canvas
          * @param {object} img 
@@ -34,37 +43,41 @@ var downloadUpload = function () {
             return [width, height];
         }
 
-        // Settings
-        const MAX_WIDTH = config.settings.maxWidth;
-        const MAX_HEIGHT = config.settings.maxHeight;
-        const MIME_TYPE = "image/jpeg";
-        const QUALITY = config.settings.compressionRate
+        return {
+            init: function () {
+                // Settings
+                const MAX_WIDTH = config.settings.maxWidth;
+                const MAX_HEIGHT = config.settings.maxHeight;
+                const MIME_TYPE = "image/png";
+                const QUALITY = config.settings.compressionRate
 
-        /*/ Begin processing /*/
-        var blobURL = URL.createObjectURL(file);
-        const img = new Image();
-        img.src = blobURL;
-        img.onerror = function () {
-            URL.revokeObjectURL(this.src);
-            // Handle the failure properly
-            console.log("Cannot load image");
-        };
-        img.onload = function () {
-            URL.revokeObjectURL(this.src);
-            const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
-            const canvas = document.createElement("canvas");
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, newWidth, newHeight);
-            canvas.toBlob(
-                (blob) => {
-                    insertImage(blob, div);
-                },
-                MIME_TYPE,
-                QUALITY
-            );
-        };
+                blobURL = URL.createObjectURL(file)
+                const img = new Image();
+                img.src = blobURL;
+                img.onerror = function () {
+                    URL.revokeObjectURL(this.src);
+                    // Handle the failure properly
+                    console.log("Cannot load image");
+                };
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src);
+                    const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+                    const canvas = document.createElement("canvas");
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                    canvas.toBlob(
+                        async (blob) => {
+                            var base64 = await convertToBase64(blob);
+                            insertImage(base64, div);
+                        },
+                        MIME_TYPE,
+                        QUALITY
+                    );
+                };
+            }
+        }
     }
 
     /**
@@ -72,14 +85,17 @@ var downloadUpload = function () {
      * @param {*} src - An image src
      */
     async function createImage(src) {
-        var div = document.createElement("div");
-        div.setAttribute("class", "result-container");
-        await compressImage(src, div);
+        return new Promise((resolve, reject) => {
+            var div = document.createElement("div");
+            div.setAttribute("class", "result-container");
+            compressImage(src, div).init();
+            resolve();
+        })
     }
 
-    function insertImage(blob, div) {
+    function insertImage(url, div) {
         // Insert the image
-        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + URL.createObjectURL(blob) + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + url + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
         // Insert the combined div and image
         state.result.insertBefore(div, null);
@@ -154,24 +170,26 @@ var downloadUpload = function () {
 
         pond: function () {
             FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
-            var extractFrames = function (file) {
-                maxFrames = 20;
+            var extractFrames = async function (file) {
+                return new Promise((resolve) => {
+                    maxFrames = 20;
+                    gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                        .then(function (frameData) {
+                            frameData.forEach(function (frame, i) {
+                                if (i < maxFrames) {
+                                    state.gifFrames.appendChild(frameData[i].getImage());
+                                }
+                            })
 
-                gifFrames({ url: file, frames: "all", outputType: 'canvas' })
-                    .then(function (frameData) {
-                        frameData.forEach(function (frame, i) {
-                            if (i < maxFrames) {
-                                state.gifFrames.appendChild(frameData[i].getImage());
+                            for (frame of state.gifFrames.childNodes) {
+                                // https://stackoverflow.com/a/60005078
+                                fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await createImage(blob) });
                             }
-                        })
 
-                        for (frame of state.gifFrames.childNodes) {
-                            createImage(frame.toBlob())
-                        }
-
-                        state.gifFrames.innerHTML = "";
-
-                    }).catch(console.error.bind(console));
+                            state.gifFrames.innerHTML = "";
+                            resolve();
+                        }).catch(console.error.bind(console));
+                })
             }
 
             const uploadImage = FilePond.create(document.querySelector('#files'), {
@@ -184,7 +202,7 @@ var downloadUpload = function () {
                 acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
                 credits: false,
 
-                onaddfile: (error, file) => {
+                onaddfile: async (error, file) => {
                     if (error) {
                         return
                     }
@@ -194,15 +212,15 @@ var downloadUpload = function () {
                         image = uploadImage.getFile(i);
                         try {
                             if (image.fileType == "image/gif") {
-                                extractFrames(image.getFileEncodeDataURL())
+                                await extractFrames(image.getFileEncodeDataURL())
                                 uploadImage.removeFile(image);
                             } else {
-                                createImage(image.file);
+                                await createImage(image.file);
                                 uploadImage.removeFile(image);
                             }
                         } catch (err) {
                             if (err instanceof TypeError) {
-                                console.log("Invalid File", err)
+                                console.log("Invalid File")
                             }
                         }
                     }
