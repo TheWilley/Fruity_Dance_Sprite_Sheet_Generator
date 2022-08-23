@@ -110,9 +110,21 @@ var downloadUpload = function () {
         // Insert the image
         div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + image + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
+        
+        const animation = div.animate(
+            [
+                { transform: 'translateX(-100%)', opacity: '0%' },
+                { transform: 'translateX(0)', opacity: '100%' }
+            ], {
+            easing: 'ease',
+            duration: 500
+        });
+
         // Insert the combined div and image
         state.result.insertBefore(div, null);
 
+        animation.play();
+    
         // Keep track of the number of files
         sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
 
@@ -198,8 +210,10 @@ var downloadUpload = function () {
              */
             var extractFrames = async function (file) {
                 return new Promise((resolve) => {
-                    maxFrames = config.settings.maxAllowedGifFrames;
-                    gifFrames({ url: file, frames: "all", outputType: 'canvas' })
+                    var maxFrames = config.settings.maxAllowedGifFrames;
+
+                    // Export frames depending on transparency
+                    gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: state.cumulative.value == "cumulative" ? false : true})
                         .then(function (frameData) {
                             frameData.forEach(function (frame, i) {
                                 if (i < maxFrames) {
