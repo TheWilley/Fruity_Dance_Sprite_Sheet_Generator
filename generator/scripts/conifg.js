@@ -1,5 +1,12 @@
+/*/ Loading global objects here /*/
+var state = new ElementCatcher({ id: "app", getElementsWith: "id" });
+
+/**
+ * Configuration function
+ */
 var config = function () {
     var settings = {
+        /*/ Canvas settings /*/
         maxRows: 40, // Max amount of allowed rows
 
         minWidth: 80, // Minimum cell width
@@ -12,7 +19,9 @@ var config = function () {
         maxXOffset: 150, // Maximum X-offset
         maxYOffset: 150, // Maximum Y-offset
         
-        maxUploadSize: "2mb" // Max image upload size
+        /*/ Upload settings /*/
+        maxUploadSize: "2mb", // Max image upload size
+        compressionRate: 0.5 // The image compression rate
     }
 
     new Map([

@@ -1,5 +1,35 @@
 var table = function () {
     return {
+        iterateTable: function () {
+            for (var i = 1, row; row = state.dyntable.rows[i]; i++) {
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    col.childNode.src = imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc
+                }
+            }
+        },
+
+        checkEmptyCells: function () {
+            // Check if there is any image added and warn user
+            var allCellsEmpty = true;
+
+            imageInfo.getCellCollection().forEach(e1 => {
+                e1.forEach(e2 => {
+                    if (!e2.imageSrc == "") {
+                        allCellsEmpty = false;
+                    }
+                })
+            })
+
+            if (!allCellsEmpty) {
+                console.log(state.rows.value)
+                if (!confirm('This action will clear the canvas! Continue?')) {
+                    return false;
+                }
+            }
+
+            return true
+        },
+
         /**
          * Generates an image element
          * @returns {object} - The image element
@@ -22,24 +52,6 @@ var table = function () {
             // Add all elements from last time
             state.result.innerHTML = localStorage.getItem("images");
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
-
-            // Check if there is any image added and warn user
-            var allCellsEmpty = true;
-
-            imageInfo.getCellCollection().forEach(e1 => {
-                e1.forEach(e2 => {
-                    if (!e2.imageSrc == "") {
-                        allCellsEmpty = false;
-                    }
-                })
-            })
-
-            if (!allCellsEmpty) {
-                if (!confirm('This action will clear the canvas! Continue?')) {
-                    state.rows.value = 0
-                    return;
-                }
-            }
 
             imageInfo.setCellCollection([]);
             state.dyntable.innerHTML = '<thead><td width="80" height="20">Frame 1</td><td width="80" height="20">Frame 2</td><td width="80" height="20">Frame 3</td><td width="80" height="20">Frame 4</td><td width="80" height="20">Frame 5</td><td width="80" height="20">Frame 6</td><td width="80" height="20">Frame 7</td><td width="80" height="20">Frame 8</td></thead>';

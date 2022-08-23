@@ -1,16 +1,85 @@
 var downloadUpload = function () {
+
+    /**
+     * Compresses image when uploading.
+     * 
+     * Made by {@link https://labs.madisoft.it/javascript-image-compression-and-resizing/ MIRCO BELLAGAMBA} 
+     * @param {Object} file - The image file
+     * 
+     */
+    async function compressImage(file, div) {
+        /**
+         * Calculates size of canvas
+         * @param {object} img 
+         * @param {number} maxWidth 
+         * @param {number} maxHeight 
+         * @returns array
+         */
+        function calculateSize(img, maxWidth, maxHeight) {
+            let width = img.width;
+            let height = img.height;
+
+            // calculate the width and height, constraining the proportions
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round((height * maxWidth) / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round((width * maxHeight) / height);
+                    height = maxHeight;
+                }
+            }
+            return [width, height];
+        }
+
+        // Settings
+        const MAX_WIDTH = config.settings.maxWidth;
+        const MAX_HEIGHT = config.settings.maxHeight;
+        const MIME_TYPE = "image/jpeg";
+        const QUALITY = config.settings.compressionRate
+
+        /*/ Begin processing /*/
+        var blobURL = URL.createObjectURL(file);
+        const img = new Image();
+        img.src = blobURL;
+        img.onerror = function () {
+            URL.revokeObjectURL(this.src);
+            // Handle the failure properly
+            console.log("Cannot load image");
+        };
+        img.onload = function () {
+            URL.revokeObjectURL(this.src);
+            const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+            const canvas = document.createElement("canvas");
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+            canvas.toBlob(
+                (blob) => {
+                    insertImage(blob, div);
+                },
+                MIME_TYPE,
+                QUALITY
+            );
+        };
+    }
+
     /**
      * Creates a new image element and appends it to a collection
      * @param {*} src - An image src
      */
-    function createImage(src) {
-        // Create div for image
+    async function createImage(src) {
         var div = document.createElement("div");
         div.setAttribute("class", "result-container");
+        await compressImage(src, div);
+    }
 
+    function insertImage(blob, div) {
         // Insert the image
-        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + src + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
-
+        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + URL.createObjectURL(blob) + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
 
         // Insert the combined div and image
         state.result.insertBefore(div, null);
@@ -71,7 +140,7 @@ var downloadUpload = function () {
                 rows: state.rows.value,
                 width: state.cell_width.value,
                 height: state.cell_height.value,
-                tableObject: imageInfo.getCellCollection(),
+                tableObject: imageInfo.getCellCollection()
             }
 
             // Create a blob of the data
@@ -85,7 +154,6 @@ var downloadUpload = function () {
 
         pond: function () {
             FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
-
             var extractFrames = function (file) {
                 maxFrames = 20;
 
@@ -98,7 +166,7 @@ var downloadUpload = function () {
                         })
 
                         for (frame of state.gifFrames.childNodes) {
-                            createImage(frame.toDataURL())
+                            createImage(frame.toBlob())
                         }
 
                         state.gifFrames.innerHTML = "";
@@ -129,12 +197,12 @@ var downloadUpload = function () {
                                 extractFrames(image.getFileEncodeDataURL())
                                 uploadImage.removeFile(image);
                             } else {
-                                createImage(image.getFileEncodeDataURL());
+                                createImage(image.file);
                                 uploadImage.removeFile(image);
                             }
                         } catch (err) {
                             if (err instanceof TypeError) {
-                                console.log("Invalid File")
+                                console.log("Invalid File", err)
                             }
                         }
                     }
@@ -148,7 +216,7 @@ var downloadUpload = function () {
 
                 table.addTable();
                 imageInfo.setCellCollection(json.tableObject);
-
+                table.iterateTable();
                 graphicHandler.redraw();
             }
 
@@ -230,9 +298,9 @@ var eventListeners = function () {
      */
     $([state.rows, state.cell_width, state.cell_height]).change(function (event) {
         eventListeners.checkMinMax(event);
-
-        table.addTable();
+        if (table.checkEmptyCells()) table.addTable();
     });
+
 
     return {
         /**
@@ -240,7 +308,6 @@ var eventListeners = function () {
          * @param {object} event 
          */
         checkMinMax: function (event) {
-            console.log(typeof(event))
             if (parseInt(event.target.value) > parseInt(event.target.getAttribute("max"))) event.target.value = parseInt(event.target.getAttribute("max"));
             if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
         }

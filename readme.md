@@ -29,20 +29,26 @@ Simply clone the project and open the `index.html` file inside the `generator` f
  
 ## Configure the generator
 The current configuration is set to give the best user experience, but you may reconfigure the generator if you want to.
-Note that the generator can become very unstable if you enter higher values!
 
 You can find the config variable `settings` in `generator/scripts/conifg.js`. The current config looks like this:
 ```javascript
 /*/ Removing a key will reset it to default /*/
 
-var settings = {
-    maxRows: 40, // Max amount of allowed rows
-    minWidth: 80, // Minimum cell width
-    maxWidth: 150, // Maximum cell width
-    minHeight: 80, // Minimum cell height
-    maxHeight: 150, // Maximum cell height
-    maxUploadSize: "2mb" // Max image upload size
-}
+    var settings = {
+        maxRows: 40, // Max amount of allowed rows
+
+        minWidth: 80, // Minimum cell width
+        minHeight: 80, // Minimum cell height
+        minXOffset: -20, // Minimum X-offset
+        minYOffset: -150, // Minimum Y-offset
+
+        maxWidth: 150, // Maximum cell width
+        maxHeight: 150, // Maximum cell height
+        maxXOffset: 150, // Maximum X-offset
+        maxYOffset: 150, // Maximum Y-offset
+        
+        maxUploadSize: "2mb" // Max image upload size
+    }
 ```
 
 ## Libaries
