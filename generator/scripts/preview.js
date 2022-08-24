@@ -6,7 +6,7 @@
  */
 
 class Preview {
-    constructor(row, fps) {
+    constructor(row, fps, cell) {
         this.row = row;
         this.fps = fps;
 
@@ -20,11 +20,15 @@ class Preview {
         this.bind; // The bind is used by the requestAnimationFrame to avoid binding many times
         this.width = state.cell_width.value;
         this.height = state.cell_height.value;
+        this.cell = cell;
 
         // Set the height and width
-        this.previewCanvas = state.gifPreview;
+        const canvas = document.createElement("canvas");
+        canvas.classList.add("gifPreview")
+        this.previewCanvas = canvas;
         this.previewCanvas.width = this.width;
-        this.previewCanvas.height = this.height * this.row;
+        this.previewCanvas.height = this.height;
+        cell.appendChild(canvas)
 
         // Image position
         this.x = 0;
@@ -33,12 +37,12 @@ class Preview {
     nextFrame() {
         // Generate settings
         var originalCanvas = state.canvas,
-            startClippingX = 0,
-            startClippingY = (this.height * this.row) - this.height,
+            startClippingX = (this.height * this.row) - this.height,
+            startClippingY = 0,
             clippingWidth = this.width,
             clippingHeight = this.height,
             pasteX = 0,
-            pasteY = (this.height * this.row) - this.height,
+            pasteY = 0,
             pasteWidth = this.width,
             pasteHeight = this.height
 

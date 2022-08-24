@@ -57,7 +57,10 @@
                         <form id='post-form' class='post-form' method='post'>
                             <div style="position: relative;">
                                 <input style="margin: 0 auto;" id='files' type='file' multiple hidden />
-                                <select id="cumulative" class="form-select" style="margin-bottom: 4px;"><option value="cumulative"> Transparent GIF </option> <option>NOT Transparent GIF</option></select>
+                                <select id="cumulative" class="form-select" style="margin-bottom: 4px;">
+                                    <option value="cumulative"> Transparent GIF </option>
+                                    <option>NOT Transparent GIF</option>
+                                </select>
 
                                 <select name="collections" class="form-select" id="collection"
                                     onchange="graphicHandler.filterClass()"></select>
@@ -86,13 +89,22 @@
 
                     <form id="offset" onsubmit="return false">
                         <label>X-offset:</label>
-                        <input id="offsetX" class="offsetControlls" step="1" type="number" min="-150" max="150" disabled>
-                        <input id="offsetY" class="offsetControlls" step="1" type="number" min="-150" max="150" disabled>
+                        <input id="offsetX" class="offsetControlls" step="1" type="number" min="-150" max="150"
+                            disabled>
+                        <input id="offsetY" class="offsetControlls" step="1" type="number" min="-150" max="150"
+                            disabled>
                         <label>:Y-offset</label>
                         <button class="btn btn-warning btn-sm" id="delete" onclick="graphicHandler.remove()" disabled>
                             Delete </button>
                     </form>
-
+                    <div id="preview-buttons">
+                        <button id="start" class="btn btn-outline-light btn-sm"
+                            onclick="graphicHandler.configPreview(true)"> Start
+                            Preview </button>
+                        <button id="pause" class="btn btn-outline-light btn-sm"
+                            onclick="graphicHandler.configPreview(false)"> Pause
+                            Preview </button>
+                    </div>
                     <div id="dyntable_container">
                         <table id="dyntable">
                         </table>
@@ -105,23 +117,7 @@
                     <div id="ContainerCanvas">
                     </div>
                 </div>
-
-                <!-- The preview section -->
-                <div id="preview" class="box">
-                    <h2 style="text-decoration: underline;">Preview</h2>
-
-                    <div id="preview-buttons">
-                        <button id="start" class="btn btn-outline-light btn-sm"
-                            onclick="graphicHandler.configPreview(true)"> Start
-                            Preview </button>
-                        <button id="pause" class="btn btn-outline-light btn-sm"
-                            onclick="graphicHandler.configPreview(false)"> Pause
-                            Preview </button>
-                    </div>
-
-                    <canvas id="gifPreview" width="80" height="80"> </canvas>
-                </div>
-
+                
                 <!-- The animation names section -->
                 <div id="text-mapping" class="box">
                     <h2 style="text-decoration: underline;">Animation Names</h2>
@@ -172,7 +168,8 @@
 
                 <!-- Footer -->
                 <div id="about">
-                    <p>This webpage was created to generate Fruity Dance Sprite Sheets. For more info and source code, go the the github page.
+                    <p>This webpage was created to generate Fruity Dance Sprite Sheets. For more info and source code,
+                        go the the github page.
                     </p>
                 </div>
             </div>

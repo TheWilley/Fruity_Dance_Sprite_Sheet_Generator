@@ -34,7 +34,7 @@ td {
     padding: 12px;
 }
 
-canvas {
+#canvas {
     border: 2px dotted rgb(87, 128, 81) !important;
 }
 
@@ -128,6 +128,7 @@ input[type='file'] {
 #dyntable {
     padding: 10px;
     margin: 0 auto;
+    display: inline-block;
 }
 
 #text-mapping {
@@ -219,7 +220,7 @@ input[type='file'] {
     height: 100%;
 }
 
-#gifPreview {
+.gifPreview {
     border: rgb(64, 64, 64) 1px solid !important;
 }
 
