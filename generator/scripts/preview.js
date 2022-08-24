@@ -37,8 +37,8 @@ class Preview {
     nextFrame() {
         // Generate settings
         var originalCanvas = state.canvas,
-            startClippingX = (this.height * this.row) - this.height,
-            startClippingY = 0,
+            startClippingX = 0,
+            startClippingY = (this.height * this.row) - this.height,
             clippingWidth = this.width,
             clippingHeight = this.height,
             pasteX = 0,

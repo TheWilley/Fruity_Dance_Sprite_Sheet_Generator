@@ -85,7 +85,7 @@ var table = function () {
                 // Create row number
                 let rowNumb = document.createElement("th");
                 rowNumb.setAttribute("scope", "row");
-                rowNumb.innerHTML = x;
+                rowNumb.innerHTML = x + 1;
                 table_row.appendChild(rowNumb);
                 state.dyntable.appendChild(table_row);
 
