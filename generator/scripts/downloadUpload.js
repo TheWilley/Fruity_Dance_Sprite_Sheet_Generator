@@ -338,6 +338,29 @@ var downloadUpload = function () {
 
 var eventListeners = function () {
     /**
+     * Keyboard shortcut
+     * https://stackoverflow.com/a/14180949
+     */
+    $(window).bind('keydown', function (event) {
+        if (event.ctrlKey || event.metaKey) {
+            switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 's': // Save
+                    event.preventDefault();
+                    state.downloadJson.click()
+                    break;
+                case 'e': // Export
+                    event.preventDefault();
+                    state.downloadSpriteSheet.click()
+                    break;
+                case 'u': // Clear uploaded images
+                    event.preventDefault();
+                    state.clear.click()
+                    break;
+            }
+        }
+    });
+
+    /**
      * Checks if download sprite sheet button has been clicked
      */
     state.downloadSpriteSheet.addEventListener('click', function (e) {
