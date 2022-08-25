@@ -25,6 +25,8 @@ class Preview {
         // Set the height and width
         const canvas = document.createElement("canvas");
         canvas.classList.add("gifPreview")
+        
+        // Generate canvas
         this.previewCanvas = canvas;
         this.previewCanvas.width = this.width;
         this.previewCanvas.height = this.height;

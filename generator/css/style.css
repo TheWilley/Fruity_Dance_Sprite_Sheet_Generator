@@ -1,5 +1,9 @@
 /*/ HTML elements /*/
 
+:root {
+    --showPreview: block;
+}
+
 @media only screen and (max-width: 889px) {
     #settings {
         width: 140px;
@@ -102,6 +106,10 @@ input[type='file'] {
     display: none;
 }
 
+.rownumb {
+    background-color: #3b3c3e;
+}
+
 /*/ ID's /*/
 #edit {
     margin-top: 20px;
@@ -128,7 +136,10 @@ input[type='file'] {
 #dyntable {
     padding: 10px;
     margin: 0 auto;
-    display: inline-block;
+}
+
+#dyntable tr > *:nth-child(10) {
+    display: var(--showPreview);
 }
 
 #text-mapping {

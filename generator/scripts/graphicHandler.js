@@ -26,7 +26,7 @@ var graphicHandler = function () {
                 let cell_height = parseInt(state.cell_height.value);
 
                 // Check if whole canvas is being cleared or only part of it
-                switch(clear) {case "wholeCanvas": ctx.clearRect(0, 0, state.canvas.width, state.canvas.height); case "partOfCanvas": ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
+                switch (clear) { case "wholeCanvas": ctx.clearRect(0, 0, state.canvas.width, state.canvas.height); case "partOfCanvas": ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
                 // Drawing of image
                 GeneratedCanvas.onload = function () {
@@ -113,7 +113,7 @@ var graphicHandler = function () {
         /**
          * Only show elements based on which collection user wants to see 
          */
-        filterClass: function() {
+        filterClass: function () {
             for (e of document.querySelectorAll(".thumbnail")) {
                 if (!e.classList.contains(state.collection.value)) {
                     e.style.display = "none"
@@ -168,6 +168,14 @@ var graphicHandler = function () {
                 }
                 graphicHandler.filterClass()
             }
+        },
+
+        /**
+         * Shows or hides preview columns in table
+         */
+        showPreview: function () {
+            let root = document.documentElement;
+            root.style.getPropertyValue("--showPreview") == "none" ? root.style.setProperty("--showPreview", "block") : root.style.setProperty("--showPreview", "none")
         },
 
         /*/ Getters /*/

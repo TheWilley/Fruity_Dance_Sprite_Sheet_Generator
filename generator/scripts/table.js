@@ -63,7 +63,7 @@ var table = function () {
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
             imageInfo.setCellCollection([]);
-            state.dyntable.innerHTML = '<thead><td> Row </td><td width="80" height="20">Frame 1</td><td width="80" height="20">Frame 2</td><td width="80" height="20">Frame 3</td><td width="80" height="20">Frame 4</td><td width="80" height="20">Frame 5</td><td width="80" height="20">Frame 6</td><td width="80" height="20">Frame 7</td><td width="80" height="20">Frame 8</td><td>Preview</td></thead>';
+            state.dyntable.innerHTML = '<thead><td class="rownumb"> Row </td><td width="80" height="20">Frame 1</td><td width="80" height="20">Frame 2</td><td width="80" height="20">Frame 3</td><td width="80" height="20">Frame 4</td><td width="80" height="20">Frame 5</td><td width="80" height="20">Frame 6</td><td width="80" height="20">Frame 7</td><td width="80" height="20">Frame 8</td><td>Preview</td></thead>';
 
             // Stop all objects
             graphicHandler.getPreviewObjects().forEach(object => {
@@ -85,6 +85,7 @@ var table = function () {
                 // Create row number
                 let rowNumb = document.createElement("th");
                 rowNumb.setAttribute("scope", "row");
+                rowNumb.className = "rownumb"
                 rowNumb.innerHTML = x + 1;
                 table_row.appendChild(rowNumb);
                 state.dyntable.appendChild(table_row);
