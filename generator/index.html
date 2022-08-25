@@ -2,9 +2,16 @@
 <html>
 
 <head>
-    <title>Studio</title>
+    <title>Fruity Dance Sprite Sheet Generator</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#75d55b">
+    <meta name="msapplication-TileColor" content="#00a300">
+    <meta name="theme-color" content="#ffffff">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
@@ -101,8 +108,8 @@
                         <button id="start" class="btn btn-outline-light btn-sm"
                             onclick="graphicHandler.configPreview(true)"> Start
                             Preview </button>
-                        <button id="start" class="btn btn-outline-light btn-sm"
-                            onclick="graphicHandler.showPreview()"> Show / Hide </button>
+                        <button id="start" class="btn btn-outline-light btn-sm" onclick="graphicHandler.showPreview()">
+                            Show / Hide </button>
                         <button id="pause" class="btn btn-outline-light btn-sm"
                             onclick="graphicHandler.configPreview(false)"> Pause
                             Preview </button>
@@ -119,7 +126,7 @@
                     <div id="ContainerCanvas">
                     </div>
                 </div>
-                
+
                 <!-- The animation names section -->
                 <div id="text-mapping" class="box">
                     <h2 style="text-decoration: underline;">Animation Names</h2>
