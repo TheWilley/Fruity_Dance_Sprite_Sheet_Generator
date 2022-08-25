@@ -57,7 +57,24 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         previewFPS: 4, // The FPS of the preview
     }
 ```
-
+## Keyboard shortcuts
+<table>
+    <thead> <td> Shortcut </td> <td> Description </td></thead>
+    <tbody> 
+        <tr>
+            <td> <code> ctrl + s </code> / <code> ⌘ + s </code> <td>
+            <td> Save the sprite sheet in json format </td>
+        </tr>
+        <tr>
+            <td> <code> ctrl + e </code> / <code> ⌘ + e </code> <td>
+            <td> Export the sprite sheet </td>
+        </tr>
+        <tr>
+            <td> <code> ctrl + u </code> / <code> ⌘ + u </code> <td>
+            <td> Clear uploaded images </td>
+        </tr>
+    </tbody>
+</table>
 ## Libaries
 * bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
 * CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
