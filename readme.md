@@ -62,15 +62,15 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
     <thead> <td> Shortcut </td> <td> Description </td></thead>
     <tbody> 
         <tr>
-            <td> <code> ctrl + s </code> / <code> ⌘ + s </code> <td>
+            <td> <code> ctrl + s </code> / <code> ⌘ + s </code>
             <td> Save the sprite sheet in json format </td>
         </tr>
         <tr>
-            <td> <code> ctrl + e </code> / <code> ⌘ + e </code> <td>
+            <td> <code> ctrl + e </code> / <code> ⌘ + e </code>
             <td> Export the sprite sheet </td>
         </tr>
         <tr>
-            <td> <code> ctrl + u </code> / <code> ⌘ + u </code> <td>
+            <td> <code> ctrl + u </code> / <code> ⌘ + u </code>
             <td> Clear uploaded images </td>
         </tr>
     </tbody>
