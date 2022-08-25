@@ -75,6 +75,7 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         </tr>
     </tbody>
 </table>
+
 ## Libaries
 * bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
 * CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
