@@ -22,7 +22,12 @@ var config = function () {
         /*/ Upload settings /*/
         maxUploadSize: "8mb", // Max image upload size
         compressionRate: 0.7, // The image compression rate
-        maxAllowedGifFrames: 30 // Limit how many frames of a gif to export
+        maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
+
+        /**
+         * Preview Settings
+         */
+        previewFPS: 4, // The FPS of the preview
     }
 
     new Map([

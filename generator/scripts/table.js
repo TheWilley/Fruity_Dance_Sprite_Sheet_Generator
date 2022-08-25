@@ -115,7 +115,7 @@ var table = function () {
                 table_row.appendChild(previewCell);
 
                 // Create new preview objects
-                let temp = new Preview(x + 1, 4, previewCell);
+                let temp = new Preview(x + 1, config.settings.previewFPS, previewCell);
                 graphicHandler.getPreviewObjects().push(temp);
                 temp.start();
             }
