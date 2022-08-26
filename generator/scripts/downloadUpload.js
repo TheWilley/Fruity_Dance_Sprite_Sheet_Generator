@@ -225,6 +225,7 @@ var downloadUpload = function () {
             var object = {
                 spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
                 rows: state.rows.value,
+                rowNames: state.textarea.value,
                 width: state.cell_width.value,
                 height: state.cell_height.value,
                 tableObject: imageInfo.getCellCollection()
@@ -320,6 +321,7 @@ var downloadUpload = function () {
                 state.cell_height.value = json.height;
 
                 table.addTable();
+                state.textarea.value = json.rowNames;
                 imageInfo.setCellCollection(json.tableObject);
                 table.iterateTable();
                 graphicHandler.redraw();
