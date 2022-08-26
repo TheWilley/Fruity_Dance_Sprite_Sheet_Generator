@@ -136,7 +136,7 @@ var graphicHandler = function () {
              */
             const classNames = function () {
                 var temp = []
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < config.settings.amountOfCollections; i++) {
                     temp.push("col" + i)
 
                     contextMenu.addItem(`Collection ${i}`, function () {

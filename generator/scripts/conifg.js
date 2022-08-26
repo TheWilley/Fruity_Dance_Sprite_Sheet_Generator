@@ -24,8 +24,10 @@ var config = function () {
         compressionRate: 0.7, // The image compression rate (1 = no compression, 0 = highest compression)
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
-        /*/ Preview Settings /*/
+        /*/ Other settings /*/
         previewFPS: 4, // The FPS of the preview
+        amountOfCollections: 38, // The amount of collections (The ctx menu can only handle about 38)
+        background: null // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
     }
 
     new Map([
@@ -38,6 +40,7 @@ var config = function () {
         ["maxXOffset", (value) => { state.offsetX.setAttribute("max", value) }],
         ["minYOffset", (value) => { state.offsetY.setAttribute("min", value) }],
         ["maxYOffset", (value) => { state.offsetY.setAttribute("max", value) }],
+        ["background", (value) => { let root = document.documentElement; if(value != null) value[0] == "#" ? root.style.setProperty("--background", value) : root.style.setProperty("--background", `url(${value})`) }],
     ]).forEach((value, key) => {
         if (settings[key]) value(settings[key])
     })
