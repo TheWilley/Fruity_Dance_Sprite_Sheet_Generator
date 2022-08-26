@@ -30,7 +30,6 @@ var table = function () {
             })
 
             if (!allCellsEmpty) {
-                console.log(state.rows.value)
                 if (!confirm('This action will clear the canvas! Continue?')) {
                     return false;
                 }

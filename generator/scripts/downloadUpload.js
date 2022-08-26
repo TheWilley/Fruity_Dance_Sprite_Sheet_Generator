@@ -59,7 +59,10 @@ var downloadUpload = function () {
                 const MIME_TYPE = "image/png";
                 const QUALITY = config.settings.compressionRate
 
+                // Convert file to blobURL
                 blobURL = URL.createObjectURL(file)
+
+                // Create new image and assign the blob to it
                 const img = new Image();
                 img.src = blobURL;
                 img.onerror = function () {
@@ -67,12 +70,18 @@ var downloadUpload = function () {
                     // Handle the failure properly
                     console.log("Cannot load image");
                 };
+
+                // When image loads, compress it 
                 img.onload = function () {
                     URL.revokeObjectURL(this.src);
+
+                    // Assign width and height
                     const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
                     const canvas = document.createElement("canvas");
                     canvas.width = newWidth;
                     canvas.height = newHeight;
+
+                    // Get image and draw it
                     const ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, newWidth, newHeight);
                     canvas.toBlob(
@@ -109,8 +118,6 @@ var downloadUpload = function () {
         var lines = state.textarea.value.split("\n");
         var linesLength = lines.length;
 
-        console.log(lines[parseInt(state.rows.value - 1)] != "Held")
-
         if (linesLength > parseInt(state.rows.value) || lines[parseInt(state.rows.value - 1)] != "Held") {
             alert("Animations names invalid!")
             return false;
@@ -120,7 +127,7 @@ var downloadUpload = function () {
     }
 
     /**
-     * 
+     * Inserts image to the sidebar
      * @param {string} image - An image object in base64
      * @param {Object} div - The div containg the image
      */
@@ -269,8 +276,6 @@ var downloadUpload = function () {
                     if (error) {
                         return
                     }
-
-                    console.log(image)
 
                     // For every image
                     try {

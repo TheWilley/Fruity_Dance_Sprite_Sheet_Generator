@@ -24,9 +24,7 @@ var config = function () {
         compressionRate: 0.7, // The image compression rate
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
-        /**
-         * Preview Settings
-         */
+        /*/ Preview Settings /*/
         previewFPS: 4, // The FPS of the preview
     }
 
