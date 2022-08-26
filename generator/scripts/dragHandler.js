@@ -97,7 +97,7 @@ var dragHandler = function () {
     interact("#delete").dropzone({
         ondrop: function(event) {
             // Remove element
-            event.relatedTarget.remove()
+            event.relatedTarget.parentNode.remove()
 
             // Disable the preview
             graphicHandler.previewImage(false);

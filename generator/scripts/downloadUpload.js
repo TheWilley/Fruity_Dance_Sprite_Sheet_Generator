@@ -103,10 +103,12 @@ var downloadUpload = function () {
      */
     async function createImage(src) {
         return new Promise((resolve) => {
-            var div = document.createElement("div");
-            div.setAttribute("class", "result-container");
-            compressImage(src, div).init();
-            resolve();
+            if (src) {
+                var span = document.createElement("span");
+                span.setAttribute("class", "result-container");
+                compressImage(src, span).init();
+                resolve();
+            }
         })
     }
 
@@ -118,10 +120,10 @@ var downloadUpload = function () {
         var lines = state.textarea.value.split("\n");
 
         // Removes white lines
-        for(var i = 0; i < lines.length; i++) {
+        for (var i = 0; i < lines.length; i++) {
             if (lines[i] == "") {
                 lines.splice(i, i)
-            } 
+            }
         }
 
         // Get length of lines
@@ -131,7 +133,7 @@ var downloadUpload = function () {
         if (linesLength > parseInt(state.rows.value)) {
             alert("There are more animation names than rows!")
             return false;
-        } else if(lines[parseInt(state.rows.value - 1)] != "Held"){
+        } else if (lines[parseInt(state.rows.value - 1)] != "Held") {
             alert("Could not find 'Held' at last line!")
             return false;
         } else {
