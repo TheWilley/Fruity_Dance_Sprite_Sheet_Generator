@@ -48,7 +48,7 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         
         /*/ Upload settings /*/
         maxUploadSize: "8mb", // Max image upload size
-        compressionRate: 0.7, // The image compression rate
+        compressionRate: 0.7, // The image compression rate (1 = no compression, 0 = highest compression)
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
         /*/ Preview Settings /*/
