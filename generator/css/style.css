@@ -111,6 +111,11 @@ input[type='file'] {
     background-color: #3b3c3e;
 }
 
+.small-line {
+    border-bottom: 2px dashed gray;
+    margin-bottom: 4px;
+}
+
 /*/ ID's /*/
 #edit {
     margin-top: 20px;
