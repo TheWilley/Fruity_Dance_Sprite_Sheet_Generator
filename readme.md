@@ -51,9 +51,7 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         compressionRate: 0.7, // The image compression rate
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
-        /**
-         * Preview Settings
-         */
+        /*/ Preview Settings /*/
         previewFPS: 4, // The FPS of the preview
     }
 ```
