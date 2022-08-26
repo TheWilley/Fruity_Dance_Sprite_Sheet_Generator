@@ -116,10 +116,23 @@ var downloadUpload = function () {
      */
     function checkAnimationNames() {
         var lines = state.textarea.value.split("\n");
+
+        // Removes white lines
+        for(var i = 0; i < lines.length; i++) {
+            if (lines[i] == "") {
+                lines.splice(i, i)
+            } 
+        }
+
+        // Get length of lines
         var linesLength = lines.length;
 
-        if (linesLength > parseInt(state.rows.value) || lines[parseInt(state.rows.value - 1)] != "Held") {
-            alert("Animations names invalid!")
+        // Check if valid
+        if (linesLength > parseInt(state.rows.value)) {
+            alert("There are more animation names than rows!")
+            return false;
+        } else if(lines[parseInt(state.rows.value - 1)] != "Held"){
+            alert("Could not find 'Held' at last line!")
             return false;
         } else {
             return true;
