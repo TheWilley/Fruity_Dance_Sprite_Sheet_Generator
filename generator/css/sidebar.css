@@ -2,7 +2,7 @@
     #sidebarContainer {
         position: initial !important;
         overflow-x: auto;
-        max-height: 140px;
+        max-height: 220px;
         border-radius: 5px;
     }
 
