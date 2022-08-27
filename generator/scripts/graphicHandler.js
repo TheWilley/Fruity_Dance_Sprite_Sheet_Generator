@@ -102,11 +102,11 @@ var graphicHandler = function () {
             if (preview) {
                 popup.style.transform = "translate(-50%, 290px)";
                 state.mouseCircle.style.opacity = "100%";
-                state.delete.style.border = "3px dashed red"
+                state.delete.style.outline = "3px dashed red"
             } else {
                 state.popup.style.transform = "translate(-50%, 150px)";
                 state.mouseCircle.style.opacity = "0%"
-                state.delete.style.border = "none"
+                state.delete.style.outline = "none"
             };
         },
 

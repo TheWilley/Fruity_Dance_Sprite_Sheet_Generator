@@ -51,7 +51,8 @@ input[type='file'] {
     height: 70px;
     position: relative;
     z-index: 0;
-    border: 1px solid gray;
+    outline: solid 1px gray;
+    transition: border-radius 0.4s;
 }
 
 .rows {
@@ -64,7 +65,7 @@ input[type='file'] {
 
 .container-fluid {
     background: var(--background);
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -87,11 +88,13 @@ input[type='file'] {
     margin-right: 14px;
 }
 
-.drop-target {
+.drop-target>* {
     border-radius: 50%;
-    background-color: rgba(74, 238, 74, 0.068);
-    transition: all 0.4s;
+    background-color: rgba(74, 238, 74, 0.142);
+    outline: solid 1px gray;
+    transition: border-radius 0.4s;
     padding: -20px;
+    border: none;
 }
 
 .can-drop {
@@ -144,7 +147,7 @@ input[type='file'] {
     margin: 0 auto;
 }
 
-#dyntable tr > *:nth-child(10) {
+#dyntable tr>*:nth-child(10) {
     display: var(--showPreview);
 }
 

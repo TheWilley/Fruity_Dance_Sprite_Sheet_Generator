@@ -12,6 +12,7 @@
 
     .result-container {
         margin-right: 20px;
+        display: inline-block;
     }
 
     .thumbnail {
