@@ -86,7 +86,7 @@ var table = function () {
                 let rowNumb = document.createElement("th");
                 rowNumb.setAttribute("scope", "row");
                 rowNumb.className = "rownumb"
-                rowNumb.innerHTML = x + 1;
+                rowNumb.innerHTML = x + 1 == state.rows.value ? "Held" : x + 1;
                 table_row.appendChild(rowNumb);
                 state.dyntable.appendChild(table_row);
 
