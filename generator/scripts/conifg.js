@@ -21,7 +21,8 @@ var config = function () {
         
         /*/ Upload settings /*/
         maxUploadSize: "8mb", // Max image upload size
-        compressionRate: 0.7, // The image compression rate (1 = no compression, 0 = highest compression)
+        imageQuality: 0.7, // The image quality (1 = best quality, 0 = worst quality)
+        imageSizeMultiplier: 1, // Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
         /*/ Other settings /*/

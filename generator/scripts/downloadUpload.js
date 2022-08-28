@@ -54,10 +54,10 @@ var downloadUpload = function () {
              */
             init: function () {
                 // Settings
-                const MAX_WIDTH = config.settings.maxWidth;
-                const MAX_HEIGHT = config.settings.maxHeight;
+                const MAX_WIDTH = config.settings.maxWidth * config.settings.imageSizeMultiplier;
+                const MAX_HEIGHT = config.settings.maxHeight * config.settings.imageSizeMultiplier;
                 const MIME_TYPE = "image/png";
-                const QUALITY = config.settings.compressionRate
+                const QUALITY = config.settings.imageQuality
 
                 // Convert file to blobURL
                 blobURL = URL.createObjectURL(file)
@@ -425,7 +425,7 @@ var eventListeners = function () {
      * Runs Before leaving page
      */
     $(window).bind('beforeunload', function () {
-        //return 'Your changes might not be saved';
+        return 'Your changes might not be saved';
     })
 
     /**
