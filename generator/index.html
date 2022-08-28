@@ -64,7 +64,7 @@
             <div id="topbar" class="col-xl-2 text-center">
                 <div id="sidebarContainer">
                     <div id="sidebar">
-                        <form id='post-form' class='post-form' method='post'>
+                        <form id='post-form' class='post-form' onsubmit="return false">
                             <div style="position: relative;">
                                 <input style="margin: 0 auto;" id='files' type='file' multiple hidden />
                                 <select id="cumulative" class="form-select" style="margin-bottom: 4px;">
@@ -88,7 +88,7 @@
                         <img id="popup_image">
                     </div>
                     <h2 style="text-decoration: underline;">Edit</h2>
-                    <form id="settings" style="margin-bottom: 8px">
+                    <form id="settings" style="margin-bottom: 8px" onsubmit="return false">
                         <label>Rows:</label>
                         <input type="number" step="1" value="1" id="rows" min="1" max="40">
                         <label>Width:</label>
