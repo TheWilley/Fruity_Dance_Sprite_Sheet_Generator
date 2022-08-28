@@ -368,15 +368,17 @@ var eventListeners = function () {
             switch (String.fromCharCode(event.which).toLowerCase()) {
                 case 's': // Save
                     event.preventDefault();
-                    state.downloadJson.click()
+                    state.downloadJson.click();
                     break;
                 case 'e': // Export
                     event.preventDefault();
-                    state.downloadSpriteSheet.click()
+                    state.filename.value = "savedSpriteSheet";
+                    state.downloadSpriteSheet.click();
+                    state.filename.value = "";
                     break;
                 case 'u': // Clear uploaded images
                     event.preventDefault();
-                    state.clear.click()
+                    state.clear.click();
                     break;
             }
         }

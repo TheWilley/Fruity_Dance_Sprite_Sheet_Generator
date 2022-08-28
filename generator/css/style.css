@@ -95,6 +95,7 @@ input[type='file'] {
     transition: border-radius 0.4s;
     padding: -20px;
     border: none;
+    opacity: 50%;
 }
 
 .can-drop {

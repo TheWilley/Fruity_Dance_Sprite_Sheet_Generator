@@ -4,10 +4,11 @@ var table = function () {
          * Itterates table and inserts images from object
          */
         iterateTable: function () {
-            for (var i = 1, row; row = state.dyntable.rows[i]; i++) {
-                for (var j = 0, col; col = row.cells[j]; j++) {
-                    if (imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc != null) {
-                        col.childNodes[0].src = imageInfo.getCellCollection()[col.getAttribute("data-x")][col.getAttribute("data-y")].imageSrc
+
+            for (let row of state.dyntable.rows) {
+                for (let cell of row.cells) {
+                    if (cell.classList.contains("dropzones") && imageInfo.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc != null) {
+                        cell.childNodes[0].src = imageInfo.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc
                     }
                 }
             }
