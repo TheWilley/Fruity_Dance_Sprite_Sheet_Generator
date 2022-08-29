@@ -16,17 +16,15 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 ## Feautures
 * Right click on an image to sort it into a "collection".  <br>
 ![](readme-stuff/2022-08-18-12-52-34.png)
-* Upload images or a gif to auto extract its frames (max 10mb). <br>
-![](readme-stuff/2022-08-18-12-56-14.png)
+* Upload images or a gif to auto extract its frames. <br>
+![image](https://user-images.githubusercontent.com/89783791/187177409-f701b001-628f-4a16-b6ab-13822a92e500.png)
 * Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
-![](readme-stuff/2022-08-18-13-01-00.png)
+![image](https://user-images.githubusercontent.com/89783791/187177639-dddf4c57-f85c-4f10-bc70-00373c1b8bae.png)
 * Drag and drop images into the grid to place them. You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
-![](readme-stuff/2022-08-18-13-07-48.png)
-* Watch your sprite sheet live with the preview section. <br>
-![](readme-stuff/2022-08-18-13-14-02.png)
-* Edit the name of animations and the ZIP.
-![](readme-stuff/2022-08-18-13-21-01.png)
- 
+![image](https://user-images.githubusercontent.com/89783791/187178031-62db9a84-5a1d-49cb-a0c1-febd3b367b7b.png)
+* Save your sprite sheet for later or export it.
+![image](https://user-images.githubusercontent.com/89783791/187178249-8b816e83-3715-42c2-9558-6f033495c318.png)
+
 ## Configure the generator
 The current configuration is set to give the best user experience, but you may reconfigure the generator if you want to.
 
@@ -90,4 +88,4 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
 * JSZip - MIT - Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso - https://github.com/Stuk/jszip
 
 ## Issues
-Plase create a new issue if you find a bug or a missing feature. Thanks.
+Plase create a new issue if you find a bug. Thanks.
