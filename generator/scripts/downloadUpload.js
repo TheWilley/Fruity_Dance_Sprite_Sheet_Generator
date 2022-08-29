@@ -270,8 +270,8 @@ var downloadUpload = function() {
                             }
 
                             state.gifFrames.innerHTML = "";
-                            resolve();
                         }).catch(console.error.bind(console));
+                    resolve();
                 })
             }
 
@@ -425,7 +425,7 @@ var eventListeners = function() {
      * Runs Before leaving page
      */
     $(window).bind('beforeunload', function() {
-        if(config.settings.warnBeforeLeavingPage) return 'Your changes might not be saved';
+        if (config.settings.warnBeforeLeavingPage) return 'Your changes might not be saved';
     })
 
     /**
