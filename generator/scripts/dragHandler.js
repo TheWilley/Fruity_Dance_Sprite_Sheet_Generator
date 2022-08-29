@@ -26,7 +26,7 @@ var dragHandler = function () {
                 var y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
 
                 // Translates the element
-                event.target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+                event.target.style.transform = `translate(${x}px, ${y}px)`;
 
                 // Update the posiion attributes
                 event.target.setAttribute('data-x', x)
@@ -36,8 +36,8 @@ var dragHandler = function () {
                 if (event.relatedTarget == null) {
                     var target_element = document.getElementById(event.target.id);
                     // Translate the element
-                    target_element.style.transform = 'translate(' + original_position_x + 'px, ' + original_position_y + 'px)';
-
+                    target_element.style.transform = `translate(${original_position_x}px, ${original_position_y}px)`;
+ 
                     // Update the posiion attributes
                     target_element.setAttribute('data-x', original_position_x);
                     target_element.setAttribute('data-y', original_position_y);
@@ -70,7 +70,7 @@ var dragHandler = function () {
             event.target.firstChild.src = target_element.src;
 
             // Go back to otiginal position
-            target_element.style.transform = 'translate(' + original_position_x + 'px, ' + original_position_y + 'px)';
+            target_element.style.transform = `translate(${original_position_x}px, ${original_position_y}px)`;
             target_element.setAttribute('data-x', original_position_x);
             target_element.setAttribute('data-y', original_position_y);
 

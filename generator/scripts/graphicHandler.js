@@ -137,14 +137,14 @@ var graphicHandler = function () {
             const classNames = function () {
                 var temp = []
                 for (let i = 0; i < config.settings.amountOfCollections; i++) {
-                    temp.push("col" + i)
+                    temp.push(`col${i}`)
 
                     contextMenu.addItem(`Collection ${i}`, function () {
-                        changeClass(contextMenu._elementClicked, "col" + i)
+                        changeClass(contextMenu._elementClicked, `col${i}`)
                     });
 
                     var option = document.createElement("option");
-                    option.value = "col" + i;
+                    option.value = `col${i}`;
                     option.innerHTML = `Collection ${i}`;
                     state.collection.appendChild(option)
 

@@ -22,8 +22,8 @@ var mouseHandler = function() {
         revisedMousePosX += (mousePosX - revisedMousePosX) / delay;
         revisedMousePosY += (mousePosY - revisedMousePosY) / delay;
 
-        state.mouseCircle.style.top = revisedMousePosY + 'px';
-        state.mouseCircle.style.left = revisedMousePosX + 'px';
+        state.mouseCircle.style.top = `${revisedMousePosY}px`;
+        state.mouseCircle.style.left = `${revisedMousePosX}px`;
     }
 
     delayMouseFollow();

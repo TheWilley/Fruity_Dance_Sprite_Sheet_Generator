@@ -139,7 +139,7 @@ var table = function () {
 
             // Generate text in textarea
             for (l = 1; l < state.rows.value; l++) {
-                state.textarea.value += "Animation " + l + "\n";
+                state.textarea.value += `Animation ${l} \n`;
             }
             state.textarea.value += "Held";
         }

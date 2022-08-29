@@ -1,4 +1,4 @@
-var downloadUpload = function () {
+var downloadUpload = function() {
     /**
      * Compresses image when uploading.
      * 
@@ -16,7 +16,7 @@ var downloadUpload = function () {
             return new Promise((resolve) => {
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
-                reader.onloadend = function () {
+                reader.onloadend = function() {
                     resolve(reader.result);
                 }
             })
@@ -52,7 +52,7 @@ var downloadUpload = function () {
             /**
              * Initiates the compression
              */
-            init: function () {
+            init: function() {
                 // Settings
                 const MAX_WIDTH = config.settings.maxWidth * config.settings.imageSizeMultiplier;
                 const MAX_HEIGHT = config.settings.maxHeight * config.settings.imageSizeMultiplier;
@@ -65,14 +65,14 @@ var downloadUpload = function () {
                 // Create new image and assign the blob to it
                 const img = new Image();
                 img.src = blobURL;
-                img.onerror = function () {
+                img.onerror = function() {
                     URL.revokeObjectURL(this.src);
                     // Handle the failure properly
                     console.log("Cannot load image");
                 };
 
                 // When image loads, compress it 
-                img.onload = function () {
+                img.onload = function() {
                     URL.revokeObjectURL(this.src);
 
                     // Assign width and height
@@ -85,7 +85,7 @@ var downloadUpload = function () {
                     const ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, newWidth, newHeight);
                     canvas.toBlob(
-                        async (blob) => {
+                        async(blob) => {
                             var base64 = await convertToBase64(blob);
                             insertImage(base64, div);
                         },
@@ -148,7 +148,7 @@ var downloadUpload = function () {
      */
     function insertImage(image, div) {
         // Insert the image
-        div.innerHTML = "<img class='thumbnail draggable " + state.collection.value + "' src='" + image + "' id='imagenumb" + sessionStorage.imagenumb + "'/>";
+        div.innerHTML = `<img class='thumbnail draggable ${state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
 
         // Create animation
         const animation = div.animate(
@@ -156,9 +156,9 @@ var downloadUpload = function () {
                 { transform: 'translateX(-100%)', opacity: '0%' },
                 { transform: 'translateX(0)', opacity: '100%' }
             ], {
-            easing: 'ease',
-            duration: 500
-        });
+                easing: 'ease',
+                duration: 500
+            });
 
         // Insert the combined div and image
         state.result.insertBefore(div, null);
@@ -180,7 +180,7 @@ var downloadUpload = function () {
          * @param {*} text - The animations names 
          * @param {*} filename - The filename of the exported ZIP
          */
-        downloadZIP: function (canvas, text, filename) {
+        downloadZIP: function(canvas, text, filename) {
             var zip = new JSZip();
             var zipFilename = `${filename}.zip`;
             var output = new Image();
@@ -196,7 +196,7 @@ var downloadUpload = function () {
                     zip.file(`${filename}.txt`, text)
 
                     // Save file
-                    zip.generateAsync({ type: 'blob' }).then(function (content) {
+                    zip.generateAsync({ type: 'blob' }).then(function(content) {
                         saveAs(content, zipFilename);
                     });
                 }
@@ -206,7 +206,7 @@ var downloadUpload = function () {
         /**
          * Removes all stored image elements
          */
-        clearData: function () {
+        clearData: function() {
             if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
                 return;
             }
@@ -221,7 +221,7 @@ var downloadUpload = function () {
         /**
          * Saves a json file containing data about sprite sheet
          */
-        saveJson: function () {
+        saveJson: function() {
             var object = {
                 spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
                 rows: state.rows.value,
@@ -243,7 +243,7 @@ var downloadUpload = function () {
         /**
          * Creates drag and drop functionality
          */
-        pond: function () {
+        pond: function() {
             FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
 
             /**
@@ -251,14 +251,14 @@ var downloadUpload = function () {
              * @param {Object} file - A gif file
              * @returns 
              */
-            var extractFrames = async function (file) {
+            var extractFrames = async function(file) {
                 return new Promise((resolve) => {
                     var maxFrames = config.settings.maxAllowedGifFrames;
 
                     // Export frames depending on transparency
                     gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: state.cumulative.value == "cumulative" ? false : true })
-                        .then(function (frameData) {
-                            frameData.forEach(function (frame, i) {
+                        .then(function(frameData) {
+                            frameData.forEach(function(frame, i) {
                                 if (i < maxFrames) {
                                     state.gifFrames.appendChild(frameData[i].getImage());
                                 }
@@ -266,7 +266,7 @@ var downloadUpload = function () {
 
                             for (frame of state.gifFrames.childNodes) {
                                 // https://stackoverflow.com/a/60005078
-                                fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await createImage(blob) });
+                                fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function(blob) { await createImage(blob) });
                             }
 
                             state.gifFrames.innerHTML = "";
@@ -288,7 +288,7 @@ var downloadUpload = function () {
                 acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
                 credits: false,
 
-                onaddfile: async (error, image) => {
+                onaddfile: async(error, image) => {
                     if (error) {
                         return
                     }
@@ -315,7 +315,7 @@ var downloadUpload = function () {
              * Handles and manages uploaded json data
              * @param {string} json - The json containing sprite sheet data
              */
-            var handleJson = function (json) {
+            var handleJson = function(json) {
                 state.rows.value = json.rows;
                 state.cell_width.value = json.width;
                 state.cell_height.value = json.height;
@@ -358,12 +358,12 @@ var downloadUpload = function () {
     }
 }()
 
-var eventListeners = function () {
+var eventListeners = function() {
     /**
      * Keyboard shortcut
      * https://stackoverflow.com/a/14180949
      */
-    $(window).bind('keydown', function (event) {
+    $(window).bind('keydown', function(event) {
         if (event.ctrlKey || event.metaKey) {
             switch (String.fromCharCode(event.which).toLowerCase()) {
                 case 's': // Save
@@ -387,14 +387,14 @@ var eventListeners = function () {
     /**
      * Checks if download sprite sheet button has been clicked
      */
-    state.downloadSpriteSheet.addEventListener('click', function (e) {
+    state.downloadSpriteSheet.addEventListener('click', function(e) {
         downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
     });
 
     /**
      * Checks if download Json button has been clicked sdfsd
      */
-    state.downloadJson.addEventListener('click', function (e) {
+    state.downloadJson.addEventListener('click', function(e) {
         downloadUpload.saveJson();
     });
 
@@ -424,14 +424,14 @@ var eventListeners = function () {
     /**
      * Runs Before leaving page
      */
-    $(window).bind('beforeunload', function () {
+    $(window).bind('beforeunload', function() {
         return 'Your changes might not be saved';
     })
 
     /**
      * Checks if element values are too high or low
      */
-    $([state.rows, state.cell_width, state.cell_height]).change(function (event) {
+    $([state.rows, state.cell_width, state.cell_height]).change(function(event) {
         eventListeners.checkMinMax(event);
         if (table.checkEmptyCells()) table.addTable();
     });
@@ -441,7 +441,7 @@ var eventListeners = function () {
          * Checks if the current value is under its minimum / over its maximum
          * @param {object} event 
          */
-        checkMinMax: function (event) {
+        checkMinMax: function(event) {
             if (parseInt(event.target.value) > parseInt(event.target.getAttribute("max"))) event.target.value = parseInt(event.target.getAttribute("max"));
             if (parseInt(event.target.value) < parseInt(event.target.getAttribute("min"))) event.target.value = parseInt(event.target.getAttribute("min"));
         }
