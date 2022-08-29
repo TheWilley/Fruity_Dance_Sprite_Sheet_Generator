@@ -15,7 +15,7 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 
 ## Feautures
 * Right click on an image to sort it into a "collection".  <br>
-![](readme-stuff/2022-08-18-12-52-34.png)
+![image](https://user-images.githubusercontent.com/89783791/187178884-fa8c7d50-1223-4e5c-96ae-7d59728c3e0f.png)
 * Upload images or a gif to auto extract its frames. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187177409-f701b001-628f-4a16-b6ab-13822a92e500.png)
 * Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
