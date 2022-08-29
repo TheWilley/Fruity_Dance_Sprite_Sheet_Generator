@@ -1,4 +1,0 @@
-Background: rgb(43, 43, 43)
-Card: rgb(33, 37, 41)
-Header: rgb(33, 37, 41)
-Text: rgb(255, 255, 255)
