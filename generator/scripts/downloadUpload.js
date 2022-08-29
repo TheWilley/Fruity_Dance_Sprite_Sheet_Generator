@@ -134,7 +134,7 @@ var downloadUpload = function() {
             alert("There are more animation names than rows!")
             return false;
         } else if (lines[parseInt(state.rows.value - 1)] != "Held") {
-            alert("Could not find 'Held' at last line!")
+            alert("Could not find animation name 'Held' at last line!")
             return false;
         } else {
             return true;

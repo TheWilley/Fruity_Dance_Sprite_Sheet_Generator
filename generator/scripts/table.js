@@ -31,7 +31,7 @@ var table = function () {
             })
 
             if (!allCellsEmpty) {
-                if (!confirm('This action will clear the canvas! Continue?')) {
+                if (!confirm('This action will discard your sprite sheet! Continue?')) {
                     return false;
                 }
             }
