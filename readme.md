@@ -6,7 +6,7 @@ This project was made with the FL studio plugin known as [Fruity Dance](https://
 
 ## The Plugin Rules
 The rules can be sumarized as such:
-1. All cells must be equal in width and height, and there must be 8 of them for every row. Say we want a image that is 300px wide: we would need to devide it by eight (300 / 8 = 37.5) and thus we get the width of every cell. The same goes for the height. It does not matter if the height and the width is not the same, as long all cells have equal poppritons. 
+1. All cells must have the same poppritons, and there must be 8 cells for every row. It does not matter if the height and the width is not the same.
 2. There must be a `.txt` file with the exact same name as the image file (e.g. generated.png & generated.txt). Every animation name is devided by a **new line** and the last animation name must always be "Held".
 3. Altough not mentioned by the website, the animation goes from left to right in a loop. (1 -> 8 -> 1 -> 8, etc.)
 
@@ -16,13 +16,15 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 ## Feautures
 * Right click on an image to sort it into a "collection".  <br>
 ![image](https://user-images.githubusercontent.com/89783791/187178884-fa8c7d50-1223-4e5c-96ae-7d59728c3e0f.png)
-* Upload images or a gif to auto extract its frames. <br>
+* Upload one or many image files **or** a gif file  to auto extract its frames. If you upload a gif, choose upload mode. <br>
+    * If you're going to upload a gif with a transparent background, choose `Upload mode: Transparent GIF`. 
+    * Otherwise, choose `Upload mode: NON Transparent GIF`. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187177409-f701b001-628f-4a16-b6ab-13822a92e500.png)
-* Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
+* Edit a cell by clicking on it. You can change the offset or delete the image. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187177639-dddf4c57-f85c-4f10-bc70-00373c1b8bae.png)
 * Drag and drop images into the grid to place them. You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187178031-62db9a84-5a1d-49cb-a0c1-febd3b367b7b.png)
-* Save your sprite sheet for later or export it.
+* Save your sprite sheet for later as a json file or download it. 
 ![image](https://user-images.githubusercontent.com/89783791/187178249-8b816e83-3715-42c2-9558-6f033495c318.png)
 
 ## Configure the generator
