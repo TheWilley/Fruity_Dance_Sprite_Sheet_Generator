@@ -53,9 +53,10 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
 
         /*/ Other settings /*/
-        previewFPS: 4, // The FPS of the preview
-        amountOfCollections: 12, // The amount of collections (The ctx menu can only handle about 38)
-        background: null // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
+        previewFPS: 4, // The FPS of a preview
+        amountOfCollections: 12, // The amount of collections 
+        background: null, // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
+        warnBeforeLeavingPage: true // Warn user before leaving page to not discard any progress
     }
 ```
 ## Keyboard shortcuts

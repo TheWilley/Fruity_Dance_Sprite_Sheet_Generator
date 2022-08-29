@@ -425,7 +425,7 @@ var eventListeners = function() {
      * Runs Before leaving page
      */
     $(window).bind('beforeunload', function() {
-        return 'Your changes might not be saved';
+        if(config.settings.warnBeforeLeavingPage) return 'Your changes might not be saved';
     })
 
     /**
