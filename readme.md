@@ -18,7 +18,7 @@ Simply clone the project and open the `index.html` file inside the `generator` f
 ![image](https://user-images.githubusercontent.com/89783791/187178884-fa8c7d50-1223-4e5c-96ae-7d59728c3e0f.png)
 * Upload images or a gif to auto extract its frames. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187177409-f701b001-628f-4a16-b6ab-13822a92e500.png)
-* Edit a cell by clicking on it. You can change the offset or delete the image. You can also edit the row amount and cell size of the entire sprite sheet. <br>
+* Edit a cell by clicking on it. You can change the offset or delete the image. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187177639-dddf4c57-f85c-4f10-bc70-00373c1b8bae.png)
 * Drag and drop images into the grid to place them. You can also delete a uploaded image by dragging it to the delete button. A circle will show you where your mouse is, and the preview will show you the image. <br>
 ![image](https://user-images.githubusercontent.com/89783791/187178031-62db9a84-5a1d-49cb-a0c1-febd3b367b7b.png)
