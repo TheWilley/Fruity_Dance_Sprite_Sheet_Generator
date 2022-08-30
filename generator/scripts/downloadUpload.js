@@ -104,9 +104,9 @@ var downloadUpload = function() {
     async function createImage(src) {
         return new Promise((resolve) => {
             if (src) {
-                var span = document.createElement("span");
-                span.setAttribute("class", "result-container");
-                compressImage(src, span).init();
+                var div = document.createElement("div");
+                div.setAttribute("class", "result-container");
+                compressImage(src, div).init();
                 resolve();
             }
         })
