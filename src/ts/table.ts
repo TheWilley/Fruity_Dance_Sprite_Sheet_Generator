@@ -4,7 +4,6 @@ var table = function () {
          * Itterates table and inserts images from object
          */
         iterateTable: function () {
-
             for (let row of state.dyntable.rows) {
                 for (let cell of row.cells) {
                     if (cell.classList.contains("dropzones") && imageInfo.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc != null) {
