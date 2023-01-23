@@ -1,112 +1,25 @@
-class downloadUpload {
-    /**
-     * Compresses image when uploading.
-     * 
-     * Made by {@link https://labs.madisoft.it/javascript-image-compression-and-resizing/ MIRCO BELLAGAMBA} 
-     * @param {Object} file - The image file
-     * 
-     */
-    private compressImage(file, div) {
-        /**
-         * Converts a blob to base64
-         * @param {Object} blob - A blob object in the dataURL format
-         * @returns 
-         */
-        function convertToBase64(blob) {
-            return new Promise((resolve) => {
-                var reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = function () {
-                    resolve(reader.result);
-                }
-            })
-        }
+import { Configuration } from './config'
 
-        /**
-         * Calculates size of canvas
-         * @param {object} img 
-         * @param {number} maxWidth 
-         * @param {number} maxHeight 
-         * @returns array
-         */
-        function calculateSize(img, maxWidth, maxHeight) {
-            let width = img.width;
-            let height = img.height;
+class DownloadUpload {
+    private config
+    private state
 
-            // calculate the width and height, constraining the proportions
-            if (width > height) {
-                if (width > maxWidth) {
-                    height = Math.round((height * maxWidth) / width);
-                    width = maxWidth;
-                }
-            } else {
-                if (height > maxHeight) {
-                    width = Math.round((width * maxHeight) / height);
-                    height = maxHeight;
-                }
-            }
-            return [width, height];
-        }
-
-        return {
-            /**
-             * Initiates the compression
-             */
-            init: function () {
-                // Settings
-                const MAX_WIDTH = config.settings.maxWidth * config.settings.imageSizeMultiplier;
-                const MAX_HEIGHT = config.settings.maxHeight * config.settings.imageSizeMultiplier;
-                const MIME_TYPE = "image/png";
-                const QUALITY = config.settings.imageQuality
-
-                // Convert file to blobURL
-                blobURL = URL.createObjectURL(file)
-
-                // Create new image and assign the blob to it
-                const img = new Image();
-                img.src = blobURL;
-                img.onerror = function () {
-                    URL.revokeObjectURL(this.src);
-                    // Handle the failure properly
-                    console.log("Cannot load image");
-                };
-
-                // When image loads, compress it 
-                img.onload = function () {
-                    URL.revokeObjectURL(this.src);
-
-                    // Assign width and height
-                    const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
-                    const canvas = document.createElement("canvas");
-                    canvas.width = newWidth;
-                    canvas.height = newHeight;
-
-                    // Get image and draw it
-                    const ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
-                    canvas.toBlob(
-                        async (blob) => {
-                            var base64 = await convertToBase64(blob);
-                            insertImage(base64, div);
-                        },
-                        MIME_TYPE,
-                        QUALITY
-                    );
-                };
-            }
-        }
+    constructor() {
+        const config = new Configuration()
+        this.config = config.settings
+        this.state = config.state
     }
 
     /**
      * Creates a new image element and appends it to a collection
      * @param {*} src - An image src
      */
-    public async createImage(src) {
-        return new Promise((resolve) => {
+    public async createImage(src: File) {
+        return new Promise<void>((resolve) => {
             if (src) {
                 var div = document.createElement("div");
                 div.setAttribute("class", "result-container");
-                compressImage(src, div).init();
+                this.compressImage(src, div).init();
                 resolve();
             }
         })
@@ -117,7 +30,7 @@ class downloadUpload {
      * @returns True | False
      */
     public checkAnimationNames() {
-        var lines = state.textarea.value.split("\n");
+        var lines = this.state.textarea.value.split("\n");
 
         // Removes white lines
         for (var i = 0; i < lines.length; i++) {
@@ -130,10 +43,10 @@ class downloadUpload {
         var linesLength = lines.length;
 
         // Check if valid
-        if (linesLength > parseInt(state.rows.value)) {
+        if (linesLength > this.state.rows.value) {
             alert("There are more animation names than rows!")
             return false;
-        } else if (lines[parseInt(state.rows.value - 1)] != "Held") {
+        } else if (lines[this.state.rows.value - 1] != "Held") {
             alert("Could not find animation name 'Held' at last line!")
             return false;
         } else {
@@ -146,9 +59,9 @@ class downloadUpload {
      * @param {string} image - An image object in base64
      * @param {Object} div - The div containg the image
      */
-    public insertImage(image, div) {
+    public insertImage(image: string, div: HTMLDivElement) {
         // Insert the image
-        div.innerHTML = `<img class='thumbnail draggable ${state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
+        div.innerHTML = `<img class='thumbnail draggable ${this.state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
 
         // Create animation
         const animation = div.animate(
@@ -161,7 +74,7 @@ class downloadUpload {
         });
 
         // Insert the combined div and image
-        state.result.insertBefore(div, null);
+        this.state.result.insertBefore(div, null);
 
         animation.play();
 
@@ -169,7 +82,7 @@ class downloadUpload {
         sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
 
         // Add div to local storage
-        localStorage.setItem("images", state.result.innerHTML);
+        localStorage.setItem("images", this.state.result.innerHTML);
         localStorage.setItem("imagenumb", sessionStorage.imagenumb)
     }
 
@@ -180,13 +93,13 @@ class downloadUpload {
      * @param {*} text - The animations names 
      * @param {*} filename - The filename of the exported ZIP
      */
-    public downloadZIP(canvas, text, filename) {
+    public downloadZIP(canvas: HTMLCanvasElement, text: string, filename: string) {
         var zip = new JSZip();
         var zipFilename = `${filename}.zip`;
         var output = new Image();
         output.src = canvas.toDataURL();
 
-        if (checkAnimationNames()) {
+        if (this.checkAnimationNames()) {
             // Check for invalid characters in filename
             if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
                 alert("Illegal file name!")
@@ -196,7 +109,7 @@ class downloadUpload {
                 zip.file(`${filename}.txt`, text)
 
                 // Save file
-                zip.generateAsync({ type: 'blob' }).then(function (content) {
+                zip.generateAsync({ type: 'blob' }).then(function (content: any) {
                     saveAs(content, zipFilename);
                 });
             }
@@ -224,10 +137,10 @@ class downloadUpload {
     public saveJson() {
         var object = {
             spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
-            rows: state.rows.value,
-            rowNames: state.textarea.value,
-            width: state.cell_width.value,
-            height: state.cell_height.value,
+            rows: this.state.rows.value,
+            rowNames: this.state.textarea.value,
+            width: this.state.cell_width.value,
+            height: this.state.cell_height.value,
             tableObject: imageInfo.getCellCollection()
         }
 
@@ -238,7 +151,7 @@ class downloadUpload {
 
         // Save the file
         saveAs(fileToSave, "savedSpritSheet.json");
-    },
+    }
 
     /**
      * Creates drag and drop functionality
@@ -251,25 +164,25 @@ class downloadUpload {
          * @param {Object} file - A gif file
          * @returns 
          */
-        var extractFrames = async function (file) {
-            return new Promise((resolve) => {
-                var maxFrames = config.settings.maxAllowedGifFrames;
+        var extractFrames = async function (file: File) {
+            return new Promise<void>((resolve) => {
+                var maxFrames = this.config.settings.maxAllowedGifFrames;
 
                 // Export frames depending on transparency
-                gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: state.cumulative.value == "cumulative" ? false : true })
-                    .then(function (frameData) {
+                gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: this.state.cumulative.value == "cumulative" ? false : true })
+                    .then(function (frameData: any) {
                         frameData.forEach(function (frame, i) {
                             if (i < maxFrames) {
-                                state.gifFrames.appendChild(frameData[i].getImage());
+                                this.state.gifFrames.appendChild(frameData[i].getImage());
                             }
                         })
 
-                        for (frame of state.gifFrames.childNodes) {
+                        for (const frame of this.state.gifFrames.childNodes) {
                             // https://stackoverflow.com/a/60005078
-                            fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await createImage(blob) });
+                            fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await this.createImage(blob) });
                         }
 
-                        state.gifFrames.innerHTML = "";
+                        this.state.gifFrames.innerHTML = "";
                     }).catch(console.error.bind(console));
                 resolve();
             })
@@ -281,7 +194,7 @@ class downloadUpload {
         const uploadImage = FilePond.create(document.querySelector('#files'), {
             // Settings
             labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-            maxFileSize: config.settings.maxUploadSize ? config.settings.maxUploadSize : "2mb",
+            maxFileSize: this.config.maxUploadSize ? this.config.maxUploadSize : "2mb",
             allowMultiple: true,
             maxFiles: 20,
             allowFileTypeValidation: true,
@@ -299,7 +212,7 @@ class downloadUpload {
                         await extractFrames(image.getFileEncodeDataURL())
                         uploadImage.removeFile(image);
                     } else {
-                        await createImage(image.file);
+                        await this.createImage(image.file);
                         uploadImage.removeFile(image);
                     }
                 } catch (err) {
@@ -315,13 +228,13 @@ class downloadUpload {
          * Handles and manages uploaded json data
          * @param {string} json - The json containing sprite sheet data
          */
-        var handleJson = function (json) {
-            state.rows.value = json.rows;
-            state.cell_width.value = json.width;
-            state.cell_height.value = json.height;
+        var handleJson = function (json: any) {
+            this.state.rows.value = json.rows;
+            this.state.cell_width.value = json.width;
+            this.state.cell_height.value = json.height;
 
             table.addTable();
-            state.textarea.value = json.rowNames;
+            this.state.textarea.value = json.rowNames;
             imageInfo.setCellCollection(json.tableObject);
             table.iterateTable();
             graphicHandler.redraw();
@@ -337,12 +250,12 @@ class downloadUpload {
             allowFileTypeValidation: true,
             acceptedFileTypes: ['application/json'],
             credits: false,
-            labelFileProcessingError: (error) => {
+            labelFileProcessingError: (error: any) => {
                 return error.body;
             },
 
             server: {
-                process: (fieldName, file, metadata, load, error, progress, abort) => {
+                process: (fieldName: string, file: File, metadata: any, load: any, error: any, progress: any, abort: any) => {
                     if (JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))).spriteSheetId == "cWqgPFdGN5") {
                         handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
                         setTimeout(() => {
@@ -357,28 +270,144 @@ class downloadUpload {
     }
 }
 
-class eventListeners {
+/**
+ * Compresses image when uploading.
+ * 
+ * Made by {@link https://labs.madisoft.it/javascript-image-compression-and-resizing/ MIRCO BELLAGAMBA} 
+ * @param {Object} file - The image file
+ * 
+ */
+class CompressImages {
+    public file: File
+    public div: HTMLDivElement
+
+    constructor(file: File, div: HTMLDivElement) {
+        this.file = file
+        this.div = div
+    }
+
+    /**
+     * Converts a blob to base64
+     * @param {Object} blob - A blob object in the dataURL format
+     * @returns 
+     */
+    private convertToBase64(blob: Blob) {
+        return new Promise((resolve) => {
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                resolve(reader.result);
+            }
+        })
+    }
+
+    /**
+     * Calculates size of canvas
+     * @param {object} img 
+     * @param {number} maxWidth 
+     * @param {number} maxHeight 
+     * @returns array
+     */
+    private calculateSize(img: HTMLImageElement, maxWidth: number, maxHeight: nummber) {
+        let width = img.width;
+        let height = img.height;
+
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+            if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+            }
+        } else {
+            if (height > maxHeight) {
+                width = Math.round((width * maxHeight) / height);
+                height = maxHeight;
+            }
+        }
+        return [width, height];
+    }
+
+    /**
+     * Initiates the compression
+     */
+    public init() {
+        // Settings
+        const MAX_WIDTH = this.config.settings.maxWidth * this.config.settings.imageSizeMultiplier;
+        const MAX_HEIGHT = this.config.settings.maxHeight * this.config.settings.imageSizeMultiplier;
+        const MIME_TYPE = "image/png";
+        const QUALITY = this.config.settings.imageQuality
+
+        // Convert file to blobURL
+        const blobURL = URL.createObjectURL(file)
+
+        // Create new image and assign the blob to it
+        const img = new Image();
+        img.src = blobURL;
+        img.onerror = function () {
+            URL.revokeObjectURL(this.src);
+            // Handle the failure properly
+            console.log("Cannot load image");
+        };
+
+        // When image loads, compress it 
+        img.onload = function () {
+            URL.revokeObjectURL(this.src);
+
+            // Assign width and height
+            const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+            const canvas = document.createElement("canvas");
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+
+            // Get image and draw it
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+            canvas.toBlob(
+                async (blob) => {
+                    var base64 = await convertToBase64(blob);
+                    self.insertImage(base64, div);
+                },
+                MIME_TYPE,
+                QUALITY
+            );
+        };
+    }
+}
+
+class EventListeners {
+    private config
+    private downloadUpload
+    private state
+
     constructor() {
+        const config = new Configuration()
+        this.downloadUpload = new DownloadUpload()
+        this.config = config.settings
+        this.state = config.state
+    }
+
+    run() {
+        const self = this
         /**
          * Keyboard shortcut
          * https://stackoverflow.com/a/14180949
          */
-        $(window).bind('keydown', function (event) {
+        $(window).bind('keydown', function (event: KeyboardEvent) {
             if (event.ctrlKey || event.metaKey) {
                 switch (String.fromCharCode(event.which).toLowerCase()) {
                     case 's': // Save
                         event.preventDefault();
-                        state.downloadJson.click();
+                        this.state.downloadJson.click();
                         break;
                     case 'e': // Export
                         event.preventDefault();
-                        state.filename.value = "savedSpriteSheet";
-                        state.downloadSpriteSheet.click();
-                        state.filename.value = "";
+                        this.state.filename.value = "savedSpriteSheet";
+                        this.state.downloadSpriteSheet.click();
+                        this.state.filename.value = "";
                         break;
                     case 'u': // Clear uploaded images
                         event.preventDefault();
-                        state.clear.click();
+                        this.state.clear.click();
                         break;
                 }
             }
@@ -387,22 +416,22 @@ class eventListeners {
         /**
          * Checks if download sprite sheet button has been clicked
          */
-        state.downloadSpriteSheet.addEventListener('click', function (e) {
-            downloadUpload.downloadZIP(canvas, state.textarea.value, state.filename.value);
+        this.state.downloadSpriteSheet.addEventListener('click', function (e) {
+            self.downloadUpload.downloadZIP(canvas, self.state.textarea.value, self.state.filename.value);
         });
 
         /**
          * Checks if download Json button has been clicked sdfsd
          */
-        state.downloadJson.addEventListener('click', function (e) {
-            downloadUpload.saveJson();
+        this.state.downloadJson.addEventListener('click', function (e) {
+            self.downloadUpload.saveJson();
         });
 
         /**
          * Creates table when website has loaded
          */
-        document.onreadystatechange = () => {
-            if (document.readyState === 'complete') {
+        document.onreadythis.statechange = () => {
+            if (document.readythis.state === 'complete') {
                 table.addTable();
                 graphicHandler.ctx()
             }
@@ -413,11 +442,11 @@ class eventListeners {
          */
         window.addEventListener("scroll", (event) => {
             if (this.scrollY >= 45) {
-                state.sidebar.classList.add("fixedSidebar")
-                state.sidebarContainer.classList.add("fixedContainer")
+                this.state.sidebar.classList.add("fixedSidebar")
+                this.state.sidebarContainer.classList.add("fixedContainer")
             } else {
-                state.sidebar.classList.remove("fixedSidebar")
-                state.sidebarContainer.classList.remove("fixedContainer")
+                this.state.sidebar.classList.remove("fixedSidebar")
+                this.state.sidebarContainer.classList.remove("fixedContainer")
             }
         });
 
@@ -431,8 +460,8 @@ class eventListeners {
         /**
          * Checks if element values are too high or low
          */
-        $([state.rows, state.cell_width, state.cell_height]).change(function (event) {
-            eventListeners.checkMinMax(event);
+        $([this.state.rows, this.state.cell_width, this.state.cell_height]).change(function (event) {
+            EventListeners.checkMinMax(event);
             if (table.checkEmptyCells()) table.addTable();
         });
 
