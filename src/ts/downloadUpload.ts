@@ -7,13 +7,13 @@ import $ from "jquery";
 import CompressImages from './compressImages';
 
 class DownloadUpload {
-    private config
-    private state
+    private _config
+    private _state
 
     constructor() {
         const config = new Configuration()
-        this.config = config.settings
-        this.state = config.state
+        this._config = config.settings
+        this._state = config.state
     }
 
     /**
@@ -37,7 +37,7 @@ class DownloadUpload {
      * @returns True | False
      */
     public checkAnimationNames() {
-        var lines = this.state.textarea.value.split("\n");
+        var lines = this._state.textarea.value.split("\n");
 
         // Removes white lines
         for (var i = 0; i < lines.length; i++) {
@@ -50,10 +50,10 @@ class DownloadUpload {
         var linesLength = lines.length;
 
         // Check if valid
-        if (linesLength > this.state.rows.value) {
+        if (linesLength > this._state.rows.value) {
             alert("There are more animation names than rows!")
             return false;
-        } else if (lines[this.state.rows.value - 1] != "Held") {
+        } else if (lines[this._state.rows.value - 1] != "Held") {
             alert("Could not find animation name 'Held' at last line!")
             return false;
         } else {
@@ -68,7 +68,7 @@ class DownloadUpload {
      */
     public insertImage(image: string, div: HTMLDivElement) {
         // Insert the image
-        div.innerHTML = `<img class='thumbnail draggable ${this.state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
+        div.innerHTML = `<img class='thumbnail draggable ${this._state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
 
         // Create animation
         const animation = div.animate(
@@ -81,7 +81,7 @@ class DownloadUpload {
         });
 
         // Insert the combined div and image
-        this.state.result.insertBefore(div, null);
+        this._state.result.insertBefore(div, null);
 
         animation.play();
 
@@ -89,7 +89,7 @@ class DownloadUpload {
         sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
 
         // Add div to local storage
-        localStorage.setItem("images", this.state.result.innerHTML);
+        localStorage.setItem("images", this._state.result.innerHTML);
         localStorage.setItem("imagenumb", sessionStorage.imagenumb)
     }
 
@@ -144,10 +144,10 @@ class DownloadUpload {
     public saveJson() {
         var object = {
             spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
-            rows: this.state.rows.value,
-            rowNames: this.state.textarea.value,
-            width: this.state.cell_width.value,
-            height: this.state.cell_height.value,
+            rows: this._state.rows.value,
+            rowNames: this._state.textarea.value,
+            width: this._state.cell_width.value,
+            height: this._state.cell_height.value,
             tableObject: ImageCollection.getCellCollection()
         }
 
@@ -201,7 +201,7 @@ class DownloadUpload {
         const uploadImage = FilePond.create(document.querySelector('#files'), {
             // Settings
             labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-            maxFileSize: this.config.maxUploadSize ? this.config.maxUploadSize : "2mb",
+            maxFileSize: this._config.maxUploadSize ? this._config.maxUploadSize : "2mb",
             allowMultiple: true,
             maxFiles: 20,
             allowFileTypeValidation: true,

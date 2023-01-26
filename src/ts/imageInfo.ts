@@ -31,6 +31,30 @@ class ImageInfo {
     get yOffset() {
         return this._yOffset
     }
+
+    get imageSrc() {
+        return this._imageSrc
+    }
+
+    set x(value: number) {
+        this._x = value
+    }
+
+    set y(value: number) {
+        this._y = value
+    }
+
+    set xOffset(value: number) {
+        this._xOffset = value
+    }
+
+    set yOffset(value: number) {
+        this._yOffset = value
+    }
+
+    set imageSrc(value: string) {
+        this._imageSrc = value
+    }
 }
 
 export default ImageInfo

@@ -2,15 +2,15 @@ import Configuration from "./config"
 import DownloadUpload from "./downloadUpload"
 
 class EventListeners {
-    private config
-    private downloadUpload
-    private state
+    private _config
+    private _downloadUpload
+    private _state
 
     constructor() {
         const config = new Configuration()
-        this.downloadUpload = new DownloadUpload()
-        this.config = config.settings
-        this.state = config.state
+        this._downloadUpload = new DownloadUpload()
+        this._config = config.settings
+        this._state = config.state
     }
 
     private run() {
@@ -24,17 +24,17 @@ class EventListeners {
                 switch (String.fromCharCode(event.which).toLowerCase()) {
                     case 's': // Save
                         event.preventDefault();
-                        self.state.downloadJson.click();
+                        self._state.downloadJson.click();
                         break;
                     case 'e': // Export
                         event.preventDefault();
-                        self.state.filename.value = "savedSpriteSheet";
-                        self.state.downloadSpriteSheet.click();
-                        self.state.filename.value = "";
+                        self._state.filename.value = "savedSpriteSheet";
+                        self._state.downloadSpriteSheet.click();
+                        self._state.filename.value = "";
                         break;
                     case 'u': // Clear uploaded images
                         event.preventDefault();
-                        self.state.clear.click();
+                        self._state.clear.click();
                         break;
                 }
             }
@@ -43,15 +43,15 @@ class EventListeners {
         /**
          * Checks if download sprite sheet button has been clicked
          */
-        $(this.state.downloadSpriteSheet).on('click', function (e) {
-            self.downloadUpload.downloadZIP(canvas, self.state.textarea.value, self.state.filename.value);
+        $(this._state.downloadSpriteSheet).on('click', function (e) {
+            self._downloadUpload.downloadZIP(canvas, self._state.textarea.value, self._state.filename.value);
         });
 
         /**
          * Checks if download Json button has been clicked sdfsd
          */
-        $(this.state.downloadJson).on('click', function (e) {
-            self.downloadUpload.saveJson();
+        $(this._state.downloadJson).on('click', function (e) {
+            self._downloadUpload.saveJson();
         });
 
         /**
@@ -67,11 +67,11 @@ class EventListeners {
          */
         $(window).on("scroll", (event) => {
             if (this.scrollY >= 45) {
-                this.state.sidebar.classList.add("fixedSidebar")
-                this.state.sidebarContainer.classList.add("fixedContainer")
+                this._state.sidebar.classList.add("fixedSidebar")
+                this._state.sidebarContainer.classList.add("fixedContainer")
             } else {
-                this.state.sidebar.classList.remove("fixedSidebar")
-                this.state.sidebarContainer.classList.remove("fixedContainer")
+                this._state.sidebar.classList.remove("fixedSidebar")
+                this._state.sidebarContainer.classList.remove("fixedContainer")
             }
         });
 
@@ -79,13 +79,13 @@ class EventListeners {
          * Runs Before leaving page
          */
         $(window).on('beforeunload', function () {
-            if (self.config.warnBeforeLeavingPage) return 'Your changes might not be saved';
+            if (self._config.warnBeforeLeavingPage) return 'Your changes might not be saved';
         })
 
         /**
          * Checks if element values are too high or low
          */
-        $([this.state.rows, this.state.cell_width, this.state.cell_height]).on('change', function (event: Event) {
+        $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: Event) {
             self.checkMinMax(event);
             if (table.checkEmptyCells()) table.addTable();
         });
