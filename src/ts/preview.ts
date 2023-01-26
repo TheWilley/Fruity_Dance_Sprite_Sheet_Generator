@@ -1,3 +1,5 @@
+import Configuration from "./config";
+
 /**
  * Generates the preview canvas element
  * 
@@ -6,53 +8,69 @@
  */
 
 class Preview {
-    constructor(row, fps, cell) {
-        this.row = row;
-        this.fps = fps;
+    private _row: number;
+    private _fps: number;
+    private _pause: boolean;
+    private _then: number;
+    private _interval: number;
+    private _frame: number;
+    private _now: number;
+    private _delta: number;
+    private _bind: any;
+    private _width: number;
+    private _height: number;
+    private _cell: HTMLElement;
+    private _x: number;
+    private _previewCanvas: HTMLCanvasElement;
+    private _state = new Configuration().state
+
+    constructor(row: number, fps: number, cell: HTMLElement) {
+        this._row = row;
+        this._fps = fps;
 
         // Default values
-        this.pause = false;
-        this.then = Date.now();
-        this.interval = 1000 / this.fps;
-        this.frame = 0;
-        this.now;
-        this.delta;
-        this.bind; // The bind is used by the requestAnimationFrame to avoid binding many times
-        this.width = state.cell_width.value;
-        this.height = state.cell_height.value;
-        this.cell = cell;
+        this._pause = false;
+        this._then = Date.now();
+        this._interval = 1000 / this._fps;
+        this._frame = 0;
+        this._now;
+        this._delta;
+        this._bind; // The bind is used by the requestAnimationFrame to avoid binding many times
+        this._width = this._state.cell_width.value;
+        this._height = this._state.cell_height.value;
+        this._cell = cell;
 
         // Set the height and width
         const canvas = document.createElement("canvas");
         canvas.classList.add("gifPreview")
-        
+
         // Generate canvas
-        this.previewCanvas = canvas;
-        this.previewCanvas.width = this.width;
-        this.previewCanvas.height = this.height;
+        this._previewCanvas = canvas;
+        this._previewCanvas.width = this._width;
+        this._previewCanvas.height = this._height;
         cell.appendChild(canvas)
 
         // Image position
-        this.x = 0;
+        this._x = 0;
     }
 
     nextFrame() {
         // Generate settings
-        var originalCanvas = state.canvas,
+        var originalCanvas = this._state.canvas,
             startClippingX = 0,
-            startClippingY = (this.height * this.row) - this.height,
-            clippingWidth = this.width,
-            clippingHeight = this.height,
+            startClippingY = (this._height * this._row) - this._height,
+            clippingWidth = this._width,
+            clippingHeight = this._height,
             pasteX = 0,
             pasteY = 0,
-            pasteWidth = this.width,
-            pasteHeight = this.height
+            pasteWidth = this._width,
+            pasteHeight = this._height
 
         // Update the x variable
-        startClippingX = this.x;
+        startClippingX = this._x;
 
         // Get the previewCanvas
-        var context = this.previewCanvas.getContext("2d");
+        var context = this._previewCanvas.getContext("2d");
 
         // Clear the canvas
         context.clearRect(pasteX, pasteY, pasteWidth, pasteHeight);
@@ -74,54 +92,54 @@ class Preview {
         context.font = "15px serif"
         context.strokeStyle = "black";
         context.lineWidth = 2;
-        context.strokeText(this.frame, 0, pasteY + 12);
+        context.strokeText(String(this._frame), 0, pasteY + 12);
 
         // Then fill it
         context.fillStyle = "white";
-        context.fillText(this.frame + 1, 0, pasteY + 12);
+        context.fillText(String(this._frame + 1), 0, pasteY + 12);
 
         // Go to next frame
-        this.frame++;
+        this._frame++;
 
         // Add to the x
-        this.x += parseInt(this.width);
+        this._x += this._width;
     }
 
     start() {
-        if (this.bind == undefined) {
-            this.bind = this.start.bind(this)
+        if (this._bind == undefined) {
+            this._bind = this.start.bind(this)
         }
 
-        if (this.pause == true) {
+        if (this._pause == true) {
             return;
         }
 
         // Call for animation
-        window.requestAnimationFrame(this.bind);
+        window.requestAnimationFrame(this._bind);
 
-        this.now = Date.now();
-        this.delta = this.now - this.then;
+        this._now = Date.now();
+        this._delta = this._now - this._then;
 
-        if (this.delta > this.interval) {
-            this.then = this.now - (this.delta % this.interval);
+        if (this._delta > this._interval) {
+            this._then = this._now - (this._delta % this._interval);
             this.nextFrame()
         }
-        if (this.x > this.width * 7) {
-            this.x = 0;
-            this.frame = 0;
+        if (this._x > this._width * 7) {
+            this._x = 0;
+            this._frame = 0;
         }
     }
 
     stop() {
-        this.pause = true;
+        this._pause = true;
     }
 
     restart() {
-        this.pause = false;
+        this._pause = false;
         this.start();
     }
 
     get getPauseState() {
-        return this.pause
+        return this._pause
     }
 }
