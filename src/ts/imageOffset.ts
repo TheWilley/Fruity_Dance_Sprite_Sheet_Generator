@@ -1,20 +1,23 @@
+import Configuration from "./config";
+import EventListeners from "./eventListeners";
 import GraphicHandler from "./graphicHandler";
+import ImageCollection from "./imageCollection";
 
 class ImageOffset {
-    previousObject: HTMLElement = null
-    state = new Configuration().state
-    imageInfo = new ImageCollection()
-    graphicHandler = new GraphicHandler()
-    eventListeners = new EventListeners()
+    private _previousObject: HTMLElement = null
+    private _state = new Configuration().state
+    private _imageInfo = new ImageCollection()
+    private _graphicHandler = new GraphicHandler()
+    private _eventListeners = new EventListeners()
 
     /**
      * Enables or disables the offset & delete settings
      * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
      */
     public disableControls(enabled: boolean) {
-        this.state.offsetX.disabled = enabled;
-        this.state.offsetY.disabled = enabled;
-        this.state.delete.disabled = enabled;
+        this._state.offsetX.disabled = enabled;
+        this._state.offsetY.disabled = enabled;
+        this._state.delete.disabled = enabled;
     }
 
     /**
@@ -24,8 +27,8 @@ class ImageOffset {
     public show_controls(currentObject: HTMLElement) {
         const self = this
 
-        this.graphicHandler.selectedItem = currentObject;
-        eventListeners
+        this._graphicHandler.selectedItem = currentObject;
+        
         // Disable controls if the image src is not found
         if (currentObject.getAttribute("src") == null) {
             this.disableControls(true);
@@ -38,36 +41,36 @@ class ImageOffset {
         var cellnumb: number = Number(currentObject.parentElement.dataset.y);
 
         // Unbind all events
-        if (currentObject != this.previousObject) {
-            $(this.state.offsetX).unbind();
-            $(this.state.offsetY).unbind();
+        if (currentObject != this._previousObject) {
+            $(this._state.offsetX).unbind();
+            $(this._state.offsetY).unbind();
         }
 
         // Check if object has been accessed before
-        if (this.previousObject != null) { this.previousObject.style.border = "1px solid gray" };
+        if (this._previousObject != null) { this._previousObject.style.border = "1px solid gray" };
 
         // Make the previous object the current one
-        this.previousObject = currentObject;
+        this._previousObject = currentObject;
 
         // Apply green border
         currentObject.style.border = "green solid 3px";
 
         // Get offset
-        if (this.previousObject != null) {
+        if (this._previousObject != null) {
             // Get stored values
-            const Xoffset = this.imageInfo.cellCollection[rownumb][cellnumb].xOffset;
-            const Yoffset = this.imageInfo.cellCollection[rownumb][cellnumb].yOffset;
+            const Xoffset = this._imageInfo.cellCollection[rownumb][cellnumb].xOffset;
+            const Yoffset = this._imageInfo.cellCollection[rownumb][cellnumb].yOffset;
 
             // Set values
-            this.state.offsetX.value = Xoffset;
-            this.state.offsetY.value = Yoffset;
+            this._state.offsetX.value = Xoffset;
+            this._state.offsetY.value = Yoffset;
 
-            $([this.state.offsetX, this.state.offsetY]).change(function (event) {
+            $([this._state.offsetX, this._state.offsetY]).change(function (event) {
                 eventListeners.checkMinMax(event);
 
-                self.imageInfo.cellCollection[rownumb][cellnumb].xOffset = this.state.offsetX.value;
-                self.imageInfo.cellCollection[rownumb][cellnumb].yOffset = this.state.offsetY.value;
-                self.graphicHandler.redraw()
+                self._imageInfo.cellCollection[rownumb][cellnumb].xOffset = this.state.offsetX.value;
+                self._imageInfo.cellCollection[rownumb][cellnumb].yOffset = this.state.offsetY.value;
+                self._graphicHandler.redraw()
             })
         }
     }

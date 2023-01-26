@@ -2,9 +2,9 @@ import interact from "interactjs";
 import Configuration from "./config";
 
 class DragHandler {
-    original_position_x = 0
-    original_position_y = 0
-    state = new Configuration().state
+    private _original_position_x = 0
+    private _original_position_y = 0
+    private _state = new Configuration().state
     
     constructor() {
         this.run()
@@ -35,14 +35,8 @@ class DragHandler {
                     if (event.relatedTarget == null) {
                         var target_element = document.getElementById(event.target.id);
                         // Translate the element
-                        target_element.style.transform = `translate(${self.original_position_x}px, ${self.original_position_y}px)`;
-
-                        // Update the posiion attributes
-                        target_element.setAttribute('data-x', String(self.original_position_x));
-                        target_element.setAttribute('data-y', String(self.original_position_y));
-
-                        event.target.classList.remove("isdragged");
-                        graphicHandler.previewImage(false);
+                        target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
+                        value: numberhicHandler.previewImage(false);
                     }
                 }
             }
@@ -69,9 +63,9 @@ class DragHandler {
                 event.target.firstChild.src = target_element.src;
 
                 // Go back to otiginal position
-                target_element.style.transform = `translate(${self.original_position_x}px, ${self.original_position_y}px)`;
-                target_element.setAttribute('data-x', String(self.original_position_x));
-                target_element.setAttribute('data-y', String(self.original_position_y));
+                target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
+                target_element.setAttribute('data-x', String(self._original_position_x));
+                target_element.setAttribute('data-y', String(self._original_position_y));
 
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop', 'isdragged');
@@ -105,7 +99,7 @@ class DragHandler {
                 event.target.style.background = "#ffc107";
 
                 // Update stored images
-                localStorage.setItem("images", self.state.result.innerHTML);
+                localStorage.setItem("images", self._state.result.innerHTML);
             },
             ondragenter: function (event) {
                 event.target.style.background = "red";
