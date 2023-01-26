@@ -6,7 +6,7 @@ class ImageInfo {
     private _y
     private _xOffset
     private _yOffset
-    private _imageSrc 
+    private _imageSrc
 
     constructor(x: number, y: number, xOffset?: number, yOffset?: number, imageSrc?: string) {
         this._x = x;
@@ -30,42 +30,6 @@ class ImageInfo {
 
     get yOffset() {
         return this._yOffset
-    }class ImageCollection {
-        private _cellCollection: ImageInfo[][] = [[]];
-    
-        /*/ Getters /*/
-        public get cellCollection() {
-            return this._cellCollection;
-        }
-    
-        /*/ Setters /*/
-        public set cellCollection(collection: ImageInfo[][]) {
-            this._cellCollection = collection;
-        }
-    } 
-
-    get imageSrc() {
-        return this._imageSrc
-    }
-
-    set x(value: number) {
-        this._x = value
-    }
-
-    set y(value: number) {
-        this._y = value
-    }
-
-    set xOffset(value: number) {
-        this._xOffset = value
-    }
-
-    set yOffset(value: number) {
-        this._yOffset = value
-    }
-
-    set imageSrc(value: string) {
-        this._imageSrc = value
     }
 }
 

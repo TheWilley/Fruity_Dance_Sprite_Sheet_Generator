@@ -1,4 +1,5 @@
 import interact from "interactjs";
+import Configuration from "./config";
 
 class DragHandler {
     original_position_x = 0

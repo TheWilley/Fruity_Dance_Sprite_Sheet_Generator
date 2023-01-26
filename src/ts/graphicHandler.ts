@@ -1,4 +1,7 @@
+import Configuration from './config';
 import CtxMenu from './dist/ctxmenu.min/ctxmenu.min'
+import ImageCollection from './imageCollection';
+import ImageInfo from './imageInfo';
 
 class GraphicHandler {
     private _selectedItem: HTMLElement;

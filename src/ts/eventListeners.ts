@@ -1,3 +1,6 @@
+import Configuration from "./config"
+import DownloadUpload from "./downloadUpload"
+
 class EventListeners {
     private config
     private downloadUpload

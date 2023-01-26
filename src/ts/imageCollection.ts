@@ -1,3 +1,5 @@
+import ImageInfo from "./imageInfo";
+
 class ImageCollection {
     private _cellCollection: ImageInfo[][] = [[]];
 

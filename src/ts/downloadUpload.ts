@@ -2,7 +2,9 @@ import * as FilePond from 'filepond';
 import * as JSZip from 'jszip'
 import { saveAs } from 'file-saver';
 import gifFrames from 'gif-frames'
+import Configuration from './config';
 import $ from "jquery";
+import CompressImages from './compressImages';
 
 class DownloadUpload {
     private config
