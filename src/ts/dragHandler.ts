@@ -1,7 +1,6 @@
 import interact from "interactjs";
-import { Configuration } from "./config";
 
-class DragHandler {
+export class DragHandler {
     original_position_x = 0
     original_position_y = 0
     state = new Configuration().state
@@ -59,9 +58,9 @@ class DragHandler {
                 var cellnumb = event.target.dataset.y;
 
                 // Set imageInfo.getCellCollection()
-                imageInfo.getCellCollection()[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
-                imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = 0;
-                imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = 0;
+                ImageCollection.getCellCollection()[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
+                ImageCollection.getCellCollection()[rownumb][cellnumb].xOffset = 0;
+                ImageCollection.getCellCollection()[rownumb][cellnumb].yOffset = 0;
 
                 // Run function to insert images into canvas    
                 graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);

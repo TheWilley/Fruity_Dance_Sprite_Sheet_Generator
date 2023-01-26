@@ -27,7 +27,7 @@ interface IConfiguration {
     warnBeforeLeavingPage: boolean // Warn user before leaving page to not discard any progress
 }
 
-export class Configuration {
+class Configuration {
     private _settings: IConfiguration
     private _state = new ElementCatcher({ targetElement: document.getElementById("app"), getElementsWith: "id" });
 
@@ -87,3 +87,5 @@ export class Configuration {
         return this._state
     }
 }
+
+export default Configuration

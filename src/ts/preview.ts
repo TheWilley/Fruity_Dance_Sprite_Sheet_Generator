@@ -125,6 +125,3 @@ class Preview {
         return this.pause
     }
 }
-
-
-export default Preview

@@ -1,12 +1,10 @@
-import { Configuration } from "./config";
-import Preview from "./preview";
 import CtxMenu from './dist/ctxmenu.min/ctxmenu.min'
 
-class graphicHandler {
-    private selectedItem: HTMLElement;
-    private previewObjects: Preview[] = [];
-    private state = new Configuration().state
-    private settings = new Configuration().settings
+class GraphicHandler {
+    private _selectedItem: HTMLElement;
+    private _previewObjects: Preview[] = [];
+    private _state = new Configuration().state
+    private _imageCollection = new ImageCollection()
 
     constructor() {
         sessionStorage.imagenumb = 0;
@@ -26,15 +24,15 @@ class graphicHandler {
         let GeneratedCanvas = new Image();
         GeneratedCanvas.src = image;
 
-        if (this.state.canvas.getContext) {
-            const ctx = this.state.canvas.getContext('2d');
+        if (this._state.canvas.getContext) {
+            const ctx = this._state.canvas.getContext('2d');
 
             // Get width and height
-            let cell_width = parseInt(this.state.cell_width.value);
-            let cell_height = parseInt(this.state.cell_height.value);
+            let cell_width = parseInt(this._state.cell_width.value);
+            let cell_height = parseInt(this._state.cell_height.value);
 
             // Check if whole canvas is being cleared or only part of it
-            switch (clear) { case "wholeCanvas": ctx.clearRect(0, 0, this.state.canvas.width, this.state.canvas.height); case "partOfCanvas": ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
+            switch (clear) { case "wholeCanvas": ctx.clearRect(0, 0, this._state.canvas.width, this._state.canvas.height); case "partOfCanvas": ctx.clearRect(cell_width * cellnumb + Number(Xoffset), cell_height * rownumb + Number(Yoffset), cell_width, cell_height) }
 
             // Drawing of image
             GeneratedCanvas.onload = function () {
@@ -47,7 +45,7 @@ class graphicHandler {
      * Redraws canvas
      */
     public redraw() {
-        imageInfo.getCellCollection().forEach(row => {
+        this._imageCollection.cellCollection.forEach(row => {
             // TODO: Change this to a interface
             row.forEach((cell: { imageSrc: string; x: number; y: number; xOffset: number; yOffset: number; }) => {
                 if (cell.imageSrc != undefined) {
@@ -61,18 +59,18 @@ class graphicHandler {
      * Removes an image from the table
      */
     public remove() {
-        const currentObject = this.selectedItem;
+        const currentObject = this._selectedItem;
         // Get row / cell number
         var rownumb = Number(currentObject.parentElement.dataset.x);
         var cellnumb = Number(currentObject.parentElement.dataset.y);
 
         // Step 1, remove from canvas
-        this.generateCanvas(null, rownumb, cellnumb, imageInfo.getCellCollection()[rownumb][cellnumb].xOffset, imageInfo.getCellCollection()[rownumb][cellnumb].yOffset, "partOfCanvas");
+        this.generateCanvas(null, rownumb, cellnumb, this._imageCollection.cellCollection[rownumb][cellnumb].xOffset, this._imageCollection.cellCollection[rownumb][cellnumb].yOffset, "partOfCanvas");
 
         // Step 2, remove from array
-        imageInfo.getCellCollection()[rownumb][cellnumb] = new ImageObject(rownumb, cellnumb);
-        imageInfo.getCellCollection()[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
-        imageInfo.getCellCollection()[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
+        this._imageCollection.cellCollection[rownumb][cellnumb] = new ImageInfo(rownumb, cellnumb);
+        this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
+        this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
         // Step 3, remove regenerate and remove from grid
         currentObject.parentNode.appendChild(table.generateImage());
@@ -91,13 +89,13 @@ class graphicHandler {
      */
     public configPreview(restart: boolean) {
         if (restart == true) {
-            this.previewObjects.forEach((obj) => {
+            this._previewObjects.forEach((obj) => {
                 if (obj.getPauseState == true) {
                     obj.restart()
                 }
             })
         } else {
-            this.previewObjects.forEach(obj => {
+            this._previewObjects.forEach(obj => {
                 obj.stop()
             })
         }
@@ -109,13 +107,13 @@ class graphicHandler {
      */
     public previewImage(preview: boolean) {
         if (preview) {
-            this.state.popup.style.transform = "translate(-50%, 300px)";
-            this.state.mouseCircle.style.opacity = "100%";
-            this.state.delete.style.outline = "3px dashed red"
+            this._state.popup.style.transform = "translate(-50%, 300px)";
+            this._state.mouseCircle.style.opacity = "100%";
+            this._state.delete.style.outline = "3px dashed red"
         } else {
-            this.state.popup.style.transform = "translate(-50%, 150px)";
-            this.state.mouseCircle.style.opacity = "0%"
-            this.state.delete.style.outline = "none"
+            this._state.popup.style.transform = "translate(-50%, 150px)";
+            this._state.mouseCircle.style.opacity = "0%"
+            this._state.delete.style.outline = "none"
         };
     }
 
@@ -125,13 +123,13 @@ class graphicHandler {
     public filterClass() {
         const allThumbnails = document.querySelectorAll<HTMLElement>(".thumbnail")
         for (const element of allThumbnails) {
-            if (!element.classList.contains(this.state.collection.value)) {
+            if (!element.classList.contains(this._state.collection.value)) {
                 element.style.display = "none"
             } else {
                 element.style.display = "block"
             }
         }
-        localStorage.setItem("images", this.state.result.innerHTML);
+        localStorage.setItem("images", this._state.result.innerHTML);
     }
 
     /**
@@ -173,11 +171,10 @@ class graphicHandler {
             for (const name of classNames) {
                 if (name != className) {
                     element.classList.remove(name)
-                } else {
-                    element.classList.add(className)
+                    this._imageCollection.filterClass()
                 }
+
             }
-            self.filterClass()
         }
     }
 
@@ -190,16 +187,18 @@ class graphicHandler {
     }
 
     /*/ Getters /*/
-    public get SelectedItem() {
-        return this.selectedItem;
+    public get selectedItem() {
+        return this._selectedItem;
     }
 
-    public get PreviewObjects() {
-        return this.previewObjects;
+    public get previewObjects() {
+        return this._previewObjects;
     }
 
     /*/ Setters /*/
-    public set SelectedItem(e) {
-        this.selectedItem = e;
+    public set selectedItem(e) {
+        this._selectedItem = e;
     }
 }
+
+export default GraphicHandler

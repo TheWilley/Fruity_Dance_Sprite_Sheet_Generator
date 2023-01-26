@@ -6,8 +6,8 @@ var table = function () {
         iterateTable: function () {
             for (let row of state.dyntable.rows) {
                 for (let cell of row.cells) {
-                    if (cell.classList.contains("dropzones") && imageInfo.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc != null) {
-                        cell.childNodes[0].src = imageInfo.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc
+                    if (cell.classList.contains("dropzones") && ImageCollection.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc != null) {
+                        cell.childNodes[0].src = ImageCollection.getCellCollection()[cell.getAttribute("data-x")][cell.getAttribute("data-y")].imageSrc
                     }
                 }
             }
@@ -21,7 +21,7 @@ var table = function () {
             // Check if there is any image added and warn user
             var allCellsEmpty = true;
 
-            imageInfo.getCellCollection().forEach(e1 => {
+            ImageCollection.getCellCollection().forEach(e1 => {
                 e1.forEach(e2 => {
                     if (!e2.imageSrc == "") {
                         allCellsEmpty = false;
@@ -61,7 +61,7 @@ var table = function () {
             state.result.innerHTML = localStorage.getItem("images");
             sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
-            imageInfo.setCellCollection([]);
+            ImageCollection.setCellCollection([]);
             state.dyntable.innerHTML = '<thead><td class="rownumb"> Row </td><td width="80" height="20">Frame 1</td><td width="80" height="20">Frame 2</td><td width="80" height="20">Frame 3</td><td width="80" height="20">Frame 4</td><td width="80" height="20">Frame 5</td><td width="80" height="20">Frame 6</td><td width="80" height="20">Frame 7</td><td width="80" height="20">Frame 8</td><td>Preview</td></thead>';
 
             // Stop all objects
@@ -76,7 +76,7 @@ var table = function () {
             for (let x = 0; x < state.rows.value; x++) {
                 /* For every row, add another row to the 2D array in @getSet.js.
                 This way, the array is dynamic. */
-                imageInfo.getCellCollection().push([]);
+                ImageCollection.getCellCollection().push([]);
 
                 // Generate tanle rows
                 let table_row = document.createElement('TR');
@@ -91,10 +91,10 @@ var table = function () {
 
                 for (let y = 0; y <= 7; y++) {
                     // Here we add a tempobject to the grid to store for later usage
-                    let tempobject = new ImageObject(x, y);
-                    imageInfo.getCellCollection()[x][y] = tempobject;
-                    imageInfo.getCellCollection()[x][y].xOffset = 0;
-                    imageInfo.getCellCollection()[x][y].yOffset = 0;
+                    let tempobject = new ImageInfo(x, y);
+                    ImageCollection.getCellCollection()[x][y] = tempobject;
+                    ImageCollection.getCellCollection()[x][y].xOffset = 0;
+                    ImageCollection.getCellCollection()[x][y].yOffset = 0;
 
                     // Generate table cells
                     let table_cell = document.createElement('TD');
