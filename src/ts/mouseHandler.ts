@@ -1,30 +1,42 @@
-var mouseHandler = function() {
-    let mousePosX = 0;
-    let mousePosY = 0;
-    let delay = 6;
-    let revisedMousePosX = 0;
-    let revisedMousePosY = 0;
+import Configuration from "./config";
 
-    /**
-     * Detects when mouse is moving
-     */
-    $(document).on("mousemove", function(e) {
-        mousePosX = e.pageX;
-        mousePosY = e.pageY;
-    });
+class mouseHandler {
+    private _mousePosX = 0;
+    private _mousePosY = 0;
+    private _delay = 6;
+    private _revisedMousePosX = 0;
+    private _revisedMousePosY = 0;
+    private _state = new Configuration().state
+
+    constructor() {
+        this.createEventListener()
+        this.delayMouseFollow();
+    }
+
+    createEventListener() {
+        const self = this
+
+        /**
+         * Detects when mouse is moving
+         */
+        $(document).on("mousemove", function (moveEvent) {
+            self._mousePosX = moveEvent.pageX;
+            self._mousePosY = moveEvent.pageY;
+        });
+    }
 
     /**
      * Delays circle movement
      */
-    function delayMouseFollow() {
-        requestAnimationFrame(delayMouseFollow);
+    delayMouseFollow() {
+        requestAnimationFrame(this.delayMouseFollow);
 
-        revisedMousePosX += (mousePosX - revisedMousePosX) / delay;
-        revisedMousePosY += (mousePosY - revisedMousePosY) / delay;
+        this._revisedMousePosX += (this._mousePosX - this._revisedMousePosX) / this._delay;
+        this._revisedMousePosY += (this._mousePosY - this._revisedMousePosY) / this._delay;
 
-        state.mouseCircle.style.top = `${revisedMousePosY}px`;
-        state.mouseCircle.style.left = `${revisedMousePosX}px`;
+        this._state.mouseCircle.style.top = `${this._revisedMousePosY}px`;
+        this._state.mouseCircle.style.left = `${this._revisedMousePosX}px`;
     }
 
-    delayMouseFollow();
-}()
+
+}
