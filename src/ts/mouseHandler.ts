@@ -37,6 +37,6 @@ class mouseHandler {
         this._state.mouseCircle.style.top = `${this._revisedMousePosY}px`;
         this._state.mouseCircle.style.left = `${this._revisedMousePosX}px`;
     }
-
-
 }
+
+export default mouseHandler

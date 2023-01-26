@@ -58,7 +58,7 @@ class EventListeners {
          * Creates table when website has loaded
          */
         $(document).on('ready', function () {
-            table.addTable();
+            Table.addTable();
             graphicHandler.ctx()
         })
 
@@ -87,7 +87,7 @@ class EventListeners {
          */
         $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: Event) {
             self.checkMinMax(event);
-            if (table.checkEmptyCells()) table.addTable();
+            if (Table.checkEmptyCells()) Table.addTable();
         });
 
     }

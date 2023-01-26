@@ -240,10 +240,10 @@ class DownloadUpload {
             this.state.cell_width.value = json.width;
             this.state.cell_height.value = json.height;
 
-            table.addTable();
+            Table.addTable();
             this.state.textarea.value = json.rowNames;
             ImageCollection.setCellCollection(json.tableObject);
-            table.iterateTable();
+            Table.iterateTable();
             graphicHandler.redraw();
         }
 

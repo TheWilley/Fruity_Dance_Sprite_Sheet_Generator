@@ -2,6 +2,7 @@ import Configuration from './config';
 import CtxMenu from './dist/ctxmenu.min/ctxmenu.min'
 import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
+import Preview from './preview';
 
 class GraphicHandler {
     private _selectedItem: HTMLElement;
@@ -76,7 +77,7 @@ class GraphicHandler {
         this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
         // Step 3, remove regenerate and remove from grid
-        currentObject.parentNode.appendChild(table.generateImage());
+        currentObject.parentNode.appendChild(Table.generateImage());
         currentObject.remove();
 
         // Step 4, redraw
@@ -199,8 +200,13 @@ class GraphicHandler {
     }
 
     /*/ Setters /*/
-    public set selectedItem(e) {
-        this._selectedItem = e;
+    public set selectedItem(value) {
+        this._selectedItem = value;
+    }
+
+
+    public set previewObjects(value) {
+        this._previewObjects = value;
     }
 }
 
