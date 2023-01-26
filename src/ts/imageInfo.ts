@@ -1,24 +1,28 @@
-var imageInfo = function () {
-    var cellCollection = [];
+class imageInfo {
+    cellCollection: ImageObject[] = [];
 
-    return {
-        /*/ Getters /*/
-        getCellCollection: function () {
-            return cellCollection;
-        },
-
-        /*/ Setters /*/
-        setCellCollection: function(e) {
-            cellCollection = e;
-        }
+    /*/ Getters /*/
+    get getCellCollection() {
+        return this.cellCollection;
     }
-}()
+
+    /*/ Setters /*/
+    set setCellCollection(collection: ImageObject[]) {
+        this.cellCollection = collection;
+    }
+} ()
 
 /**
  *  Class used to store info about images
  */
 class ImageObject {
-    constructor(x, y, xOffset, yOffset, imageSrc) {
+    private x
+    private y
+    private xOffset
+    private yOffset
+    private imageSrc 
+
+    constructor(x: number, y: number, xOffset: number, yOffset: number, imageSrc: string) {
         this.x = x;
         this.y = y;
         this.xOffset = xOffset;
