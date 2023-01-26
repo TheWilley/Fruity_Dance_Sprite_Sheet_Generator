@@ -1,6 +1,6 @@
 import GraphicHandler from "./graphicHandler";
 
-class imageOffset {
+class ImageOffset {
     previousObject: HTMLElement = null
     state = new Configuration().state
     imageInfo = new ImageCollection()
@@ -72,3 +72,5 @@ class imageOffset {
         }
     }
 }
+
+export default ImageOffset

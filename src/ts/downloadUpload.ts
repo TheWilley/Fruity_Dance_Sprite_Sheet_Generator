@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import gifFrames from 'gif-frames'
 import $ from "jquery";
 
-export class DownloadUpload {
+class DownloadUpload {
     private config
     private state
 
@@ -274,3 +274,5 @@ export class DownloadUpload {
         });
     }
 }
+
+export default DownloadUpload

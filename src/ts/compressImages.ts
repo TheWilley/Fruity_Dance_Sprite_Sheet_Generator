@@ -1,5 +1,3 @@
-
-
 /**
  * Compresses image when uploading.
  * 
@@ -7,7 +5,7 @@
  * @param {Object} file - The image file
  * 
  */
-export class CompressImages {
+class CompressImages {
     public file
     public div
     public downloadUpload
@@ -23,13 +21,7 @@ export class CompressImages {
     /**
      * Converts a blob to base64
      * @param {Object} blob - A blob object in the dataURL format
-     * @returns 
-     */
-    private convertToBase64(blob: Blob) {
-        return new Promise((resolve) => {
-            var reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function () {
+     * @returns export
                 resolve(reader.result);
             }
         })
@@ -108,3 +100,5 @@ export class CompressImages {
         };
     }
 }
+
+export default CompressImages

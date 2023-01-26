@@ -1,17 +1,3 @@
-class ImageCollection {
-    private _cellCollection: ImageInfo[][] = [[]];
-
-    /*/ Getters /*/
-    public get cellCollection() {
-        return this._cellCollection;
-    }
-
-    /*/ Setters /*/
-    public set cellCollection(collection: ImageInfo[][]) {
-        this._cellCollection = collection;
-    }
-} 
-
 /**
  *  Class used to store info about images
  */
@@ -44,7 +30,19 @@ class ImageInfo {
 
     get yOffset() {
         return this._yOffset
-    }
+    }class ImageCollection {
+        private _cellCollection: ImageInfo[][] = [[]];
+    
+        /*/ Getters /*/
+        public get cellCollection() {
+            return this._cellCollection;
+        }
+    
+        /*/ Setters /*/
+        public set cellCollection(collection: ImageInfo[][]) {
+            this._cellCollection = collection;
+        }
+    } 
 
     get imageSrc() {
         return this._imageSrc
@@ -70,3 +68,5 @@ class ImageInfo {
         this._imageSrc = value
     }
 }
+
+export default ImageInfo

@@ -1,6 +1,6 @@
 import interact from "interactjs";
 
-export class DragHandler {
+class DragHandler {
     original_position_x = 0
     original_position_y = 0
     state = new Configuration().state
@@ -115,3 +115,5 @@ export class DragHandler {
         })
     }
 }
+
+export default DragHandler

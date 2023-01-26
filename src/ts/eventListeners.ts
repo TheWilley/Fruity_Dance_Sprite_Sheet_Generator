@@ -1,4 +1,4 @@
-export class EventListeners {
+class EventListeners {
     private config
     private downloadUpload
     private state
@@ -97,3 +97,5 @@ export class EventListeners {
         if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { event.target.value = parseInt((event.target as HTMLInputElement).getAttribute("min")) };
     }
 }
+
+export default EventListeners
