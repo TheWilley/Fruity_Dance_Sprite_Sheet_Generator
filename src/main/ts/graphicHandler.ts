@@ -1,5 +1,5 @@
 import Configuration from './config';
-import CtxMenu from './dist/ctxmenu.min/ctxmenu.min'
+import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
 import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
 import Preview from './preview';

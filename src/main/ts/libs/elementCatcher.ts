@@ -1,6 +1,6 @@
 interface Config {
-    getElementsWith: 'id' | 'class' | 'all' | 'allAsArray'
-    targetElement: Element
+    getElementsWith: 'id' | 'class' | 'all' | 'allAsArray'
+    targetElement: HTMLElement
     ignoreClass?: string
     includeClass?: string
     directChildren?: boolean
@@ -10,13 +10,10 @@ class ElementCatcher {
     // Global vraibles
     [key: string]: any
     private config: Config = {
-        ignoreClass: "",
-        includeClass: "",
         getElementsWith: "id",
-        targetElement: new Element,
-        directChildren: false
+        targetElement: document.getElementById("app")!
     }
-    private targetElement: Element = new Element
+    
     private elements: Array<Element> = []
 
     constructor(config: Config) {
@@ -24,8 +21,8 @@ class ElementCatcher {
         if (this.checkApp(config)) {
             this.config = config
             this.elements = []
-            this.targetElement = config.targetElement!
             this.start()
+            console.log("sdfdsfdsfg")
         }
     }
 
@@ -43,25 +40,29 @@ class ElementCatcher {
         return true
     }
 
-    private checkForClass(element: Element) {
+    private checkForClass(element: HTMLElement) {
         if (this.config.ignoreClass) {
             if (element.classList.contains(this.config.ignoreClass)) {
                 return false
             }
-        } else if (this.config.includeClass) {
+        }
+
+        if (this.config.includeClass) {
             if (element.classList.contains(this.config.includeClass)) {
                 return true
             }
-        } else {
-            return true
+
+
         }
+        
+        return true
     }
 
     private start() {
         // Check if the 'directChildren' attribute is added
         // Because HTMLCollection is not an array, we convert - https://stackoverflow.com/a/222847
-        var element: Element = new Element
-        for (element of this.config.directChildren == true ? [].slice.call(this.targetElement.children) : [].slice.call(this.targetElement.getElementsByTagName("*"))) {
+        var element: HTMLElement
+        for (element of this.config.directChildren == true ? [].slice.call(this.config.targetElement.children) : [].slice.call(this.config.targetElement.getElementsByTagName("*"))) {
             switch (this.config.getElementsWith) {
                 case 'id':
                     if (this.checkForClass(element)) {

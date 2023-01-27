@@ -6,9 +6,9 @@ import ImageCollection from './imageCollection';
 import Configuration from './config';
 import CompressImages from './compressImages';
 import GraphicHandler from './graphicHandler';
-import FilePondPluginFileEncode from './dist/filepond/addons/filepond-plugin-file-encode.min'
-import FilePondPluginFileValidateSize from './dist/filepond/addons/filepond-plugin-file-validate-size.min'
-import FilePondPluginFileValidateType from './dist/filepond/addons/filepond-plugin-file-validate-type.min'
+import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
+import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
+import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plugin-file-validate-type.min'
 import Table from './table';
 
 class DownloadUpload {
