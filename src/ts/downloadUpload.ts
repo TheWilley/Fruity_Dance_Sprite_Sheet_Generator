@@ -1,20 +1,23 @@
 import * as FilePond from 'filepond';
-import * as JSZip from 'jszip'
 import { saveAs } from 'file-saver';
+import * as JSZip from 'jszip'
 import gifFrames from 'gif-frames'
+import ImageCollection from './imageCollection';
 import Configuration from './config';
-import $ from "jquery";
 import CompressImages from './compressImages';
+import GraphicHandler from './graphicHandler';
+import FilePondPluginFileEncode from './dist/filepond/addons/filepond-plugin-file-encode.min'
+import FilePondPluginFileValidateSize from './dist/filepond/addons/filepond-plugin-file-validate-size.min'
+import FilePondPluginFileValidateType from './dist/filepond/addons/filepond-plugin-file-validate-type.min'
+import $ from "jquery";
+import Table from './table';
 
 class DownloadUpload {
-    private _config
-    private _state
-
-    constructor() {
-        const config = new Configuration()
-        this._config = config.settings
-        this._state = config.state
-    }
+    private _config = new Configuration().settings
+    private _state = new Configuration().state
+    private _imageCollection = new ImageCollection()
+    private _table = new Table()
+    private _graphicHandler = new GraphicHandler()
 
     /**
      * Creates a new image element and appends it to a collection
@@ -148,7 +151,7 @@ class DownloadUpload {
             rowNames: this._state.textarea.value,
             width: this._state.cell_width.value,
             height: this._state.cell_height.value,
-            tableObject: ImageCollection.getCellCollection()
+            tableObject: this._imageCollection.cellCollection
         }
 
         // Create a blob of the data
@@ -164,6 +167,7 @@ class DownloadUpload {
      * Creates drag and drop functionality
      */
     public pond() {
+        const self = this
         FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
 
         /**
@@ -195,7 +199,7 @@ class DownloadUpload {
             })
         }
 
-        /**
+        /**filepond-plugin-file-encode.min
          * FilePond instance for images / gifs
          */
         const uploadImage = FilePond.create(document.querySelector('#files'), {
@@ -236,15 +240,15 @@ class DownloadUpload {
          * @param {string} json - The json containing sprite sheet data
          */
         var handleJson = function (json: any) {
-            this.state.rows.value = json.rows;
-            this.state.cell_width.value = json.width;
-            this.state.cell_height.value = json.height;
+            self._state.rows.value = json.rows;
+            self._state.cell_width.value = json.width;
+            self._state.cell_height.value = json.height;
 
-            Table.addTable();
-            this.state.textarea.value = json.rowNames;
-            ImageCollection.setCellCollection(json.tableObject);
-            Table.iterateTable();
-            graphicHandler.redraw();
+            self._table.addTable();
+            self._state.textarea.value = json.rowNames;
+            self._imageCollection.cellCollection = json.tableObject;
+            self._table.iterateTable();
+            self._graphicHandler.redraw();
         }
 
         /**

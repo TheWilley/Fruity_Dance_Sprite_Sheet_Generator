@@ -1,10 +1,14 @@
 import interact from "interactjs";
 import Configuration from "./config";
+import GraphicHandler from "./graphicHandler";
+import ImageCollection from "./imageCollection";
 
 class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
     private _state = new Configuration().state
+    private _graphicHandler = new GraphicHandler() 
+    private _imageCollection = new ImageCollection()
     
     constructor() {
         this.run()
@@ -36,7 +40,7 @@ class DragHandler {
                         var target_element = document.getElementById(event.target.id);
                         // Translate the element
                         target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
-                        value: numberhicHandler.previewImage(false);
+                        self._graphicHandler.previewImage(false);
                     }
                 }
             }
@@ -53,13 +57,13 @@ class DragHandler {
                 var cellnumb = event.target.dataset.y;
 
                 // Set imageInfo.getCellCollection()
-                ImageCollection.getCellCollection()[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
-                ImageCollection.getCellCollection()[rownumb][cellnumb].xOffset = 0;
-                ImageCollection.getCellCollection()[rownumb][cellnumb].yOffset = 0;
+                self._imageCollection.cellCollection[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
+                self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0;
+                self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0;
 
                 // Run function to insert images into canvas    
-                graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);
-                graphicHandler.redraw()
+                self._graphicHandler.generateCanvas(target_element.src, rownumb, cellnumb);
+                self._graphicHandler.redraw()
                 event.target.firstChild.src = target_element.src;
 
                 // Go back to otiginal position
@@ -70,7 +74,7 @@ class DragHandler {
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop', 'isdragged');
 
-                graphicHandler.previewImage(false);
+                self._graphicHandler.previewImage(false);
             },
             ondragenter: function (event) {
                 // Feedback the possibility of a drop
@@ -93,7 +97,7 @@ class DragHandler {
                 event.relatedTarget.parentNode.remove()
 
                 // Disable the preview
-                graphicHandler.previewImage(false);
+                self._graphicHandler.previewImage(false);
 
                 // Reset delete button color
                 event.target.style.background = "#ffc107";

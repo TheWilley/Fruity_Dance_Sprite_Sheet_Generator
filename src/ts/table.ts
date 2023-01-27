@@ -159,3 +159,5 @@ class Table {
         this._state.textarea.value += "Held";
     }
 }
+
+export default Table

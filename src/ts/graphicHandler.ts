@@ -3,12 +3,16 @@ import CtxMenu from './dist/ctxmenu.min/ctxmenu.min'
 import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
 import Preview from './preview';
+import ImageOffset from './imageOffset';
+import Table from './table';
 
 class GraphicHandler {
     private _selectedItem: HTMLElement;
     private _previewObjects: Preview[] = [];
     private _state = new Configuration().state
     private _imageCollection = new ImageCollection()
+    private _imageOffset = new ImageOffset()
+    private _table = new Table()
 
     constructor() {
         sessionStorage.imagenumb = 0;
@@ -23,7 +27,7 @@ class GraphicHandler {
      * @param {number} Yoffset - The image offset in the Y axis
      * @param {('wholeCanvas'|'partOfCanvas')} clear - How much of the canvas to be cleared
      */
-    public generateCanvas(image: string, rownumb: number, cellnumb: number, Xoffset = 0, Yoffset = 0, clear: 'wholeCanvas' | 'partOfCanvas') {
+    public generateCanvas(image: string, rownumb: number, cellnumb: number, Xoffset?: number, Yoffset?: number, clear?: 'wholeCanvas' | 'partOfCanvas') {
         // This is where we create the canvas and insert images
         let GeneratedCanvas = new Image();
         GeneratedCanvas.src = image;
@@ -77,14 +81,14 @@ class GraphicHandler {
         this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
         // Step 3, remove regenerate and remove from grid
-        currentObject.parentNode.appendChild(Table.generateImage());
+        currentObject.parentNode.appendChild(this._table.generateImage());
         currentObject.remove();
 
         // Step 4, redraw
         this.redraw()
 
         // Step 5, disable controls
-        imageOffset.disableControls(true)
+        this._imageOffset.disableControls(true)
     }
 
     /**

@@ -9,22 +9,26 @@ import DownloadUpload from "./downloadUpload"
  * 
  */
 class CompressImages {
+    public downloadUpload = new DownloadUpload()
+    public config = new Configuration().settings
     public file
     public div
-    public downloadUpload
-    public config
 
     constructor(file: File, div: HTMLDivElement) {
         this.file = file
         this.div = div
-        this.config = new Configuration().settings
-        this.downloadUpload = new DownloadUpload()
     }
 
     /**
      * Converts a blob to base64
      * @param {Object} blob - A blob object in the dataURL format
-     * @returns export
+     * @returns 
+     */
+    convertToBase64(blob: Blob) {
+        return new Promise((resolve) => {
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
                 resolve(reader.result);
             }
         })
@@ -74,14 +78,14 @@ class CompressImages {
         const img = new Image();
         img.src = blobURL;
         img.onerror = function () {
-            URL.revokeObjectURL(this.src);
+            URL.revokeObjectURL(img.src);
             // Handle the failure properly
             console.log("Cannot load image");
         };
 
         // When image loads, compress it 
         img.onload = function () {
-            URL.revokeObjectURL(this.src);
+            URL.revokeObjectURL(img.src);
 
             // Assign width and height
             const [newWidth, newHeight] = self.calculateSize(img, MAX_WIDTH, MAX_HEIGHT);

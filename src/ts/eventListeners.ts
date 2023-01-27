@@ -1,10 +1,15 @@
 import Configuration from "./config"
 import DownloadUpload from "./downloadUpload"
+import Table from "./table"
+import GraphicHandler from "./graphicHandler"
 
 class EventListeners {
     private _config
     private _downloadUpload
     private _state
+    private _table = new Table()
+    private _graphicHandler = new GraphicHandler()
+    
 
     constructor() {
         const config = new Configuration()
@@ -44,7 +49,7 @@ class EventListeners {
          * Checks if download sprite sheet button has been clicked
          */
         $(this._state.downloadSpriteSheet).on('click', function (e) {
-            self._downloadUpload.downloadZIP(canvas, self._state.textarea.value, self._state.filename.value);
+            self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
         });
 
         /**
@@ -58,15 +63,15 @@ class EventListeners {
          * Creates table when website has loaded
          */
         $(document).on('ready', function () {
-            Table.addTable();
-            graphicHandler.ctx()
+            self._table.addTable();
+            self._graphicHandler.ctx()
         })
 
         /**
          * Checks scroll position
          */
         $(window).on("scroll", (event) => {
-            if (this.scrollY >= 45) {
+            if (event.target.scrollY >= 45) {
                 this._state.sidebar.classList.add("fixedSidebar")
                 this._state.sidebarContainer.classList.add("fixedContainer")
             } else {
@@ -87,7 +92,7 @@ class EventListeners {
          */
         $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: Event) {
             self.checkMinMax(event);
-            if (Table.checkEmptyCells()) Table.addTable();
+            if (self._table.checkEmptyCells()) self._table.addTable();
         });
 
     }
@@ -96,8 +101,8 @@ class EventListeners {
      * @param {object} event 
      */
     private checkMinMax(event: Event) {
-        if (parseInt((event.target as HTMLInputElement).value) > parseInt((event.target as HTMLInputElement).getAttribute("max"))) { event.target.value = parseInt((event.target as HTMLInputElement).getAttribute("max")) };
-        if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { event.target.value = parseInt((event.target as HTMLInputElement).getAttribute("min")) };
+        if (parseInt((event.target as HTMLInputElement).value) > parseInt((event.target as HTMLInputElement).getAttribute("max"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("max") };
+        if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("min")  };
     }
 }
 
