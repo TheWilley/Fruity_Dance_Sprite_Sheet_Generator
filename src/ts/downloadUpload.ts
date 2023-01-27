@@ -1,6 +1,6 @@
 import * as FilePond from 'filepond';
 import { saveAs } from 'file-saver';
-import * as JSZip from 'jszip'
+import JSZip from 'jszip';
 import gifFrames from 'gif-frames'
 import ImageCollection from './imageCollection';
 import Configuration from './config';
@@ -9,7 +9,6 @@ import GraphicHandler from './graphicHandler';
 import FilePondPluginFileEncode from './dist/filepond/addons/filepond-plugin-file-encode.min'
 import FilePondPluginFileValidateSize from './dist/filepond/addons/filepond-plugin-file-validate-size.min'
 import FilePondPluginFileValidateType from './dist/filepond/addons/filepond-plugin-file-validate-type.min'
-import $ from "jquery";
 import Table from './table';
 
 class DownloadUpload {

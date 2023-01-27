@@ -8,7 +8,8 @@
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.spec.ts"]

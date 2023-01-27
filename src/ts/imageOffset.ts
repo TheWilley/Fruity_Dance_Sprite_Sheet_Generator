@@ -65,8 +65,8 @@ class ImageOffset {
             this._state.offsetX.value = Xoffset;
             this._state.offsetY.value = Yoffset;
 
-            $([this._state.offsetX, this._state.offsetY]).change(function (event) {
-                eventListeners.checkMinMax(event);
+            $([this._state.offsetX, this._state.offsetY]).on('change', function (event) {
+                self._eventListeners.checkMinMax(event);
 
                 self._imageInfo.cellCollection[rownumb][cellnumb].xOffset = this.state.offsetX.value;
                 self._imageInfo.cellCollection[rownumb][cellnumb].yOffset = this.state.offsetY.value;

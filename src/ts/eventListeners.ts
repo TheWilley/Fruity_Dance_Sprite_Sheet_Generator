@@ -90,7 +90,7 @@ class EventListeners {
         /**
          * Checks if element values are too high or low
          */
-        $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: Event) {
+        $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: JQuery.ChangeEvent) {
             self.checkMinMax(event);
             if (self._table.checkEmptyCells()) self._table.addTable();
         });
@@ -100,7 +100,7 @@ class EventListeners {
      * Checks if the current value is under its minimum / over its maximum
      * @param {object} event 
      */
-    private checkMinMax(event: Event) {
+    checkMinMax(event: JQuery.ChangeEvent) {
         if (parseInt((event.target as HTMLInputElement).value) > parseInt((event.target as HTMLInputElement).getAttribute("max"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("max") };
         if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("min")  };
     }

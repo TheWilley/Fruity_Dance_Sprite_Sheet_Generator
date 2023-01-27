@@ -4,7 +4,6 @@ import ImageOffset from "./imageOffset";
 import GraphicHandler from "./graphicHandler";
 import Preview from "./preview";
 import ImageInfo from "./imageInfo";
-import config from "./config";
 
 class Table {
     private _state = new Configuration().state
