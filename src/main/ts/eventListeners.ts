@@ -53,14 +53,6 @@ class EventListeners {
         });
 
         /**
-         * Creates table when website has loaded
-         */
-        $(document).on('ready', function () {
-            self._table.addTable();
-            self._graphicHandler.ctx()
-        })
-
-        /**
          * Checks scroll position
          */
         $(window).on("scroll", (event) => {
@@ -88,6 +80,8 @@ class EventListeners {
             if (self._table.checkEmptyCells()) self._table.addTable();
         });
 
+        self._table.addTable();
+        self._graphicHandler.ctx()
     }
 }
 

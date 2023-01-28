@@ -40,5 +40,13 @@ module.exports = {
   // Other rules...
 	plugins: [
 		new NodePolyfillPlugin()
-	]
+	],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+      watch: true,
+    },
+    compress: true,
+    port: 9000,
+  },
 };
