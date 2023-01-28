@@ -1,4 +1,4 @@
-import { elementCatcher } from "./globals"
+import { elementCatcher } from "../../app"
 
 interface IConfiguration {
     /*/ Canvas settings /*/

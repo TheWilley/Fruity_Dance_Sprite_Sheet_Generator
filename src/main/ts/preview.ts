@@ -1,4 +1,4 @@
-import { config } from "./globals"
+import { config } from "../../app";
 
 /**
  * Generates the preview canvas element

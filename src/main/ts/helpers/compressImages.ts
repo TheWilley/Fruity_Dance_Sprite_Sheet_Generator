@@ -1,4 +1,4 @@
-import { config, downloadUpload } from "../globals"
+import { config } from "../../../app"
 
 /**
  * Compresses image when uploading.
@@ -8,10 +8,10 @@ import { config, downloadUpload } from "../globals"
  * 
  */
 class CompressImages {
-    public _downloadUpload = downloadUpload
-    public _config = config.settings
-    public _file
-    public _div
+    private _settings = config.settings
+    private _state = config.state
+    private _file
+    private _div
 
     constructor(file: File, div: HTMLDivElement) {
         this._file = file
@@ -60,14 +60,46 @@ class CompressImages {
     }
 
     /**
+     * Inserts image to the sidebar
+     * @param {string} image - An image object in base64
+     * @param {Object} div - The div containg the image
+     */
+    public insertImage(image: string, div: HTMLDivElement) {
+        // Insert the image
+        div.innerHTML = `<img class='thumbnail draggable ${this._state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
+
+        // Create animation
+        const animation = div.animate(
+            [
+                { transform: 'translateX(-100%)', opacity: '0%' },
+                { transform: 'translateX(0)', opacity: '100%' }
+            ], {
+            easing: 'ease',
+            duration: 500
+        });
+
+        // Insert the combined div and image
+        this._state.result.insertBefore(div, null);
+
+        animation.play();
+
+        // Keep track of the number of files
+        sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
+
+        // Add div to local storage
+        localStorage.setItem("images", this._state.result.innerHTML);
+        localStorage.setItem("imagenumb", sessionStorage.imagenumb)
+    }
+
+    /**
      * Initiates the compression
      */
     public init() {
         // Settings
-        const MAX_WIDTH = this._config.maxWidth * this._config.imageSizeMultiplier;
-        const MAX_HEIGHT = this._config.maxHeight * this._config.imageSizeMultiplier;
+        const MAX_WIDTH = this._settings.maxWidth * this._settings.imageSizeMultiplier;
+        const MAX_HEIGHT = this._settings.maxHeight * this._settings.imageSizeMultiplier;
         const MIME_TYPE = "image/png";
-        const QUALITY = this._config.imageQuality
+        const QUALITY = this._settings.imageQuality
         const self = this
 
         // Convert file to blobURL
@@ -98,7 +130,7 @@ class CompressImages {
             canvas.toBlob(
                 async (blob) => {
                     var base64 = await self.convertToBase64(blob) as string;
-                    self._downloadUpload.insertImage(base64, self._div);
+                    self.insertImage(base64, self._div);
                 },
                 MIME_TYPE,
                 QUALITY

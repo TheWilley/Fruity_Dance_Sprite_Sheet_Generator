@@ -1,18 +1,15 @@
-import { config } from "./globals"
+import { config } from "../../app";
 import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
 import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
 import Preview from './preview';
-import ImageOffset from './imageOffset';
-import Table from './table';
 
 class GraphicHandler {
     private _selectedItem: HTMLElement;
+    private _previousObject: HTMLElement = null
     private _previewObjects: Preview[] = [];
     private _state = config.state
     private _imageCollection = new ImageCollection()
-    private _imageOffset = new ImageOffset()
-    private _table = new Table()
 
     constructor() {
         sessionStorage.imagenumb = 0;
@@ -64,6 +61,24 @@ class GraphicHandler {
     }
 
     /**
+     * Generates an image element
+     * @returns {object} - The image element
+    */
+    public generateImage() {
+        const self = this
+
+        // Generate image cells
+        let image = document.createElement('IMG');
+
+        // Set all image_cell attributes
+        image.setAttribute("class", "immg-grid");
+        // @ts-ignore - TODO: Have to check how "this" can relate to the DOM here
+        image.onclick = function () { self._imageOffset.show_controls(this) };
+
+        return image;
+    }
+
+    /**
      * Removes an image from the table
      */
     public remove() {
@@ -81,14 +96,14 @@ class GraphicHandler {
         this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
 
         // Step 3, remove regenerate and remove from grid
-        currentObject.parentNode.appendChild(this._table.generateImage());
+        currentObject.parentNode.appendChild(this.generateImage());
         currentObject.remove();
 
         // Step 4, redraw
         this.redraw()
 
         // Step 5, disable controls
-        this._imageOffset.disableControls(true)
+        this.disableControls(true)
     }
 
     /**
@@ -184,6 +199,82 @@ class GraphicHandler {
 
             }
         }
+    }
+
+
+    /**
+     * Enables or disables the offset & delete settings
+     * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
+     */
+    public disableControls(enabled: boolean) {
+        this._state.offsetX.disabled = enabled;
+        this._state.offsetY.disabled = enabled;
+        this._state.delete.disabled = enabled;
+    }
+
+    /**
+     * Shows controls for a cell in the table
+     * @param {object} currentObject - The target image element in the table
+     */
+    public show_controls(currentObject: HTMLElement) {
+        const self = this
+
+        this._selectedItem = currentObject;
+
+        // Disable controls if the image src is not found
+        if (currentObject.getAttribute("src") == null) {
+            this.disableControls(true);
+        } else {
+            this.disableControls(false);
+        }
+
+        // Get row / cell number
+        var rownumb: number = Number(currentObject.parentElement.dataset.x);
+        var cellnumb: number = Number(currentObject.parentElement.dataset.y);
+
+        // Unbind all events
+        if (currentObject != this._previousObject) {
+            $(this._state.offsetX).unbind();
+            $(this._state.offsetY).unbind();
+        }
+
+        // Check if object has been accessed before
+        if (this._previousObject != null) { this._previousObject.style.border = "1px solid gray" };
+
+        // Make the previous object the current one
+        this._previousObject = currentObject;
+
+        // Apply green border
+        currentObject.style.border = "green solid 3px";
+
+        // Get offset
+        if (this._previousObject != null) {
+            // Get stored values
+            const Xoffset = this._imageCollection.cellCollection[rownumb][cellnumb].xOffset;
+            const Yoffset = this._imageCollection.cellCollection[rownumb][cellnumb].yOffset;
+
+            // Set values
+            this._state.offsetX.value = Xoffset;
+            this._state.offsetY.value = Yoffset;
+
+            $([this._state.offsetX, this._state.offsetY]).on('change', function (event) {
+                self.checkMinMax(event);
+
+                self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = this.state.offsetX.value;
+                self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = this.state.offsetY.value;
+                self.redraw()
+            })
+        }
+    }
+
+
+    /**
+     * Checks if the current value is under its minimum / over its maximum
+     * @param {object} event 
+     */
+    checkMinMax(event: JQuery.ChangeEvent) {
+        if (parseInt((event.target as HTMLInputElement).value) > parseInt((event.target as HTMLInputElement).getAttribute("max"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("max") };
+        if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("min") };
     }
 
     /**

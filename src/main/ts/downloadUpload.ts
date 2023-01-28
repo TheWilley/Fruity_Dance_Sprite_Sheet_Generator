@@ -1,4 +1,4 @@
-import { config } from "./globals"
+import { config } from "../../app";
 import * as FilePond from 'filepond';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -62,39 +62,6 @@ class DownloadUpload {
             return true;
         }
     }
-
-    /**
-     * Inserts image to the sidebar
-     * @param {string} image - An image object in base64
-     * @param {Object} div - The div containg the image
-     */
-    public insertImage(image: string, div: HTMLDivElement) {
-        // Insert the image
-        div.innerHTML = `<img class='thumbnail draggable ${this._state.collection.value}' src='${image}' id='imagenumb${sessionStorage.imagenumb}' />`;
-
-        // Create animation
-        const animation = div.animate(
-            [
-                { transform: 'translateX(-100%)', opacity: '0%' },
-                { transform: 'translateX(0)', opacity: '100%' }
-            ], {
-            easing: 'ease',
-            duration: 500
-        });
-
-        // Insert the combined div and image
-        this._state.result.insertBefore(div, null);
-
-        animation.play();
-
-        // Keep track of the number of files
-        sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
-
-        // Add div to local storage
-        localStorage.setItem("images", this._state.result.innerHTML);
-        localStorage.setItem("imagenumb", sessionStorage.imagenumb)
-    }
-
 
     /**
      * Compress sprite sheet along with a text file into a ZIP, then downloads it

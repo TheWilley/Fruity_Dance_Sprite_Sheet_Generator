@@ -1,4 +1,4 @@
-import { config } from "./globals"
+import { config } from "../../app";
 
 class MouseHandler {
     private _mousePosX = 0;

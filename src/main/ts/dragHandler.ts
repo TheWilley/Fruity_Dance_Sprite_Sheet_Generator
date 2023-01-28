@@ -1,5 +1,5 @@
+import { config } from "../../app";
 import interact from "interactjs";
-import { config } from "./globals";
 import GraphicHandler from "./graphicHandler";
 import ImageCollection from "./imageCollection";
 

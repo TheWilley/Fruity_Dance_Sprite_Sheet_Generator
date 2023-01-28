@@ -1,16 +1,14 @@
-import { config } from "./globals"
+import { config } from "../../app";
 import ImageCollection from "./imageCollection";
-import ImageOffset from "./imageOffset";
 import GraphicHandler from "./graphicHandler";
 import Preview from "./preview";
 import ImageInfo from "./imageInfo";
 
 class Table {
+    private _settings = config.settings
     private _state = config.state
     private _imageCollection = new ImageCollection()
-    private _imageOffset = new ImageOffset()
     private _graphicHandler = new GraphicHandler()
-    private _settings = config.settings
 
     /**
      * Itterates table and inserts images from object
@@ -48,24 +46,6 @@ class Table {
         }
 
         return true
-    }
-
-    /**
-     * Generates an image element
-     * @returns {object} - The image element
-     */
-    generateImage() {
-        const self = this
-
-        // Generate image cells
-        let image = document.createElement('IMG');
-
-        // Set all image_cell attributes
-        image.setAttribute("class", "immg-grid");
-        // @ts-ignore - TODO: Have to check how "this" can relate to the DOM here
-        image.onclick = function () { self._imageOffset.show_controls(this) };
-
-        return image;
     }
 
     /**
@@ -118,7 +98,7 @@ class Table {
                 table_cell.classList.add('dropzones')
 
                 // Generate image
-                const image_cell = this.generateImage();
+                const image_cell = this._graphicHandler.generateImage();
 
                 // Append all elemments
                 table_cell.appendChild(image_cell);

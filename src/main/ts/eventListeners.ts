@@ -1,20 +1,14 @@
-import { config } from "./globals"
+import { config } from "../../app";
 import DownloadUpload from "./downloadUpload"
 import Table from "./table"
 import GraphicHandler from "./graphicHandler"
 
 class EventListeners {
-    private _settings
-    private _downloadUpload
-    private _state
+    private _settings = config.settings
+    private _state = config.state
+    private _downloadUpload = new DownloadUpload()
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
-
-    constructor() {
-        this._downloadUpload = new DownloadUpload()
-        this._settings = config.settings
-        this._state = config.state
-    }
 
     public run() {
         const self = this
@@ -60,7 +54,7 @@ class EventListeners {
         /**
          * Creates table when website has loaded
          */
-        $(document).on('ready',function () {
+        $(document).on('ready', function () {
             self._table.addTable();
             self._graphicHandler.ctx()
         })
@@ -89,19 +83,10 @@ class EventListeners {
          * Checks if element values are too high or low
          */
         $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: JQuery.ChangeEvent) {
-            self.checkMinMax(event);
+            self._graphicHandler.checkMinMax(event);
             if (self._table.checkEmptyCells()) self._table.addTable();
         });
 
-    }
-    
-    /**
-     * Checks if the current value is under its minimum / over its maximum
-     * @param {object} event 
-     */
-    checkMinMax(event: JQuery.ChangeEvent) {
-        if (parseInt((event.target as HTMLInputElement).value) > parseInt((event.target as HTMLInputElement).getAttribute("max"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("max") };
-        if (parseInt((event.target as HTMLInputElement).value) < parseInt((event.target as HTMLInputElement).getAttribute("min"))) { var target = event.target as HTMLInputElement; target.value = (event.target as HTMLInputElement).getAttribute("min")  };
     }
 }
 
