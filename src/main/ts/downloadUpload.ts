@@ -1,10 +1,10 @@
+import { config } from "./globals"
 import * as FilePond from 'filepond';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import gifFrames from 'gif-frames'
 import ImageCollection from './imageCollection';
-import Configuration from './config';
-import CompressImages from './compressImages';
+import CompressImages from './helpers/compressImages';
 import GraphicHandler from './graphicHandler';
 import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
 import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
@@ -12,8 +12,8 @@ import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plug
 import Table from './table';
 
 class DownloadUpload {
-    private _config = new Configuration().settings
-    private _state = new Configuration().state
+    private _settings = config.settings
+    private _state = config.state
     private _imageCollection = new ImageCollection()
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
@@ -204,7 +204,7 @@ class DownloadUpload {
         const uploadImage = FilePond.create(document.querySelector('#files'), {
             // Settings
             labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-            maxFileSize: this._config.maxUploadSize ? this._config.maxUploadSize : "2mb",
+            maxFileSize: this._settings.maxUploadSize ? this._settings.maxUploadSize : "2mb",
             allowMultiple: true,
             maxFiles: 20,
             allowFileTypeValidation: true,

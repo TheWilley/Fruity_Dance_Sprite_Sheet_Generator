@@ -1,5 +1,4 @@
-import Configuration from "./config"
-import DownloadUpload from "./downloadUpload"
+import { config, downloadUpload } from "../globals"
 
 /**
  * Compresses image when uploading.
@@ -9,14 +8,14 @@ import DownloadUpload from "./downloadUpload"
  * 
  */
 class CompressImages {
-    public downloadUpload = new DownloadUpload()
-    public config = new Configuration().settings
-    public file
-    public div
+    public _downloadUpload = downloadUpload
+    public _config = config.settings
+    public _file
+    public _div
 
     constructor(file: File, div: HTMLDivElement) {
-        this.file = file
-        this.div = div
+        this._file = file
+        this._div = div
     }
 
     /**
@@ -65,14 +64,14 @@ class CompressImages {
      */
     public init() {
         // Settings
-        const MAX_WIDTH = this.config.maxWidth * this.config.imageSizeMultiplier;
-        const MAX_HEIGHT = this.config.maxHeight * this.config.imageSizeMultiplier;
+        const MAX_WIDTH = this._config.maxWidth * this._config.imageSizeMultiplier;
+        const MAX_HEIGHT = this._config.maxHeight * this._config.imageSizeMultiplier;
         const MIME_TYPE = "image/png";
-        const QUALITY = this.config.imageQuality
+        const QUALITY = this._config.imageQuality
         const self = this
 
         // Convert file to blobURL
-        const blobURL = URL.createObjectURL(this.file)
+        const blobURL = URL.createObjectURL(this._file)
 
         // Create new image and assign the blob to it
         const img = new Image();
@@ -99,7 +98,7 @@ class CompressImages {
             canvas.toBlob(
                 async (blob) => {
                     var base64 = await self.convertToBase64(blob) as string;
-                    self.downloadUpload.insertImage(base64, self.div);
+                    self._downloadUpload.insertImage(base64, self._div);
                 },
                 MIME_TYPE,
                 QUALITY

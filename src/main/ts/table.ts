@@ -1,4 +1,4 @@
-import Configuration from "./config";
+import { config } from "./globals"
 import ImageCollection from "./imageCollection";
 import ImageOffset from "./imageOffset";
 import GraphicHandler from "./graphicHandler";
@@ -6,11 +6,11 @@ import Preview from "./preview";
 import ImageInfo from "./imageInfo";
 
 class Table {
-    private _state = new Configuration().state
+    private _state = config.state
     private _imageCollection = new ImageCollection()
     private _imageOffset = new ImageOffset()
     private _graphicHandler = new GraphicHandler()
-    private _config = new Configuration()
+    private _settings = config.settings
 
     /**
      * Itterates table and inserts images from object
@@ -129,7 +129,7 @@ class Table {
             table_row.appendChild(previewCell);
 
             // Create new preview objects
-            const temp = new Preview(x + 1, this._config.settings.previewFPS, previewCell);
+            const temp = new Preview(x + 1, this._settings.previewFPS, previewCell);
             this._graphicHandler.previewObjects.push(temp);
             temp.start();
         }

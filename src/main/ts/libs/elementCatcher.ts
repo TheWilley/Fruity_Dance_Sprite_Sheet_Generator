@@ -21,8 +21,8 @@ class ElementCatcher {
         if (this.checkApp(config)) {
             this.config = config
             this.elements = []
-            this.start()
-            console.log("sdfdsfdsfg")
+            this.start();
+            console.log(this)
         }
     }
 
@@ -124,3 +124,5 @@ class ElementCatcher {
         }
     }
 }
+
+export default ElementCatcher

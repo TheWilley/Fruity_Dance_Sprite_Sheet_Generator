@@ -1,12 +1,12 @@
 import interact from "interactjs";
-import Configuration from "./config";
+import { config } from "./globals";
 import GraphicHandler from "./graphicHandler";
 import ImageCollection from "./imageCollection";
 
 class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
-    private _state = new Configuration().state
+    private _state = config.state
     private _graphicHandler = new GraphicHandler() 
     private _imageCollection = new ImageCollection()
     

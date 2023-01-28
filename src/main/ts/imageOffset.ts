@@ -1,11 +1,11 @@
-import Configuration from "./config";
+import { config } from "./globals"
 import EventListeners from "./eventListeners";
 import GraphicHandler from "./graphicHandler";
 import ImageCollection from "./imageCollection";
 
 class ImageOffset {
     private _previousObject: HTMLElement = null
-    private _state = new Configuration().state
+    private _state = config.state
     private _imageInfo = new ImageCollection()
     private _graphicHandler = new GraphicHandler()
     private _eventListeners = new EventListeners()

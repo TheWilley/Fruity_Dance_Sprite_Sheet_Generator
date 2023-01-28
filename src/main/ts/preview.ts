@@ -1,4 +1,4 @@
-import Configuration from "./config";
+import { config } from "./globals"
 
 /**
  * Generates the preview canvas element
@@ -22,7 +22,7 @@ class Preview {
     private _cell: HTMLElement;
     private _x: number;
     private _previewCanvas: HTMLCanvasElement;
-    private _state = new Configuration().state
+    private _state = config.state
 
     constructor(row: number, fps: number, cell: HTMLElement) {
         this._row = row;

@@ -1,4 +1,4 @@
-/*/ Loading global objects here /*/
+import { elementCatcher } from "./globals"
 
 interface IConfiguration {
     /*/ Canvas settings /*/
@@ -29,7 +29,7 @@ interface IConfiguration {
 
 class Configuration {
     private _settings: IConfiguration
-    private _state = new ElementCatcher({ targetElement: document.getElementById("app"), getElementsWith: "id" });
+    private _state = elementCatcher
 
     constructor() {
         this._settings = {
@@ -63,19 +63,21 @@ class Configuration {
     }
 
     private runConfig() {
+        const self = this
+        
         new Map([
-            ["maxRows", (value: number | boolean | string) => { this.state.rows.setAttribute("max", value) }],
-            ["minWidth", (value) => { this.state.cell_width.setAttribute("min", value); this.state.cell_width.value = value }],
-            ["maxWidth", (value) => { this.state.cell_width.setAttribute("max", value) }],
-            ["minHeight", (value) => { this.state.cell_height.setAttribute("min", value); this.state.cell_height.value = value }],
-            ["maxHeight", (value) => { this.state.cell_height.setAttribute("max", value) }],
-            ["minXOffset", (value) => { this.state.offsetX.setAttribute("min", value) }],
-            ["maxXOffset", (value) => { this.state.offsetX.setAttribute("max", value) }],
-            ["minYOffset", (value) => { this.state.offsetY.setAttribute("min", value) }],
-            ["maxYOffset", (value) => { this.state.offsetY.setAttribute("max", value) }],
+            ["maxRows", (value: number | boolean | string) => { self._state.rows.setAttribute("max", value) }],
+            ["minWidth", (value) => { self._state.cell_width.setAttribute("min", value); self._state.cell_width.value = value }],
+            ["maxWidth", (value) => { self._state.cell_width.setAttribute("max", value) }],
+            ["minHeight", (value) => { self._state.cell_height.setAttribute("min", value); self._state.cell_height.value = value }],
+            ["maxHeight", (value) => { self._state.cell_height.setAttribute("max", value) }],
+            ["minXOffset", (value) => { self._state.offsetX.setAttribute("min", value) }],
+            ["maxXOffset", (value) => { self._state.offsetX.setAttribute("max", value) }],
+            ["minYOffset", (value) => { self._state.offsetY.setAttribute("min", value) }],
+            ["maxYOffset", (value) => { self._state.offsetY.setAttribute("max", value) }],
             ["background", (value) => { let root = document.documentElement; if (value != null) String(value)[0] == "#" ? root.style.setProperty("--background", String(value)) : root.style.setProperty("--background", `url(${value})`) }],
         ]).forEach((value, key) => {
-            if (this._settings[key as keyof IConfiguration]) value(this._settings[key as keyof IConfiguration])
+            if (self._settings[key as keyof IConfiguration]) value(self._settings[key as keyof IConfiguration])
         })
     }
 

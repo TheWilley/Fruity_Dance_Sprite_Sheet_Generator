@@ -1,24 +1,22 @@
-import Configuration from "./config"
+import { config } from "./globals"
 import DownloadUpload from "./downloadUpload"
 import Table from "./table"
 import GraphicHandler from "./graphicHandler"
 
 class EventListeners {
-    private _config
+    private _settings
     private _downloadUpload
     private _state
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
-    
 
     constructor() {
-        const config = new Configuration()
         this._downloadUpload = new DownloadUpload()
-        this._config = config.settings
+        this._settings = config.settings
         this._state = config.state
     }
 
-    private run() {
+    public run() {
         const self = this
         /**
          * Keyboard shortcut
@@ -62,7 +60,7 @@ class EventListeners {
         /**
          * Creates table when website has loaded
          */
-        $(document).on('ready', function () {
+        $(document).on('ready',function () {
             self._table.addTable();
             self._graphicHandler.ctx()
         })
@@ -84,7 +82,7 @@ class EventListeners {
          * Runs Before leaving page
          */
         $(window).on('beforeunload', function () {
-            if (self._config.warnBeforeLeavingPage) return 'Your changes might not be saved';
+            if (self._settings.warnBeforeLeavingPage) return 'Your changes might not be saved';
         })
 
         /**
@@ -96,6 +94,7 @@ class EventListeners {
         });
 
     }
+    
     /**
      * Checks if the current value is under its minimum / over its maximum
      * @param {object} event 

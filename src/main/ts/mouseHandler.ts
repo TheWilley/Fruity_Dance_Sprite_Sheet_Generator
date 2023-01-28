@@ -1,12 +1,12 @@
-import Configuration from "./config";
+import { config } from "./globals"
 
-class mouseHandler {
+class MouseHandler {
     private _mousePosX = 0;
     private _mousePosY = 0;
     private _delay = 6;
     private _revisedMousePosX = 0;
     private _revisedMousePosY = 0;
-    private _state = new Configuration().state
+    private _state = config.state
 
     constructor() {
         this.createEventListener()
@@ -39,4 +39,4 @@ class mouseHandler {
     }
 }
 
-export default mouseHandler
+export default MouseHandler

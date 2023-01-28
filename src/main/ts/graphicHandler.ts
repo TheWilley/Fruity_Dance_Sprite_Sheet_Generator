@@ -1,4 +1,4 @@
-import Configuration from './config';
+import { config } from "./globals"
 import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
 import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
@@ -9,7 +9,7 @@ import Table from './table';
 class GraphicHandler {
     private _selectedItem: HTMLElement;
     private _previewObjects: Preview[] = [];
-    private _state = new Configuration().state
+    private _state = config.state
     private _imageCollection = new ImageCollection()
     private _imageOffset = new ImageOffset()
     private _table = new Table()
