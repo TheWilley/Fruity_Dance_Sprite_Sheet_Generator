@@ -9,6 +9,7 @@ class GraphicHandler {
     private _previousObject: HTMLElement = null
     private _previewObjects: Preview[] = [];
     private _state = config.state
+    private _settings = config.settings
     private _imageCollection = new ImageCollection()
 
     constructor() {
@@ -168,7 +169,7 @@ class GraphicHandler {
          */
         const classNames = function () {
             var temp = []
-            for (let i = 0; i < this.config.settings.amountOfCollections; i++) {
+            for (let i = 0; i < self._settings.amountOfCollections; i++) {
                 temp.push(`col${i}`)
 
                 contextMenu.addItem(`Collection ${i}`, function () {
@@ -178,7 +179,7 @@ class GraphicHandler {
                 var option = document.createElement("option");
                 option.value = `col${i}`;
                 option.innerHTML = `Collection ${i}`;
-                this.state.collection.appendChild(option)
+                self._state.collection.appendChild(option)
 
                 self.filterClass()
             }
