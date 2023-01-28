@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import gifFrames from 'gif-frames'
 import ImageCollection from './imageCollection';
-import CompressImages from './helpers/compressImages';
+import CompressImages from './compressImages';
 import GraphicHandler from './graphicHandler';
 import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
 import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
