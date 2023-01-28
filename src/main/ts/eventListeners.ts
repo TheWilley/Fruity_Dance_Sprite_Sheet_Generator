@@ -1,7 +1,8 @@
-import { config } from "../../app";
+import { config } from "../../app"
 import DownloadUpload from "./downloadUpload"
 import Table from "./table"
 import GraphicHandler from "./graphicHandler"
+import $ from "jquery";
 
 class EventListeners {
     private _settings = config.settings

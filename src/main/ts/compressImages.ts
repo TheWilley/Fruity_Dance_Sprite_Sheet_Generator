@@ -1,5 +1,4 @@
 import { config } from "../../app"
-./downloadUpload
 /**
  * Compresses image when uploading.
  * 

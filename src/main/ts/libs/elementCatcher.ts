@@ -22,7 +22,6 @@ class ElementCatcher {
             this.config = config
             this.elements = []
             this.start();
-            console.log(this)
         }
     }
 
