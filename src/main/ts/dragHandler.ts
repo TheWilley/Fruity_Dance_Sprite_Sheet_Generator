@@ -18,6 +18,19 @@ class DragHandler {
         return { x, y }
     }
 
+    goToOriginalPosition(event: Interact.DragEvent) {
+        var target_element_style = document.getElementById(event.target.id).style;
+
+        // Translate the element
+        target_element_style.transform = `translate(${this._original_position_x}px, ${this._original_position_y}px)`;
+
+        // Update the posiion attributes
+        event.target.setAttribute('data-x', String(this._original_position_x))
+        event.target.setAttribute('data-y', String(this._original_position_y))
+
+        this._graphicHandler.previewImage(false);
+    } 
+
     run() {
         const self = this
 
@@ -39,15 +52,7 @@ class DragHandler {
 
                 end(event) {
                     if (event.relatedTarget == null) {
-                        var target_element = document.getElementById(event.target.id);
-                        // Translate the element
-                        target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
-
-                        // Update the posiion attributes
-                        event.target.setAttribute('data-x', self._original_position_x)
-                        event.target.setAttribute('data-y', self._original_position_y)
-
-                        self._graphicHandler.previewImage(false);
+                        self.goToOriginalPosition(event)
                     }
                 }
             }
@@ -74,14 +79,10 @@ class DragHandler {
                 event.target.firstChild.src = target_element.src;
 
                 // Go back to otiginal position
-                target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
-                target_element.setAttribute('data-x', String(self._original_position_x));
-                target_element.setAttribute('data-y', String(self._original_position_y));
+                self.goToOriginalPosition(event)
 
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop', 'isdragged');
-
-                self._graphicHandler.previewImage(false);
             },
             ondragenter: function (event) {
                 // Feedback the possibility of a drop
