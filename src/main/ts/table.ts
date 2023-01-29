@@ -1,5 +1,4 @@
-import { config } from "../../app";
-import ImageCollection from "./imageCollection";
+import { config, imageCollection } from "../../app";
 import GraphicHandler from "./graphicHandler";
 import Preview from "./preview";
 import ImageInfo from "./imageInfo";
@@ -7,7 +6,7 @@ import ImageInfo from "./imageInfo";
 class Table {
     private _settings = config.settings
     private _state = config.state
-    private _imageCollection = new ImageCollection()
+    private _imageCollection = imageCollection
     private _graphicHandler = new GraphicHandler()
 
     /**
@@ -30,7 +29,6 @@ class Table {
     checkEmptyCells() {
         // Check if there is any image added and warn user
         var allCellsEmpty = true;
-        console.log(this._imageCollection)
 
         this._imageCollection.cellCollection.forEach(e1 => {
             e1.forEach(e2 => {
@@ -57,7 +55,6 @@ class Table {
         this._state.result.innerHTML = localStorage.getItem("images");
         sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
-        this._imageCollection.cellCollection = [];
         this._state.dyntable.innerHTML = '<thead><td class="rownumb"> Row </td><td width="80" height="20">Frame 1</td><td width="80" height="20">Frame 2</td><td width="80" height="20">Frame 3</td><td width="80" height="20">Frame 4</td><td width="80" height="20">Frame 5</td><td width="80" height="20">Frame 6</td><td width="80" height="20">Frame 7</td><td width="80" height="20">Frame 8</td><td>Preview</td></thead>';
 
         // Stop all objects
@@ -65,8 +62,10 @@ class Table {
             object.stop();
         })
 
-        // Clear preview array
+        // Clear arrays
         this._graphicHandler.previewObjects = [];
+        this._imageCollection.cellCollection = [];
+
 
         // Loop trough and add rows
         for (let x = 0; x < this._state.rows.value; x++) {
@@ -127,7 +126,6 @@ class Table {
         canvas_element.setAttribute("width", String(this._state.cell_width.value * 8));
         canvas_element.setAttribute("id", "canvas");
         this._state.addElement(canvas_element)
-        console.log(this._state)
 
         this._state.ContainerCanvas.appendChild(canvas_element);
 

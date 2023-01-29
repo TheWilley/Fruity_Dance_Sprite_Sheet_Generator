@@ -1,14 +1,13 @@
-import { config } from "../../app";
+import { config, imageCollection } from "../../app";
 import interact from "interactjs";
 import GraphicHandler from "./graphicHandler";
-import ImageCollection from "./imageCollection";
 
 class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
     private _state = config.state
     private _graphicHandler = new GraphicHandler()
-    private _imageCollection = new ImageCollection()
+    private _imageCollection = imageCollection
 
     getCoordinates(event: Interact.DragEvent) {
         // Keep the dragged position in the data-x/data-y attributes
@@ -69,6 +68,7 @@ class DragHandler {
                 var cellnumb = event.target.dataset.y;
 
                 // Set imageInfo.getCellCollection()
+                console.log(self._imageCollection.cellCollection)
                 self._imageCollection.cellCollection[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
                 self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0;
                 self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0;

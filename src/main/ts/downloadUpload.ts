@@ -1,9 +1,8 @@
-import { config } from "../../app";
+import { config, imageCollection } from "../../app";
 import * as FilePond from 'filepond';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import gifFrames from 'gif-frames'
-import ImageCollection from './imageCollection';
 import CompressImages from './compressImages';
 import GraphicHandler from './graphicHandler';
 import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
@@ -14,7 +13,7 @@ import Table from './table';
 class DownloadUpload {
     private _settings = config.settings
     private _state = config.state
-    private _imageCollection = new ImageCollection()
+    private _imageCollection = imageCollection
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
 

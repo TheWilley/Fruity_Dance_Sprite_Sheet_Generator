@@ -1,6 +1,5 @@
-import { config } from "../../app";
+import { config, imageCollection } from "../../app";
 import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
-import ImageCollection from './imageCollection';
 import ImageInfo from './imageInfo';
 import Preview from './preview';
 
@@ -10,7 +9,7 @@ class GraphicHandler {
     private _previewObjects: Preview[] = [];
     private _state = config.state
     private _settings = config.settings
-    private _imageCollection = new ImageCollection()
+    private _imageCollection = imageCollection
 
     constructor() {
         sessionStorage.imagenumb = 0;
