@@ -18,20 +18,24 @@ class EventListeners {
          */
         $(window).on('keydown', function (event) {
             if (event.ctrlKey || event.metaKey) {
+                console.log("dsfsdfsdfdsfsdffsdgfdsdfgddsfsfdgfdfgfdsgsgd")
                 switch (String.fromCharCode(event.which).toLowerCase()) {
                     case 's': // Save
+                        event.stopImmediatePropagation()
                         event.preventDefault();
-                        self._state.downloadJson.click();
+                        self._downloadUpload.saveJson();
                         break;
                     case 'e': // Export
+                        event.stopImmediatePropagation()
                         event.preventDefault();
                         self._state.filename.value = "savedSpriteSheet";
-                        self._state.downloadSpriteSheet.click();
+                        self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
                         self._state.filename.value = "";
                         break;
                     case 'u': // Clear uploaded images
+                        event.stopImmediatePropagation()
                         event.preventDefault();
-                        self._state.clear.click();
+                        self._downloadUpload.clearData()
                         break;
                 }
             }
