@@ -1,4 +1,5 @@
 import { globals } from "./setup"
+import $ from 'jquery'
 
 class MouseHandler {
     private _mousePosX = 0;
@@ -29,7 +30,7 @@ class MouseHandler {
      * Delays circle movement
      */
     delayMouseFollow() {
-        requestAnimationFrame(this.delayMouseFollow);
+        requestAnimationFrame(this.delayMouseFollow.bind(this));
 
         this._revisedMousePosX += (this._mousePosX - this._revisedMousePosX) / this._delay;
         this._revisedMousePosY += (this._mousePosY - this._revisedMousePosY) / this._delay;

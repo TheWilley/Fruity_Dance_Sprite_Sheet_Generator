@@ -6,6 +6,7 @@ import Globals from "./globals/globals";
 import ElementCatcher from "./globals/elementCatcher";
 import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
+import MouseHandler from "./mouseHandler";
 
 // Global variable
 export var globals: Globals
@@ -16,6 +17,7 @@ export function init() {
     new Table().addTable();
     new DragHandler().run()
     new EventListeners().run()
+    new MouseHandler()
     globals.graphicHandler.ctx()
 }
 

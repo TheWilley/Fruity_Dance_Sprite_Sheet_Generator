@@ -43,6 +43,10 @@ class DragHandler {
          */
         interact('.draggable').draggable({
             listeners: {
+                start(event) {
+                    self._graphicHandler.previewImage(true);
+                    self._state.popup_image.src = event.target.src;
+                },
                 move(event) {
                     const coordinates = self.getCoordinates(event)
 
