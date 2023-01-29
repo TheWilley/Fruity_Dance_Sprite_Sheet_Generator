@@ -53,7 +53,7 @@ class GraphicHandler {
     public redraw() {
         this._imageCollection.cellCollection.forEach(row => {
             // TODO: Change this to a interface
-            row.forEach((cell: { imageSrc: string; x: number; y: number; xOffset: number; yOffset: number; }) => {
+            row.forEach((cell) => {
                 if (cell.imageSrc != undefined) {
                     this.generateCanvas(cell.imageSrc, cell.x, cell.y, cell.xOffset, cell.yOffset, "wholeCanvas")
                 }

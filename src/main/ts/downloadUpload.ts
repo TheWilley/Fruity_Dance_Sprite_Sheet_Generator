@@ -8,6 +8,7 @@ import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-fil
 import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
 import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plugin-file-validate-type.min'
 import Table from './table';
+import ImageInfo from "./imageInfo";
 
 class DownloadUpload {
     private _settings = globals.config.settings
@@ -26,7 +27,7 @@ class DownloadUpload {
      * @param {*} src - An image src
      */
     public async createImage(src: File) {
-        
+
         return new Promise<void>((resolve) => {
             if (src) {
                 var div = document.createElement("div");
@@ -204,6 +205,28 @@ class DownloadUpload {
             }
         });
 
+        type jsonSpriteSheet = {
+            _x: number
+            _y: number
+            _xOffset: number
+            _yOffset: number
+            _imageSrc: string
+        }
+
+        const itterateJson = function (json: jsonSpriteSheet[][]) {
+            var imageCollection: ImageInfo[][] = []
+
+            for (const [i, row] of json.entries()) {
+                imageCollection.push([])
+                for (const [e, cell] of row.entries()) {
+                    console.log(cell, row)
+                    imageCollection[i][e] = new ImageInfo(cell._x, cell._y, cell._xOffset, cell._yOffset, cell._imageSrc)
+                }
+            }
+
+            return imageCollection
+        }
+
         /**
          * Handles and manages uploaded json data
          * @param {string} json - The json containing sprite sheet data
@@ -215,7 +238,7 @@ class DownloadUpload {
 
             self._table.addTable();
             self._state.textarea.value = json.rowNames;
-            self._imageCollection.cellCollection = json.tableObject;
+            self._imageCollection.cellCollection = itterateJson(json.tableObject)
             self._table.iterateTable();
             self._graphicHandler.redraw();
         }
