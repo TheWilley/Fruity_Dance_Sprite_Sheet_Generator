@@ -1,13 +1,13 @@
-import { config, imageCollection } from "../../app";
+import { globals } from "./setup"
 import interact from "interactjs";
 import GraphicHandler from "./graphicHandler";
 
 class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
-    private _state = config.state
+    private _state = globals.config.state
     private _graphicHandler = new GraphicHandler()
-    private _imageCollection = imageCollection
+    private _imageCollection = globals.imageCollection
 
     getCoordinates(event: Interact.DragEvent) {
         // Keep the dragged position in the data-x/data-y attributes

@@ -1,4 +1,5 @@
-import { config } from "../../app"
+import { globals } from "./setup"
+
 /**
  * Compresses image when uploading.
  * 
@@ -7,8 +8,8 @@ import { config } from "../../app"
  * 
  */
 class CompressImages {
-    private _settings = config.settings
-    private _state = config.state
+    private _settings = globals.config.settings
+    private _state = globals.config.state
     private _file
     private _div
 

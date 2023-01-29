@@ -1,4 +1,4 @@
-import { config } from "../../app";
+import { globals } from "./setup"
 
 class MouseHandler {
     private _mousePosX = 0;
@@ -6,7 +6,7 @@ class MouseHandler {
     private _delay = 6;
     private _revisedMousePosX = 0;
     private _revisedMousePosY = 0;
-    private _state = config.state
+    private _state = globals.config.state
 
     constructor() {
         this.createEventListener()

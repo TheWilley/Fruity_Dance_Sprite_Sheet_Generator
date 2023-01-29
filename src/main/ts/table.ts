@@ -1,12 +1,12 @@
-import { config, imageCollection } from "../../app";
 import GraphicHandler from "./graphicHandler";
 import Preview from "./preview";
 import ImageInfo from "./imageInfo";
+import { globals } from "./setup"
 
 class Table {
-    private _settings = config.settings
-    private _state = config.state
-    private _imageCollection = imageCollection
+    private _settings = globals.config.settings
+    private _state = globals.config.state
+    private _imageCollection = globals.imageCollection
     private _graphicHandler = new GraphicHandler()
 
     /**

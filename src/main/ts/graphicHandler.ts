@@ -1,4 +1,4 @@
-import { config, imageCollection } from "../../app";
+import { globals } from "./setup"
 import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
 import ImageInfo from './imageInfo';
 import Preview from './preview';
@@ -7,9 +7,9 @@ class GraphicHandler {
     private _selectedItem: HTMLElement;
     private _previousObject: HTMLElement = null
     private _previewObjects: Preview[] = [];
-    private _state = config.state
-    private _settings = config.settings
-    private _imageCollection = imageCollection
+    private _state = globals.config.state
+    private _settings = globals.config.settings
+    private _imageCollection = globals.imageCollection
 
     constructor() {
         sessionStorage.imagenumb = 0;

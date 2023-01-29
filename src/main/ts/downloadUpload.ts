@@ -1,4 +1,4 @@
-import { config, imageCollection } from "../../app";
+import { globals } from "./setup"
 import * as FilePond from 'filepond';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -11,9 +11,9 @@ import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plug
 import Table from './table';
 
 class DownloadUpload {
-    private _settings = config.settings
-    private _state = config.state
-    private _imageCollection = imageCollection
+    private _settings = globals.config.settings
+    private _state = globals.config.state
+    private _imageCollection = globals.imageCollection
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
 

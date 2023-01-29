@@ -1,12 +1,12 @@
-import { config } from "../../app"
+import { globals } from "./setup"
 import DownloadUpload from "./downloadUpload"
 import Table from "./table"
 import GraphicHandler from "./graphicHandler"
 import $ from "jquery";
 
 class EventListeners {
-    private _settings = config.settings
-    private _state = config.state
+    private _settings = globals.config.settings
+    private _state = globals.config.state
     private _downloadUpload = new DownloadUpload()
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()

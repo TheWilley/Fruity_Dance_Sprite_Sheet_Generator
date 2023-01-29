@@ -1,4 +1,4 @@
-import { elementCatcher } from "../../app"
+import { globals } from "../setup"
 
 interface IConfiguration {
     /*/ Canvas settings /*/
@@ -29,7 +29,7 @@ interface IConfiguration {
 
 class Configuration {
     private _settings: IConfiguration
-    private _state = elementCatcher
+    private _state = globals.elementCatcher
 
     constructor() {
         this._settings = {

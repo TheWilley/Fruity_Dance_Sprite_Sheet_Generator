@@ -1,4 +1,4 @@
-import { config } from "../../app";
+import { globals } from "./setup"
 
 /**
  * Generates the preview canvas element
@@ -6,7 +6,6 @@ import { config } from "../../app";
  * FPS control by codetheory.in, archived by elundmark
  * https://gist.github.com/elundmark/38d3596a883521cb24f5
  */
-
 class Preview {
     private _row: number;
     private _fps: number;
@@ -22,7 +21,7 @@ class Preview {
     private _cell: HTMLElement;
     private _x: number;
     private _previewCanvas: HTMLCanvasElement;
-    private _state = config.state
+    private _state = globals.config.state
 
     constructor(row: number, fps: number, cell: HTMLElement) {
         this._row = row;
