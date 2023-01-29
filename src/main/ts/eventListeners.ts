@@ -90,7 +90,7 @@ class EventListeners {
          * Checks scroll position
          */
         $(window).on("scroll", (event) => {
-            if (event.target.scrollY >= 45) {
+            if ($(window).scrollTop() >= 45) {
                 this._state.sidebar.classList.add("fixedSidebar")
                 this._state.sidebarContainer.classList.add("fixedContainer")
             } else {
