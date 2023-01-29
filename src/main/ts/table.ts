@@ -30,10 +30,11 @@ class Table {
     checkEmptyCells() {
         // Check if there is any image added and warn user
         var allCellsEmpty = true;
+        console.log(this._imageCollection)
 
         this._imageCollection.cellCollection.forEach(e1 => {
             e1.forEach(e2 => {
-                if (e2.imageSrc != "") {
+                if (e2.imageSrc != "" && e2.imageSrc != undefined) {
                     allCellsEmpty = false;
                 }
             })
