@@ -67,7 +67,9 @@ class EventListeners {
             self._graphicHandler.showPreview()
         })
 
-
+        $(this._state.clear).on('click', function () {
+            self._downloadUpload.clearData()
+        })
 
         /**
          * Checks scroll position
