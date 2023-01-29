@@ -16,7 +16,7 @@ You have two options:
 1. Download build
 2. Build from source
 
-#### Download build
+#### Download build (not currently avaible)
 You can download the build from the *release* section of this github page.
 
 After downloading, go into the `dist` folder. Inside, there is a `index.html` file. Open it with any modern browser.
