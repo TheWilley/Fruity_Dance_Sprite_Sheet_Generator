@@ -2,18 +2,38 @@
 
 <div align=center> <img width="200px"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>
 
-This project was made with the FL studio plugin known as [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm) in mind. For instance, you don't have to change the height and width of the sprite sheet manually, as this generator does all that automatically.
-
-## The Plugin Rules
-The rules can be sumarized as such:
-1. All cells must have the same poppritons, and there must be 8 cells for every row. It does not matter if the height and the width is not the same.
-2. There must be a `.txt` file with the exact same name as the image file (e.g. generated.png & generated.txt). Every animation name is devided by a **new line** and the last animation name must always be "Held".
-3. Altough not mentioned by the website, the animation goes from left to right in a loop. (1 -> 8 -> 1 -> 8, etc.)
+This project was made as a tool for the FL Studio plugin [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm). 
 
 ## Using the generator
-Simply clone the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it. 
+This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the *release* tab of this github page. 
 
-## Feautures
+### Original JavaScript release
+Simply download the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it.
+
+### New TypeScript release
+You have two options:
+
+1. Download build
+2. Build from source
+
+#### Download build
+You can download the build from the *release* section of this github page.
+
+After downloading, go into the `dist` folder. Inside, there is a `index.html` file. Open it with any modern browser.
+#### Build from source
+First, clone the project and `cd` into it. Once inside, install all needed dependencies:
+```
+$ npm i
+```
+Secondly, build the project:
+```
+$ npm run build
+```
+
+A `dist` folder should now be created. Inside, there is a `index.html` file. Open it with any modern browser.
+
+
+## Features
 * Right click on an image to sort it into a "collection".  <br>
 ![image](https://user-images.githubusercontent.com/89783791/187178884-fa8c7d50-1223-4e5c-96ae-7d59728c3e0f.png)
 * Upload one or many image files **or** a gif file  to auto extract its frames. If you upload a gif, choose upload mode. <br>
@@ -79,15 +99,7 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
 </table>
 
 ## Libaries
-* bootstrap - MIT -  Copyright (c) 2011-2018 Twitter, Inc & The Bootstrap Authors - https://github.com/twbs/bootstrap
-* CtxMenu-Javascript - MIT - Copyright (c) 2019 Nils Söderman - https://github.com/nils-soderman/CtxMenu-Javascript
-* ElementCatcher - MIT - Copyright (c) 2022 TheWilley - https://github.com/TheWilley/ElementCatcher
-* filepond - MIT - Copyright (c) 2019 PQINA | Rik Schennink - https://github.com/pqina/filepond
-* FileSaver.js - MIT - Copyright (c) 2016 Eli Grey - https://github.com/eligrey/FileSaver.js
-* gif-frames - MIT - Copyright (c) 2017 Ben Wiley - https://github.com/benwiley4000/gif-frames
-* interact.js - MIT - Copyright (c) 2012-present Taye Adeyemi - https://github.com/taye/interact.js
-* Jquery - MIT - Copyright (c) 2015 The jQuery Foundation - https://github.com/jquery/jquery
-* JSZip - MIT - Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso - https://github.com/Stuk/jszip
+See `package.json`.
 
 ## Issues
 Plase create a new issue if you find a bug. Thanks.
