@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('style-loader')
 require('css-loader')
 require('sass-loader')
@@ -11,7 +12,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        
+
         use: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -26,7 +27,11 @@ module.exports = {
           // Compiles Sass to CSS
           "sass-loader",
         ],
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -38,9 +43,12 @@ module.exports = {
     filename: 'bundle.js'
   },
   // Other rules...
-	plugins: [
-		new NodePolyfillPlugin()
-	],
+  plugins: [
+    new NodePolyfillPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html"
+    })
+  ],
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),

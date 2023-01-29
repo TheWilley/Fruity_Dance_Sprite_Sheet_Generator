@@ -14,6 +14,7 @@ export var globals: Globals
 // Init all needed functions
 export function init() {
     createGlobals()
+    
     new Table().addTable();
     new DragHandler().run()
     new EventListeners().run()
