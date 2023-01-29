@@ -202,7 +202,6 @@ class GraphicHandler {
         }
     }
 
-
     /**
      * Enables or disables the offset & delete settings
      * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled

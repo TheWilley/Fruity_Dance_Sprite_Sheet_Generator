@@ -94,8 +94,8 @@ class ElementCatcher {
         }
     }
 
-    private manuallyAddControl(element: Element) {
-        if (element.hasOwnProperty('id')) {
+    private manuallyAddControl(element: HTMLElement) {
+        if (element.hasAttribute('id')) {
             this[element.id] = element;
         } else if (element.classList.length > 0) {
             this.elements.push(element);
@@ -104,12 +104,13 @@ class ElementCatcher {
         }
     }
 
-    public addElement(element: Element) {
+    public addElement(element: HTMLElement) {
         var _this = this;
+
         // Check if parameter is empty
         if (element != null) {
             // Check if paramter is element
-            if (element.nodeType) {
+            if (element instanceof HTMLElement) {
                 // Add an array of elements
                 if (Array.isArray(element)) {
                     element.forEach(e => {

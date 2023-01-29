@@ -117,13 +117,17 @@ class Table {
 
         // Canvas Creation
         let canvas_element = document.createElement('canvas');
+        
         if (this._state.canvas != null) {
             this._state.canvas.remove();
         }
-
+        
         canvas_element.setAttribute("height", String(this._state.cell_height.value * this._state.rows.value));
         canvas_element.setAttribute("width", String(this._state.cell_width.value * 8));
         canvas_element.setAttribute("id", "canvas");
+        this._state.addElement(canvas_element)
+        console.log(this._state)
+
         this._state.ContainerCanvas.appendChild(canvas_element);
 
         // Reset text element
