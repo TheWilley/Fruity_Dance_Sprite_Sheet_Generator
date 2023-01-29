@@ -17,18 +17,24 @@ class DragHandler {
         return { x, y }
     }
 
-    goToOriginalPosition(event: Interact.DragEvent) {
-        var target_element_style = event.target.style;
+    goToOriginalPosition(added: boolean, event: Interact.DragEvent) {
+        var target
+
+        if (added) {
+            target = event.relatedTarget
+        } else {
+            target = event.target
+        }
 
         // Translate the element
-        target_element_style.transform = `translate(${this._original_position_x}px, ${this._original_position_y}px)`;
+        target.style.transform = `translate(${this._original_position_x}px, ${this._original_position_y}px)`;
 
         // Update the posiion attributes
-        event.target.setAttribute('data-x', String(this._original_position_x))
-        event.target.setAttribute('data-y', String(this._original_position_y))
+        target.setAttribute('data-x', String(this._original_position_x))
+        target.setAttribute('data-y', String(this._original_position_y))
 
         this._graphicHandler.previewImage(false);
-    } 
+    }
 
     run() {
         const self = this
@@ -51,7 +57,7 @@ class DragHandler {
 
                 end(event) {
                     if (event.relatedTarget == null) {
-                        self.goToOriginalPosition(event)
+                        self.goToOriginalPosition(false, event)
                     }
                 }
             }
@@ -78,7 +84,7 @@ class DragHandler {
                 event.target.firstChild.src = target_element.src;
 
                 // Go back to otiginal position
-                self.goToOriginalPosition(event)
+                self.goToOriginalPosition(true, event)
 
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop', 'isdragged');
