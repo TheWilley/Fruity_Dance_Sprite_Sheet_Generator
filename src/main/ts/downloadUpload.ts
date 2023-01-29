@@ -147,23 +147,23 @@ class DownloadUpload {
          */
         var extractFrames = async function (file: File) {
             return new Promise<void>((resolve) => {
-                var maxFrames = this.config.settings.maxAllowedGifFrames;
+                var maxFrames = self._settings.maxAllowedGifFrames;
 
                 // Export frames depending on transparency
-                gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: this.state.cumulative.value == "cumulative" ? false : true })
+                gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: self._state.cumulative.value == "cumulative" ? false : true })
                     .then(function (frameData: any) {
                         frameData.forEach(function (frame: HTMLElement, i: number) {
                             if (i < maxFrames) {
-                                this.state.gifFrames.appendChild(frameData[i].getImage());
+                                self._state.gifFrames.appendChild(frameData[i].getImage());
                             }
                         })
 
-                        for (const frame of this.state.gifFrames.childNodes) {
+                        for (const frame of self._state.gifFrames.childNodes) {
                             // https://stackoverflow.com/a/60005078
-                            fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await this.createImage(blob) });
+                            fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await self.createImage(new File([blob], "file")) });
                         }
 
-                        this.state.gifFrames.innerHTML = "";
+                        self._state.gifFrames.innerHTML = "";
                     }).catch(console.error.bind(console));
                 resolve();
             })
@@ -193,11 +193,12 @@ class DownloadUpload {
                         await extractFrames(image.getFileEncodeDataURL())
                         uploadImage.removeFile(image);
                     } else {
-                        await this.createImage(image.file);
+                        await self.createImage(image.file);
                         uploadImage.removeFile(image);
                     }
                 } catch (err) {
                     if (err instanceof TypeError) {
+                        console.log(err)
                         console.log("Invalid File")
                     }
                 }
