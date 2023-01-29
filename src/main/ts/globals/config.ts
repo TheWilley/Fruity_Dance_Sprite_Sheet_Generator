@@ -1,4 +1,5 @@
 import { globals } from "../setup"
+import json from "../../../config.json"
 
 interface IConfiguration {
     /*/ Canvas settings /*/
@@ -32,32 +33,7 @@ class Configuration {
     private _state = globals.elementCatcher
 
     constructor() {
-        this._settings = {
-            /*/ Canvas settings /*/
-            maxRows: 40, // Max amount of allowed rows
-
-            minWidth: 80, // Minimum cell width
-            minHeight: 80, // Minimum cell height
-            minXOffset: -20, // Minimum X-offset
-            minYOffset: -150, // Minimum Y-offset
-
-            maxWidth: 150, // Maximum cell width
-            maxHeight: 150, // Maximum cell height
-            maxXOffset: 150, // Maximum X-offset
-            maxYOffset: 150, // Maximum Y-offset
-
-            /*/ Upload settings /*/
-            maxUploadSize: "8mb", // Max image upload size
-            imageQuality: 0.7, // The image quality (1 = best quality, 0 = worst quality)
-            imageSizeMultiplier: 1, // Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.
-            maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
-
-            /*/ Other settings /*/
-            previewFPS: 4, // The FPS of a preview
-            amountOfCollections: 12, // The amount of collections 
-            background: null, // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
-            warnBeforeLeavingPage: true // Warn user before leaving page to not discard any progress
-        }
+        this._settings = json
 
         this.runConfig()
     }

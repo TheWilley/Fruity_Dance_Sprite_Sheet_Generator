@@ -50,7 +50,7 @@ A `dist` folder should now be created. Inside, there is a `index.html` file. Ope
 ## Configure the generator
 The current configuration is set to give the best user experience, but you may reconfigure the generator if you want to.
 
-You can find the config variable `settings` in `generator/scripts/conifg.js`. The current config looks like this:
+You can find the config file `config.json` in the `src` folder. The current config looks like this:
 ```javascript
     var settings = {
         /*/ Canvas settings /*/
@@ -79,6 +79,8 @@ You can find the config variable `settings` in `generator/scripts/conifg.js`. Th
         warnBeforeLeavingPage: true // Warn user before leaving page to not discard any progress
     }
 ```
+
+**NOTE THAT YOU HAVE TO REBUILD THE PROJECT TO MAKE THESE CHANGES TAKE EFFECT**
 ## Keyboard shortcuts
 <table>
     <thead> <td> Shortcut </td> <td> Description </td></thead>

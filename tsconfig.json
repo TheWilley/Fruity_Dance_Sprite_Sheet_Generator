@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.spec.ts"]
