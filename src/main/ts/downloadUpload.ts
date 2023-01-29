@@ -18,6 +18,11 @@ class DownloadUpload {
     private _table = new Table()
     private _graphicHandler = new GraphicHandler()
 
+    constructor() {
+        // Create new pond instance
+        this.pond()
+    }
+
     /**
      * Creates a new image element and appends it to a collection
      * @param {*} src - An image src
