@@ -43,38 +43,46 @@ class EventListeners {
         /**
          * Checks if download sprite sheet button has been clicked
          */
-        $(this._state.downloadSpriteSheet).on('click', function () {
+        $(this._state.downloadSpriteSheet).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
         });
 
         /**
          * Checks if download Json button has been clicked
          */
-        $(this._state.downloadJson).on('click', function () {
+        $(this._state.downloadJson).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._downloadUpload.saveJson();
         });
 
-        $(this._state.delete).on('click', function () {
+        $(this._state.delete).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._graphicHandler.remove()
         })
 
-        $(this._state.startPreview).on('click', function () {
+        $(this._state.startPreview).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._graphicHandler.configPreview(true)
         })
 
-        $(this._state.pausePreview).on('click', function () {
+        $(this._state.pausePreview).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._graphicHandler.configPreview(false)
         })
 
-        $(this._state.showPreview).on('click', function () {
+        $(this._state.showPreview).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._graphicHandler.showPreview()
         })
 
-        $(this._state.clear).on('click', function () {
+        $(this._state.clear).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._downloadUpload.clearData()
         })
 
-        $(this._state.collection).on('click', function () {
+        $(this._state.collection).on('click', function (event) {
+            event.stopImmediatePropagation()
             self._graphicHandler.filterClass()
         })
 
