@@ -1,7 +1,7 @@
 import './main/sass/main.sass'
-import EventListeners from './main/ts/eventListeners';
 import ElementCatcher from "./main/ts/libs/elementCatcher"
 import Configuration from "./main/ts/config"
+import Setup from './main/ts/setup';
 
 // Global scope
 export const elementCatcher = new ElementCatcher({ targetElement: document.getElementById("app"), getElementsWith: "id" })
@@ -15,5 +15,5 @@ function importAll(r: any) {
 importAll(require.context('./main/ts', true, /\.ts$/));
 
 // Start
-new EventListeners().run()
+new Setup().run()
 

@@ -7,11 +7,15 @@ class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
     private _state = config.state
-    private _graphicHandler = new GraphicHandler() 
+    private _graphicHandler = new GraphicHandler()
     private _imageCollection = new ImageCollection()
-    
-    constructor() {
-        this.run()
+
+    getCoordinates(event: Interact.DragEvent) {
+        // Keep the dragged position in the data-x/data-y attributes
+        var x = (parseFloat(event.target.getAttribute('data-x')) || 0) + event.dx;
+        var y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
+
+        return { x, y }
     }
 
     run() {
@@ -22,24 +26,27 @@ class DragHandler {
          */
         interact('.draggable').draggable({
             listeners: {
-                start(event) {
-                    event
-                    // Keep the dragged position in the data-x/data-y attributes
-                    var x = (parseFloat(event.target.getAttribute('data-x')) || 0) + event.dx;
-                    var y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
+                move(event) {
+                    const coordinates = self.getCoordinates(event)
 
                     // Translates the element
-                    event.target.style.transform = `translate(${x}px, ${y}px)`;
+                    event.target.style.transform = `translate(${coordinates.x}px, ${coordinates.y}px)`;
 
                     // Update the posiion attributes
-                    event.target.setAttribute('data-x', x)
-                    event.target.setAttribute('data-y', y)
+                    event.target.setAttribute('data-x', coordinates.x)
+                    event.target.setAttribute('data-y', coordinates.y)
                 },
+
                 end(event) {
                     if (event.relatedTarget == null) {
                         var target_element = document.getElementById(event.target.id);
                         // Translate the element
                         target_element.style.transform = `translate(${self._original_position_x}px, ${self._original_position_y}px)`;
+
+                        // Update the posiion attributes
+                        event.target.setAttribute('data-x', self._original_position_x)
+                        event.target.setAttribute('data-y', self._original_position_y)
+
                         self._graphicHandler.previewImage(false);
                     }
                 }

@@ -79,10 +79,6 @@ class EventListeners {
             self._graphicHandler.checkMinMax(event);
             if (self._table.checkEmptyCells()) self._table.addTable();
         });
-
-        // Start
-        self._table.addTable();
-        self._graphicHandler.ctx()
     }
 }
 
