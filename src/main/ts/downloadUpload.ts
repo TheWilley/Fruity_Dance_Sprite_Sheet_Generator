@@ -4,7 +4,6 @@ import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import gifFrames from 'gif-frames'
 import CompressImages from './compressImages';
-import GraphicHandler from './graphicHandler';
 import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
 import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
 import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plugin-file-validate-type.min'
@@ -14,8 +13,8 @@ class DownloadUpload {
     private _settings = globals.config.settings
     private _state = globals.config.state
     private _imageCollection = globals.imageCollection
+    private _graphicHandler = globals.graphicHandler
     private _table = new Table()
-    private _graphicHandler = new GraphicHandler()
 
     constructor() {
         // Create new pond instance

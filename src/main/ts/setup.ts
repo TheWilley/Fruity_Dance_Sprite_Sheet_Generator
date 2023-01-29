@@ -1,6 +1,6 @@
 import DragHandler from "./dragHandler";
 import EventListeners from "./eventListeners";
-import GraphicHandler from "./graphicHandler";
+import GraphicHandler from "./globals/graphicHandler";
 import Table from "./table";
 import Globals from "./globals/globals";
 import ElementCatcher from "./globals/elementCatcher";
@@ -14,9 +14,9 @@ export var globals: Globals
 export function init() {
     createGlobals()
     new Table().addTable();
-    new GraphicHandler().ctx()
     new DragHandler().run()
     new EventListeners().run()
+    globals.graphicHandler.ctx()
 }
 
 // add instances to global variable
@@ -25,4 +25,5 @@ function createGlobals() {
     globals.elementCatcher = new ElementCatcher({targetElement: document.getElementById("app"), getElementsWith: "id"})
     globals.config = new Configuration()
     globals.imageCollection = new ImageCollection()
+    globals.graphicHandler = new GraphicHandler
 }

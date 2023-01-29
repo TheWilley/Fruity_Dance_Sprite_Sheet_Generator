@@ -1,7 +1,6 @@
 import { globals } from "./setup"
 import DownloadUpload from "./downloadUpload"
 import Table from "./table"
-import GraphicHandler from "./graphicHandler"
 import $ from "jquery";
 
 class EventListeners {
@@ -9,7 +8,7 @@ class EventListeners {
     private _state = globals.config.state
     private _downloadUpload = new DownloadUpload()
     private _table = new Table()
-    private _graphicHandler = new GraphicHandler()
+    private _graphicHandler = globals.graphicHandler
 
     public run() {
         const self = this
@@ -41,16 +40,20 @@ class EventListeners {
         /**
          * Checks if download sprite sheet button has been clicked
          */
-        $(this._state.downloadSpriteSheet).on('click', function (e) {
+        $(this._state.downloadSpriteSheet).on('click', function () {
             self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
         });
 
         /**
-         * Checks if download Json button has been clicked sdfsd
+         * Checks if download Json button has been clicked
          */
-        $(this._state.downloadJson).on('click', function (e) {
+        $(this._state.downloadJson).on('click', function () {
             self._downloadUpload.saveJson();
         });
+
+        $(this._state.delete).on('click', function () {
+            self._graphicHandler.remove()
+        })
 
         /**
          * Checks scroll position

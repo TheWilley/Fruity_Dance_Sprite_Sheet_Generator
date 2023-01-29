@@ -1,4 +1,3 @@
-import GraphicHandler from "./graphicHandler";
 import Preview from "./preview";
 import ImageInfo from "./imageInfo";
 import { globals } from "./setup"
@@ -7,7 +6,7 @@ class Table {
     private _settings = globals.config.settings
     private _state = globals.config.state
     private _imageCollection = globals.imageCollection
-    private _graphicHandler = new GraphicHandler()
+    private _graphicHandler = globals.graphicHandler
 
     /**
      * Itterates table and inserts images from object

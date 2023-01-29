@@ -1,7 +1,7 @@
-import { globals } from "./setup"
-import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
-import ImageInfo from './imageInfo';
-import Preview from './preview';
+import { globals } from "../setup"
+import CtxMenu from '../libs/ctxmenu.min/ctxmenu.min'
+import ImageInfo from '../imageInfo';
+import Preview from '../preview';
 import $ from 'jquery'
 
 class GraphicHandler {

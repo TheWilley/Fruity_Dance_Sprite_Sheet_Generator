@@ -1,12 +1,11 @@
 import { globals } from "./setup"
 import interact from "interactjs";
-import GraphicHandler from "./graphicHandler";
 
 class DragHandler {
     private _original_position_x = 0
     private _original_position_y = 0
     private _state = globals.config.state
-    private _graphicHandler = new GraphicHandler()
+    private _graphicHandler = globals.graphicHandler
     private _imageCollection = globals.imageCollection
 
     getCoordinates(event: Interact.DragEvent) {
