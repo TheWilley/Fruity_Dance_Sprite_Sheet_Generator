@@ -194,10 +194,10 @@ class GraphicHandler {
         const changeClass = function (element: HTMLElement, className: string) {
             for (const name of classNames) {
                 if (name != className) {
+                    element.classList.add(className)
                     element.classList.remove(name)
-                    this._imageCollection.filterClass()
+                    self.filterClass()
                 }
-
             }
         }
     }
