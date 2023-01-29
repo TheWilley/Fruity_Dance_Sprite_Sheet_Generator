@@ -18,7 +18,6 @@ class Preview {
     private _bind: any;
     private _width: number;
     private _height: number;
-    private _cell: HTMLElement;
     private _x: number;
     private _previewCanvas: HTMLCanvasElement;
     private _state = globals.config.state
@@ -37,7 +36,6 @@ class Preview {
         this._bind; // The bind is used by the requestAnimationFrame to avoid binding many times
         this._width = this._state.cell_width.value;
         this._height = this._state.cell_height.value;
-        this._cell = cell;
 
         // Set the height and width
         const canvas = document.createElement("canvas");
@@ -101,7 +99,7 @@ class Preview {
         this._frame++;
 
         // Add to the x
-        this._x += this._width;
+        this._x += Number(this._width);
     }
 
     start() {

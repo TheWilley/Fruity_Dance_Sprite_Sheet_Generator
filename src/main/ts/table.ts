@@ -108,7 +108,6 @@ class Table {
             table_row.appendChild(previewCell);
 
             // Create new preview objects
-            // TODO: Make this work
             const temp = new Preview(x + 1, this._settings.previewFPS, previewCell);
             this._graphicHandler.previewObjects.push(temp);
             temp.start();
