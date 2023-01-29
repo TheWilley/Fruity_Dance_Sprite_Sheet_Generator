@@ -18,7 +18,7 @@ class DragHandler {
     }
 
     goToOriginalPosition(event: Interact.DragEvent) {
-        var target_element_style = document.getElementById(event.target.id).style;
+        var target_element_style = event.target.style;
 
         // Translate the element
         target_element_style.transform = `translate(${this._original_position_x}px, ${this._original_position_y}px)`;
@@ -63,12 +63,11 @@ class DragHandler {
         interact(".dropzones").dropzone({
             ondrop: function (event) {
                 // Get target id and split it
-                var target_element = document.getElementById(event.relatedTarget.id) as HTMLImageElement;
+                var target_element = event.relatedTarget as HTMLImageElement;
                 var rownumb = event.target.dataset.x;
                 var cellnumb = event.target.dataset.y;
 
                 // Set imageInfo.getCellCollection()
-                console.log(self._imageCollection.cellCollection)
                 self._imageCollection.cellCollection[rownumb][cellnumb].imageSrc = event.relatedTarget.src;
                 self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0;
                 self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0;
