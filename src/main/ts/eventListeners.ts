@@ -18,7 +18,6 @@ class EventListeners {
          */
         $(window).on('keydown', function (event) {
             if (event.ctrlKey || event.metaKey) {
-                console.log("dsfsdfsdfdsfsdffsdgfdsdfgddsfsfdgfdfgfdsgsgd")
                 switch (String.fromCharCode(event.which).toLowerCase()) {
                     case 's': // Save
                         event.stopImmediatePropagation()
