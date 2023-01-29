@@ -2,6 +2,7 @@ import { globals } from "./setup"
 import CtxMenu from './libs/ctxmenu.min/ctxmenu.min'
 import ImageInfo from './imageInfo';
 import Preview from './preview';
+import $ from 'jquery'
 
 class GraphicHandler {
     private _selectedItem: HTMLElement;
@@ -73,7 +74,7 @@ class GraphicHandler {
         // Set all image_cell attributes
         image.setAttribute("class", "immg-grid");
         // @ts-ignore - TODO: Have to check how "this" can relate to the DOM here
-        image.onclick = function () { self._imageOffset.show_controls(this) };
+        image.onclick = function () { self.show_controls(this) };
 
         return image;
     }
@@ -259,8 +260,8 @@ class GraphicHandler {
             $([this._state.offsetX, this._state.offsetY]).on('change', function (event) {
                 self.checkMinMax(event);
 
-                self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = this.state.offsetX.value;
-                self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = this.state.offsetY.value;
+                self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = self._state.offsetX.value;
+                self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = self._state.offsetY.value;
                 self.redraw()
             })
         }
