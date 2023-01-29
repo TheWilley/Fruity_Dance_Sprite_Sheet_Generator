@@ -55,6 +55,20 @@ class EventListeners {
             self._graphicHandler.remove()
         })
 
+        $(this._state.startPreview).on('click', function () {
+            self._graphicHandler.configPreview(true)
+        })
+
+        $(this._state.pausePreview).on('click', function () {
+            self._graphicHandler.configPreview(false)
+        })
+
+        $(this._state.showPreview).on('click', function () {
+            self._graphicHandler.showPreview()
+        })
+
+
+
         /**
          * Checks scroll position
          */

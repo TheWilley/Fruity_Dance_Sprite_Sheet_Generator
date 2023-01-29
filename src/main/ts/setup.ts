@@ -21,6 +21,7 @@ export function init() {
 
 // add instances to global variable
 function createGlobals() {
+    //TODO: Make all classes globbals
     globals = new Globals()
     globals.elementCatcher = new ElementCatcher({targetElement: document.getElementById("app"), getElementsWith: "id"})
     globals.config = new Configuration()
