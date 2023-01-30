@@ -126,7 +126,7 @@ class Table {
 		const canvas_element = document.createElement("canvas");
 
 		if (this._state.canvas != null) {
-			this._state.canvas.remove();
+			//this._state.canvas.remove();
 		}
 
 		canvas_element.setAttribute(
@@ -146,6 +146,7 @@ class Table {
 
 		// Add to object
 		this._state.addElement(canvas_element);
+		console.log(this._state.canvas);
 
 		// Generate text in textarea
 		for (let line = 1; line < this._state.rows.value; line++) {
