@@ -1,12 +1,12 @@
-import './main/sass/main.sass'
-import { init } from './main/ts/setup';
+import "./main/sass/main.sass";
+import {init} from "./main/ts/setup";
 
 // Import all
 function importAll(r: any) {
-  r.keys().forEach(r);
+	r.keys().forEach(r);
 }
 
-importAll(require.context('./main/ts', true, /\.ts$/));
+importAll(require.context("./main/ts", true, /\.ts$/));
 
 // Init
-init()
+init();

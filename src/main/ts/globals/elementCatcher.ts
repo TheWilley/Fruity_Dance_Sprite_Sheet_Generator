@@ -11,6 +11,7 @@ class ElementCatcher {
 	[key: string]: any;
 	private config: Config = {
 		getElementsWith: "id",
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		targetElement: document.getElementById("app")!
 	};
 
@@ -121,7 +122,7 @@ class ElementCatcher {
 			if (element instanceof HTMLElement) {
 				// Add an array of elements
 				if (Array.isArray(element)) {
-					element.forEach((e) => {
+					element.forEach(() => {
 						this.manuallyAddControl(element);
 					});
 					// Add a single element
