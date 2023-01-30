@@ -36,6 +36,8 @@ class DragHandler {
     }
 
     run() {
+        // The reason for disabling alias checking is bbecause I ultimately have no control over function handling in this plugin
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
         /**
