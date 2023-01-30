@@ -1,4 +1,4 @@
-import { globals } from "./setup"
+import { globals } from "./setup";
 
 /**
  * Compresses image when uploading.
@@ -8,14 +8,14 @@ import { globals } from "./setup"
  * 
  */
 class CompressImages {
-    private _settings = globals.config.settings
-    private _state = globals.config.state
-    private _file
-    private _div
+    private _settings = globals.config.settings;
+    private _state = globals.config.state;
+    private _file;
+    private _div;
 
     constructor(file: File, div: HTMLDivElement) {
-        this._file = file
-        this._div = div
+        this._file = file;
+        this._div = div;
     }
 
     /**
@@ -25,12 +25,12 @@ class CompressImages {
      */
     convertToBase64(blob: Blob) {
         return new Promise((resolve) => {
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.readAsDataURL(blob);
             reader.onloadend = function () {
                 resolve(reader.result);
-            }
-        })
+            };
+        });
     }
 
     /**
@@ -71,10 +71,10 @@ class CompressImages {
         // Create animation
         const animation = div.animate(
             [
-                { transform: 'translateX(-100%)', opacity: '0%' },
-                { transform: 'translateX(0)', opacity: '100%' }
+                { transform: "translateX(-100%)", opacity: "0%" },
+                { transform: "translateX(0)", opacity: "100%" }
             ], {
-            easing: 'ease',
+            easing: "ease",
             duration: 500
         });
 
@@ -88,7 +88,7 @@ class CompressImages {
 
         // Add div to local storage
         localStorage.setItem("images", this._state.result.innerHTML);
-        localStorage.setItem("imagenumb", sessionStorage.imagenumb)
+        localStorage.setItem("imagenumb", sessionStorage.imagenumb);
     }
 
     /**
@@ -99,11 +99,10 @@ class CompressImages {
         const MAX_WIDTH = this._settings.maxWidth * this._settings.imageSizeMultiplier;
         const MAX_HEIGHT = this._settings.maxHeight * this._settings.imageSizeMultiplier;
         const MIME_TYPE = "image/png";
-        const QUALITY = this._settings.imageQuality
-        const self = this
+        const QUALITY = this._settings.imageQuality;
 
         // Convert file to blobURL
-        const blobURL = URL.createObjectURL(this._file)
+        const blobURL = URL.createObjectURL(this._file);
 
         // Create new image and assign the blob to it
         const img = new Image();
@@ -115,11 +114,11 @@ class CompressImages {
         };
 
         // When image loads, compress it 
-        img.onload = function () {
+        img.onload = () => {
             URL.revokeObjectURL(img.src);
 
             // Assign width and height
-            const [newWidth, newHeight] = self.calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+            const [newWidth, newHeight] = this.calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
             const canvas = document.createElement("canvas");
             canvas.width = newWidth;
             canvas.height = newHeight;
@@ -129,8 +128,8 @@ class CompressImages {
             ctx.drawImage(img, 0, 0, newWidth, newHeight);
             canvas.toBlob(
                 async (blob) => {
-                    var base64 = await self.convertToBase64(blob) as string;
-                    self.insertImage(base64, self._div);
+                    const base64 = await this.convertToBase64(blob) as string;
+                    this.insertImage(base64, this._div);
                 },
                 MIME_TYPE,
                 QUALITY
@@ -139,4 +138,4 @@ class CompressImages {
     }
 }
 
-export default CompressImages
+export default CompressImages;
