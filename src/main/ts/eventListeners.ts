@@ -1,13 +1,12 @@
 import {globals} from "./setup";
 import DownloadUpload from "./downloadUpload";
-import Table from "./table";
 import $ from "jquery";
 
 class EventListeners {
 	private _settings = globals.config.settings;
 	private _state = globals.config.state;
 	private _downloadUpload = new DownloadUpload();
-	private _table = new Table();
+	private _table = globals.table;
 	private _graphicHandler = globals.graphicHandler;
 
 	public run() {
@@ -63,15 +62,15 @@ class EventListeners {
 			this._downloadUpload.saveJson();
 		});
 
-		$(this._state.delete).on("click", (event) => {
+		$(this._state.delete).on("click", () => {
 			this._graphicHandler.remove();
 		});
 
-		$(this._state.startPreview).on("click", (event) => {
+		$(this._state.startPreview).on("click", () => {
 			this._graphicHandler.configPreview(true);
 		});
 
-		$(this._state.pausePreview).on("click", (event) => {
+		$(this._state.pausePreview).on("click", () => {
 			this._graphicHandler.configPreview(false);
 		});
 
@@ -80,11 +79,11 @@ class EventListeners {
 			this._graphicHandler.showPreview();
 		});
 
-		$(this._state.clear).on("click", (event) => {
+		$(this._state.clear).on("click", () => {
 			this._downloadUpload.clearData();
 		});
 
-		$(this._state.collection).on("click", (event) => {
+		$(this._state.collection).on("click", () => {
 			this._graphicHandler.filterClass();
 		});
 
@@ -115,6 +114,7 @@ class EventListeners {
 		$([this._state.rows, this._state.cell_width, this._state.cell_height]).on(
 			"change",
 			(event: JQuery.ChangeEvent) => {
+				event.stopImmediatePropagation();
 				this._graphicHandler.checkMinMax(event);
 				if (this._table.checkEmptyCells()) this._table.addTable();
 			}

@@ -138,7 +138,6 @@ class Table {
 			String(this._state.cell_width.value * 8)
 		);
 		canvas_element.setAttribute("id", "canvas");
-		this._state.addElement(canvas_element);
 
 		this._state.ContainerCanvas.appendChild(canvas_element);
 

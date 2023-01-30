@@ -2,12 +2,14 @@ import Configuration from "./config";
 import ElementCatcher from "./elementCatcher";
 import ImageCollection from "./imageCollection";
 import GraphicHandler from "./graphicHandler";
+import Table from "../table";
 
 class Globals {
 	private _elementCatcher: ElementCatcher;
 	private _config: Configuration;
 	private _imageCollection: ImageCollection;
 	private _graphicHandler: GraphicHandler;
+	private _table: Table;
 
 	get elementCatcher() {
 		return this._elementCatcher;
@@ -39,6 +41,14 @@ class Globals {
 
 	set graphicHandler(value: GraphicHandler) {
 		this._graphicHandler = value;
+	}
+
+	get table() {
+		return this._table;
+	}
+
+	set table(value: Table) {
+		this._table = value;
 	}
 }
 

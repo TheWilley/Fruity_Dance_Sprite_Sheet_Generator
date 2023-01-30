@@ -7,7 +7,6 @@ import CompressImages from "./compressImages";
 import FilePondPluginFileEncode from "./libs/filepond/addons/filepond-plugin-file-encode.min";
 import FilePondPluginFileValidateSize from "./libs/filepond/addons/filepond-plugin-file-validate-size.min";
 import FilePondPluginFileValidateType from "./libs/filepond/addons/filepond-plugin-file-validate-type.min";
-import Table from "./table";
 import ImageInfo from "./imageInfo";
 
 class DownloadUpload {
@@ -15,7 +14,7 @@ class DownloadUpload {
 	private _state = globals.config.state;
 	private _imageCollection = globals.imageCollection;
 	private _graphicHandler = globals.graphicHandler;
-	private _table = new Table();
+	private _table = globals.table;
 
 	constructor() {
 		// Create new pond instance

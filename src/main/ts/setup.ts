@@ -1,12 +1,12 @@
 import DragHandler from "./dragHandler";
 import EventListeners from "./eventListeners";
 import GraphicHandler from "./globals/graphicHandler";
-import Table from "./table";
 import Globals from "./globals/globals";
 import ElementCatcher from "./globals/elementCatcher";
 import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
+import Table from "./table";
 
 // Global variable
 export let globals: Globals;
@@ -15,10 +15,10 @@ export let globals: Globals;
 export function init() {
 	createGlobals();
 
-	new Table().addTable();
 	new DragHandler().run();
 	new EventListeners().run();
 	new MouseHandler();
+	globals.table.addTable();
 	globals.graphicHandler.ctx();
 }
 
@@ -33,4 +33,5 @@ function createGlobals() {
 	globals.config = new Configuration();
 	globals.imageCollection = new ImageCollection();
 	globals.graphicHandler = new GraphicHandler();
+	globals.table = new Table();
 }

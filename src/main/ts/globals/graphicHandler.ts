@@ -107,7 +107,6 @@ class GraphicHandler {
 
 		// Set all image_cell attributes
 		image.setAttribute("class", "immg-grid");
-		// TODO: Have to check how "this" can relate to the DOM here
 		image.onclick = (event) => {
 			this.show_controls(event.target as HTMLElement);
 		};
