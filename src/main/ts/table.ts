@@ -126,7 +126,7 @@ class Table {
 		const canvas_element = document.createElement("canvas");
 
 		if (this._state.canvas != null) {
-			//this._state.canvas.remove();
+			this._state.canvas.remove();
 		}
 
 		canvas_element.setAttribute(
