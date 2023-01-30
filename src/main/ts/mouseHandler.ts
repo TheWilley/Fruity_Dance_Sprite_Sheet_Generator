@@ -1,5 +1,5 @@
-import { globals } from "./setup"
-import $ from 'jquery'
+import { globals } from "./setup";
+import $ from "jquery";
 
 class MouseHandler {
     private _mousePosX = 0;
@@ -7,22 +7,20 @@ class MouseHandler {
     private _delay = 6;
     private _revisedMousePosX = 0;
     private _revisedMousePosY = 0;
-    private _state = globals.config.state
+    private _state = globals.config.state;
 
     constructor() {
-        this.createEventListener()
+        this.createEventListener();
         this.delayMouseFollow();
     }
 
     createEventListener() {
-        const self = this
-
         /**
          * Detects when mouse is moving
          */
-        $(document).on("mousemove", function (moveEvent) {
-            self._mousePosX = moveEvent.pageX;
-            self._mousePosY = moveEvent.pageY;
+        $(document).on("mousemove", (moveEvent) => { 
+            this._mousePosX = moveEvent.pageX;
+            this._mousePosY = moveEvent.pageY;
         });
     }
 
@@ -40,4 +38,4 @@ class MouseHandler {
     }
 }
 
-export default MouseHandler
+export default MouseHandler;

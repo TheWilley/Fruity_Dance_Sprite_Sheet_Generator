@@ -1,4 +1,4 @@
-import { globals } from "./setup"
+import { globals } from "./setup";
 
 /**
  * Generates the preview canvas element
@@ -20,7 +20,7 @@ class Preview {
     private _height: number;
     private _x: number;
     private _previewCanvas: HTMLCanvasElement;
-    private _state = globals.config.state
+    private _state = globals.config.state;
 
     constructor(row: number, fps: number, cell: HTMLElement) {
         this._row = row;
@@ -39,13 +39,13 @@ class Preview {
 
         // Set the height and width
         const canvas = document.createElement("canvas");
-        canvas.classList.add("gifPreview")
+        canvas.classList.add("gifPreview");
 
         // Generate canvas
         this._previewCanvas = canvas;
         this._previewCanvas.width = this._width;
         this._previewCanvas.height = this._height;
-        cell.appendChild(canvas)
+        cell.appendChild(canvas);
 
         // Image position
         this._x = 0;
@@ -53,21 +53,23 @@ class Preview {
 
     nextFrame() {
         // Generate settings
-        var originalCanvas = this._state.canvas,
-            startClippingX = 0,
+        const originalCanvas = this._state.canvas,
             startClippingY = (this._height * this._row) - this._height,
             clippingWidth = this._width,
             clippingHeight = this._height,
             pasteX = 0,
             pasteY = 0,
             pasteWidth = this._width,
-            pasteHeight = this._height
+            pasteHeight = this._height;
+
+        // Changing variable 
+        let startClippingX = 0;
 
         // Update the x variable
         startClippingX = this._x;
 
         // Get the previewCanvas
-        var context = this._previewCanvas.getContext("2d");
+        const context = this._previewCanvas.getContext("2d");
 
         // Clear the canvas
         context.clearRect(pasteX, pasteY, pasteWidth, pasteHeight);
@@ -86,7 +88,7 @@ class Preview {
         );
 
         // First stroke the text
-        context.font = "15px serif"
+        context.font = "15px serif";
         context.strokeStyle = "black";
         context.lineWidth = 2;
         context.strokeText(String(this._frame), 0, pasteY + 12);
@@ -104,7 +106,7 @@ class Preview {
 
     start() {
         if (this._bind == undefined) {
-            this._bind = this.start.bind(this)
+            this._bind = this.start.bind(this);
         }
 
         if (this._pause == true) {
@@ -119,7 +121,7 @@ class Preview {
 
         if (this._delta > this._interval) {
             this._then = this._now - (this._delta % this._interval);
-            this.nextFrame()
+            this.nextFrame();
         }
         if (this._x > this._width * 7) {
             this._x = 0;
@@ -137,8 +139,8 @@ class Preview {
     }
 
     get getPauseState() {
-        return this._pause
+        return this._pause;
     }
 }
 
-export default Preview
+export default Preview;

@@ -1,5 +1,5 @@
-import { globals } from "../setup"
-import json from "../../../config.json"
+import { globals } from "../setup";
+import json from "../../../config.json";
 
 interface IConfiguration {
     /*/ Canvas settings /*/
@@ -29,41 +29,39 @@ interface IConfiguration {
 }
 
 class Configuration {
-    private _settings: IConfiguration
-    private _state = globals.elementCatcher
+    private _settings: IConfiguration;
+    private _state = globals.elementCatcher;
 
     constructor() {
-        this._settings = json
+        this._settings = json;
 
-        this.runConfig()
+        this.runConfig();
     }
 
-    private runConfig() {
-        const self = this
-        
+    private runConfig() {        
         new Map([
-            ["maxRows", (value: number | boolean | string) => { self._state.rows.setAttribute("max", value) }],
-            ["minWidth", (value) => { self._state.cell_width.setAttribute("min", value); self._state.cell_width.value = value }],
-            ["maxWidth", (value) => { self._state.cell_width.setAttribute("max", value) }],
-            ["minHeight", (value) => { self._state.cell_height.setAttribute("min", value); self._state.cell_height.value = value }],
-            ["maxHeight", (value) => { self._state.cell_height.setAttribute("max", value) }],
-            ["minXOffset", (value) => { self._state.offsetX.setAttribute("min", value) }],
-            ["maxXOffset", (value) => { self._state.offsetX.setAttribute("max", value) }],
-            ["minYOffset", (value) => { self._state.offsetY.setAttribute("min", value) }],
-            ["maxYOffset", (value) => { self._state.offsetY.setAttribute("max", value) }],
-            ["background", (value) => { let root = document.documentElement; if (value != null) String(value)[0] == "#" ? root.style.setProperty("--background", String(value)) : root.style.setProperty("--background", `url(${value})`) }],
+            ["maxRows", (value: number | boolean | string) => { this._state.rows.setAttribute("max", value); }],
+            ["minWidth", (value) => { this._state.cell_width.setAttribute("min", value); this._state.cell_width.value = value; }],
+            ["maxWidth", (value) => { this._state.cell_width.setAttribute("max", value); }],
+            ["minHeight", (value) => { this._state.cell_height.setAttribute("min", value); this._state.cell_height.value = value; }],
+            ["maxHeight", (value) => { this._state.cell_height.setAttribute("max", value); }],
+            ["minXOffset", (value) => { this._state.offsetX.setAttribute("min", value); }],
+            ["maxXOffset", (value) => { this._state.offsetX.setAttribute("max", value); }],
+            ["minYOffset", (value) => { this._state.offsetY.setAttribute("min", value); }],
+            ["maxYOffset", (value) => { this._state.offsetY.setAttribute("max", value); }],
+            ["background", (value) => { const root = document.documentElement; if (value != null) String(value)[0] == "#" ? root.style.setProperty("--background", String(value)) : root.style.setProperty("--background", `url(${value})`); }],
         ]).forEach((value, key) => {
-            if (self._settings[key as keyof IConfiguration]) value(self._settings[key as keyof IConfiguration])
-        })
+            if (this._settings[key as keyof IConfiguration]) value(this._settings[key as keyof IConfiguration]);
+        });
     }
 
     get settings() {
-        return this._settings
+        return this._settings;
     }
 
     get state() {
-        return this._state
+        return this._state;
     }
 }
 
-export default Configuration
+export default Configuration;
