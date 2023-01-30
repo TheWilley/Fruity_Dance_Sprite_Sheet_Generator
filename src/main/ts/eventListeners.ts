@@ -64,17 +64,14 @@ class EventListeners {
 		});
 
 		$(this._state.delete).on("click", (event) => {
-			event.stopImmediatePropagation();
 			this._graphicHandler.remove();
 		});
 
 		$(this._state.startPreview).on("click", (event) => {
-			event.stopImmediatePropagation();
 			this._graphicHandler.configPreview(true);
 		});
 
 		$(this._state.pausePreview).on("click", (event) => {
-			event.stopImmediatePropagation();
 			this._graphicHandler.configPreview(false);
 		});
 
@@ -84,12 +81,10 @@ class EventListeners {
 		});
 
 		$(this._state.clear).on("click", (event) => {
-			event.stopImmediatePropagation();
 			this._downloadUpload.clearData();
 		});
 
 		$(this._state.collection).on("click", (event) => {
-			event.stopImmediatePropagation();
 			this._graphicHandler.filterClass();
 		});
 
@@ -99,7 +94,7 @@ class EventListeners {
 		$(window).on("scroll", () => {
 			if ($(window).scrollTop() >= 45) {
 				this._state.sidebar.classList.add("fixedSidebar");
-				this._state.sidebaselfrContainer.classList.add("fixedContainer");
+				this._state.sidebarContainer.classList.add("fixedContainer");
 			} else {
 				this._state.sidebar.classList.remove("fixedSidebar");
 				this._state.sidebarContainer.classList.remove("fixedContainer");

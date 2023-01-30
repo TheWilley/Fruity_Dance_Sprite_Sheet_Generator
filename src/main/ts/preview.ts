@@ -15,7 +15,7 @@ class Preview {
 	private _frame: number;
 	private _now: number;
 	private _delta: number;
-	private _bind: FrameRequestCallback;
+	private _bind: any;
 	private _width: number;
 	private _height: number;
 	private _x: number;
@@ -129,7 +129,7 @@ class Preview {
 		}
 	}
 
-	stop() {
+	pause() {
 		this._pause = true;
 	}
 

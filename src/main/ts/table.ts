@@ -67,7 +67,7 @@ class Table {
 
 		// Stop all objects
 		this._graphicHandler.previewObjects.forEach((object) => {
-			object.stop();
+			object.pause();
 		});
 
 		// Clear arrays

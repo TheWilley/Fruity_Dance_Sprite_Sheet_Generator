@@ -166,7 +166,7 @@ class GraphicHandler {
 			});
 		} else {
 			this._previewObjects.forEach((obj) => {
-				obj.stop();
+				obj.pause();
 			});
 		}
 	}
