@@ -194,6 +194,22 @@ class DownloadUpload {
 			});
 		};
 
+		/*/ Interfaces used to handle missing types START /*/
+		interface FilePondPlugins extends FilePond.FilePondOptions {
+			maxFilesize?: string;
+		}
+
+		interface FileExtender extends File {
+			getFileEncodeDataURL(): File;
+			substring(number: number): string;
+		}
+
+		interface FilePondFileExtender extends FilePond.FilePondFile {
+			getFileEncodeDataURL(): FileExtender;
+			file: FileExtender;
+		}
+		/*/ Interfaces used to handle missing types END /*/
+
 		/**filepond-plugin-file-encode.min
 		 * FilePond instance for images / gifs
 		 */
@@ -210,7 +226,7 @@ class DownloadUpload {
 			acceptedFileTypes: ["image/png", "image/jpeg", "image/gif"],
 			credits: false,
 
-			onaddfile: async (error, image) => {
+			onaddfile: async (error, image: FilePondFileExtender) => {
 				if (error) {
 					return;
 				}
@@ -231,7 +247,7 @@ class DownloadUpload {
 					}
 				}
 			}
-		});
+		} as FilePondPlugins);
 
 		type jsonSpriteSheet = {
 			_x: number;
@@ -294,15 +310,13 @@ class DownloadUpload {
 
 			server: {
 				process: (error: any) => {
+					const file = uploadJson.getFile() as FilePondFileExtender;
 					if (
-						JSON.parse(
-							atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))
-						).spriteSheetId == "cWqgPFdGN5"
+						JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
+							.spriteSheetId == "cWqgPFdGN5"
 					) {
 						handleJson(
-							JSON.parse(
-								atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))
-							)
+							JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
 						);
 						setTimeout(() => {
 							uploadJson.removeFile();
@@ -312,7 +326,7 @@ class DownloadUpload {
 					}
 				}
 			}
-		});
+		} as FilePondPlugins);
 	}
 }
 
