@@ -89,7 +89,7 @@ class DownloadUpload {
                 zip.file(`${filename}.txt`, text);
 
                 // Save file
-                zip.generateAsync({ type: "blob" }).then(function (content: any) {
+                zip.generateAsync({ type: "blob" }).then( (content: Blob) => {
                     saveAs(content, zipFilename);
                 });
             }
@@ -137,7 +137,6 @@ class DownloadUpload {
      * Creates drag and drop functionality
      */
     public pond() {
-        const self = this;
         FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
 
         /**
@@ -145,25 +144,25 @@ class DownloadUpload {
          * @param {Object} file - A gif file
          * @returns 
          */
-        const extractFrames = async function (file: File) {
+        const extractFrames = async (file: File) => {
             return new Promise<void>((resolve) => {
-                const maxFrames = self._settings.maxAllowedGifFrames;
+                const maxFrames = this._settings.maxAllowedGifFrames;
 
                 // Export frames depending on transparency
-                gifFrames({ url: file, frames: "all", outputType: "canvas", cumulative: self._state.cumulative.value == "cumulative" ? false : true })
-                    .then(function (frameData: any) {
-                        frameData.forEach(function (frame: HTMLElement, i: number) {
+                gifFrames({ url: file, frames: "all", outputType: "canvas", cumulative: this._state.cumulative.value == "cumulative" ? false : true })
+                    .then( (frameData: any) => {
+                        frameData.forEach( (frame: HTMLElement, i: number) => {
                             if (i < maxFrames) {
-                                self._state.gifFrames.appendChild(frameData[i].getImage());
+                                this._state.gifFrames.appendChild(frameData[i].getImage());
                             }
                         });
 
-                        for (const frame of self._state.gifFrames.childNodes) {
+                        for (const frame of this._state.gifFrames.childNodes) {
                             // https://stackoverflow.com/a/60005078
-                            fetch(frame.toDataURL()).then(res => { return res.blob(); }).then(async function (blob) { await self.createImage(new File([blob], "file")); });
+                            fetch(frame.toDataURL()).then(res => { return res.blob(); }).then(async function (blob) { await this.createImage(new File([blob], "file")); });
                         }
 
-                        self._state.gifFrames.innerHTML = "";
+                        this._state.gifFrames.innerHTML = "";
                     }).catch(console.error.bind(console));
                 resolve();
             });
@@ -193,7 +192,7 @@ class DownloadUpload {
                         await extractFrames(image.getFileEncodeDataURL());
                         uploadImage.removeFile(image);
                     } else {
-                        await self.createImage(image.file);
+                        await this.createImage(image.file);
                         uploadImage.removeFile(image);
                     }
                 } catch (err) {
@@ -232,16 +231,16 @@ class DownloadUpload {
          * Handles and manages uploaded json data
          * @param {string} json - The json containing sprite sheet data
          */
-        const handleJson = function (json: any) {
-            self._state.rows.value = json.rows;
-            self._state.cell_width.value = json.width;
-            self._state.cell_height.value = json.height;
+        const handleJson = (json: any) => {
+            this._state.rows.value = json.rows;
+            this._state.cell_width.value = json.width;
+            this._state.cell_height.value = json.height;
 
-            self._table.addTable();
-            self._state.textarea.value = json.rowNames;
-            self._imageCollection.cellCollection = itterateJson(json.tableObject);
-            self._table.iterateTable();
-            self._graphicHandler.redraw();
+            this._table.addTable();
+            this._state.textarea.value = json.rowNames;
+            this._imageCollection.cellCollection = itterateJson(json.tableObject);
+            this._table.iterateTable();
+            this._graphicHandler.redraw();
         };
 
         /**
@@ -254,12 +253,12 @@ class DownloadUpload {
             allowFileTypeValidation: true,
             acceptedFileTypes: ["application/json"],
             credits: false,
-            labelFileProcessingError: (error: any) => {
+            labelFileProcessingError: (error: FilePond.FilePondErrorDescription) => {
                 return error.body;
             },
 
             server: {
-                process: (fieldName: string, file: File, metadata: any, load: any, error: any, progress: any, abort: any) => {
+                process: (error: any) => {
                     if (JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))).spriteSheetId == "cWqgPFdGN5") {
                         handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
                         setTimeout(() => {
