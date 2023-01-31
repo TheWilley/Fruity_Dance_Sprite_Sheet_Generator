@@ -73,20 +73,23 @@
 										type="file"
 										multiple
 										hidden />
-									<select
-										id="cumulative"
-										class="form-select"
-										style="margin-bottom: 4px">
-										<option value="cumulative">
-											Upload mode: Transparent GIF
-										</option>
-										<option>Upload mode: NOT Transparent GIF</option>
-									</select>
-									<div class="small-line"></div>
-									<select
-										name="collections"
-										class="form-select"
-										id="collection"></select>
+									<label class="form-label" for="files">
+										Upload Mode
+										<select
+											id="cumulative"
+											class="form-select"
+											style="margin-bottom: 4px">
+											<option value="cumulative">Transparent GIF</option>
+											<option>NOT Transparent GIF</option>
+										</select>
+									</label>
+									<label class="form-label">
+										Collection
+										<select
+											name="collections"
+											class="form-select"
+											id="collection"></select>
+									</label>
 								</div>
 								<output id="result" />
 							</form>
