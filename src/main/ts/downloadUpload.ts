@@ -182,7 +182,7 @@ class DownloadUpload {
 								.then((res) => {
 									return res.blob();
 								})
-								.then(async function (blob) {
+								.then(async (blob) => {
 									await this.createImage(new File([blob], "file"));
 								});
 						}
@@ -257,7 +257,7 @@ class DownloadUpload {
 			_imageSrc: string;
 		};
 
-		const itterateJson = function (json: jsonSpriteSheet[][]) {
+		const itterateJson = (json: jsonSpriteSheet[][]) => {
 			const imageCollection: ImageInfo[][] = [];
 
 			for (const [i, row] of json.entries()) {
