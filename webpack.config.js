@@ -9,6 +9,7 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 module.exports = {
 	entry: "./src/app.ts",
+	target: "web",
 	mode: "development",
 	module: {
 		rules: [
@@ -51,12 +52,17 @@ module.exports = {
 			template: "./src/index.html"
 		})
 	],
+	// http://localhost:9000/dist/index.html
 	devServer: {
-		static: {
-			directory: path.join(__dirname, "dist"),
-			watch: true
-		},
 		compress: true,
-		port: 9000
+		port: 9000,
+		client: {
+			overlay: {
+				warnings: false
+			}
+		},
+		static: {
+			directory: path.join(__dirname, "./")
+		}
 	}
 };
