@@ -2,7 +2,7 @@ import Configuration from "./config";
 import ElementCatcher from "./elementCatcher";
 import ImageCollection from "./imageCollection";
 import GraphicHandler from "./graphicHandler";
-import Table from "../table";
+import Table from "./table";
 
 class Globals {
 	private _elementCatcher: ElementCatcher;

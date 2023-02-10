@@ -6,7 +6,7 @@ import ElementCatcher from "./globals/elementCatcher";
 import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
-import Table from "./table";
+import Table from "./globals/table";
 
 // Global variable
 export let globals: Globals;
