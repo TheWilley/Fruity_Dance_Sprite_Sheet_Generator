@@ -193,9 +193,9 @@ class GraphicHandler {
 		const allThumbnails = document.querySelectorAll<HTMLElement>(".thumbnail");
 		for (const element of allThumbnails) {
 			if (!element.classList.contains(this._state.collection.value)) {
-				element.style.display = "none";
+				element.parentElement.style.display = "none";
 			} else {
-				element.style.display = "block";
+				element.parentElement.style.display = "block";
 			}
 		}
 		localStorage.setItem("images", this._state.result.innerHTML);
