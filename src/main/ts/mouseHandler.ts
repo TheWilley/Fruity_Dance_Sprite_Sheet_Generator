@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import $ from "jquery";
 
 class MouseHandler {
@@ -35,8 +35,8 @@ class MouseHandler {
 		this._revisedMousePosY +=
 			(this._mousePosY - this._revisedMousePosY) / this._delay;
 
-		this._state.mouseCircle.style.top = `${this._revisedMousePosY}px`;
-		this._state.mouseCircle.style.left = `${this._revisedMousePosX}px`;
+		this._state.mouse_circle.style.top = `${this._revisedMousePosY}px`;
+		this._state.mouse_circle.style.left = `${this._revisedMousePosX}px`;
 	}
 }
 

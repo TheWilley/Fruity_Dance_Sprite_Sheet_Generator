@@ -1,4 +1,4 @@
-import {globals} from "../setup";
+import { globals } from "../setup";
 import CtxMenu from "../libs/ctxmenu.min/ctxmenu.min";
 import ImageInfo from "../imageInfo";
 import Preview from "../preview";
@@ -177,11 +177,11 @@ class GraphicHandler {
 	public previewImage(preview: boolean) {
 		if (preview) {
 			this._state.popup.style.transform = "translate(-50%, 300px)";
-			this._state.mouseCircle.style.opacity = "100%";
+			this._state.mouse_circle.style.opacity = "100%";
 			this._state.delete.style.outline = "3px dashed red";
 		} else {
 			this._state.popup.style.transform = "translate(-50%, 150px)";
-			this._state.mouseCircle.style.opacity = "0%";
+			this._state.mouse_circle.style.opacity = "0%";
 			this._state.delete.style.outline = "none";
 		}
 	}
