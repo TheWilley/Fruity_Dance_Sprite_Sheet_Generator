@@ -44,21 +44,35 @@ class DownloadUpload {
 		const lines = this._state.textarea.value.split("\n");
 
 		// Removes white lines
-		for (let i = 0; i < lines.length; i++) {
-			if (lines[i] == "") {
-				lines.splice(i, i);
+		const whitelines = function () {
+			for (let i = 0; i < lines.length; i++) {
+				if (lines[i] == "") {
+					return false;
+				}
 			}
-		}
+
+			return true;
+		};
 
 		// Get length of lines
 		const linesLength = lines.length;
 
-		// Check if valid
-		if (linesLength > this._state.rows.value) {
-			alert("There are more animation names than rows!");
+		// Check if last row have text 'held'
+		if (!whitelines()) {
+			alert("No white lines!");
 			return false;
-		} else if (lines[this._state.rows.value - 1] != "Held") {
+		} else if (lines[lines.length - 1] != "Held") {
 			alert("Could not find animation name 'Held' at last line!");
+			return false;
+
+			// Check if there are less animation names than rows 
+		} else if (linesLength < this._state.rows.value) {
+			alert("There are less animation names than rows!");
+			return false;
+
+			// Check if there are more animation names than rows 
+		} else if (linesLength > this._state.rows.value) {
+			alert("There are more animation names than rows!");
 			return false;
 		} else {
 			return true;
