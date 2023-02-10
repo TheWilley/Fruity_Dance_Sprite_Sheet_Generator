@@ -1,6 +1,6 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import * as FilePond from "filepond";
-import {saveAs} from "file-saver";
+import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import gifFrames from "gif-frames";
 import CompressImages from "./compressImages";
@@ -93,12 +93,12 @@ class DownloadUpload {
 				zip.file(
 					`${filename}.png`,
 					output.src.substring(output.src.indexOf(",") + 1),
-					{base64: true}
+					{ base64: true }
 				);
 				zip.file(`${filename}.txt`, text);
 
 				// Save file
-				zip.generateAsync({type: "blob"}).then((content: Blob) => {
+				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
 					saveAs(content, zipFilename);
 				});
 			}
@@ -172,11 +172,11 @@ class DownloadUpload {
 					.then((frameData: any) => {
 						frameData.forEach((frame: HTMLElement, i: number) => {
 							if (i < maxFrames) {
-								this._state.gifFrames.appendChild(frameData[i].getImage());
+								this._state.gif_frames.appendChild(frameData[i].getImage());
 							}
 						});
 
-						for (const frame of this._state.gifFrames.childNodes) {
+						for (const frame of this._state.gif_frames.childNodes) {
 							// https://stackoverflow.com/a/60005078
 							fetch(frame.toDataURL())
 								.then((res) => {
@@ -187,7 +187,7 @@ class DownloadUpload {
 								});
 						}
 
-						this._state.gifFrames.innerHTML = "";
+						this._state.gif_frames.innerHTML = "";
 					})
 					.catch(console.error.bind(console));
 				resolve();

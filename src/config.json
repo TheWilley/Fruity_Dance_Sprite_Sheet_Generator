@@ -1,21 +1,21 @@
 {
-    "maxRows": 20, 
+	"maxRows": 20,
 
-    "minWidth": 80, 
-    "minHeight": 80, 
-    "minXOffset": -20, 
-    "minYOffset": -150, 
+	"minWidth": 80,
+	"minHeight": 80,
+	"minXOffset": -20,
+	"minYOffset": -150,
 
-    "maxWidth": 150, 
-    "maxHeight": 150,
-    "maxXOffset": 150, 
-    "maxYOffset": 150, 
-    "maxUploadSize": "8mb", 
-    "imageQuality": 0.7, 
-    "imageSizeMultiplier": 1, 
-    "maxAllowedGifFrames": 30,
-    "previewFPS": 4, 
-    "amountOfCollections": 12, 
-    "background": null, 
-    "warnBeforeLeavingPage": true 
-    }
+	"maxWidth": 150,
+	"maxHeight": 150,
+	"maxXOffset": 150,
+	"maxYOffset": 150,
+	"maxUploadSize": "8mb",
+	"imageQuality": 0.7,
+	"imageSizeMultiplier": 1,
+	"maxAllowedGifFrames": 30,
+	"previewFPS": 4,
+	"amountOfCollections": 12,
+	"background": null,
+	"warnBeforeLeavingPage": true
+}

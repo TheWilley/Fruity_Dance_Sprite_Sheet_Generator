@@ -1,4 +1,4 @@
-import {globals} from "../setup";
+import { globals } from "../setup";
 import json from "../../../config.json";
 
 interface IConfiguration {
