@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import interact from "interactjs";
 
 class DragHandler {
@@ -13,7 +13,7 @@ class DragHandler {
 		const x = (parseFloat(event.target.getAttribute("data-x")) || 0) + event.dx;
 		const y = (parseFloat(event.target.getAttribute("data-y")) || 0) + event.dy;
 
-		return {x, y};
+		return { x, y };
 	}
 
 	goToOriginalPosition(added: boolean, event: Interact.DragEvent) {
@@ -27,6 +27,7 @@ class DragHandler {
 
 		// Translate the element
 		target.style.transform = `translate(${this._original_position_x}px, ${this._original_position_y}px)`;
+		target.parentElement.style.opacity = "100%";
 
 		// Update the posiion attributes
 		target.setAttribute("data-x", String(this._original_position_x));
@@ -48,6 +49,7 @@ class DragHandler {
 				start(event) {
 					self._graphicHandler.previewImage(true);
 					self._state.popup_image.src = event.target.src;
+					event.target.parentElement.style.opacity = "65%";
 				},
 				move(event) {
 					const coordinates = self.getCoordinates(event);
