@@ -98,6 +98,7 @@ class Table {
 				this._imageCollection.cellCollection[x][y] = tempobject;
 				this._imageCollection.cellCollection[x][y].xOffset = 0;
 				this._imageCollection.cellCollection[x][y].yOffset = 0;
+				this._imageCollection.cellCollection[x][y].sizeMultiplier = 1;
 
 				// Generate table cells
 				const table_cell = document.createElement("TD");

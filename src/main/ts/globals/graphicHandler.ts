@@ -31,6 +31,7 @@ class GraphicHandler {
 		cellnumb: number,
 		Xoffset?: number,
 		Yoffset?: number,
+		sizeMultiplier?: number,
 		clear?: "wholeCanvas" | "partOfCanvas"
 	) {
 		// This is where we create the canvas and insert images
@@ -43,7 +44,6 @@ class GraphicHandler {
 			// Get width and height
 			const cell_width = parseInt(this._state.cell_width.value);
 			const cell_height = parseInt(this._state.cell_height.value);
-			const multiplier = 10;
 
 			// Check if whole canvas is being cleared or only part of it
 			switch (clear) {
@@ -59,8 +59,8 @@ class GraphicHandler {
 					ctx.clearRect(
 						cell_width * cellnumb + Number(Xoffset),
 						cell_height * rownumb + Number(Yoffset),
-						cell_width * multiplier,
-						cell_height * multiplier
+						cell_width * sizeMultiplier,
+						cell_height * sizeMultiplier
 					);
 			}
 
@@ -70,8 +70,8 @@ class GraphicHandler {
 					GeneratedCanvas,
 					cell_width * cellnumb + Number(Xoffset),
 					cell_height * rownumb + Number(Yoffset),
-					cell_width * multiplier,
-					cell_height * multiplier
+					cell_width * sizeMultiplier,
+					cell_height * sizeMultiplier
 				);
 			};
 		}
@@ -91,6 +91,7 @@ class GraphicHandler {
 						cell.y,
 						cell.xOffset,
 						cell.yOffset,
+						cell.sizeMultiplier,
 						"wholeCanvas"
 					);
 				}
@@ -131,6 +132,7 @@ class GraphicHandler {
 			cellnumb,
 			this._imageCollection.cellCollection[rownumb][cellnumb].xOffset,
 			this._imageCollection.cellCollection[rownumb][cellnumb].yOffset,
+			this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier,
 			"partOfCanvas"
 		);
 
@@ -141,6 +143,7 @@ class GraphicHandler {
 		);
 		this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
 		this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
+		this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = 1; // Needed to avoid an error regarding null offset
 
 		// Step 3, remove regenerate and remove from grid
 		currentObject.parentNode.appendChild(this.generateImage());
@@ -254,6 +257,7 @@ class GraphicHandler {
 	public disableControls(enabled: boolean) {
 		this._state.offset_x.disabled = enabled;
 		this._state.offset_y.disabled = enabled;
+		this._state.size_multiplier.disabled = enabled;
 		this._state.delete.disabled = enabled;
 	}
 
@@ -279,6 +283,7 @@ class GraphicHandler {
 		if (currentObject != this._previousObject) {
 			$(this._state.offset_x).unbind();
 			$(this._state.offset_y).unbind();
+			$(this._state.size_multiplier).unbind();
 		}
 
 		// Check if object has been accessed before
@@ -299,17 +304,22 @@ class GraphicHandler {
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset;
 			const Yoffset =
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset;
+			const sizeMultiplier =
+				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier;
 
 			// Set values
 			this._state.offset_x.value = Xoffset;
 			this._state.offset_y.value = Yoffset;
+			this._state.size_multiplier.value = sizeMultiplier;
 
-			$([this._state.offset_x, this._state.offset_y]).on("change", (event) => {
+			$([this._state.offset_x, this._state.offset_y, this._state.size_multiplier]).on("change", (event) => {
 				this.checkMinMax(event);
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset =
 					this._state.offset_x.value;
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset =
 					this._state.offset_y.value;
+				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier =
+					this._state.size_multiplier.value;
 				this.redraw();
 			});
 		}

@@ -268,6 +268,7 @@ class DownloadUpload {
 			_y: number;
 			_xOffset: number;
 			_yOffset: number;
+			_sizeMultiplier: number;
 			_imageSrc: string;
 		};
 
@@ -283,6 +284,7 @@ class DownloadUpload {
 						cell._y,
 						cell._xOffset,
 						cell._yOffset,
+						cell._sizeMultiplier,
 						cell._imageSrc
 					);
 				}

@@ -6,6 +6,7 @@ class ImageInfo {
 	private _y;
 	private _xOffset;
 	private _yOffset;
+	private _sizeMultiplier;
 	private _imageSrc;
 
 	constructor(
@@ -13,12 +14,14 @@ class ImageInfo {
 		y: number,
 		xOffset?: number,
 		yOffset?: number,
+		sizeMultiplier?: number,
 		imageSrc?: string
 	) {
 		this._x = x;
 		this._y = y;
 		this._xOffset = xOffset;
 		this._yOffset = yOffset;
+		this._sizeMultiplier = sizeMultiplier;
 		this._imageSrc = imageSrc;
 	}
 
@@ -44,6 +47,14 @@ class ImageInfo {
 
 	set xOffset(value: number) {
 		this._xOffset = value;
+	}
+
+	get sizeMultiplier() {
+		return this._sizeMultiplier;
+	}
+
+	set sizeMultiplier(value: number) {
+		this._sizeMultiplier = value;
 	}
 
 	get yOffset() {

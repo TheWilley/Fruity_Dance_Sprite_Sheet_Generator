@@ -86,6 +86,7 @@ class DragHandler {
 						event.relatedTarget.src;
 					self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0;
 					self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0;
+					self._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = 1;
 
 					// Run function to insert images into canvas
 					self._graphicHandler.generateCanvas(
