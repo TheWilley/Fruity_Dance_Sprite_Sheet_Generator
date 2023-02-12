@@ -1,36 +1,33 @@
 /*/ Media Queries /*/
 @media only screen and (max-width: 1199px)
-    #sidebarContainer
-        position: initial !important
-        max-height: 320px
-        border-radius: 5px
-
-    .post-form
-        text-align: left
-
-    .result-container
-        margin-right: 10px
-        display: inline-block
-        margin-top: 0px !important
-        max-height: 200px
-
-    .thumbnail
-        max-width: 100%
-        object-fit: cover
-        width: 100% !important
-
-    #result
-        overflow-y: unset !important
-        display: flex
-        direction: row
-
     #sidebar_wrapper
         position: sticky
         top: 10px
         z-index: 300
 
-    #collection
-        display: table
+        #sidebarContainer
+            position: initial !important
+            max-height: 320px
+            border-radius: 5px
+
+            .post-form
+                text-align: left
+
+                #result
+                    overflow-y: unset !important
+                    display: flex
+                    direction: row
+
+                    .result-container
+                        margin-right: 10px
+                        display: inline-block
+                        margin-top: 0px !important
+                        max-height: 200px
+
+                        .thumbnail
+                            max-width: 100%
+                            object-fit: cover
+                            width: 100% !important
 
 /*/ Main /*/
 #sidebar
@@ -41,15 +38,13 @@
     margin-left: 14px
     margin-right: 14px
     position: relative
-
-    transition: all 0.5s
+    transition: margin 0.5s
 
     &Container
         overflow-x: scroll
         width: auto
         position: sticky
         top: 20px
-        transition: all 0.7s
 
         .form-label
             display: block
