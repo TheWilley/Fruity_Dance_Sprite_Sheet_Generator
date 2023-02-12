@@ -182,7 +182,7 @@ class GraphicHandler {
 		if (preview) {
 			this._state.popup.style.transform = "translate(-50%, 300px)";
 			this._state.mouse_circle.style.opacity = "100%";
-			this._state.delete.style.outline = "3px dashed red";
+			this._state.delete.style.outline = "3px solid red";
 		} else {
 			this._state.popup.style.transform = "translate(-50%, 150px)";
 			this._state.mouse_circle.style.opacity = "0%";
