@@ -1,3 +1,4 @@
+/*/ Media Queries /*/
 @media only screen and (max-width: 1199px)
     #sidebarContainer
         position: initial !important
@@ -30,7 +31,7 @@
     #collection
         display: table
 
-/*/ Classes /*/
+/*/ Main /*/
 #sidebar
     background-color: rgb(49, 49, 49)
     border-radius: 5px
@@ -55,69 +56,52 @@
             color: #ffffff9f
             text-align: left
 
-        .result-container
-            background: url('../../public/images/transparent.jpg')
-            overflow: hidden
-            border-radius: 3px
-            width: 100%
-            height: 100%
-            margin-top: 5px
-            padding: 3px
-            min-width: fit-content
+        #result
+            background-color: rgb(33, 37, 41)
+            border-radius: 4px
+            margin-top: 10px
+            max-height: 63vh
 
-.thumbnail
-    margin: 5px
-    min-height: 40px
-    width: 250px
-    max-width: 100%
-    padding: 13px
+            .result-container
+                background: url('../../public/images/transparent.jpg')
+                overflow: hidden
+                border-radius: 3px
+                width: 100%
+                height: 100%
+                margin-top: 5px
+                padding: 3px
+                min-width: fit-content
 
-.fixed-wrapper
-    position: absolute
+                &:first-of-type
+                    margin-top: 0px
 
-​.parent 
-    position: relative
+                .thumbnail
+                    margin: 5px
+                    min-height: 40px
+                    width: 250px
+                    max-width: 100%
+                    padding: 13px
 
-.fixed
-    position: fixed
-
-.isdragged
-    position: absolute
-    transition: width 2s
-
-/*/ ID's /*/
-#result
-    background-color: rgb(33, 37, 41)
-    border-radius: 4px
-    margin-top: 10px
-    max-height: 63vh
-
-#upload_files
-    width: 100%
-
-#fiels
-    width: 100%
-
-.fixedSidebar
+/*/ Dynamically assigned /*/
+.fixed_sidebar
     margin: 0 !important
     background-color: #1c1c1c !important
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
     transition: all 0.5s
 
-.fixedContainer
+.fixed_container
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
     transition: all 0.7s
 
 /*/ Filepond /*/
-
-/* the background color of the filepond drop area */
+// The background color of the filepond drop area
 .filepond--panel-root
     background-color: rgb(56, 56, 56) !important
 
-/* the background color of the drop circle */
+// The background color of the drop circle
 .filepond--drip-blob
     background-color: rgb(24, 24, 24) !important
 
-/* the text color of the drop label*/
+// The text color of the drop label
 .filepond--drop-label
     color: rgb(159, 159, 159) !important

@@ -92,11 +92,11 @@ class EventListeners {
 		 */
 		$(window).on("scroll", () => {
 			if ($(window).scrollTop() >= 45) {
-				this._state.sidebar.classList.add("fixedSidebar");
-				this._state.sidebarContainer.classList.add("fixedContainer");
+				this._state.sidebar.classList.add("fixed_sidebar");
+				this._state.sidebarContainer.classList.add("fixed_container");
 			} else {
-				this._state.sidebar.classList.remove("fixedSidebar");
-				this._state.sidebarContainer.classList.remove("fixedContainer");
+				this._state.sidebar.classList.remove("fixed_sidebar");
+				this._state.sidebarContainer.classList.remove("fixed_container");
 			}
 		});
 
