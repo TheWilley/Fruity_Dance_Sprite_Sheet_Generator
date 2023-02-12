@@ -43,6 +43,7 @@ class GraphicHandler {
 			// Get width and height
 			const cell_width = parseInt(this._state.cell_width.value);
 			const cell_height = parseInt(this._state.cell_height.value);
+			const multiplier = 10;
 
 			// Check if whole canvas is being cleared or only part of it
 			switch (clear) {
@@ -58,8 +59,8 @@ class GraphicHandler {
 					ctx.clearRect(
 						cell_width * cellnumb + Number(Xoffset),
 						cell_height * rownumb + Number(Yoffset),
-						cell_width,
-						cell_height
+						cell_width * multiplier,
+						cell_height * multiplier
 					);
 			}
 
@@ -69,8 +70,8 @@ class GraphicHandler {
 					GeneratedCanvas,
 					cell_width * cellnumb + Number(Xoffset),
 					cell_height * rownumb + Number(Yoffset),
-					cell_width,
-					cell_height
+					cell_width * multiplier,
+					cell_height * multiplier
 				);
 			};
 		}
