@@ -59,7 +59,7 @@ class DownloadUpload {
 
 		// Check if last row have text 'held'
 		if (!whitelines()) {
-			alert("No white lines!");
+			alert("No white lines in animation names!");
 			return false;
 		} else if (lines[lines.length - 1] != "Held") {
 			alert("Could not find animation name 'Held' at last line!");
