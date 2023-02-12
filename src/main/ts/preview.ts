@@ -88,14 +88,12 @@ class Preview {
 		);
 
 		// First stroke the text
-		context.font = "15px serif";
-		context.strokeStyle = "black";
-		context.lineWidth = 2;
-		context.strokeText(String(this._frame), 0, pasteY + 12);
-
-		// Then fill it
+		context.fillStyle = "rgba(0, 0, 0, 0.8)";
+		context.fillRect(0, 0, 12, 16);
 		context.fillStyle = "white";
-		context.fillText(String(this._frame + 1), 0, pasteY + 12);
+		context.font = "15px serif";
+		context.lineWidth = 2;
+		context.fillText(String(this._frame), 0, pasteY + 12);
 
 		// Go to next frame
 		this._frame++;
