@@ -2,24 +2,25 @@
 @media only screen and (max-width: 1199px)
     #sidebarContainer
         position: initial !important
-        overflow-x: auto
-        max-height: 220px
+        max-height: 320px
         border-radius: 5px
 
     .post-form
         text-align: left
 
     .result-container
-        margin-right: 20px
+        margin-right: 10px
         display: inline-block
         margin-top: 0px !important
+        max-height: 200px
 
     .thumbnail
-        max-height: 120px
+        max-width: 100%
+        object-fit: cover
+        width: 100% !important
 
     #result
         overflow-y: unset !important
-        overflow-x: auto !important
         display: flex
         direction: row
 
@@ -61,6 +62,9 @@
             border-radius: 4px
             margin-top: 10px
             max-height: 63vh
+            overflow: auto
+            padding: 5px
+            width: 100%
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
