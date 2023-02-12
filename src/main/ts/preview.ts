@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 
 /**
  * Generates the preview canvas element
@@ -39,7 +39,7 @@ class Preview {
 
 		// Set the height and width
 		const canvas = document.createElement("canvas");
-		canvas.classList.add("gifPreview");
+		canvas.classList.add("gif_previews");
 
 		// Generate canvas
 		this._previewCanvas = canvas;
