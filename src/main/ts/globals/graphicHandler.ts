@@ -338,11 +338,11 @@ class GraphicHandler {
 	/**
 	 * Shows or hides preview columns in table
 	 */
-	public showPreview() {
+	public show_preview() {
 		const root = document.documentElement;
-		root.style.getPropertyValue("--showPreview") == "none"
-			? root.style.setProperty("--showPreview", "block")
-			: root.style.setProperty("--showPreview", "none");
+		root.style.getPropertyValue("--show_preview") == "none"
+			? root.style.setProperty("--show_preview", "block")
+			: root.style.setProperty("--show_preview", "none");
 	}
 
 	public get selectedItem() {

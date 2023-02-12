@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import DownloadUpload from "./downloadUpload";
 import $ from "jquery";
 
@@ -66,17 +66,17 @@ class EventListeners {
 			this._graphicHandler.remove();
 		});
 
-		$(this._state.startPreview).on("click", () => {
+		$(this._state.start_preview).on("click", () => {
 			this._graphicHandler.configPreview(true);
 		});
 
-		$(this._state.pausePreview).on("click", () => {
+		$(this._state.pause_preview).on("click", () => {
 			this._graphicHandler.configPreview(false);
 		});
 
-		$(this._state.showPreview).on("click", (event) => {
+		$(this._state.show_preview).on("click", (event) => {
 			event.stopImmediatePropagation();
-			this._graphicHandler.showPreview();
+			this._graphicHandler.show_preview();
 		});
 
 		$(this._state.clear).on("click", () => {
