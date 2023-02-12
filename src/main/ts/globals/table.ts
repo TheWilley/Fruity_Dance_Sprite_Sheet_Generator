@@ -1,6 +1,6 @@
 import Preview from "../preview";
 import ImageInfo from "../imageInfo";
-import {globals} from "../setup";
+import { globals } from "../setup";
 
 class Table {
 	private _settings = globals.config.settings;
@@ -12,7 +12,7 @@ class Table {
 	 * Itterates table and inserts images from object
 	 */
 	iterateTable() {
-		for (const row of this._state.dyntable.rows) {
+		for (const row of this._state.frames_editor.rows) {
 			for (const cell of row.cells) {
 				if (
 					cell.classList.contains("dropzones") &&
@@ -62,7 +62,7 @@ class Table {
 		this._state.result.innerHTML = localStorage.getItem("images");
 		sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
-		this._state.dyntable.innerHTML =
+		this._state.frames_editor.innerHTML =
 			"<thead><td class=\"rownumb\"> Row </td><td width=\"80\" height=\"20\">Frame 1</td><td width=\"80\" height=\"20\">Frame 2</td><td width=\"80\" height=\"20\">Frame 3</td><td width=\"80\" height=\"20\">Frame 4</td><td width=\"80\" height=\"20\">Frame 5</td><td width=\"80\" height=\"20\">Frame 6</td><td width=\"80\" height=\"20\">Frame 7</td><td width=\"80\" height=\"20\">Frame 8</td><td>Preview</td></thead>";
 
 		// Stop all objects
@@ -77,7 +77,7 @@ class Table {
 		// Loop trough and add rows
 		for (let x = 0; x < this._state.rows.value; x++) {
 			/* For every row, add another row to the 2D array in @getSet.js.
-            This way, the array is dynamic. */
+			This way, the array is dynamic. */
 			this._imageCollection.cellCollection.push([]);
 
 			// Generate tanle rows
@@ -90,7 +90,7 @@ class Table {
 			rowNumb.innerHTML =
 				x + 1 == this._state.rows.value ? "Held" : String(x + 1);
 			table_row.appendChild(rowNumb);
-			this._state.dyntable.appendChild(table_row);
+			this._state.frames_editor.appendChild(table_row);
 
 			for (let y = 0; y <= 7; y++) {
 				// Here we add a tempobject to the grid to store for later usage
