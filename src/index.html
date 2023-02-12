@@ -118,6 +118,7 @@
 						<h2 style="text-decoration: underline">Edit</h2>
 						<form
 							id="settings"
+							class="form-area"
 							style="margin-bottom: 8px"
 							onsubmit="return false">
 							<label class="form-label">
@@ -150,6 +151,20 @@
 									min="80"
 									max="150" />
 							</label>
+						</form>
+
+						<form class="form-area" onsubmit="return false">
+							<label class="form-label"
+								>X-offset
+								<input
+									id="offset_x"
+									class="offsetControlls"
+									step="1"
+									type="number"
+									min="-150"
+									max="150"
+									disabled />
+							</label>
 							<label class="form-label">
 								Multiplier
 								<input
@@ -160,27 +175,17 @@
 									max="3"
 									disabled />
 							</label>
-						</form>
-
-						<form id="offset" onsubmit="return false">
-							<label>X-offset:</label>
-							<input
-								id="offset_x"
-								class="offsetControlls"
-								step="1"
-								type="number"
-								min="-150"
-								max="150"
-								disabled />
-							<input
-								id="offset_y"
-								class="offsetControlls"
-								step="1"
-								type="number"
-								min="-150"
-								max="150"
-								disabled />
-							<label>:Y-offset</label>
+							<label class="form-label"
+								>Y-offset
+								<input
+									id="offset_y"
+									class="offsetControlls"
+									step="1"
+									type="number"
+									min="-150"
+									max="150"
+									disabled />
+							</label>
 							<button class="btn btn-warning btn-sm" id="delete" disabled>
 								Delete
 							</button>
