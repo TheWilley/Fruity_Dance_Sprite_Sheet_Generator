@@ -139,7 +139,7 @@ class Table {
 		);
 		canvas_element.setAttribute("id", "canvas");
 
-		this._state.ContainerCanvas.appendChild(canvas_element);
+		this._state.container_canvas.appendChild(canvas_element);
 
 		// Reset text element
 		this._state.textarea.value = "";
