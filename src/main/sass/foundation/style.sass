@@ -60,7 +60,7 @@ html
 
         table,
         td
-            border: 1px solid rgb(141, 141, 141)
+            border: 1px solid #191c1f
             padding: 12px
 
         #delete
@@ -78,6 +78,9 @@ html
             #frames_editor
                 padding: 10px
                 margin: 0 auto
+                background: #262a2e
+                border-radius: 5px
+                overflow: hidden
 
                 .dropzones
                     position: relative
@@ -96,6 +99,7 @@ html
 
                 .rownumb
                     background-color: #3b3c3e
+                    border: none
 
                 .immg-grid
                     width: 70px
@@ -104,9 +108,13 @@ html
                     z-index: 0
                     outline: solid 1px gray
                     transition: border-radius 0.4s
+                    background-size: 162px
+                    background-image: url("../../public/images/transparent.jpg")
 
                 .gif_previews
                     border: rgb(64, 64, 64) 1px solid !important
+                    background-size: 162px
+                    background-image: url("../../public/images/transparent.jpg")
 
         #popup
             width: 100%
@@ -157,7 +165,8 @@ html
             overflow: auto
 
             #canvas
-                border: 2px dotted rgb(87, 128, 81) !important
+                background-size: 162px
+                background-image: url("../../public/images/transparent.jpg")
 
 /*/ Other /*/
 .can-drop
