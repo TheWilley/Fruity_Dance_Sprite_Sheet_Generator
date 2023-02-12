@@ -75,25 +75,25 @@ class Configuration {
 			[
 				"minXOffset",
 				(value) => {
-					this._state.offsetX.setAttribute("min", value);
+					this._state.offset_x.setAttribute("min", value);
 				}
 			],
 			[
 				"maxXOffset",
 				(value) => {
-					this._state.offsetX.setAttribute("max", value);
+					this._state.offset_x.setAttribute("max", value);
 				}
 			],
 			[
 				"minYOffset",
 				(value) => {
-					this._state.offsetY.setAttribute("min", value);
+					this._state.offset_y.setAttribute("min", value);
 				}
 			],
 			[
 				"maxYOffset",
 				(value) => {
-					this._state.offsetY.setAttribute("max", value);
+					this._state.offset_y.setAttribute("max", value);
 				}
 			],
 			[

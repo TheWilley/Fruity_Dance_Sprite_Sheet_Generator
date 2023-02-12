@@ -251,8 +251,8 @@ class GraphicHandler {
 	 * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
 	 */
 	public disableControls(enabled: boolean) {
-		this._state.offsetX.disabled = enabled;
-		this._state.offsetY.disabled = enabled;
+		this._state.offset_x.disabled = enabled;
+		this._state.offset_y.disabled = enabled;
 		this._state.delete.disabled = enabled;
 	}
 
@@ -276,8 +276,8 @@ class GraphicHandler {
 
 		// Unbind all events
 		if (currentObject != this._previousObject) {
-			$(this._state.offsetX).unbind();
-			$(this._state.offsetY).unbind();
+			$(this._state.offset_x).unbind();
+			$(this._state.offset_y).unbind();
 		}
 
 		// Check if object has been accessed before
@@ -300,15 +300,15 @@ class GraphicHandler {
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset;
 
 			// Set values
-			this._state.offsetX.value = Xoffset;
-			this._state.offsetY.value = Yoffset;
+			this._state.offset_x.value = Xoffset;
+			this._state.offset_y.value = Yoffset;
 
-			$([this._state.offsetX, this._state.offsetY]).on("change", (event) => {
+			$([this._state.offset_x, this._state.offset_y]).on("change", (event) => {
 				this.checkMinMax(event);
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset =
-					this._state.offsetX.value;
+					this._state.offset_x.value;
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset =
-					this._state.offsetY.value;
+					this._state.offset_y.value;
 				this.redraw();
 			});
 		}
