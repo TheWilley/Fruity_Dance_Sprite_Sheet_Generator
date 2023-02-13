@@ -135,17 +135,21 @@ html
                 max-width: 50%
                 height: 100%
 
-        .form-area
-            position: relative
+    .form-area
+        position: relative
+        margin: 3px
 
-            .form-label
-                width: 80px
-                font-weight: bold
-                color: #ffffff9f
-                text-align: left
+        .form-label
+            width: 80px
+            font-weight: bold
+            color: #ffffff9f
+            text-align: center
+            margin: 3px
+            padding: 0px
 
-                input
-                    width: 80px
+            input
+                width: 100%
+                text-align: center
 
     // Names section
     #names_section
@@ -168,6 +172,13 @@ html
             #canvas
                 background-size: 162px
                 background-image: url("../../public/images/transparent.jpg")
+
+    #settings_section
+        .form-label
+            width: 160px
+
+            input
+                width: 160px
 
 /*/ Other /*/
 .can-drop

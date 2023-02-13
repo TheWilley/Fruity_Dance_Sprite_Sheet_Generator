@@ -85,7 +85,7 @@
 										type="file"
 										multiple
 										hidden />
-									<label class="form-label">
+									<label class="form-label bg-secondary bg-opacity-10 rounded">
 										Upload Mode
 										<select
 											id="cumulative"
@@ -95,7 +95,7 @@
 											<option>NOT Transparent GIF</option>
 										</select>
 									</label>
-									<label class="form-label">
+									<label class="form-label bg-secondary bg-opacity-10 rounded">
 										Collection
 										<select
 											name="collections"
@@ -115,13 +115,13 @@
 						<div id="popup">
 							<img id="popup_image" />
 						</div>
-						<h2 style="text-decoration: underline">Edit</h2>
+						<h2>Edit</h2>
 						<form
 							id="settings"
 							class="form-area"
 							style="margin-bottom: 8px"
 							onsubmit="return false">
-							<label class="form-label">
+							<label class="form-label bg-secondary bg-opacity-10 rounded">
 								Rows
 								<input
 									type="number"
@@ -131,7 +131,7 @@
 									min="1"
 									max="40" />
 							</label>
-							<label class="form-label">
+							<label class="form-label bg-secondary bg-opacity-10 rounded">
 								Width
 								<input
 									type="number"
@@ -141,7 +141,7 @@
 									min="80"
 									max="150" />
 							</label>
-							<label class="form-label">
+							<label class="form-label bg-secondary bg-opacity-10 rounded">
 								Height
 								<input
 									type="number"
@@ -154,7 +154,7 @@
 						</form>
 
 						<form class="form-area" onsubmit="return false">
-							<label class="form-label"
+							<label class="form-label bg-secondary bg-opacity-10 rounded"
 								>X-offset
 								<input
 									id="offset_x"
@@ -165,7 +165,7 @@
 									max="150"
 									disabled />
 							</label>
-							<label class="form-label">
+							<label class="form-label bg-secondary bg-opacity-10 rounded">
 								Multiplier
 								<input
 									type="number"
@@ -175,7 +175,7 @@
 									max="3"
 									disabled />
 							</label>
-							<label class="form-label"
+							<label class="form-label bg-secondary bg-opacity-10 rounded"
 								>Y-offset
 								<input
 									id="offset_y"
@@ -208,14 +208,13 @@
 
 					<!-- The output section -->
 					<div id="output_section" class="section-wrapper">
-						<h2 style="text-decoration: underline">Output</h2>
+						<h2>Output</h2>
 						<div id="container_canvas"></div>
 					</div>
 
 					<!-- The animation names section -->
 					<div id="names_section" class="section-wrapper">
-						<h2 style="text-decoration: underline">Animation Names</h2>
-
+						<h2>Animation Names</h2>
 						<textarea
 							id="textarea"
 							wrap="off"
@@ -228,11 +227,11 @@
 
 					<!-- The download section -->
 					<div id="export_section" class="section-wrapper">
-						<h2 style="text-decoration: underline">Settings</h2>
+						<h2>Export</h2>
 						<div class="container">
 							<div
 								class="row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
-								<h3 class="text-decoration-underline">Sprite Sheet</h3>
+								<h3>Sprite Sheet</h3>
 								<div class="col-5 align-items-center">
 									<input
 										id="filename"
@@ -249,7 +248,7 @@
 							</div>
 							<div
 								class="row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
-								<h3 class="text-decoration-underline">Json</h3>
+								<h3>Json</h3>
 								<div class="col-5">
 									<input id="uploadJson" type="file" />
 								</div>
@@ -264,7 +263,7 @@
 							</div>
 							<div
 								class="row mb-2 p-2 border border-dark bg-secondary bg-opacity-10 rounded">
-								<h3 class="text-decoration-underline">Uploaded Images</h3>
+								<h3>Uploaded Images</h3>
 								<div class="col">
 									<button id="clear" class="btn btn-danger">
 										Clear Uploaded Images
@@ -274,6 +273,204 @@
 						</div>
 					</div>
 
+					<div id="settings_section" class="section-wrapper">
+						<h2>Settings</h2>
+						<form>
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>App Limits</h3>
+								<label
+									for="maxRows"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Rows
+									<input type="number" id="maxRows" name="maxRows" value="20" />
+								</label>
+								<label
+									for="maxUploadSize"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Upload Size
+									<input
+										type="text"
+										id="maxUploadSize"
+										name="maxUploadSize"
+										value="8mb" />
+								</label>
+							</div>
+
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>Minimum Values</h3>
+								<label
+									for="minWidth"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Min Width
+									<input
+										type="number"
+										id="minWidth"
+										name="minWidth"
+										value="80" />
+								</label>
+								<label
+									for="minHeight"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Min Height
+									<input
+										type="number"
+										id="minHeight"
+										name="minHeight"
+										value="80" />
+								</label>
+								<label
+									for="minXOffset"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Min X Offset
+									<input
+										type="number"
+										id="minXOffset"
+										name="minXOffset"
+										value="-20" />
+								</label>
+								<label
+									for="minYOffset"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Min Y Offset
+									<input
+										type="number"
+										id="minYOffset"
+										name="minYOffset"
+										value="-150" />
+								</label>
+							</div>
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>Maximum Values</h3>
+								<label
+									for="maxWidth"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Width
+									<input
+										type="number"
+										id="maxWidth"
+										name="maxWidth"
+										value="150" />
+								</label>
+								<label
+									for="maxHeight"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Height
+									<input
+										type="number"
+										id="maxHeight"
+										name="maxHeight"
+										value="150" />
+								</label>
+								<label
+									for="maxXOffset"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max X Offset
+									<input
+										type="number"
+										id="maxXOffset"
+										name="maxXOffset"
+										value="150" />
+								</label>
+								<label
+									for="maxYOffset"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Y Offset
+									<input
+										type="number"
+										id="maxYOffset"
+										name="maxYOffset"
+										value="150" />
+								</label>
+							</div>
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>Image Adjustments</h3>
+								<label
+									for="imageQuality"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Image Quality
+									<input
+										type="number"
+										id="imageQuality"
+										name="imageQuality"
+										value="0.7" />
+								</label>
+								<label
+									for="imageSizeMultiplier"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Image Size Multiplier
+									<input
+										type="number"
+										id="imageSizeMultiplier"
+										name="imageSizeMultiplier"
+										value="1" />
+								</label>
+							</div>
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>Gif Adjustments</h3>
+								<label
+									for="maxAllowedGifFrames"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Max Gif Frames
+									<input
+										type="number"
+										id="maxAllowedGifFrames"
+										name="maxAllowedGifFrames"
+										value="30" />
+								</label>
+								<label
+									for="previewFPS"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Preview FPS
+									<input
+										type="number"
+										id="previewFPS"
+										name="previewFPS"
+										value="4" />
+								</label>
+							</div>
+							<div
+								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
+								<h3>Other</h3>
+								<label
+									for="amountOfCollections"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Amount Collections
+									<input
+										type="number"
+										id="amountOfCollections"
+										name="amountOfCollections"
+										value="12" />
+								</label>
+								<label
+									for="background"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Background
+									<input
+										type="text"
+										id="background"
+										name="background"
+										value="" />
+								</label>
+
+								<label
+									for="warnBeforeLeavingPage"
+									class="form-label bg-secondary bg-opacity-10 rounded"
+									>Warn Before Leaving
+									<input
+										type="checkbox"
+										id="warnBeforeLeavingPage"
+										name="warnBeforeLeavingPage"
+										value="true"
+										checked />
+								</label>
+							</div>
+						</form>
+					</div>
 					<!-- Footer -->
 					<div id="about_section">
 						<p>
