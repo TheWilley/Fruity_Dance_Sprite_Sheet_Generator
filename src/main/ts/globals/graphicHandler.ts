@@ -182,11 +182,13 @@ class GraphicHandler {
 		if (preview) {
 			this._state.popup.style.transform = "translate(-50%, 300px)";
 			this._state.mouse_circle.style.opacity = "100%";
-			this._state.delete.style.outline = "3px solid red";
+			this._state.delete.style.outline = "2px solid red";
+			this._state.delete.style.borderColor = "red";
 		} else {
 			this._state.popup.style.transform = "translate(-50%, 150px)";
 			this._state.mouse_circle.style.opacity = "0%";
 			this._state.delete.style.outline = "none";
+			this._state.delete.style.borderColor = "#ffc107";
 		}
 	}
 
