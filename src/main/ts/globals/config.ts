@@ -1,5 +1,4 @@
 import { globals } from "../setup";
-import json from "../../../config.json";
 
 interface IConfiguration {
 	/*/ Canvas settings /*/
@@ -33,7 +32,7 @@ class Configuration {
 	private _state = globals.elementCatcher;
 
 	constructor() {
-		this._settings = json;
+		this._settings = this.parseForm();
 
 		this.runConfig();
 	}
@@ -112,9 +111,40 @@ class Configuration {
 		});
 	}
 
+	parseForm() {
+		const form = document.getElementById("config_form") as HTMLFormElement;
+		const settings = {
+			maxRows: parseInt((form.elements.namedItem("max_rows") as HTMLInputElement).value) || 20,
+			minWidth: parseInt((form.elements.namedItem("min_cell_width") as HTMLInputElement).value) || 80,
+			minHeight: parseInt((form.elements.namedItem("min_cell_height") as HTMLInputElement).value) || 80,
+			minXOffset: parseInt((form.elements.namedItem("min_x_offset") as HTMLInputElement).value) || -20,
+			minYOffset: parseInt((form.elements.namedItem("min_y_offset") as HTMLInputElement).value) || -150,
+			maxWidth: parseInt((form.elements.namedItem("max_cell_width") as HTMLInputElement).value) || 150,
+			maxHeight: parseInt((form.elements.namedItem("max_cell_height") as HTMLInputElement).value) || 150,
+			maxXOffset: parseInt((form.elements.namedItem("max_x_offset") as HTMLInputElement).value) || 150,
+			maxYOffset: parseInt((form.elements.namedItem("max_y_offset") as HTMLInputElement).value) || 150,
+			maxUploadSize: (form.elements.namedItem("max_upload_size") as HTMLInputElement).value || "8mb",
+			imageQuality: parseFloat((form.elements.namedItem("image_quality") as HTMLInputElement).value) || 0.7,
+			imageSizeMultiplier: parseFloat((form.elements.namedItem("image_size_multiplier") as HTMLInputElement).value) || 1,
+			maxAllowedGifFrames: parseInt((form.elements.namedItem("max_allowed_gif_frames") as HTMLInputElement).value) || 30,
+			previewFPS: parseInt((form.elements.namedItem("preview_fps") as HTMLInputElement).value) || 4,
+			amountOfCollections: parseInt((form.elements.namedItem("amount_of_collections") as HTMLInputElement).value) || 12,
+			background: (form.elements.namedItem("background") as HTMLInputElement).value || null,
+			warnBeforeLeavingPage: (form.elements.namedItem("warn_before_leaving_page") as HTMLInputElement).checked || true
+		};
+
+		return settings;
+	}
+
+	refreshSettings() {
+		this._settings = this.parseForm();
+		this.runConfig();
+	}
+
 	get settings() {
 		return this._settings;
 	}
+
 
 	get state() {
 		return this._state;

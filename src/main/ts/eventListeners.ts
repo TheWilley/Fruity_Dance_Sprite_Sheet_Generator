@@ -7,6 +7,7 @@ class EventListeners {
 	private _state = globals.config.state;
 	private _downloadUpload = new DownloadUpload();
 	private _table = globals.table;
+	private _config = globals.config;
 	private _graphicHandler = globals.graphicHandler;
 
 	public run() {
@@ -119,6 +120,13 @@ class EventListeners {
 				if (this._table.checkEmptyCells()) this._table.addTable();
 			}
 		);
+
+		/**
+		 * Checks if connfig is changed
+		 */
+		$("#config_form").on("input", "input", () => {
+			this._config.refreshSettings();
+		});
 	}
 }
 

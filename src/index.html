@@ -275,24 +275,28 @@
 
 					<div id="settings_section" class="section-wrapper">
 						<h2>Settings</h2>
-						<form>
+						<form id="config_form">
 							<div
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>App Limits</h3>
 								<label
-									for="maxRows"
+									for="max_rows"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Rows
-									<input type="number" id="maxRows" name="maxRows" value="20" />
+									<input
+										type="number"
+										id="max_rows"
+										name="max_rows"
+										value="20" />
 								</label>
 								<label
-									for="maxUploadSize"
+									for="max_upload_size"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Upload Size
 									<input
 										type="text"
-										id="maxUploadSize"
-										name="maxUploadSize"
+										id="max_upload_size"
+										name="max_upload_size"
 										value="8mb" />
 								</label>
 							</div>
@@ -301,43 +305,43 @@
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>Minimum Values</h3>
 								<label
-									for="minWidth"
+									for="min_cell_width"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Min Width
 									<input
 										type="number"
-										id="minWidth"
-										name="minWidth"
+										id="min_cell_width"
+										name="min_cell_width"
 										value="80" />
 								</label>
 								<label
-									for="minHeight"
+									for="min_cell_height"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Min Height
 									<input
 										type="number"
-										id="minHeight"
-										name="minHeight"
+										id="min_cell_height"
+										name="min_cell_height"
 										value="80" />
 								</label>
 								<label
-									for="minXOffset"
+									for="min_x_offset"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Min X Offset
 									<input
 										type="number"
-										id="minXOffset"
-										name="minXOffset"
+										id="min_x_offset"
+										name="min_x_offset"
 										value="-20" />
 								</label>
 								<label
-									for="minYOffset"
+									for="min_y_offset"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Min Y Offset
 									<input
 										type="number"
-										id="minYOffset"
-										name="minYOffset"
+										id="min_y_offset"
+										name="min_y_offset"
 										value="-150" />
 								</label>
 							</div>
@@ -345,43 +349,43 @@
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>Maximum Values</h3>
 								<label
-									for="maxWidth"
+									for="max_cell_width"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Width
 									<input
 										type="number"
-										id="maxWidth"
-										name="maxWidth"
+										id="max_cell_width"
+										name="max_cell_width"
 										value="150" />
 								</label>
 								<label
-									for="maxHeight"
+									for="max_cell_height"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Height
 									<input
 										type="number"
-										id="maxHeight"
-										name="maxHeight"
+										id="max_cell_height"
+										name="max_cell_height"
 										value="150" />
 								</label>
 								<label
-									for="maxXOffset"
+									for="max_x_offset"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max X Offset
 									<input
 										type="number"
-										id="maxXOffset"
-										name="maxXOffset"
+										id="max_x_offset"
+										name="max_x_offset"
 										value="150" />
 								</label>
 								<label
-									for="maxYOffset"
+									for="max_y_offset"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Y Offset
 									<input
 										type="number"
-										id="maxYOffset"
-										name="maxYOffset"
+										id="max_y_offset"
+										name="max_y_offset"
 										value="150" />
 								</label>
 							</div>
@@ -389,23 +393,23 @@
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>Image Adjustments</h3>
 								<label
-									for="imageQuality"
+									for="image_quality"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Image Quality
 									<input
 										type="number"
-										id="imageQuality"
-										name="imageQuality"
+										id="image_quality"
+										name="image_quality"
 										value="0.7" />
 								</label>
 								<label
-									for="imageSizeMultiplier"
+									for="image_size_multiplier"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Image Size Multiplier
 									<input
 										type="number"
-										id="imageSizeMultiplier"
-										name="imageSizeMultiplier"
+										id="image_size_multiplier"
+										name="image_size_multiplier"
 										value="1" />
 								</label>
 							</div>
@@ -413,23 +417,23 @@
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>Gif Adjustments</h3>
 								<label
-									for="maxAllowedGifFrames"
+									for="max_allowed_gif_frames"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Max Gif Frames
 									<input
 										type="number"
-										id="maxAllowedGifFrames"
-										name="maxAllowedGifFrames"
+										id="max_allowed_gif_frames"
+										name="max_allowed_gif_frames"
 										value="30" />
 								</label>
 								<label
-									for="previewFPS"
+									for="preview_fps"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Preview FPS
 									<input
 										type="number"
-										id="previewFPS"
-										name="previewFPS"
+										id="preview_fps"
+										name="preview_fps"
 										value="4" />
 								</label>
 							</div>
@@ -437,13 +441,13 @@
 								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark bg-secondary bg-opacity-10 rounded">
 								<h3>Other</h3>
 								<label
-									for="amountOfCollections"
+									for="amount_of_collections"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Amount Collections
 									<input
 										type="number"
-										id="amountOfCollections"
-										name="amountOfCollections"
+										id="amount_of_collections"
+										name="amount_of_collections"
 										value="12" />
 								</label>
 								<label
@@ -458,13 +462,13 @@
 								</label>
 
 								<label
-									for="warnBeforeLeavingPage"
+									for="warn_before_leaving_page"
 									class="form-label bg-secondary bg-opacity-10 rounded"
 									>Warn Before Leaving
 									<input
 										type="checkbox"
-										id="warnBeforeLeavingPage"
-										name="warnBeforeLeavingPage"
+										id="warn_before_leaving_page"
+										name="warn_before_leaving_page"
 										value="true"
 										checked />
 								</label>
