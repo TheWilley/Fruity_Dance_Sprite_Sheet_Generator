@@ -126,6 +126,7 @@ class EventListeners {
 		 */
 		$("#config_form").on("input", "input", () => {
 			this._config.refreshSettings();
+			this._state.apply_settings.style.display = "block";
 		});
 	}
 }
