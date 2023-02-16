@@ -49,13 +49,13 @@ Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html
 
 ![image](https://user-images.githubusercontent.com/89783791/219487771-f7902095-826e-413a-8db9-dba32b5482ff.png)
 
-- Right click on an image to sort it into a "collection". <br>
-- Upload one or many image files **or** a gif file to auto extract its frames. If you upload a gif, choose upload mode. <br>
-  - If you're going to upload a gif with a transparent background, choose `Upload mode: Transparent GIF`.
-  - Otherwise, choose `Upload mode: NON Transparent GIF`. <br>
+- Right-click on an image to sort it into a "collection". <br>
+- Upload one or many image files or a gif file to auto-extract its frames. If you upload a GIF, choose the upload mode. <br>
+  - If you're going to upload a gif with a transparent background, choose Upload mode: Transparent GIF.
+  - Otherwise, choose Upload mode: NON Transparent GIF. <br>
 - Drag and drop images into the grid to place them. <br>
-- Save your sprite sheet as a JSON file and load it later, or download the compiled sprite sheet image and text file
-- Adjust the generator in the settings
+- Save your sprite sheet as a JSON file to load it later, or download the compiled sprite sheet image and text file.
+- Configure the generator in the settings section
 
 ## Keyboard shortcuts
 
@@ -64,7 +64,7 @@ Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html
     <tbody> 
         <tr>
             <td> <code> ctrl + s </code> / <code> ⌘ + s </code>
-            <td> Save the sprite sheet in json format </td>
+            <td> Save the sprite sheet in JSON format </td>
         </tr>
         <tr>
             <td> <code> ctrl + e </code> / <code> ⌘ + e </code>
