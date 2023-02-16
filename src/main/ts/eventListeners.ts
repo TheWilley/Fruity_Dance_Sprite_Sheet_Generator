@@ -124,9 +124,10 @@ class EventListeners {
 		/**
 		 * Checks if connfig is changed
 		 */
-		$("#config_form").on("input", "input", () => {
+		$("#config_form").on("input", "input", (event) => {
 			this._config.refreshSettings();
 			this._state.apply_settings.style.display = "block";
+			event.currentTarget.parentElement.style.boxShadow = "0 0 0 2px rgba(255, 193, 7, 0.5)";
 		});
 	}
 }
