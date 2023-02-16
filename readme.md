@@ -60,43 +60,6 @@ Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html
 - Save your sprite sheet for later as a json file or download it.
   ![image](https://user-images.githubusercontent.com/89783791/187178249-8b816e83-3715-42c2-9558-6f033495c318.png)
 
-## Configure the generator
-
-The current configuration is set to give the best user experience, but you may reconfigure the generator if you want to.
-
-You can find the config file `config.json` in the `src` folder. The current config looks like this:
-
-```javascript
-var settings = {
-	/*/ Canvas settings /*/
-	maxRows: 40, // Max amount of allowed rows
-
-	minWidth: 80, // Minimum cell width
-	minHeight: 80, // Minimum cell height
-	minXOffset: -20, // Minimum X-offset
-	minYOffset: -150, // Minimum Y-offset
-
-	maxWidth: 150, // Maximum cell width
-	maxHeight: 150, // Maximum cell height
-	maxXOffset: 150, // Maximum X-offset
-	maxYOffset: 150, // Maximum Y-offset
-
-	/*/ Upload settings /*/
-	maxUploadSize: "8mb", // Max image upload size
-	imageQuality: 0.7, // The image quality (1 = best quality, 0 = worst quality)
-	imageSizeMultiplier: 1, // Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.
-	maxAllowedGifFrames: 30, // Limit how many frames of a gif to export
-
-	/*/ Other settings /*/
-	previewFPS: 4, // The FPS of a preview
-	amountOfCollections: 12, // The amount of collections
-	background: null, // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
-	warnBeforeLeavingPage: true // Warn user before leaving page to not discard any progress
-};
-```
-
-**NOTE THAT YOU HAVE TO REBUILD THE PROJECT TO MAKE THESE CHANGES TAKE EFFECT**
-
 ## Keyboard shortcuts
 
 <table>

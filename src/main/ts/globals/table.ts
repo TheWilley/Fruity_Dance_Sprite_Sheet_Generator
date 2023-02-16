@@ -63,7 +63,7 @@ class Table {
 		sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
 		this._state.frames_editor.innerHTML =
-			"<thead><td class=\"rownumb\"> Row </td><td width=\"80\" height=\"20\">Frame 1</td><td width=\"80\" height=\"20\">Frame 2</td><td width=\"80\" height=\"20\">Frame 3</td><td width=\"80\" height=\"20\">Frame 4</td><td width=\"80\" height=\"20\">Frame 5</td><td width=\"80\" height=\"20\">Frame 6</td><td width=\"80\" height=\"20\">Frame 7</td><td width=\"80\" height=\"20\">Frame 8</td><td>Preview</td></thead>";
+			"<thead id='table_head'><td class=\"rownumb\"> Row </td><td width=\"80\" height=\"20\">Frame 1</td><td width=\"80\" height=\"20\">Frame 2</td><td width=\"80\" height=\"20\">Frame 3</td><td width=\"80\" height=\"20\">Frame 4</td><td width=\"80\" height=\"20\">Frame 5</td><td width=\"80\" height=\"20\">Frame 6</td><td width=\"80\" height=\"20\">Frame 7</td><td width=\"80\" height=\"20\">Frame 8</td><td>Preview</td></thead>";
 
 		// Stop all objects
 		this._graphicHandler.previewObjects.forEach((object) => {

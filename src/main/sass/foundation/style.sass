@@ -1,7 +1,10 @@
-/*/ Variables /*/
+/*/ Dynamic Variables /*/
 :root
     --background: rgb(43, 43, 43)
     --show_preview: block
+
+/*/ Sass variables /*/
+$table_side_color: #383838
 
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
@@ -60,8 +63,10 @@ html
 
         table,
         td
-            border: 1px solid #191c1f
             padding: 12px
+
+        #table_head
+            background-color: $table_side_color
 
         #delete
             display: block
@@ -80,7 +85,6 @@ html
                 margin: 0 auto
                 background: #262a2e
                 border-radius: 5px
-                overflow: hidden
 
                 .dropzones
                     position: relative
@@ -98,7 +102,7 @@ html
                     display: var(--show_preview)
 
                 .rownumb
-                    background-color: #3b3c3e
+                    background-color: $table_side_color
                     border: none
 
                 .immg-grid
