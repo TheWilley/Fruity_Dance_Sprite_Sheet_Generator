@@ -1,5 +1,7 @@
 import { globals } from "./setup";
 import DownloadUpload from "./downloadUpload";
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
 import $ from "jquery";
 
 class EventListeners {
@@ -11,6 +13,9 @@ class EventListeners {
 	private _graphicHandler = globals.graphicHandler;
 
 	public run() {
+		// Create tippy tooltips
+		this.tippy();
+
 		/**
 		 * Keyboard shortcut
 		 * https://stackoverflow.com/a/14180949
@@ -153,6 +158,19 @@ class EventListeners {
 		 */
 		$(".collapse-button").on("click", (event) => {
 			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
+		});
+	}
+
+	public tippy() {
+		tippy("#frames_editor", {
+			content: "F = Frame, R = Row",
+			placement: "top-start",
+			delay: [500, 0]
+		});
+
+		tippy(".collapse-button", {
+			content: "Collapse",
+			delay: [500, 0]
 		});
 	}
 }
