@@ -63,27 +63,45 @@ class EventListeners {
 			this._downloadUpload.saveJson();
 		});
 
+		/**
+		 * Check if delete button has been clicked
+		 */
 		$(this._state.delete).on("click", () => {
 			this._graphicHandler.remove();
 		});
 
+		/**
+		 * Checks if start preview button has been clicked
+		 */
 		$(this._state.start_preview).on("click", () => {
 			this._graphicHandler.configPreview(true);
 		});
 
+		/**
+		 * Checks if pause preview button has been clicked
+		 */
 		$(this._state.pause_preview).on("click", () => {
 			this._graphicHandler.configPreview(false);
 		});
 
+		/**
+		 * Checks if show preview button has been clicked
+		 */
 		$(this._state.show_preview).on("click", (event) => {
 			event.stopImmediatePropagation();
 			this._graphicHandler.show_preview();
 		});
 
+		/**
+		 * Check if clear button has been clicked
+		 */
 		$(this._state.clear).on("click", () => {
 			this._downloadUpload.clearData();
 		});
 
+		/**
+		 * Checks if collection has been clicked
+		 */
 		$(this._state.collection).on("click", () => {
 			this._graphicHandler.filterClass();
 		});
@@ -122,7 +140,7 @@ class EventListeners {
 		);
 
 		/**
-		 * Checks if connfig is changed
+		 * Checks if config is changed
 		 */
 		$("#config_form").on("input", "input", (event) => {
 			this._config.refreshSettings();
@@ -130,6 +148,9 @@ class EventListeners {
 			event.currentTarget.parentElement.style.boxShadow = "0 0 0 2px rgba(255, 193, 7, 0.5)";
 		});
 
+		/**
+		 * Collapses section
+		 */
 		$(".collapse-button").on("click", (event) => {
 			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
 		});
