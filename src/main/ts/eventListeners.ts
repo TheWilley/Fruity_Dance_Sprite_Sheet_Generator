@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import DownloadUpload from "./downloadUpload";
 import $ from "jquery";
 
@@ -105,7 +105,7 @@ class EventListeners {
 		 * Runs Before leaving page
 		 */
 		$(window).on("beforeunload", () => {
-			if (this._settings.warnBeforeLeavingPage)
+			if (this._settings.warn_before_leaving_page)
 				return "Your changes might not be saved";
 		});
 

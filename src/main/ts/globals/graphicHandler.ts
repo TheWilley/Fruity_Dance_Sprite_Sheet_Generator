@@ -219,7 +219,7 @@ class GraphicHandler {
 		 */
 		const classNames = (() => {
 			const temp = [];
-			for (let i = 0; i < this._settings.amountOfCollections; i++) {
+			for (let i = 0; i < this._settings.amount_of_collections; i++) {
 				temp.push(`col${i}`);
 
 				contextMenu.addItem(`Collection ${i}`, function () {

@@ -173,7 +173,7 @@ class DownloadUpload {
 		 */
 		const extractFrames = async (file: File) => {
 			return new Promise<void>((resolve) => {
-				const maxFrames = this._settings.maxAllowedGifFrames;
+				const maxFrames = this._settings.max_allowed_gif_frames;
 
 				// Export frames depending on transparency
 				gifFrames({
@@ -231,8 +231,8 @@ class DownloadUpload {
 			// Settings
 			labelIdle:
 				"Drag & Drop your <b>Image(s) / Gif</b> file or <span class=\"filepond--label-action\"> Browse </span>",
-			maxFileSize: this._settings.maxUploadSize
-				? this._settings.maxUploadSize
+			maxFileSize: this._settings.max_upload_size
+				? this._settings.max_upload_size
 				: "2mb",
 			allowMultiple: true,
 			maxFiles: 20,
@@ -278,7 +278,6 @@ class DownloadUpload {
 			for (const [i, row] of json.entries()) {
 				imageCollection.push([]);
 				for (const [e, cell] of row.entries()) {
-					console.log(cell, row);
 					imageCollection[i][e] = new ImageInfo(
 						cell._x,
 						cell._y,

@@ -12,5 +12,7 @@
 	"editor.formatOnSaveMode": "file",
 	"[sass]": {
 		"editor.defaultFormatter": "syler.sass-indented"
-	} // required to format on save
+	},
+	"github.copilot.advanced": {},
+	"github.copilot.inlineSuggest.enable": true // required to format on save
 }

@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 
 /**
  * Compresses image when uploading.
@@ -75,8 +75,8 @@ class CompressImages {
 		// Create animation
 		const animation = div.animate(
 			[
-				{transform: "translateX(-100%)", opacity: "0%"},
-				{transform: "translateX(0)", opacity: "100%"}
+				{ transform: "translateX(-100%)", opacity: "0%" },
+				{ transform: "translateX(0)", opacity: "100%" }
 			],
 			{
 				easing: "ease",
@@ -103,11 +103,11 @@ class CompressImages {
 	public init() {
 		// Settings
 		const MAX_WIDTH =
-			this._settings.maxWidth * this._settings.imageSizeMultiplier;
+			this._settings.max_cell_width * this._settings.image_size_multiplier;
 		const MAX_HEIGHT =
-			this._settings.maxHeight * this._settings.imageSizeMultiplier;
+			this._settings.max_cell_height * this._settings.image_size_multiplier;
 		const MIME_TYPE = "image/png";
-		const QUALITY = this._settings.imageQuality;
+		const QUALITY = this._settings.image_quality;
 
 		// Convert file to blobURL
 		const blobURL = URL.createObjectURL(this._file);

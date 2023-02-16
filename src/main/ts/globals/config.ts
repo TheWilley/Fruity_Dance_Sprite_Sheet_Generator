@@ -1,30 +1,31 @@
-import {globals} from "../setup";
+import { globals } from "../setup";
 
+// Configuration interface
 interface IConfiguration {
 	/*/ Canvas settings /*/
-	maxRows: number; // Max amount of allowed rows
+	max_rows: number; // Max amount of allowed rows
 
-	minWidth: number; // Minimum cell width
-	minHeight: number; // Minimum cell height
-	minXOffset: number; // Minimum X-offset
-	minYOffset: number; // Minimum Y-offset
+	min_cell_width: number; // Minimum cell width
+	min_cell_height: number; // Minimum cell height
+	min_x_offset: number; // Minimum X-offset
+	min_y_offset: number; // Minimum Y-offset
 
-	maxWidth: number; // Maximum cell width
-	maxHeight: number; // Maximum cell height
-	maxXOffset: number; // Maximum X-offset
-	maxYOffset: number; // Maximum Y-offset
+	max_cell_width: number; // Maximum cell width
+	max_cell_height: number; // Maximum cell height
+	max_x_offset: number; // Maximum X-offset
+	max_y_offset: number; // Maximum Y-offset
 
 	/*/ Upload settings /*/
-	maxUploadSize: string; // Max image upload size
-	imageQuality: number; // The image quality (1 = best quality, 0 = worst quality)
-	imageSizeMultiplier: number; // Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.
-	maxAllowedGifFrames: number; // Limit how many frames of a gif to export
+	max_upload_size: string; // Max image upload size
+	image_quality: number; // The image quality (1 = best quality, 0 = worst quality)
+	image_size_multiplier: number; // Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.
+	max_allowed_gif_frames: number; // Limit how many frames of a gif to export
 
 	/*/ Other settings /*/
-	previewFPS: number; // The FPS of a preview
-	amountOfCollections: number; // The amount of collections
+	preview_fps: number; // The FPS of a preview
+	amount_of_collections: number; // The amount of collections
 	background: string; // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
-	warnBeforeLeavingPage: boolean; // Warn user before leaving page to not discard any progress
+	warn_before_leaving_page: boolean; // Warn user before leaving page to not discard any progress
 }
 
 class Configuration {
@@ -32,77 +33,79 @@ class Configuration {
 	private _state = globals.elementCatcher;
 
 	constructor() {
+		// Checks if there are any settings in local storage and applies them if there are
 		if (localStorage.getItem("settings") != undefined) {
 			this._settings = JSON.parse(localStorage.getItem("settings"));
-			this.setSettingsFromLocastipnStorage();
+			this.setFormValues();
 		} else {
-			this._settings = this.parseForm();
+			this._settings = this.getFromValues();
 		}
 
 		this.runConfig();
 	}
 
+	// Applies the settings
 	private runConfig() {
 		new Map([
 			[
-				"maxRows",
-				(value: number | boolean | string) => {
+				"max_rows",
+				(value: number) => {
 					this._state.rows.setAttribute("max", value);
 				}
 			],
 			[
-				"minWidth",
-				(value) => {
+				"min_cell_width",
+				(value: number) => {
 					this._state.cell_width.setAttribute("min", value);
 					this._state.cell_width.value = value;
 				}
 			],
 			[
-				"maxWidth",
-				(value) => {
+				"max_cell_width",
+				(value: number) => {
 					this._state.cell_width.setAttribute("max", value);
 				}
 			],
 			[
-				"minHeight",
-				(value) => {
+				"min_cell_height",
+				(value: number) => {
 					this._state.cell_height.setAttribute("min", value);
 					this._state.cell_height.value = value;
 				}
 			],
 			[
-				"maxHeight",
-				(value) => {
+				"max_cell_height",
+				(value: number) => {
 					this._state.cell_height.setAttribute("max", value);
 				}
 			],
 			[
-				"minXOffset",
-				(value) => {
+				"min_x_offset",
+				(value: number) => {
 					this._state.offset_x.setAttribute("min", value);
 				}
 			],
 			[
-				"maxXOffset",
-				(value) => {
+				"max_x_offset",
+				(value: number) => {
 					this._state.offset_x.setAttribute("max", value);
 				}
 			],
 			[
-				"minYOffset",
-				(value) => {
+				"min_y_offset",
+				(value: number) => {
 					this._state.offset_y.setAttribute("min", value);
 				}
 			],
 			[
-				"maxYOffset",
-				(value) => {
+				"max_y_offset",
+				(value: number) => {
 					this._state.offset_y.setAttribute("max", value);
 				}
 			],
 			[
 				"background",
-				(value) => {
+				(value: string) => {
 					const root = document.documentElement;
 					if (value != null)
 						String(value)[0] == "#"
@@ -110,64 +113,65 @@ class Configuration {
 							: root.style.setProperty("--background", `url(${value})`);
 				}
 			]
-		]).forEach((value, key) => {
+		] as [keyof IConfiguration, (any)][]).forEach((value, key) => {
 			if (this._settings[key as keyof IConfiguration])
 				value(this._settings[key as keyof IConfiguration]);
 		});
 	}
 
-	parseForm() {
+	// Parses the form and returns the settings
+	getFromValues() {
 		const form = document.getElementById("config_form") as HTMLFormElement;
-		const settings = {
-			maxRows:
+		const settings: IConfiguration = {
+			max_rows:
 				parseInt(
 					(form.elements.namedItem("max_rows") as HTMLInputElement).value
 				) || 20,
-			minWidth:
+			min_cell_width:
 				parseInt(
 					(form.elements.namedItem("min_cell_width") as HTMLInputElement).value
 				) || 80,
-			minHeight:
+			min_cell_height:
 				parseInt(
 					(form.elements.namedItem("min_cell_height") as HTMLInputElement).value
 				) || 80,
-			minXOffset:
+			min_x_offset:
 				parseInt(
 					(form.elements.namedItem("min_x_offset") as HTMLInputElement).value
 				) || -20,
-			minYOffset:
+			min_y_offset:
 				parseInt(
 					(form.elements.namedItem("min_y_offset") as HTMLInputElement).value
 				) || -150,
-			maxWidth:
+			max_cell_width:
 				parseInt(
 					(form.elements.namedItem("max_cell_width") as HTMLInputElement).value
 				) || 150,
-			maxHeight:
+			max_cell_height:
 				parseInt(
 					(form.elements.namedItem("max_cell_height") as HTMLInputElement).value
 				) || 150,
-			maxXOffset:
+			max_x_offset:
 				parseInt(
 					(form.elements.namedItem("max_x_offset") as HTMLInputElement).value
 				) || 150,
-			maxYOffset:
+			max_y_offset:
 				parseInt(
 					(form.elements.namedItem("max_y_offset") as HTMLInputElement).value
 				) || 150,
-			maxUploadSize:
+			max_upload_size:
 				(form.elements.namedItem("max_upload_size") as HTMLInputElement)
 					.value || "8mb",
-			imageQuality:
+			image_quality:
 				parseFloat(
 					(form.elements.namedItem("image_quality") as HTMLInputElement).value
 				) || 0.7,
-			imageSizeMultiplier:
+			image_size_multiplier:
 				parseFloat(
 					(form.elements.namedItem("image_size_multiplier") as HTMLInputElement)
 						.value
 				) || 1,
-			maxAllowedGifFrames:
+			max_allowed_gif_frames:
 				parseInt(
 					(
 						form.elements.namedItem(
@@ -175,11 +179,11 @@ class Configuration {
 						) as HTMLInputElement
 					).value
 				) || 30,
-			previewFPS:
+			preview_fps:
 				parseInt(
 					(form.elements.namedItem("preview_fps") as HTMLInputElement).value
 				) || 4,
-			amountOfCollections:
+			amount_of_collections:
 				parseInt(
 					(form.elements.namedItem("amount_of_collections") as HTMLInputElement)
 						.value
@@ -187,7 +191,7 @@ class Configuration {
 			background:
 				(form.elements.namedItem("background") as HTMLInputElement).value ||
 				null,
-			warnBeforeLeavingPage:
+			warn_before_leaving_page:
 				(
 					form.elements.namedItem(
 						"warn_before_leaving_page"
@@ -198,57 +202,30 @@ class Configuration {
 		return settings;
 	}
 
-	setSettingsFromLocastipnStorage() {
-		const form = document.getElementById("config_form") as HTMLFormElement;
-		const settings = this._settings;
-
-		// Update form inputs with loaded settings
-		(form.elements.namedItem("max_rows") as HTMLInputElement).value =
-			settings.maxRows.toString();
-		(form.elements.namedItem("min_cell_width") as HTMLInputElement).value =
-			settings.minWidth.toString();
-		(form.elements.namedItem("min_cell_height") as HTMLInputElement).value =
-			settings.minHeight.toString();
-		(form.elements.namedItem("min_x_offset") as HTMLInputElement).value =
-			settings.minXOffset.toString();
-		(form.elements.namedItem("min_y_offset") as HTMLInputElement).value =
-			settings.minYOffset.toString();
-		(form.elements.namedItem("max_cell_width") as HTMLInputElement).value =
-			settings.maxWidth.toString();
-		(form.elements.namedItem("max_cell_height") as HTMLInputElement).value =
-			settings.maxHeight.toString();
-		(form.elements.namedItem("max_x_offset") as HTMLInputElement).value =
-			settings.maxXOffset.toString();
-		(form.elements.namedItem("max_y_offset") as HTMLInputElement).value =
-			settings.maxYOffset.toString();
-		(form.elements.namedItem("max_upload_size") as HTMLInputElement).value =
-			settings.maxUploadSize;
-		(form.elements.namedItem("image_quality") as HTMLInputElement).value =
-			settings.imageQuality.toString();
-		(
-			form.elements.namedItem("image_size_multiplier") as HTMLInputElement
-		).value = settings.imageSizeMultiplier.toString();
-		(
-			form.elements.namedItem("max_allowed_gif_frames") as HTMLInputElement
-		).value = settings.maxAllowedGifFrames.toString();
-		(form.elements.namedItem("preview_fps") as HTMLInputElement).value =
-			settings.previewFPS.toString();
-		(
-			form.elements.namedItem("amount_of_collections") as HTMLInputElement
-		).value = settings.amountOfCollections.toString();
-		(form.elements.namedItem("background") as HTMLInputElement).value =
-			settings.background;
-		(
-			form.elements.namedItem("warn_before_leaving_page") as HTMLInputElement
-		).checked = settings.warnBeforeLeavingPage;
-	}
-
+	// Saves the settings to local storage
 	saveSettingsToLocalStorage(settings: IConfiguration) {
 		localStorage.setItem("settings", JSON.stringify(settings));
 	}
 
+	// Loads the settings from local storage and applies them to all input feilds
+	setFormValues() {
+		// Get the form
+		const form = document.getElementById("config_form") as HTMLFormElement;
+
+		// Loop through all the settings and set the value of each input feild
+		for (const key in this._settings) {
+			const input = form.elements.namedItem(key) as HTMLInputElement;
+			// Check if input is of type boolean
+			if (input.type == "checkbox") {
+				input.checked = this._settings[key as keyof IConfiguration] as boolean;
+			} else {
+				input.value = String(this._settings[key as keyof IConfiguration]);
+			}
+		}
+	}
+
 	refreshSettings() {
-		this._settings = this.parseForm();
+		this._settings = this.getFromValues();
 		this.saveSettingsToLocalStorage(this._settings);
 	}
 

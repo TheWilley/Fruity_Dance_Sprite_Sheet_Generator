@@ -118,7 +118,7 @@ class Table {
 			table_row.appendChild(previewCell);
 
 			// Create new preview objects
-			const temp = new Preview(x + 1, this._settings.previewFPS, previewCell);
+			const temp = new Preview(x + 1, this._settings.preview_fps, previewCell);
 			this._graphicHandler.previewObjects.push(temp);
 			temp.start();
 		}
@@ -147,7 +147,6 @@ class Table {
 
 		// Add to object
 		this._state.addElement(canvas_element);
-		console.log(this._state.canvas);
 
 		// Generate text in textarea
 		for (let line = 1; line < this._state.rows.value; line++) {
