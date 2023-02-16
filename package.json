@@ -45,7 +45,7 @@
 	"dependencies": {
 		"file-saver": "^2.0.5",
 		"filepond": "^4.30.4",
-		"gif-frames": "^1.0.1",
+		"gif-frames": "^0.2.4",
 		"interactjs": "^1.10.17",
 		"jquery": "^3.6.3",
 		"jszip": "^3.10.1",
