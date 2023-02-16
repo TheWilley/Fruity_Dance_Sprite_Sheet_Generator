@@ -1,4 +1,5 @@
 import { globals } from "../setup";
+import { ValuesType } from "utility-types";
 
 // Configuration interface
 interface IConfiguration {
@@ -28,6 +29,8 @@ interface IConfiguration {
 	warn_before_leaving_page: boolean; // Warn user before leaving page to not discard any progress
 }
 
+type ConfigurationAttributeTypes = ValuesType<IConfiguration>;
+
 class Configuration {
 	private _settings: IConfiguration;
 	private _state = globals.elementCatcher;
@@ -46,7 +49,7 @@ class Configuration {
 
 	// Applies the settings
 	private runConfig() {
-		new Map([
+		new Map<keyof IConfiguration, (value: ConfigurationAttributeTypes) => void>([
 			[
 				"max_rows",
 				(value: number) => {
@@ -113,7 +116,7 @@ class Configuration {
 							: root.style.setProperty("--background", `url(${value})`);
 				}
 			]
-		] as [keyof IConfiguration, (any)][]).forEach((value, key) => {
+		]).forEach((value, key) => {
 			if (this._settings[key as keyof IConfiguration])
 				value(this._settings[key as keyof IConfiguration]);
 		});
@@ -217,7 +220,6 @@ class Configuration {
 			const input = form.elements.namedItem(key) as HTMLInputElement;
 			// Check if input is of type boolean
 			if (input.type == "checkbox") {
-				console.log(this._settings[key as keyof IConfiguration] as boolean);
 				input.checked = this._settings[key as keyof IConfiguration] as boolean;
 			} else {
 				input.value = String(this._settings[key as keyof IConfiguration]);
