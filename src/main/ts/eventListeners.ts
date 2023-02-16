@@ -129,6 +129,10 @@ class EventListeners {
 			this._state.apply_settings.style.display = "block";
 			event.currentTarget.parentElement.style.boxShadow = "0 0 0 2px rgba(255, 193, 7, 0.5)";
 		});
+
+		$(".collapse-button").on("click", (event) => {
+			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
+		});
 	}
 }
 
