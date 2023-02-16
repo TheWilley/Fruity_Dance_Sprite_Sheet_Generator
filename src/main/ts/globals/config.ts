@@ -38,7 +38,7 @@ class Configuration {
 			this._settings = JSON.parse(localStorage.getItem("settings"));
 			this.setFormValues();
 		} else {
-			this._settings = this.getFromValues();
+			this._settings = this.getFormValues();
 		}
 
 		this.runConfig();
@@ -120,7 +120,7 @@ class Configuration {
 	}
 
 	// Parses the form and returns the settings
-	getFromValues() {
+	getFormValues() {
 		const form = document.getElementById("config_form") as HTMLFormElement;
 		const settings: IConfiguration = {
 			max_rows:
@@ -190,13 +190,13 @@ class Configuration {
 				) || 12,
 			background:
 				(form.elements.namedItem("background") as HTMLInputElement).value ||
-				null,
+				"",
 			warn_before_leaving_page:
 				(
 					form.elements.namedItem(
 						"warn_before_leaving_page"
 					) as HTMLInputElement
-				).checked || true
+				).checked || false
 		};
 
 		return settings;
@@ -217,6 +217,7 @@ class Configuration {
 			const input = form.elements.namedItem(key) as HTMLInputElement;
 			// Check if input is of type boolean
 			if (input.type == "checkbox") {
+				console.log(this._settings[key as keyof IConfiguration] as boolean);
 				input.checked = this._settings[key as keyof IConfiguration] as boolean;
 			} else {
 				input.value = String(this._settings[key as keyof IConfiguration]);
@@ -225,7 +226,7 @@ class Configuration {
 	}
 
 	refreshSettings() {
-		this._settings = this.getFromValues();
+		this._settings = this.getFormValues();
 		this.saveSettingsToLocalStorage(this._settings);
 	}
 
