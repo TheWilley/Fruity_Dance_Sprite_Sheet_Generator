@@ -19,7 +19,7 @@ You have two options:
 1. Download build
 2. Build from source
 
-#### Download build (not currently avaible)
+#### Download build
 
 You can download the build from the _releases_ section of this GitHub page.
 
