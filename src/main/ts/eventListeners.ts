@@ -1,119 +1,183 @@
-import { globals } from "./setup"
-import DownloadUpload from "./downloadUpload"
-import Table from "./table"
+import { globals } from "./setup";
+import DownloadUpload from "./downloadUpload";
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
 import $ from "jquery";
 
 class EventListeners {
-    private _settings = globals.config.settings
-    private _state = globals.config.state
-    private _downloadUpload = new DownloadUpload()
-    private _table = new Table()
-    private _graphicHandler = globals.graphicHandler
+	private _settings = globals.config.settings;
+	private _state = globals.config.state;
+	private _downloadUpload = new DownloadUpload();
+	private _table = globals.table;
+	private _config = globals.config;
+	private _graphicHandler = globals.graphicHandler;
 
-    public run() {
-        const self = this
-        /**
-         * Keyboard shortcut
-         * https://stackoverflow.com/a/14180949
-         */
-        $(window).on('keydown', function (event) {
-            if (event.ctrlKey || event.metaKey) {
-                switch (String.fromCharCode(event.which).toLowerCase()) {
-                    case 's': // Save
-                        event.stopImmediatePropagation()
-                        event.preventDefault();
-                        self._downloadUpload.saveJson();
-                        break;
-                    case 'e': // Export
-                        event.stopImmediatePropagation()
-                        event.preventDefault();
-                        self._state.filename.value = "savedSpriteSheet";
-                        self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
-                        self._state.filename.value = "";
-                        break;
-                    case 'u': // Clear uploaded images
-                        event.stopImmediatePropagation()
-                        event.preventDefault();
-                        self._downloadUpload.clearData()
-                        break;
-                }
-            }
-        });
+	public run() {
+		// Create tippy tooltips
+		this.tippy();
 
-        /**
-         * Checks if download sprite sheet button has been clicked
-         */
-        $(this._state.downloadSpriteSheet).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._downloadUpload.downloadZIP(self._state.canvas, self._state.textarea.value, self._state.filename.value);
-        });
+		/**
+		 * Keyboard shortcut
+		 * https://stackoverflow.com/a/14180949
+		 */
+		$(window).on("keydown", (event) => {
+			if (event.ctrlKey || event.metaKey) {
+				switch (String.fromCharCode(event.which).toLowerCase()) {
+					case "s": // Save
+						event.stopImmediatePropagation();
+						event.preventDefault();
+						this._downloadUpload.saveJson();
+						break;
+					case "e": // Export
+						event.stopImmediatePropagation();
+						event.preventDefault();
+						this._state.filename.value = "savedSpriteSheet";
+						this._downloadUpload.downloadZIP(
+							this._state.canvas,
+							this._state.textarea.value,
+							this._state.filename.value
+						);
+						this._state.filename.value = "";
+						break;
+					case "u": // Clear uploaded images
+						event.stopImmediatePropagation();
+						event.preventDefault();
+						this._downloadUpload.clearData();
+						break;
+				}
+			}
+		});
 
-        /**
-         * Checks if download Json button has been clicked
-         */
-        $(this._state.downloadJson).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._downloadUpload.saveJson();
-        });
+		/**
+		 * Checks if download sprite sheet button has been clicked
+		 */
+		$(this._state.downloadSpriteSheet).on("click", (event) => {
+			event.stopImmediatePropagation();
+			this._downloadUpload.downloadZIP(
+				this._state.canvas,
+				this._state.textarea.value,
+				this._state.filename.value
+			);
+		});
 
-        $(this._state.delete).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._graphicHandler.remove()
-        })
+		/**
+		 * Checks if download Json button has been clicked
+		 */
+		$(this._state.downloadJson).on("click", (event) => {
+			event.stopImmediatePropagation();
+			this._downloadUpload.saveJson();
+		});
 
-        $(this._state.startPreview).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._graphicHandler.configPreview(true)
-        })
+		/**
+		 * Check if delete button has been clicked
+		 */
+		$(this._state.delete).on("click", () => {
+			this._graphicHandler.remove();
+		});
 
-        $(this._state.pausePreview).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._graphicHandler.configPreview(false)
-        })
+		/**
+		 * Checks if start preview button has been clicked
+		 */
+		$(this._state.start_preview).on("click", () => {
+			this._graphicHandler.configPreview(true);
+		});
 
-        $(this._state.showPreview).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._graphicHandler.showPreview()
-        })
+		/**
+		 * Checks if pause preview button has been clicked
+		 */
+		$(this._state.pause_preview).on("click", () => {
+			this._graphicHandler.configPreview(false);
+		});
 
-        $(this._state.clear).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._downloadUpload.clearData()
-        })
+		/**
+		 * Checks if show preview button has been clicked
+		 */
+		$(this._state.show_preview).on("click", (event) => {
+			event.stopImmediatePropagation();
+			this._graphicHandler.show_preview();
+		});
 
-        $(this._state.collection).on('click', function (event) {
-            event.stopImmediatePropagation()
-            self._graphicHandler.filterClass()
-        })
+		/**
+		 * Check if clear button has been clicked
+		 */
+		$(this._state.clear).on("click", () => {
+			this._downloadUpload.clearData();
+		});
 
-        /**
-         * Checks scroll position
-         */
-        $(window).on("scroll", (event) => {
-            if ($(window).scrollTop() >= 45) {
-                this._state.sidebar.classList.add("fixedSidebar")
-                this._state.sidebarContainer.classList.add("fixedContainer")
-            } else {
-                this._state.sidebar.classList.remove("fixedSidebar")
-                this._state.sidebarContainer.classList.remove("fixedContainer")
-            }
-        });
+		/**
+		 * Checks if collection has been clicked
+		 */
+		$(this._state.collection).on("click", () => {
+			this._graphicHandler.filterClass();
+		});
 
-        /**
-         * Runs Before leaving page
-         */
-        $(window).on('beforeunload', function () {
-            if (self._settings.warnBeforeLeavingPage) return 'Your changes might not be saved';
-        })
+		/**
+		 * Checks scroll position
+		 */
+		$(window).on("scroll", () => {
+			if ($(window).scrollTop() >= 45) {
+				this._state.sidebar.classList.add("fixed_sidebar");
+				this._state.sidebarContainer.classList.add("fixed_container");
+			} else {
+				this._state.sidebar.classList.remove("fixed_sidebar");
+				this._state.sidebarContainer.classList.remove("fixed_container");
+			}
+		});
 
-        /**
-         * Checks if element values are too high or low
-         */
-        $([this._state.rows, this._state.cell_width, this._state.cell_height]).on('change', function (event: JQuery.ChangeEvent) {
-            self._graphicHandler.checkMinMax(event);
-            if (self._table.checkEmptyCells()) self._table.addTable();
-        });
-    }
+		/**
+		 * Runs Before leaving page
+		 */
+		$(window).on("beforeunload", () => {
+			if (this._settings.warn_before_leaving_page)
+				return "Your changes might not be saved";
+		});
+
+		/**
+		 * Checks if element values are too high or low
+		 */
+		$([this._state.rows, this._state.cell_width, this._state.cell_height]).on(
+			"change",
+			(event: JQuery.ChangeEvent) => {
+				event.stopImmediatePropagation();
+				this._graphicHandler.checkMinMax(event);
+				if (this._table.checkEmptyCells()) this._table.addTable();
+			}
+		);
+
+		/**
+		 * Checks if config is changed
+		 */
+		$("#config_form").on("input", "input", (event) => {
+			this._config.refreshSettings();
+			this._state.apply_settings.style.display = "inline-block";
+			event.currentTarget.parentElement.style.boxShadow = "0 0 0 2px rgba(255, 193, 7, 0.5)";
+		});
+
+		/**
+		 * Collapses section
+		 */
+		$(".collapse-button").on("click", (event) => {
+			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
+		});
+
+		/**
+		 * Removes all autocomplete from inputs
+		 */
+		$("input").attr("autocomplete", "off");
+	}
+
+	public tippy() {
+		tippy("#frames_editor", {
+			content: "F = Frame, R = Row",
+			placement: "top-start",
+			delay: [500, 0]
+		});
+
+		tippy(".collapse-button", {
+			content: "Collapse",
+			delay: [500, 0]
+		});
+	}
 }
 
-export default EventListeners
+export default EventListeners;

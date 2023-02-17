@@ -1,45 +1,55 @@
-import Configuration from "./config"
-import ElementCatcher from "./elementCatcher"
-import ImageCollection from "./imageCollection"
-import GraphicHandler from "./graphicHandler"
+import Configuration from "./config";
+import ElementCatcher from "./elementCatcher";
+import ImageCollection from "./imageCollection";
+import GraphicHandler from "./graphicHandler";
+import Table from "./table";
 
 class Globals {
-    private _elementCatcher: ElementCatcher
-    private _config: Configuration
-    private _imageCollection: ImageCollection
-    private _graphicHandler: GraphicHandler
+	private _elementCatcher: ElementCatcher;
+	private _config: Configuration;
+	private _imageCollection: ImageCollection;
+	private _graphicHandler: GraphicHandler;
+	private _table: Table;
 
-    get elementCatcher() {
-        return this._elementCatcher
-    }
+	get elementCatcher() {
+		return this._elementCatcher;
+	}
 
-    get config() {
-        return this._config
-    }
+	set elementCatcher(value: ElementCatcher) {
+		this._elementCatcher = value;
+	}
 
-    get imageCollection() {
-        return this._imageCollection
-    }
+	get config() {
+		return this._config;
+	}
 
-    get graphicHandler() {
-        return this._graphicHandler
-    }
+	set config(value: Configuration) {
+		this._config = value;
+	}
 
-    set elementCatcher(value: ElementCatcher) {
-        this._elementCatcher = value
-    }
+	get imageCollection() {
+		return this._imageCollection;
+	}
 
-    set config(value: Configuration) {
-        this._config = value
-    }
+	set imageCollection(value: ImageCollection) {
+		this._imageCollection = value;
+	}
 
-    set imageCollection(value: ImageCollection) {
-        this._imageCollection = value
-    }
-    
-    set graphicHandler(value: GraphicHandler) {
-        this._graphicHandler = value
-    }
+	get graphicHandler() {
+		return this._graphicHandler;
+	}
+
+	set graphicHandler(value: GraphicHandler) {
+		this._graphicHandler = value;
+	}
+
+	get table() {
+		return this._table;
+	}
+
+	set table(value: Table) {
+		this._table = value;
+	}
 }
 
-export default Globals
+export default Globals;

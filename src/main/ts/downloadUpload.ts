@@ -1,277 +1,349 @@
-import { globals } from "./setup"
-import * as FilePond from 'filepond';
-import { saveAs } from 'file-saver';
-import JSZip from 'jszip';
-import gifFrames from 'gif-frames'
-import CompressImages from './compressImages';
-import FilePondPluginFileEncode from './libs/filepond/addons/filepond-plugin-file-encode.min'
-import FilePondPluginFileValidateSize from './libs/filepond/addons/filepond-plugin-file-validate-size.min'
-import FilePondPluginFileValidateType from './libs/filepond/addons/filepond-plugin-file-validate-type.min'
-import Table from './table';
+import { globals } from "./setup";
+import * as FilePond from "filepond";
+import { saveAs } from "file-saver";
+import JSZip from "jszip";
+import gifFrames from "gif-frames";
+import CompressImages from "./compressImages";
+import FilePondPluginFileEncode from "./libs/filepond/addons/filepond-plugin-file-encode.min";
+import FilePondPluginFileValidateSize from "./libs/filepond/addons/filepond-plugin-file-validate-size.min";
+import FilePondPluginFileValidateType from "./libs/filepond/addons/filepond-plugin-file-validate-type.min";
 import ImageInfo from "./imageInfo";
 
 class DownloadUpload {
-    private _settings = globals.config.settings
-    private _state = globals.config.state
-    private _imageCollection = globals.imageCollection
-    private _graphicHandler = globals.graphicHandler
-    private _table = new Table()
+	private _settings = globals.config.settings;
+	private _state = globals.config.state;
+	private _imageCollection = globals.imageCollection;
+	private _graphicHandler = globals.graphicHandler;
+	private _table = globals.table;
 
-    constructor() {
-        // Create new pond instance
-        this.pond()
-    }
+	constructor() {
+		// Create new pond instance
+		this.pond();
+	}
 
-    /**
-     * Creates a new image element and appends it to a collection
-     * @param {*} src - An image src
-     */
-    public async createImage(src: File) {
+	/**
+	 * Creates a new image element and appends it to a collection
+	 * @param {*} src - An image src
+	 */
+	public async createImage(src: File) {
+		return new Promise<void>((resolve) => {
+			if (src) {
+				const div = document.createElement("div");
+				div.setAttribute("class", "result-container");
+				new CompressImages(src, div).init();
+				resolve();
+			}
+		});
+	}
 
-        return new Promise<void>((resolve) => {
-            if (src) {
-                var div = document.createElement("div");
-                div.setAttribute("class", "result-container");
-                new CompressImages(src, div).init();
-                resolve();
-            }
-        })
-    }
+	/**
+	 * Checks if animations names are correct
+	 * @returns True | False
+	 */
+	public checkAnimationNames() {
+		const lines = this._state.textarea.value.split("\n");
 
-    /**
-     * Checks if animations names are correct
-     * @returns True | False
-     */
-    public checkAnimationNames() {
-        var lines = this._state.textarea.value.split("\n");
+		// Removes white lines
+		const whitelines = function () {
+			for (let i = 0; i < lines.length; i++) {
+				if (lines[i] == "") {
+					return false;
+				}
+			}
 
-        // Removes white lines
-        for (var i = 0; i < lines.length; i++) {
-            if (lines[i] == "") {
-                lines.splice(i, i)
-            }
-        }
+			return true;
+		};
 
-        // Get length of lines
-        var linesLength = lines.length;
+		// Get length of lines
+		const linesLength = lines.length;
 
-        // Check if valid
-        if (linesLength > this._state.rows.value) {
-            alert("There are more animation names than rows!")
-            return false;
-        } else if (lines[this._state.rows.value - 1] != "Held") {
-            alert("Could not find animation name 'Held' at last line!")
-            return false;
-        } else {
-            return true;
-        }
-    }
+		// Check if last row have text 'held'
+		if (!whitelines()) {
+			alert("No white lines in animation names!");
+			return false;
+		} else if (lines[lines.length - 1] != "Held") {
+			alert("Could not find animation name 'Held' at last line!");
+			return false;
 
-    /**
-     * Compress sprite sheet along with a text file into a ZIP, then downloads it
-     * @param {Object} canvas - The canvas element (sprite sheet)
-     * @param {*} text - The animations names 
-     * @param {*} filename - The filename of the exported ZIP
-     */
-    public downloadZIP(canvas: HTMLCanvasElement, text: string, filename: string) {
-        var zip = new JSZip();
-        var zipFilename = `${filename}.zip`;
-        var output = new Image();
-        output.src = canvas.toDataURL();
+			// Check if there are less animation names than rows 
+		} else if (linesLength < this._state.rows.value) {
+			alert("There are less animation names than rows!");
+			return false;
 
-        if (this.checkAnimationNames()) {
-            // Check for invalid characters in filename
-            if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(filename) == true || filename == "") {
-                alert("Illegal file name!")
-            } else {
-                // Zip image and text file
-                zip.file(`${filename}.png`, output.src.substring(output.src.indexOf(',') + 1), { base64: true });
-                zip.file(`${filename}.txt`, text)
+			// Check if there are more animation names than rows 
+		} else if (linesLength > this._state.rows.value) {
+			alert("There are more animation names than rows!");
+			return false;
+		} else {
+			return true;
+		}
+	}
 
-                // Save file
-                zip.generateAsync({ type: 'blob' }).then(function (content: any) {
-                    saveAs(content, zipFilename);
-                });
-            }
-        }
-    }
+	/**
+	 * Compress sprite sheet along with a text file into a ZIP, then downloads it
+	 * @param {Object} canvas - The canvas element (sprite sheet)
+	 * @param {*} text - The animations names
+	 * @param {*} filename - The filename of the exported ZIP
+	 */
+	public downloadZIP(
+		canvas: HTMLCanvasElement,
+		text: string,
+		filename: string
+	) {
+		const zip = new JSZip();
+		const zipFilename = `${filename}.zip`;
+		const output = new Image();
+		output.src = canvas.toDataURL();
 
-    /**
-     * Removes all stored image elements
-     */
-    public clearData() {
-        if (!confirm('This action will remove ALL UPLOADED IMAGES. Continue?')) {
-            return;
-        }
+		if (this.checkAnimationNames()) {
+			// Check for invalid characters in filename
+			if (
+				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true ||
+				filename == ""
+			) {
+				alert("Illegal file name!");
+			} else {
+				// Zip image and text file
+				zip.file(
+					`${filename}.png`,
+					output.src.substring(output.src.indexOf(",") + 1),
+					{ base64: true }
+				);
+				zip.file(`${filename}.txt`, text);
 
-        // Reset local storage
-        localStorage.setItem("images", "")
-        localStorage.setItem("imagenumb", "")
+				// Save file
+				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
+					saveAs(content, zipFilename);
+				});
+			}
+		}
+	}
 
-        location.reload();
-    }
+	/**
+	 * Removes all stored image elements
+	 */
+	public clearData() {
+		if (!confirm("This action will remove ALL UPLOADED IMAGES. Continue?")) {
+			return;
+		}
 
-    /**
-     * Saves a json file containing data about sprite sheet
-     */
-    public saveJson() {
-        var object = {
-            spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
-            rows: this._state.rows.value,
-            rowNames: this._state.textarea.value,
-            width: this._state.cell_width.value,
-            height: this._state.cell_height.value,
-            tableObject: this._imageCollection.cellCollection
-        }
+		// Reset local storage
+		localStorage.setItem("images", "");
+		localStorage.setItem("imagenumb", "");
+		this._graphicHandler.disableControls(true);
 
-        // Create a blob of the data
-        var fileToSave = new Blob([JSON.stringify(object, undefined, 2)], {
-            type: 'application/json'
-        });
+		location.reload();
+	}
 
-        // Save the file
-        saveAs(fileToSave, "savedSpritSheet.json");
-    }
+	/**
+	 * Saves a json file containing data about sprite sheet
+	 */
+	public saveJson() {
+		const object = {
+			spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
+			rows: this._state.rows.value,
+			rowNames: this._state.textarea.value,
+			width: this._state.cell_width.value,
+			height: this._state.cell_height.value,
+			tableObject: this._imageCollection.cellCollection
+		};
 
-    /**
-     * Creates drag and drop functionality
-     */
-    public pond() {
-        const self = this
-        FilePond.registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
+		// Create a blob of the data
+		const fileToSave = new Blob([JSON.stringify(object, undefined, 2)], {
+			type: "application/json"
+		});
 
-        /**
-         * Extracts all frames from a gif file
-         * @param {Object} file - A gif file
-         * @returns 
-         */
-        var extractFrames = async function (file: File) {
-            return new Promise<void>((resolve) => {
-                var maxFrames = self._settings.maxAllowedGifFrames;
+		// Save the file
+		saveAs(fileToSave, "savedSpritSheet.json");
+	}
 
-                // Export frames depending on transparency
-                gifFrames({ url: file, frames: "all", outputType: 'canvas', cumulative: self._state.cumulative.value == "cumulative" ? false : true })
-                    .then(function (frameData: any) {
-                        frameData.forEach(function (frame: HTMLElement, i: number) {
-                            if (i < maxFrames) {
-                                self._state.gifFrames.appendChild(frameData[i].getImage());
-                            }
-                        })
+	/**
+	 * Creates drag and drop functionality
+	 */
+	public pond() {
+		FilePond.registerPlugin(
+			FilePondPluginFileEncode,
+			FilePondPluginFileValidateSize,
+			FilePondPluginFileValidateType
+		);
 
-                        for (const frame of self._state.gifFrames.childNodes) {
-                            // https://stackoverflow.com/a/60005078
-                            fetch(frame.toDataURL()).then(res => { return res.blob() }).then(async function (blob) { await self.createImage(new File([blob], "file")) });
-                        }
+		/**
+		 * Extracts all frames from a gif file
+		 * @param {Object} file - A gif file
+		 * @returns
+		 */
+		const extractFrames = async (file: File) => {
+			return new Promise<void>((resolve) => {
+				const maxFrames = this._settings.max_allowed_gif_frames;
 
-                        self._state.gifFrames.innerHTML = "";
-                    }).catch(console.error.bind(console));
-                resolve();
-            })
-        }
+				// Export frames depending on transparency
+				gifFrames({
+					url: file,
+					frames: "all",
+					outputType: "canvas",
+					cumulative:
+						this._state.cumulative.value == "cumulative" ? false : true
+				})
+					.then((frameData: any) => {
+						frameData.forEach((frame: HTMLElement, i: number) => {
+							if (i < maxFrames) {
+								this._state.gif_frames.appendChild(frameData[i].getImage());
+							}
+						});
 
-        /**filepond-plugin-file-encode.min
-         * FilePond instance for images / gifs
-         */
-        const uploadImage = FilePond.create(document.querySelector('#files'), {
-            // Settings
-            labelIdle: 'Drag & Drop your <b>Image(s) / Gif</b> file or <span class="filepond--label-action"> Browse </span>',
-            maxFileSize: this._settings.maxUploadSize ? this._settings.maxUploadSize : "2mb",
-            allowMultiple: true,
-            maxFiles: 20,
-            allowFileTypeValidation: true,
-            acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
-            credits: false,
+						for (const frame of this._state.gif_frames.childNodes) {
+							// https://stackoverflow.com/a/60005078
+							fetch(frame.toDataURL())
+								.then((res) => {
+									return res.blob();
+								})
+								.then(async (blob) => {
+									await this.createImage(new File([blob], "file"));
+								});
+						}
 
-            onaddfile: async (error, image) => {
-                if (error) {
-                    return
-                }
+						this._state.gif_frames.innerHTML = "";
+					})
+					.catch(console.error.bind(console));
+				resolve();
+			});
+		};
 
-                // For every image
-                try {
-                    if (image.fileType == "image/gif") {
-                        await extractFrames(image.getFileEncodeDataURL())
-                        uploadImage.removeFile(image);
-                    } else {
-                        await self.createImage(image.file);
-                        uploadImage.removeFile(image);
-                    }
-                } catch (err) {
-                    if (err instanceof TypeError) {
-                        console.log(err)
-                        console.log("Invalid File")
-                    }
-                }
+		/*/ Interfaces used to handle missing types START /*/
+		interface FilePondPlugins extends FilePond.FilePondOptions {
+			maxFilesize?: string;
+		}
 
-            }
-        });
+		interface FileExtender extends File {
+			getFileEncodeDataURL(): File;
+			substring(number: number): string;
+		}
 
-        type jsonSpriteSheet = {
-            _x: number
-            _y: number
-            _xOffset: number
-            _yOffset: number
-            _imageSrc: string
-        }
+		interface FilePondFileExtender extends FilePond.FilePondFile {
+			getFileEncodeDataURL(): FileExtender;
+			file: FileExtender;
+		}
+		/*/ Interfaces used to handle missing types END /*/
 
-        const itterateJson = function (json: jsonSpriteSheet[][]) {
-            var imageCollection: ImageInfo[][] = []
+		/**filepond-plugin-file-encode.min
+		 * FilePond instance for images / gifs
+		 */
+		const uploadImage = FilePond.create(document.querySelector("#files"), {
+			// Settings
+			labelIdle:
+				"Drag & Drop your <b>Image(s) / Gif</b> file or <span class=\"filepond--label-action\"> Browse </span>",
+			maxFileSize: this._settings.max_upload_size
+				? this._settings.max_upload_size
+				: "2mb",
+			allowMultiple: true,
+			maxFiles: 20,
+			allowFileTypeValidation: true,
+			acceptedFileTypes: ["image/png", "image/jpeg", "image/gif"],
+			credits: false,
 
-            for (const [i, row] of json.entries()) {
-                imageCollection.push([])
-                for (const [e, cell] of row.entries()) {
-                    console.log(cell, row)
-                    imageCollection[i][e] = new ImageInfo(cell._x, cell._y, cell._xOffset, cell._yOffset, cell._imageSrc)
-                }
-            }
+			onaddfile: async (error, image: FilePondFileExtender) => {
+				if (error) {
+					return;
+				}
 
-            return imageCollection
-        }
+				// For every image
+				try {
+					if (image.fileType == "image/gif") {
+						await extractFrames(image.getFileEncodeDataURL());
+						uploadImage.removeFile(image);
+					} else {
+						await this.createImage(image.file);
+						uploadImage.removeFile(image);
+					}
+				} catch (err) {
+					if (err instanceof TypeError) {
+						console.log(err);
+						console.log("Invalid File");
+					}
+				}
+			}
+		} as FilePondPlugins);
 
-        /**
-         * Handles and manages uploaded json data
-         * @param {string} json - The json containing sprite sheet data
-         */
-        var handleJson = function (json: any) {
-            self._state.rows.value = json.rows;
-            self._state.cell_width.value = json.width;
-            self._state.cell_height.value = json.height;
+		type jsonSpriteSheet = {
+			_x: number;
+			_y: number;
+			_xOffset: number;
+			_yOffset: number;
+			_sizeMultiplier: number;
+			_imageSrc: string;
+		};
 
-            self._table.addTable();
-            self._state.textarea.value = json.rowNames;
-            self._imageCollection.cellCollection = itterateJson(json.tableObject)
-            self._table.iterateTable();
-            self._graphicHandler.redraw();
-        }
+		const itterateJson = (json: jsonSpriteSheet[][]) => {
+			const imageCollection: ImageInfo[][] = [];
 
-        /**
-         * Filepond instance for json files
-         */
-        const uploadJson = FilePond.create(document.querySelector('#uploadJson'), {
-            // Settings
-            labelIdle: 'Drag & Drop your <b> JSON </b> file or <span class="filepond--label-action"> Browse </span>',
-            maxFileSize: "10mb",
-            allowFileTypeValidation: true,
-            acceptedFileTypes: ['application/json'],
-            credits: false,
-            labelFileProcessingError: (error: any) => {
-                return error.body;
-            },
+			for (const [i, row] of json.entries()) {
+				imageCollection.push([]);
+				for (const [e, cell] of row.entries()) {
+					imageCollection[i][e] = new ImageInfo(
+						cell._x,
+						cell._y,
+						cell._xOffset,
+						cell._yOffset,
+						cell._sizeMultiplier,
+						cell._imageSrc
+					);
+				}
+			}
 
-            server: {
-                process: (fieldName: string, file: File, metadata: any, load: any, error: any, progress: any, abort: any) => {
-                    if (JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))).spriteSheetId == "cWqgPFdGN5") {
-                        handleJson(JSON.parse(atob(uploadJson.getFile().getFileEncodeDataURL().substring(29))));
-                        setTimeout(() => {
-                            uploadJson.removeFile();
-                        }, 500)
-                    } else {
-                        error(`File is not a sprite sheet!`)
-                    }
-                }
-            },
-        });
-    }
+			return imageCollection;
+		};
+
+		/**
+		 * Handles and manages uploaded json data
+		 * @param {string} json - The json containing sprite sheet data
+		 */
+		const handleJson = (json: any) => {
+			this._state.rows.value = json.rows;
+			this._state.cell_width.value = json.width;
+			this._state.cell_height.value = json.height;
+
+			this._table.addTable();
+			this._state.textarea.value = json.rowNames;
+			this._imageCollection.cellCollection = itterateJson(json.tableObject);
+			this._table.iterateTable();
+			this._graphicHandler.redraw();
+		};
+
+		/**
+		 * Filepond instance for json files
+		 */
+		const uploadJson = FilePond.create(document.querySelector("#uploadJson"), {
+			// Settings
+			labelIdle:
+				"Drag & Drop your <b> JSON </b> file or <span class=\"filepond--label-action\"> Browse </span>",
+			maxFileSize: "10mb",
+			allowFileTypeValidation: true,
+			acceptedFileTypes: ["application/json"],
+			credits: false,
+			labelFileProcessingError: (error: FilePond.FilePondErrorDescription) => {
+				return error.body;
+			},
+
+			server: {
+				process: (error: any) => {
+					const file = uploadJson.getFile() as FilePondFileExtender;
+					if (
+						JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
+							.spriteSheetId == "cWqgPFdGN5"
+					) {
+						handleJson(
+							JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
+						);
+						setTimeout(() => {
+							uploadJson.removeFile();
+						}, 500);
+					} else {
+						error("File is not a sprite sheet!");
+					}
+				}
+			}
+		} as FilePondPlugins);
+	}
 }
 
-export default DownloadUpload
+export default DownloadUpload;

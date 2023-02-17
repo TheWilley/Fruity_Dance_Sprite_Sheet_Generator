@@ -1,0 +1,18 @@
+{
+	"git.autofetch": true,
+	"html.validate.scripts": false,
+	"eslint.format.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+	"editor.formatOnPaste": false, // required
+	"editor.formatOnType": false, // required
+	"editor.formatOnSave": true, // optional
+	"editor.formatOnSaveMode": "file",
+	"[sass]": {
+		"editor.defaultFormatter": "syler.sass-indented"
+	},
+	"github.copilot.advanced": {},
+	"github.copilot.inlineSuggest.enable": true // required to format on save
+}
