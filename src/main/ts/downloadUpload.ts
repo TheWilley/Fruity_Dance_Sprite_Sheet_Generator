@@ -130,6 +130,7 @@ class DownloadUpload {
 		// Reset local storage
 		localStorage.setItem("images", "");
 		localStorage.setItem("imagenumb", "");
+		this._graphicHandler.disableControls(true);
 
 		location.reload();
 	}
