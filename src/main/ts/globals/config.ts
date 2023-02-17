@@ -287,6 +287,7 @@ class Configuration {
 			tippy(input, {
 				content: this.getTippyToolTips()[key as keyof IConfiguration],
 				placement: "bottom",
+				delay: [500, 0]
 			});
 		}
 	}
