@@ -1,5 +1,6 @@
 import { globals } from "../setup";
 import { ValuesType } from "utility-types";
+import tippy from "tippy.js";
 
 // Configuration interface
 interface IConfiguration {
@@ -117,8 +118,9 @@ class Configuration {
 				}
 			]
 		]).forEach((value, key) => {
-			if (this._settings[key as keyof IConfiguration])
+			if (this._settings[key as keyof IConfiguration]) {
 				value(this._settings[key as keyof IConfiguration]);
+			}
 		});
 	}
 
@@ -232,6 +234,34 @@ class Configuration {
 		return settings;
 	}
 
+	getTippyToolTips() {
+		// Interface for the tooltips
+		type IConfigurationTooltips = Record<keyof IConfiguration, string>;
+
+		// Object consiting of all keys from the IConfiguration interface and their corresponding tippy tooltips
+		const tooltips: IConfigurationTooltips = {
+			"max_rows": "The maximum amount of rows that can be created",
+			"min_cell_width": "The minimum width of a cell",
+			"min_cell_height": "The minimum height of a cell",
+			"min_x_offset": "The minimum X offset of a cell",
+			"min_y_offset": "The minimum Y offset of a cell",
+			"max_cell_width": "The maximum width of a cell",
+			"max_cell_height": "The maximum height of a cell",
+			"max_x_offset": "The maximum X offset of a cell",
+			"max_y_offset": "The maximum Y offset of a cell",
+			"max_upload_size": "The maximum file size of an image that can be uploaded",
+			"image_quality": "The image quality (1 = best quality, 0 = worst quality)",
+			"image_size_multiplier": "Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.",
+			"max_allowed_gif_frames": "The maximum amount of frames to be  exported from a gif.",
+			"preview_fps": "The amount of frames per second that the preview will play at.",
+			"amount_of_collections": "The amount of collections.",
+			"background": "The background of the page. This can be a color in HEX, a local image or URL.",
+			"warn_before_leaving_page": "Whether or not to warn the user before leaving the page."
+		};
+
+		return tooltips;
+	}
+
 	// Saves the settings to local storage
 	saveSettingsToLocalStorage(settings: IConfiguration) {
 		localStorage.setItem("settings", JSON.stringify(settings));
@@ -251,6 +281,12 @@ class Configuration {
 			} else {
 				input.value = String(this._settings[key as keyof IConfiguration]);
 			}
+
+			// Set the tooltip of the coresponing input feild
+			tippy(input, {
+				content: this.getTippyToolTips()[key as keyof IConfiguration],
+				placement: "bottom",
+			});
 		}
 	}
 
