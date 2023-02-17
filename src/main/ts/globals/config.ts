@@ -234,6 +234,7 @@ class Configuration {
 		return settings;
 	}
 
+	// Returns the tooltips for the settings
 	getTippyToolTips() {
 		// Interface for the tooltips
 		type IConfigurationTooltips = Record<keyof IConfiguration, string>;
