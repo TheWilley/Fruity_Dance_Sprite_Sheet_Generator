@@ -6,7 +6,7 @@ This project was made as a tool for the FL Studio plugin [Fruity Dance](https://
 
 ## Using the generator
 
-This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the _releases_ tab of this GitHub page.
+This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) tab of this GitHub page.
 
 ### Original JavaScript release
 
@@ -21,7 +21,7 @@ You have two options:
 
 #### Download build
 
-You can download the build from the _releases_ section of this GitHub page.
+You can download the build from the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) section of this GitHub page.
 
 After downloading, go into the `dist` folder. Inside, there is a `index.html` file. Open it with any modern browser.
 
