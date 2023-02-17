@@ -39,11 +39,11 @@ class Configuration {
 		// Checks if there are any settings in local storage and applies them if there are
 		if (localStorage.getItem("settings") != undefined) {
 			this._settings = JSON.parse(localStorage.getItem("settings"));
-			this.setFormValues();
 		} else {
-			this._settings = this.getFormValues();
+			this._settings = this.getDefaultValues();
 		}
 
+		this.setFormValues();
 		this.runConfig();
 	}
 
@@ -125,46 +125,48 @@ class Configuration {
 	// Parses the form and returns the settings
 	getFormValues() {
 		const form = document.getElementById("config_form") as HTMLFormElement;
+		const defaultValues = this.getDefaultValues();
+
 		const settings: IConfiguration = {
 			max_rows:
 				parseInt(
 					(form.elements.namedItem("max_rows") as HTMLInputElement).value
-				) || 20,
+				) || defaultValues.max_rows,
 			min_cell_width:
 				parseInt(
 					(form.elements.namedItem("min_cell_width") as HTMLInputElement).value
-				) || 80,
+				) || defaultValues.min_cell_width,
 			min_cell_height:
 				parseInt(
 					(form.elements.namedItem("min_cell_height") as HTMLInputElement).value
-				) || 80,
+				) || defaultValues.min_cell_height,
 			min_x_offset:
 				parseInt(
 					(form.elements.namedItem("min_x_offset") as HTMLInputElement).value
-				) || -20,
+				) || defaultValues.min_x_offset,
 			min_y_offset:
 				parseInt(
 					(form.elements.namedItem("min_y_offset") as HTMLInputElement).value
-				) || -150,
+				) || defaultValues.min_y_offset,
 			max_cell_width:
 				parseInt(
 					(form.elements.namedItem("max_cell_width") as HTMLInputElement).value
-				) || 150,
+				) || defaultValues.max_cell_width,
 			max_cell_height:
 				parseInt(
 					(form.elements.namedItem("max_cell_height") as HTMLInputElement).value
-				) || 150,
+				) || defaultValues.max_cell_height,
 			max_x_offset:
 				parseInt(
 					(form.elements.namedItem("max_x_offset") as HTMLInputElement).value
-				) || 150,
+				) || defaultValues.max_x_offset,
 			max_y_offset:
 				parseInt(
 					(form.elements.namedItem("max_y_offset") as HTMLInputElement).value
-				) || 150,
+				) || defaultValues.max_y_offset,
 			max_upload_size:
 				(form.elements.namedItem("max_upload_size") as HTMLInputElement)
-					.value || "8mb",
+					.value || defaultValues.max_upload_size,
 			image_quality:
 				parseFloat(
 					(form.elements.namedItem("image_quality") as HTMLInputElement).value
@@ -173,7 +175,7 @@ class Configuration {
 				parseFloat(
 					(form.elements.namedItem("image_size_multiplier") as HTMLInputElement)
 						.value
-				) || 1,
+				) || defaultValues.image_size_multiplier,
 			max_allowed_gif_frames:
 				parseInt(
 					(
@@ -181,16 +183,16 @@ class Configuration {
 							"max_allowed_gif_frames"
 						) as HTMLInputElement
 					).value
-				) || 30,
+				) || defaultValues.max_allowed_gif_frames,
 			preview_fps:
 				parseInt(
 					(form.elements.namedItem("preview_fps") as HTMLInputElement).value
-				) || 4,
+				) || defaultValues.preview_fps,
 			amount_of_collections:
 				parseInt(
 					(form.elements.namedItem("amount_of_collections") as HTMLInputElement)
 						.value
-				) || 12,
+				) || defaultValues.amount_of_collections,
 			background:
 				(form.elements.namedItem("background") as HTMLInputElement).value ||
 				"",
@@ -199,7 +201,32 @@ class Configuration {
 					form.elements.namedItem(
 						"warn_before_leaving_page"
 					) as HTMLInputElement
-				).checked || false
+				).checked || defaultValues.warn_before_leaving_page
+		};
+
+		return settings;
+	}
+
+	// Returns the default settings
+	getDefaultValues() {
+		const settings: IConfiguration = {
+			max_rows: 20,
+			min_cell_width: 80,
+			min_cell_height: 80,
+			min_x_offset: -20,
+			min_y_offset: -150,
+			max_cell_width: 150,
+			max_cell_height: 150,
+			max_x_offset: 150,
+			max_y_offset: 150,
+			max_upload_size: "8mb",
+			image_quality: 0.7,
+			image_size_multiplier: 1,
+			max_allowed_gif_frames: 30,
+			preview_fps: 4,
+			amount_of_collections: 12,
+			background: "",
+			warn_before_leaving_page: false
 		};
 
 		return settings;

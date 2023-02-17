@@ -159,6 +159,11 @@ class EventListeners {
 		$(".collapse-button").on("click", (event) => {
 			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
 		});
+
+		/**
+		 * Removes all autocomplete from inputs
+		 */
+		$("input").attr("autocomplete", "off");
 	}
 
 	public tippy() {
