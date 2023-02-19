@@ -7,7 +7,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "webpack-dev-server --mode=development ",
 		"build": "webpack --progress",
-		"build:sass": "sass ./src/sass/main.sass"
+		"build:sass": "sass ./src/sass/main.sass",
+		"deploy": "npm run build && gh-pages -d dist"
 	},
 	"repository": {
 		"type": "git",
@@ -31,6 +32,7 @@
 		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-n": "^15.6.1",
 		"eslint-plugin-promise": "^6.1.1",
+		"gh-pages": "^5.0.0",
 		"html-webpack-plugin": "^5.5.0",
 		"prettier": "^2.8.3",
 		"sass": "^1.57.1",
