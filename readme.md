@@ -45,6 +45,10 @@ A `dist` folder should now be created. Inside, there is a `index.html` file. Ope
 
 Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html` to get started. All changes to files will be automatically compiled and auto reload is enabled.
 
+#### Deployment
+
+The `npm run deploy` command is used to deploy to GitHub.
+
 ## Features
 
 ![image](https://user-images.githubusercontent.com/89783791/219487771-f7902095-826e-413a-8db9-dba32b5482ff.png)
