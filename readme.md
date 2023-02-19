@@ -18,6 +18,7 @@ You have two options:
 
 1. Download build
 2. Build from source
+3. Go to https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/
 
 #### Download build
 
