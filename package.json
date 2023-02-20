@@ -55,6 +55,7 @@
 		"jquery": "^3.6.3",
 		"jszip": "^3.10.1",
 		"node-polyfill-webpack-plugin": "^2.0.1",
+		"octokit": "^2.0.14",
 		"tippy.js": "^6.3.7",
 		"utility-types": "^3.10.0"
 	},

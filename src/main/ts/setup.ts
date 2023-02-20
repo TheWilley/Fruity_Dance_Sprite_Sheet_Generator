@@ -7,6 +7,7 @@ import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
+import {Octokit} from "octokit";
 
 // Global variable
 export let globals: Globals;
@@ -14,6 +15,7 @@ export let globals: Globals;
 // Init all needed functions
 export function init() {
 	createGlobals();
+	addVersionNumber();
 
 	new DragHandler().run();
 	new EventListeners().run();
@@ -34,4 +36,20 @@ function createGlobals() {
 	globals.imageCollection = new ImageCollection();
 	globals.graphicHandler = new GraphicHandler();
 	globals.table = new Table();
+}
+
+async function addVersionNumber() {
+	const octokit = new Octokit();
+
+	const latestRelease = await octokit.request(
+		"GET /repos/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases/latest",
+		{
+			owner: "OWNER",
+			repo: "REPO"
+		}
+	);
+
+	globals.config.state.currentVersion.innerText = latestRelease.data.tag_name;
+
+	console.log(latestRelease.data.tag_name);
 }
