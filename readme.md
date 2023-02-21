@@ -84,7 +84,7 @@ The `npm run deploy` command is used to deploy to GitHub.
 
 ## Libaries
 
-See `package.json`.
+See `bundle.js.LICENSE.txt`.
 
 ## Issues
 
