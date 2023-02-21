@@ -292,9 +292,7 @@ class Configuration {
 		}
 	}
 
-	/**
-	 * Refreshes the settings by getting the values from the form and saving them to local storage
-	 */
+	// Refreshes the settings by getting the values from the form and saving them to local storage
 	refreshSettings() {
 		this._settings = this.getFormValues();
 		this.saveSettingsToLocalStorage(this._settings);
