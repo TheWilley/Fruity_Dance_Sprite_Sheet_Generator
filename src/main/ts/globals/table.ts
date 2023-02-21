@@ -157,7 +157,7 @@ class Table {
 			frame_name.setAttribute("type", "text");
 			frame_name.setAttribute("id", "frame_name" + line);
 			frame_name.setAttribute("value", "Frame " + line);
-			frame_name.setAttribute("class", "frame_names");
+			frame_name.setAttribute("class", "frame-names");
 
 			// Disable last input field and change text to "Held"
 			if (line == this._state.rows.value) {

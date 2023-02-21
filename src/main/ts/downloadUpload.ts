@@ -133,7 +133,7 @@ class DownloadUpload {
 		const object = {
 			spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
 			rows: this._state.rows.value,
-			rowNames: this._state.textarea.value,
+			rowNames: this.parseFrameNames(this._state.frame_names_container).join("\n"),
 			width: this._state.cell_width.value,
 			height: this._state.cell_height.value,
 			tableObject: this._imageCollection.cellCollection
@@ -285,6 +285,20 @@ class DownloadUpload {
 		};
 
 		/**
+		 * Sets the animation names from the json
+		 * @param json The json containing sprite sheet data
+		 */
+		const setAnimationNames = (json: string) => {
+			// Split the string into an array by new line
+			const names = json.split("\n");
+
+			// Set the value of each input to the corresponding name
+			for (const [index, element] of this._state.frame_names_container.childNodes.entries()) {
+				element.value = names[index];
+			}
+		};
+
+		/**
 		 * Handles and manages uploaded json data
 		 * @param {string} json - The json containing sprite sheet data
 		 */
@@ -294,7 +308,7 @@ class DownloadUpload {
 			this._state.cell_height.value = json.height;
 
 			this._table.addTable();
-			this._state.textarea.value = json.rowNames;
+			setAnimationNames(json.rowNames);
 			this._imageCollection.cellCollection = itterateJson(json.tableObject);
 			this._table.iterateTable();
 			this._graphicHandler.redraw();
