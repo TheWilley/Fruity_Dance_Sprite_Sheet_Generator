@@ -8,7 +8,7 @@
 		"dev": "webpack-dev-server --mode=development ",
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
-		"deploy": "npm run build && npm run publish && release-it && gh-pages -d dist",
+		"deploy": "npm run build && npm run gena && release-it && gh-pages -d dist",
 		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
