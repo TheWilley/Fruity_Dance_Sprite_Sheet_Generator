@@ -9,7 +9,7 @@
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
 		"deploy": "npm run build && npm run publish && release-it && gh-pages -d dist",
-		"publish": "node ./artifact/zip_artifact.js"
+		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
 		"type": "git",
