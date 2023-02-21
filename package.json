@@ -1,6 +1,6 @@
 {
 	"name": "fruity_dance_sprite_sheet_generator",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "<div align=center> <img width=\"200px\"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>",
 	"main": "index.js",
 	"scripts": {
