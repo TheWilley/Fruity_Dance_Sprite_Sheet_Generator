@@ -40,62 +40,53 @@ class DownloadUpload {
 	 * Checks if animations names are correct
 	 * @returns True | False
 	 */
-	public checkAnimationNames() {
-		const lines = this._state.textarea.value.split("\n");
-
+	public checkAnimationNames(frameNames: string[]) {
 		// Removes white lines
-		const whitelines = function () {
-			for (let i = 0; i < lines.length; i++) {
-				if (lines[i] == "") {
-					return false;
-				}
+		for (let i = 0; i < frameNames.length; i++) {
+			if (frameNames[i] == "") {
+				alert("Animation names cannot be empty!");
+				return false;
 			}
-
-			return true;
-		};
-
-		// Get length of lines
-		const linesLength = lines.length;
-
-		// Check if last row have text 'held'
-		if (!whitelines()) {
-			alert("No white lines in animation names!");
-			return false;
-		} else if (lines[lines.length - 1] != "Held") {
-			alert("Could not find animation name 'Held' at last line!");
-			return false;
-
-			// Check if there are less animation names than rows 
-		} else if (linesLength < this._state.rows.value) {
-			alert("There are less animation names than rows!");
-			return false;
-
-			// Check if there are more animation names than rows 
-		} else if (linesLength > this._state.rows.value) {
-			alert("There are more animation names than rows!");
-			return false;
-		} else {
-			return true;
 		}
+
+		return true;
+	}
+
+	/**
+	 * Parses animation names from textarea
+	 * @returns Array of animation names
+	 */
+	parseFrameNames(frameNamesContainer: HTMLElement) {
+		// Holds all animation names
+		const frameNames: string[] = [];
+
+		// Get all animation names from div element
+		for (const element of frameNamesContainer.children as unknown as HTMLInputElement[]) {
+			frameNames.push(element.value);
+		}
+
+		return frameNames;
 	}
 
 	/**
 	 * Compress sprite sheet along with a text file into a ZIP, then downloads it
 	 * @param {Object} canvas - The canvas element (sprite sheet)
-	 * @param {*} text - The animations names
+	 * @param {*} frameNamesContainer - The animations names
 	 * @param {*} filename - The filename of the exported ZIP
 	 */
 	public downloadZIP(
 		canvas: HTMLCanvasElement,
-		text: string,
+		frameNamesContainer: HTMLElement,
 		filename: string
 	) {
+		// Declare constants
 		const zip = new JSZip();
 		const zipFilename = `${filename}.zip`;
 		const output = new Image();
 		output.src = canvas.toDataURL();
 
-		if (this.checkAnimationNames()) {
+		// Check if animation names are correct before continuing with the export
+		if (this.checkAnimationNames(this.parseFrameNames(frameNamesContainer))) {
 			// Check for invalid characters in filename
 			if (
 				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true ||
@@ -109,7 +100,7 @@ class DownloadUpload {
 					output.src.substring(output.src.indexOf(",") + 1),
 					{ base64: true }
 				);
-				zip.file(`${filename}.txt`, text);
+				zip.file(`${filename}.txt`, this.parseFrameNames(frameNamesContainer).join("\n"));
 
 				// Save file
 				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
