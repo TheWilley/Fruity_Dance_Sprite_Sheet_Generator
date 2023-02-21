@@ -252,12 +252,12 @@ class Configuration {
 			"max_y_offset": "The maximum Y offset of a cell",
 			"max_upload_size": "The maximum file size of an image that can be uploaded",
 			"image_quality": "The image quality (1 = best quality, 0 = worst quality)",
-			"image_size_multiplier": "Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality.",
-			"max_allowed_gif_frames": "The maximum amount of frames to be  exported from a gif.",
-			"preview_fps": "The amount of frames per second that the preview will play at.",
-			"amount_of_collections": "The amount of collections.",
-			"background": "The background of the page. This can be a color in HEX, a local image or URL.",
-			"warn_before_leaving_page": "Whether or not to warn the user before leaving the page."
+			"image_size_multiplier": "Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality",
+			"max_allowed_gif_frames": "The maximum amount of frames to be  exported from a gif",
+			"preview_fps": "The amount of frames per second that the preview will play at",
+			"amount_of_collections": "The amount of collections",
+			"background": "The background of the page. This can be a color in HEX, a local image or URL",
+			"warn_before_leaving_page": "Whether or not to warn the user before leaving the page"
 		};
 
 		return tooltips;
@@ -292,6 +292,7 @@ class Configuration {
 		}
 	}
 
+	// Refreshes the settings by getting the values from the form and saving them to local storage
 	refreshSettings() {
 		this._settings = this.getFormValues();
 		this.saveSettingsToLocalStorage(this._settings);

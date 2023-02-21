@@ -1,6 +1,6 @@
 {
 	"name": "fruity_dance_sprite_sheet_generator",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "<div align=center> <img width=\"200px\"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>",
 	"main": "index.js",
 	"scripts": {
@@ -8,7 +8,8 @@
 		"dev": "webpack-dev-server --mode=development ",
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
-		"deploy": "npm run build && gh-pages -d dist"
+		"deploy": "npm run build && npm run gena && release-it && gh-pages -d dist",
+		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +27,7 @@
 		"@types/webpack-env": "^1.18.0",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
+		"adm-zip": "^0.5.10",
 		"css-loader": "^6.7.3",
 		"eslint": "^8.33.0",
 		"eslint-config-standard-with-typescript": "^33.0.0",
@@ -35,6 +37,7 @@
 		"gh-pages": "^5.0.0",
 		"html-webpack-plugin": "^5.5.0",
 		"prettier": "^2.8.3",
+		"release-it": "^15.6.0",
 		"sass": "^1.57.1",
 		"sass-loader": "^13.2.0",
 		"style-loader": "^3.3.1",
@@ -52,6 +55,7 @@
 		"jquery": "^3.6.3",
 		"jszip": "^3.10.1",
 		"node-polyfill-webpack-plugin": "^2.0.1",
+		"octokit": "^2.0.14",
 		"tippy.js": "^6.3.7",
 		"utility-types": "^3.10.0"
 	},

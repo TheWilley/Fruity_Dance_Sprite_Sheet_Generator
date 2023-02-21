@@ -18,6 +18,7 @@ You have two options:
 
 1. Download build
 2. Build from source
+3. Go to https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/
 
 #### Download build
 
@@ -44,6 +45,10 @@ A `dist` folder should now be created. Inside, there is a `index.html` file. Ope
 ### Development
 
 Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html` to get started. All changes to files will be automatically compiled and auto reload is enabled.
+
+#### Deployment
+
+The `npm run deploy` command is used to deploy to GitHub.
 
 ## Features
 
@@ -79,7 +84,7 @@ Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html
 
 ## Libaries
 
-See `package.json`.
+See `bundle.js.LICENSE.txt`.
 
 ## Issues
 
