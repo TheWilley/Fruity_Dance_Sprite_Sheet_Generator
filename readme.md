@@ -48,7 +48,14 @@ Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html
 
 #### Deployment
 
-The `npm run deploy` command is used to deploy to GitHub.
+The `npm run deploy` command is used to deploy to GitHub Pages.
+
+#### Hooks
+
+A `.git-hooks/commit-msg` file has been created to enforce [conventional commit messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13). To enable:
+
+- `chmod +x '.git-hooks/commit-msg'`
+- `git config core.hooksPath '.git-hooks'`
 
 ## Features
 
