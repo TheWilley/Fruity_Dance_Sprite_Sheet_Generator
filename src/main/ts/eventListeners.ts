@@ -1,4 +1,4 @@
-import { globals } from "./setup";
+import {globals} from "./setup";
 import DownloadUpload from "./downloadUpload";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
@@ -34,7 +34,7 @@ class EventListeners {
 						this._state.filename.value = "savedSpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
-							this._state.frame_names_container,
+							this._state.row_names_container,
 							this._state.filename.value
 						);
 						this._state.filename.value = "";
@@ -55,7 +55,7 @@ class EventListeners {
 			event.stopImmediatePropagation();
 			this._downloadUpload.downloadZIP(
 				this._state.canvas,
-				this._state.frame_names_container,
+				this._state.row_names_container,
 				this._state.filename.value
 			);
 		});
@@ -150,14 +150,17 @@ class EventListeners {
 		$("#config_form").on("input", "input", (event) => {
 			this._config.refreshSettings();
 			this._state.apply_settings.style.display = "inline-block";
-			event.currentTarget.parentElement.style.boxShadow = "0 0 0 2px rgba(255, 193, 7, 0.5)";
+			event.currentTarget.parentElement.style.boxShadow =
+				"0 0 0 2px rgba(255, 193, 7, 0.5)";
 		});
 
 		/**
 		 * Collapses section
 		 */
 		$(".collapse-button").on("click", (event) => {
-			event.currentTarget.closest(".section-wrapper").classList.toggle("collapsed");
+			event.currentTarget
+				.closest(".section-wrapper")
+				.classList.toggle("collapsed");
 		});
 
 		/**
