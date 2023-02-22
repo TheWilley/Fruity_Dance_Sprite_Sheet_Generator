@@ -169,6 +169,9 @@ class EventListeners {
 		$("input").attr("autocomplete", "off");
 	}
 
+	/**
+	 * Creates tippy tooltips
+	 */
 	public tippy() {
 		tippy("#frames_editor", {
 			content: "F = Frame, R = Row",

@@ -221,7 +221,7 @@ class DownloadUpload {
 		}
 		/*/ Interfaces used to handle missing types END /*/
 
-		/**filepond-plugin-file-encode.min
+		/**
 		 * FilePond instance for images / gifs
 		 */
 		const uploadImage = FilePond.create(document.querySelector("#files"), {
@@ -269,6 +269,11 @@ class DownloadUpload {
 			_imageSrc: string;
 		};
 
+		/**
+		 * Iterates through the json and creates an array of ImageInfo objects
+		 * @param json The json containing sprite sheet data
+		 * @returns A 2D array of ImageInfo objects
+		 */
 		const itterateJson = (json: jsonSpriteSheet[][]) => {
 			const imageCollection: ImageInfo[][] = [];
 

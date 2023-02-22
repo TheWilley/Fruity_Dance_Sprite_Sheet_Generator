@@ -9,10 +9,12 @@ import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
 import {Octokit} from "octokit";
 
-// Global variable
+// Global variable that holds all instances
 export let globals: Globals;
 
-// Init all needed functions
+/**
+ * Initializes the app
+ */
 export function init() {
 	createGlobals();
 	addVersionNumber();
@@ -24,7 +26,9 @@ export function init() {
 	globals.graphicHandler.ctx();
 }
 
-// add instances to global variable
+/**
+ * Adds instances to global variable
+ */
 function createGlobals() {
 	//TODO: Make all classes globbals
 	globals = new Globals();
@@ -38,6 +42,9 @@ function createGlobals() {
 	globals.table = new Table();
 }
 
+/**
+ * Get latest release from github
+ */
 async function addVersionNumber() {
 	const octokit = new Octokit();
 
