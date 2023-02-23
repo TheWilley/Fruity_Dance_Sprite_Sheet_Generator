@@ -1,6 +1,6 @@
-import { globals } from "./setup";
+import {globals} from "./setup";
 import * as FilePond from "filepond";
-import { saveAs } from "file-saver";
+import {saveAs} from "file-saver";
 import JSZip from "jszip";
 import gifFrames from "gif-frames";
 import CompressImages from "./compressImages";
@@ -98,12 +98,15 @@ class DownloadUpload {
 				zip.file(
 					`${filename}.png`,
 					output.src.substring(output.src.indexOf(",") + 1),
-					{ base64: true }
+					{base64: true}
 				);
-				zip.file(`${filename}.txt`, this.parseFrameNames(frameNamesContainer).join("\n"));
+				zip.file(
+					`${filename}.txt`,
+					this.parseFrameNames(frameNamesContainer).join("\n")
+				);
 
 				// Save file
-				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
+				zip.generateAsync({type: "blob"}).then((content: Blob) => {
 					saveAs(content, zipFilename);
 				});
 			}
@@ -133,7 +136,9 @@ class DownloadUpload {
 		const object = {
 			spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
 			rows: this._state.rows.value,
-			rowNames: this.parseFrameNames(this._state.frame_names_container).join("\n"),
+			rowNames: this.parseFrameNames(this._state.row_names_container).join(
+				"\n"
+			),
 			width: this._state.cell_width.value,
 			height: this._state.cell_height.value,
 			tableObject: this._imageCollection.cellCollection
@@ -216,7 +221,7 @@ class DownloadUpload {
 		}
 		/*/ Interfaces used to handle missing types END /*/
 
-		/**filepond-plugin-file-encode.min
+		/**
 		 * FilePond instance for images / gifs
 		 */
 		const uploadImage = FilePond.create(document.querySelector("#files"), {
@@ -264,6 +269,11 @@ class DownloadUpload {
 			_imageSrc: string;
 		};
 
+		/**
+		 * Iterates through the json and creates an array of ImageInfo objects
+		 * @param json The json containing sprite sheet data
+		 * @returns A 2D array of ImageInfo objects
+		 */
 		const itterateJson = (json: jsonSpriteSheet[][]) => {
 			const imageCollection: ImageInfo[][] = [];
 
@@ -293,7 +303,10 @@ class DownloadUpload {
 			const names = json.split("\n");
 
 			// Set the value of each input to the corresponding name
-			for (const [index, element] of this._state.frame_names_container.childNodes.entries()) {
+			for (const [
+				index,
+				element
+			] of this._state.row_names_container.childNodes.entries()) {
 				element.value = names[index];
 			}
 		};

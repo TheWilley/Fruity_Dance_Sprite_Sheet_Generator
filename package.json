@@ -1,6 +1,6 @@
 {
 	"name": "fruity_dance_sprite_sheet_generator",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "<div align=center> <img width=\"200px\"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>",
 	"main": "index.js",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"dev": "webpack-dev-server --mode=development ",
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
-		"deploy": "npm run build && release-it && npm run publish && gh-pages -d dist",
+		"deploy": "npm run build && release-it && npm run gena && gh-pages -d dist",
 		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
@@ -35,6 +35,7 @@
 		"eslint-plugin-n": "^15.6.1",
 		"eslint-plugin-promise": "^6.1.1",
 		"gh-pages": "^5.0.0",
+		"git-conventional-commits": "^2.5.1",
 		"html-webpack-plugin": "^5.5.0",
 		"prettier": "^2.8.3",
 		"release-it": "^15.6.0",

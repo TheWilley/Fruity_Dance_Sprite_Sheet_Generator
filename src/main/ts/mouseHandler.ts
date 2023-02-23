@@ -1,4 +1,4 @@
-import { globals } from "./setup";
+import {globals} from "./setup";
 import $ from "jquery";
 
 class MouseHandler {
@@ -10,11 +10,14 @@ class MouseHandler {
 	private _state = globals.config.state;
 
 	constructor() {
-		this.createEventListener();
+		this.createEventListeners();
 		this.delayMouseFollow();
 	}
 
-	createEventListener() {
+	/**
+	 * Creates new event listeners
+	 */
+	createEventListeners() {
 		/**
 		 * Detects when mouse is moving
 		 */

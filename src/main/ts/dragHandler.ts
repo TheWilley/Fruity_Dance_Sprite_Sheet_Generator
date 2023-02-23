@@ -1,4 +1,4 @@
-import { globals } from "./setup";
+import {globals} from "./setup";
 import interact from "interactjs";
 
 class DragHandler {
@@ -8,14 +8,24 @@ class DragHandler {
 	private _graphicHandler = globals.graphicHandler;
 	private _imageCollection = globals.imageCollection;
 
+	/**
+	 * Gets the coordinates of the dragged element
+	 * @param event The drag event
+	 * @returns The coordinates in an object with x and y properties
+	 */
 	getCoordinates(event: Interact.DragEvent) {
 		// Keep the dragged position in the data-x/data-y attributes
 		const x = (parseFloat(event.target.getAttribute("data-x")) || 0) + event.dx;
 		const y = (parseFloat(event.target.getAttribute("data-y")) || 0) + event.dy;
 
-		return { x, y };
+		return {x, y};
 	}
 
+	/**
+	 * Moves the element back to its original position in the sidebar
+	 * @param added Weather the element was added to the grid or not
+	 * @param event The drag event
+	 */
 	goToOriginalPosition(added: boolean, event: Interact.DragEvent) {
 		let target;
 
@@ -36,6 +46,9 @@ class DragHandler {
 		this._graphicHandler.previewImage(false);
 	}
 
+	/**
+	 * Initiates the drag handler
+	 */
 	run() {
 		// The reason for disabling alias checking is bbecause I ultimately have no control over function handling in this plugin
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -71,7 +84,7 @@ class DragHandler {
 		});
 
 		/**
-		 * Grid dropzone managment
+		 * Manages the dropzones
 		 */
 		interact(".dropzones")
 			.dropzone({
@@ -86,7 +99,9 @@ class DragHandler {
 						event.relatedTarget.src;
 					self._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0;
 					self._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0;
-					self._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = 1;
+					self._imageCollection.cellCollection[rownumb][
+						cellnumb
+					].sizeMultiplier = 1;
 
 					// Run function to insert images into canvas
 					self._graphicHandler.generateCanvas(
