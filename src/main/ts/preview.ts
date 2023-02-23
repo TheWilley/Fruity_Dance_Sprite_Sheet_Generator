@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 
 /**
  * Generates the preview canvas element

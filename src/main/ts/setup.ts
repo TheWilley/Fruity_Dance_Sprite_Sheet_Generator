@@ -7,7 +7,7 @@ import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
-import {Octokit} from "octokit";
+import { Octokit } from "octokit";
 
 // Global variable that holds all instances
 export let globals: Globals;

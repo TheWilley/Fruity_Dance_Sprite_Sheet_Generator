@@ -1,6 +1,6 @@
 import Preview from "../preview";
 import ImageInfo from "../imageInfo";
-import {globals} from "../setup";
+import { globals } from "../setup";
 
 class Table {
 	private _settings = globals.config.settings;

@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import interact from "interactjs";
 
 class DragHandler {
@@ -18,7 +18,7 @@ class DragHandler {
 		const x = (parseFloat(event.target.getAttribute("data-x")) || 0) + event.dx;
 		const y = (parseFloat(event.target.getAttribute("data-y")) || 0) + event.dy;
 
-		return {x, y};
+		return { x, y };
 	}
 
 	/**

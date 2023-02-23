@@ -1,6 +1,6 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import * as FilePond from "filepond";
-import {saveAs} from "file-saver";
+import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import gifFrames from "gif-frames";
 import CompressImages from "./compressImages";
@@ -98,7 +98,7 @@ class DownloadUpload {
 				zip.file(
 					`${filename}.png`,
 					output.src.substring(output.src.indexOf(",") + 1),
-					{base64: true}
+					{ base64: true }
 				);
 				zip.file(
 					`${filename}.txt`,
@@ -106,7 +106,7 @@ class DownloadUpload {
 				);
 
 				// Save file
-				zip.generateAsync({type: "blob"}).then((content: Blob) => {
+				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
 					saveAs(content, zipFilename);
 				});
 			}

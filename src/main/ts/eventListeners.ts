@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import DownloadUpload from "./downloadUpload";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
