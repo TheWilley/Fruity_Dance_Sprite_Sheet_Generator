@@ -20,16 +20,16 @@
                     display: flex
                     direction: row
 
-                    .result-container
-                        margin-right: 10px
-                        display: inline-block
-                        margin-top: 0px !important
-                        max-width: 200px
+                .result-container
+                    margin-right: 10px
+                    display: inline-block
+                    margin-top: 0px !important
+                    max-width: 200px
 
-                        .thumbnail
-                            max-width: 100%
-                            object-fit: cover
-                            width: 100% !important
+                    .thumbnail
+                        max-width: 100%
+                        object-fit: cover
+                        width: 100% !important
 
 /*/ Main /*/
 #sidebar
@@ -62,6 +62,11 @@
             overflow: auto
             padding: 5px
             width: 100%
+
+            &:empty::before
+                content: "No items"
+                opacity: 0.5
+                font-style: italic
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
