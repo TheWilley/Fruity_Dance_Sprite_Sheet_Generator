@@ -159,13 +159,6 @@ class Table {
 			row_name.setAttribute("value", "Row " + line);
 			row_name.setAttribute("class", "row-names");
 
-			// Disable last input field and change text to "Held"
-			if (line == this._state.rows.value) {
-				row_name.disabled = true;
-				row_name.value = "Held";
-				row_name.style.color = "rgba(255, 255, 255, 0.501)";
-			}
-
 			// Append input field to div
 			this._state.row_names_container.appendChild(row_name);
 		}

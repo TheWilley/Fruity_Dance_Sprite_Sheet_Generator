@@ -121,7 +121,7 @@ html
             #frames_editor
                 padding: 10px
                 margin: 0 auto
-                background: #262a2e
+                background: variables.$table_side_color
                 border: 1px solid rgb(112, 112, 112)
 
                 .dropzones
@@ -206,12 +206,13 @@ html
         overflow-x: auto
 
         #row_names_container .row-names
+            font-family: monospace
             display: block
             margin: 0 auto
-            background: #262a2e
+            background: variables.$row_names_background_color
             border: none
             border-bottom: 1px solid rgba(112, 112, 112, 0.301)
-            color: white
+            color: variables.$form_label_color
             text-align: center
             height: 35px
 
