@@ -1,3 +1,5 @@
+@use './variables'
+
 /*/ Media Queries /*/
 @media only screen and (max-width: 1199px)
     #sidebar_wrapper
@@ -33,7 +35,7 @@
 
 /*/ Main /*/
 #sidebar
-    background-color: rgb(49, 49, 49)
+    background-color: variables.$sidebar_color
     border-radius: 5px
     padding: 10px
     margin-top: 20px
