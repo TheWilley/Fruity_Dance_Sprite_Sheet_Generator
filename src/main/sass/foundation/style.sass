@@ -1,10 +1,4 @@
-/*/ Dynamic Variables /*/
-:root
-    --background: rgb(43, 43, 43)
-    --show_preview: block
-
-/*/ Sass variables /*/
-$table_side_color: #383838
+@use './themes' as *
 
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
@@ -15,24 +9,60 @@ $table_side_color: #383838
             width: 100%
             margin: 0 auto
 
+@media only screen and (max-width: 1199px)
+    #navbar
+        text-align: center !important
+
 /*/ Main /*/
 // Sets the background color and removed initial padding/margin
+#app_container
+    @include theme()
+        background-color: theme-get('page_background_color') !important
+        color: theme-get('text_color')
+    &*
+        transition: color 1s
+        transition: background-color 1s
+
 html
-    background-color: rgb(43, 43, 43)
     width: 100%
     height: 100%
 
     // Sets all color to white by default as a fallback
     body
-        color: white !important
-
-        // All inputs
+        // All inputs of type file
         input[type='file']
             color: transparent
 
+        input
+            border: none
+            @include theme()
+                background-color: theme-get('form_input_background_color')
+
+        select
+            border: none
+            @include theme()
+                color: theme-get('form_input_color')
+                background-color: theme-get('form_input_background_color')
+
         // Top level container
         .container-fluid
-            background: var(--background)
+            @include theme()
+                background-color: theme-get('page_background_color')
+
+/* Navbar /*/
+#navbar
+    @include theme()
+        background-color: theme-get('navbar_color')
+
+    a
+        text-decoration: none !important
+        @include theme()
+            color: theme-get('text_color')
+
+        &:hover
+            transition: color 0.3s
+            @include theme()
+                color: theme-get('navbar_hover_color')
 
 /*/ Sections wrapper /*/
 .section-wrapper
@@ -41,9 +71,10 @@ html
     border: 1px solid rgb(204, 204, 204)
     margin: 14px
     padding: 10px
-    background-color: rgb(33, 37, 41)
     overflow-x: auto
     position: relative
+    @include theme()
+        background-color: theme-get('section_background_color')
 
     &:hover
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.726)
@@ -55,6 +86,10 @@ html
 
 /*/ All sections /*/
 #sections
+    h2, h3
+        @include theme()
+            color: theme-get('text_color')
+
     .collapse-button
         position: absolute
         top: 0
@@ -83,8 +118,13 @@ html
         td
             padding: 12px
 
+        .form-area
+            @include theme()
+                background-color: theme-get('section_background_color')
+
         #table_head
-            background-color: $table_side_color
+            @include theme()
+                background-color: theme-get('table_side_color')
 
         #delete
             display: block
@@ -102,29 +142,32 @@ html
             #frames_editor
                 padding: 10px
                 margin: 0 auto
-                background: #262a2e
                 border: 1px solid rgb(112, 112, 112)
+                @include  theme()
+                    background-color: theme-get('table_side_color')
 
                 .dropzones
                     position: relative
 
                 .drop-target>*
                     border-radius: 50%
-                    background-color: rgba(74, 238, 74, 0.142)
                     outline: solid 1px gray
                     transition: border-radius 0.4s
                     padding: -20px
                     border: none
                     opacity: 50%
+                    @include theme()
+                        background-color: theme-get('drop_target_background_color')
 
                 & tr>*:nth-child(10)
                     display: var(--show_preview)
 
                 .rownumb
                     font-weight: normal
-                    background-color: $table_side_color
                     border: none
                     padding: 8px
+                    @include theme()
+                        background-color: theme-get('table_side_color')
 
                 .immg-grid
                     width: 70px
@@ -165,14 +208,18 @@ html
     .form-area
         position: relative
         margin: 3px
+        align-items: end
+        @include theme()
+            background-color: theme-get('form_area_background_color')
 
         .form-label
             width: 80px
             font-weight: bold
-            color: #ffffff9f
             text-align: center
             margin: 3px
             padding: 0px
+            @include theme()
+                background-color: theme-get('form_label_background_color')
 
             input
                 width: 100%
@@ -183,18 +230,25 @@ html
         padding: 10px
         overflow-x: auto
 
-        input
+        #row_names_container .row-names
+            font-family: monospace
             display: block
             margin: 0 auto
-            background: #262a2e
             border: none
             border-bottom: 1px solid rgba(112, 112, 112, 0.301)
-            color: white
             text-align: center
             height: 35px
+            @include theme()
+                background: theme-get('row_names_background_color')
 
             &:last-child
                 border-bottom: none
+
+    // Export section
+    #export_section
+        .container > div
+            @include theme()
+                background-color: theme-get('form_area_background_color')
 
     // About section
     #about_section
@@ -249,8 +303,25 @@ html
     display: none
 
 /*/ Navbar stylle /*/
+#navbar
+    display: block
+    text-align: left
+
+    img
+        margin-left: 14px
+
 .navbar-dark .navbar-toggler
     margin-right: 14px
 
 #navbar_logotype
     content: url('../../public/images/logotype.png')
+
+/*/ Bootstrap /*/
+.btn-outline-light
+    background: none !important
+    @include theme()
+        color: theme-get('text_color') !important
+        border-color: theme-get('text_color') !important
+
+        &:hover
+            opacity: 0.6

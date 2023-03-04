@@ -1,3 +1,5 @@
+@use './themes' as *
+
 /*/ Media Queries /*/
 @media only screen and (max-width: 1199px)
     #sidebar_wrapper
@@ -12,26 +14,30 @@
 
             .post-form
                 text-align: left
+                max-height: 310px
+                overflow: auto
 
                 #result
                     overflow-y: unset !important
                     display: flex
                     direction: row
 
-                    .result-container
-                        margin-right: 10px
-                        display: inline-block
-                        margin-top: 0px !important
-                        max-width: 200px
+                .result-container
+                    margin-right: 10px
+                    display: inline-block
+                    margin-top: 0px !important
+                    max-width: 200px
 
-                        .thumbnail
-                            max-width: 100%
-                            object-fit: cover
-                            width: 100% !important
+                    .thumbnail
+                        max-width: 100%
+                        object-fit: cover
+                        width: 100% !important
 
 /*/ Main /*/
 #sidebar
-    background-color: rgb(49, 49, 49)
+    @include theme()
+        background-color: theme-get('sidebar_color')
+
     border-radius: 5px
     padding: 10px
     margin-top: 20px
@@ -39,6 +45,7 @@
     margin-right: 14px
     position: relative
     transition: margin 0.5s
+    overflow: auto
 
     &Container
         width: auto
@@ -48,17 +55,26 @@
         .form-label
             display: block
             font-weight: bold
-            color: #ffffff9f
             text-align: left
+            @include theme()
+                color: theme-get('form_label_text_color')
 
         #result
-            background-color: rgb(33, 37, 41)
             border-radius: 4px
             margin-top: 10px
             max-height: calc(100vh - 380px)
             overflow: auto
             padding: 5px
             width: 100%
+            @include theme()
+                background-color: theme-get('complementary_color')
+
+            &:empty::before
+                content: "No items"
+                opacity: 1
+                font-style: italic
+                @include theme()
+                    color: theme-get('form_label_text_color')
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
@@ -80,9 +96,10 @@
 /*/ Dynamically assigned /*/
 .fixed_sidebar
     margin: 0 !important
-    background-color: #1c1c1c !important
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
     transition: all 0.5s
+    @include theme()
+        background-color: theme-get('sidebar_color')
 
 .fixed_container
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
@@ -91,12 +108,21 @@
 /*/ Filepond /*/
 // The background color of the filepond drop area
 .filepond--panel-root
-    background-color: rgb(56, 56, 56) !important
+    @include theme()
+        background-color: theme-get('filepond--panel-root')
 
 // The background color of the drop circle
 .filepond--drip-blob
-    background-color: rgb(24, 24, 24) !important
+    @include theme()
+        background-color: theme-get('filepond--drop-blob') !important
 
 // The text color of the drop label
 .filepond--drop-label
-    color: rgb(159, 159, 159) !important
+    @include theme()
+        color: theme-get('filepond--drop-label')
+
+// The text color of the drop label
+.filepond--file-wrapper
+    border-radius: 5px
+    @include theme()
+        background: theme-get('filepond--list-background')

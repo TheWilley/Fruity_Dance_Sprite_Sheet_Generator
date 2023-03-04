@@ -10,11 +10,14 @@ class MouseHandler {
 	private _state = globals.config.state;
 
 	constructor() {
-		this.createEventListener();
+		this.createEventListeners();
 		this.delayMouseFollow();
 	}
 
-	createEventListener() {
+	/**
+	 * Creates new event listeners
+	 */
+	createEventListeners() {
 		/**
 		 * Detects when mouse is moving
 		 */

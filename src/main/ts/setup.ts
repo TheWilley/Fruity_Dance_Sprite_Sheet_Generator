@@ -7,15 +7,18 @@ import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
-import {Octokit} from "octokit";
+import { Octokit } from "octokit";
 
-// Global variable
+// Global variable that holds all instances
 export let globals: Globals;
 
-// Init all needed functions
+/**
+ * Initializes the app
+ */
 export function init() {
 	createGlobals();
 	addVersionNumber();
+	checkTheme();
 
 	new DragHandler().run();
 	new EventListeners().run();
@@ -24,7 +27,9 @@ export function init() {
 	globals.graphicHandler.ctx();
 }
 
-// add instances to global variable
+/**
+ * Adds instances to global variable
+ */
 function createGlobals() {
 	//TODO: Make all classes globbals
 	globals = new Globals();
@@ -38,6 +43,9 @@ function createGlobals() {
 	globals.table = new Table();
 }
 
+/**
+ * Get latest release from github
+ */
 async function addVersionNumber() {
 	const octokit = new Octokit();
 
@@ -52,4 +60,15 @@ async function addVersionNumber() {
 	globals.config.state.currentVersion.innerText = latestRelease.data.tag_name;
 
 	console.log(latestRelease.data.tag_name);
+}
+
+/**
+ * Checks if the user has a theme preference
+ */
+function checkTheme() {
+	if (localStorage.getItem("theme") === "lightTheme") {
+		document.body.classList.add("lightTheme");
+	} else {
+		document.body.classList.add("darkTheme");
+	}
 }

@@ -146,28 +146,30 @@ class Table {
 		this._state.addElement(canvas_element);
 
 		// Clear div
-		this._state.frame_names_container.innerHTML = "";
+		this._state.row_names_container.innerHTML = "";
 
 		// Generate text in textarea
 		for (let line = 1; line <= this._state.rows.value; line++) {
 			// Create input field for frame names
-			const frame_name = document.createElement("input");
+			const row_name = document.createElement("input");
 
 			// Set attributes for input fields
-			frame_name.setAttribute("type", "text");
-			frame_name.setAttribute("id", "frame_name" + line);
-			frame_name.setAttribute("value", "Frame " + line);
-			frame_name.setAttribute("class", "frame-names");
+			row_name.setAttribute("type", "text");
+			row_name.setAttribute("id", "row_name" + line);
 
-			// Disable last input field and change text to "Held"
+			// Check if "held" should be added
 			if (line == this._state.rows.value) {
-				frame_name.disabled = true;
-				frame_name.value = "Held";
-				frame_name.style.color = "rgba(255, 255, 255, 0.501)";
+				row_name.setAttribute("value", "Held");
+				row_name.setAttribute("disabled", "true");
+			} else {
+				row_name.setAttribute("value", "Row " + line);
 			}
 
+			// Set class
+			row_name.setAttribute("class", "row-names");
+
 			// Append input field to div
-			this._state.frame_names_container.appendChild(frame_name);
+			this._state.row_names_container.appendChild(row_name);
 		}
 	}
 }

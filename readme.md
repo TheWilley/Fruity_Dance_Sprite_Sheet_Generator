@@ -6,19 +6,15 @@ This project was made as a tool for the FL Studio plugin [Fruity Dance](https://
 
 ## Using the generator
 
-This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) section of this GitHub page.
+This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) section of this GitHub page, **but it's recommended to use the TypeScript version.**
 
-### Original JavaScript release
-
-Simply download the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it.
-
-### New TypeScript release
+### New TypeScript version
 
 You have two options:
 
 1. Download build
 2. Build from source
-3. Go to https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/
+3. https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/
 
 #### Download build
 
@@ -42,13 +38,24 @@ $ npm run build
 
 A `dist` folder should now be created. Inside, there is a `index.html` file. Open it with any modern browser.
 
-### Development
+### Original JavaScript version
+
+Simply download the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it.
+
+## Development
 
 Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html` to get started. All changes to files will be automatically compiled and auto reload is enabled.
 
-#### Deployment
+### Deployment
 
-The `npm run deploy` command is used to deploy to GitHub.
+The `npm run deploy` command is used to deploy to GitHub Pages.
+
+### Hooks
+
+A `.git-hooks/commit-msg` file has been created to enforce [conventional commit messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13). To enable:
+
+- `chmod +x '.git-hooks/commit-msg'`
+- `git config core.hooksPath '.git-hooks'`
 
 ## Features
 
