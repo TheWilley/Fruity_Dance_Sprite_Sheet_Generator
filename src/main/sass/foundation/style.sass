@@ -315,3 +315,13 @@ html
 
 #navbar_logotype
     content: url('../../public/images/logotype.png')
+
+/*/ Bootstrap /*/
+.btn-outline-light
+    background: none !important
+    @include theme()
+        color: theme-get('text_color') !important
+        border-color: theme-get('text_color') !important
+
+        &:hover
+            opacity: 0.6
