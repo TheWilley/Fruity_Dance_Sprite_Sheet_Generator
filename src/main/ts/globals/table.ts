@@ -156,7 +156,16 @@ class Table {
 			// Set attributes for input fields
 			row_name.setAttribute("type", "text");
 			row_name.setAttribute("id", "row_name" + line);
-			row_name.setAttribute("value", "Row " + line);
+
+			// Check if "held" should be added
+			if (line == this._state.rows.value) {
+				row_name.setAttribute("value", "Held");
+				row_name.setAttribute("disabled", "true");
+			} else {
+				row_name.setAttribute("value", "Row " + line);
+			}
+
+			// Set class
 			row_name.setAttribute("class", "row-names");
 
 			// Append input field to div
