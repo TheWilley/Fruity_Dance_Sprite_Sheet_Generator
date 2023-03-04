@@ -1,0 +1,81 @@
+/*/ Root varaibles /*/
+:root {
+	--background: #161616;
+	--show_preview: block;
+}
+
+/*/ Darkmode Colors /*/
+$dark--layer1: #161616;
+$dark--layer2: #1b1b1b;
+$dark--layer3: #222222;
+$dark--layer4: #2d2d2d;
+$dark--layer5: #cfcfcf;
+
+/*/ Lightmode Colors /*/
+$light--layer1: #161616;
+$light--layer2: #1b1b1b;
+$light--layer3: #222222;
+$light--layer4: #2d2d2d;
+$light--layer5: #cfcfcf;
+
+/*/ Themes handler - https://stackoverflow.com/a/63221870 /*/
+$themes: (
+	darkTheme: (
+		// Sidebar
+		"table_side_color": $dark--layer3,
+		"sidebar_color": $dark--layer2,
+		"section_background_color": $dark--layer2,
+
+		"navbar_color": $dark--layer2,
+		"navbar_text_color": $dark--layer5,
+		"navbar_hover_color": #ebebeb,
+
+		// Forms
+		"form_area_background_color": $dark--layer3,
+		"form_label_color": $dark--layer5,
+		"form_label_background_color": $dark--layer4,
+		"form_input_background_color": #ffffff,
+		"form_input_color": #151515,
+
+		// Other
+		"drop_target_background_color": #4aee4a24,
+		"row_names_background_color": #ffffff,
+		"complementary_color": #212529
+	),
+	lightTheme: (
+		// Sidebar
+		"table_side_color": $dark--layer3,
+		"sidebar_color": $dark--layer2,
+		"section_background_color": $dark--layer2,
+
+		"navbar_color": $dark--layer2,
+		"navar_text_color": $dark--layer5,
+		"navbar_hover_color": #ebebeb,
+
+		// Forms
+		"form_area_background_color": $dark--layer3,
+		"form_label_color": $dark--layer5,
+		"form_label_background_color": $dark--layer4,
+		"form_input_background_color": #ffffff,
+		"form_input_color": #151515,
+
+		// Other
+		"drop_target_background_color": #4aee4a24,
+		"row_names_background_color": #ffffff,
+		"complementary_color": #212529
+	)
+);
+
+@mixin theme() {
+	@each $theme, $map in $themes {
+		$theme-map: $map !global;
+		.#{$theme} & {
+			@content;
+		}
+	}
+	$theme-map: null !global;
+}
+
+@function theme-get($key) {
+	@return map-get($theme-map, $key);
+}

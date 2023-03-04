@@ -1,4 +1,4 @@
-@use './variables'
+@use './themes' as *
 
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
@@ -30,13 +30,15 @@ html
 
         input
             border: none
-            color: variables.$form_input_color !important
-            background-color: variables.$form_input_background_color
+            @include theme()
+                color: theme-get('form_input_color')
+                background-color: theme-get('form_input_background_color')
 
         select
             border: none
-            color: variables.$form_input_color !important !important
-            background-color: variables.$form_input_background_color !important
+            @include theme()
+                color: theme-get('form_input_color')
+                background-color: theme-get('form_input_background_color')
 
         // Top level container
         .container-fluid
@@ -44,15 +46,18 @@ html
 
 /* Navbar /*/
 #navbar
-    background-color: variables.$navbar_color
+    @include theme()
+        background-color: theme-get('navbar_color')
 
     a
         text-decoration: none !important
-        color: variables.$navar_text_color
+        @include theme()
+            color: theme-get('navbar_text_color')
 
         &:hover
-            color: variables.$navbar_hover_color
             transition: color 0.3s
+            @include theme()
+                color: theme-get('navbar_hover_color')
 
 /*/ Sections wrapper /*/
 .section-wrapper
@@ -61,9 +66,10 @@ html
     border: 1px solid rgb(204, 204, 204)
     margin: 14px
     padding: 10px
-    background-color: variables.$section_background_color
     overflow-x: auto
     position: relative
+    @include theme()
+        background-color: theme-get('section_background_color')
 
     &:hover
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.726)
@@ -104,10 +110,12 @@ html
             padding: 12px
 
         .form-area
-            background-color: variables.$section_background_color
+            @include theme()
+                background-color: theme-get('section_background_color')
 
         #table_head
-            background-color: variables.$table_side_color
+            @include theme()
+                background-color: theme-get('table_side_color')
 
         #delete
             display: block
@@ -125,29 +133,32 @@ html
             #frames_editor
                 padding: 10px
                 margin: 0 auto
-                background: variables.$table_side_color
                 border: 1px solid rgb(112, 112, 112)
+                @include  theme()
+                    background-color: theme-get('table_side_color')
 
                 .dropzones
                     position: relative
 
                 .drop-target>*
                     border-radius: 50%
-                    background-color: variables.$drop_target_background_color
                     outline: solid 1px gray
                     transition: border-radius 0.4s
                     padding: -20px
                     border: none
                     opacity: 50%
+                    @include theme()
+                        background-color: theme-get('drop_target_background_color')
 
                 & tr>*:nth-child(10)
                     display: var(--show_preview)
 
                 .rownumb
                     font-weight: normal
-                    background-color: variables.$table_side_color
                     border: none
                     padding: 8px
+                    @include theme()
+                        background-color: theme-get('table_side_color')
 
                 .immg-grid
                     width: 70px
@@ -189,16 +200,18 @@ html
         position: relative
         margin: 3px
         align-items: end
-        background-color: variables.$form_area_background_color
+        @include theme()
+            background-color: theme-get('form_area_background_color')
 
         .form-label
             width: 80px
             font-weight: bold
-            color: variables.$form_label_color
-            background-color: variables.$form_label_background_color
             text-align: center
             margin: 3px
             padding: 0px
+            @include theme()
+                color: theme-get('form_label_color')
+                background-color: theme-get('form_label_background_color')
 
             input
                 width: 100%
@@ -213,12 +226,14 @@ html
             font-family: monospace
             display: block
             margin: 0 auto
-            background: variables.$row_names_background_color
             border: none
             border-bottom: 1px solid rgba(112, 112, 112, 0.301)
-            color: variables.$form_label_color
             text-align: center
             height: 35px
+            @include theme()
+                background: theme-get('row_names_background_color')
+                @include theme()
+                    color: theme-get('form_label_color')
 
             &:last-child
                 border-bottom: none
@@ -226,7 +241,8 @@ html
     // Export section
     #export_section
         .container > div
-            background-color: variables.$form_area_background_color
+            @include theme()
+                background-color: theme-get('form_area_background_color')
 
     // About section
     #about_section

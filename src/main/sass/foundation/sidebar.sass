@@ -1,4 +1,4 @@
-@use './variables'
+@use './themes' as *
 
 /*/ Media Queries /*/
 @media only screen and (max-width: 1199px)
@@ -35,7 +35,9 @@
 
 /*/ Main /*/
 #sidebar
-    background-color: variables.$sidebar_color
+    @include theme()
+        background-color: theme-get('sidebar_color')
+
     border-radius: 5px
     padding: 10px
     margin-top: 20px
