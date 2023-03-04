@@ -32,427 +32,431 @@
 	</head>
 
 	<body id="app" class="darkTheme">
-		<!-- Used behind the scenes, not part of layout-->
-		<div id="mouse_circle"></div>
-		<div id="gif_frames"></div>
+		<div id="app_container">
+			<!-- Used behind the scenes, not part of layout-->
+			<div id="mouse_circle"></div>
+			<div id="gif_frames"></div>
 
-		<!--Bootstrap Header -->
-		<nav id="navbar" class="navbar navbar-expand-lg">
-			<a
-				class="navbar-brand"
-				href="https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/">
-				<img
-					id="navbar_logotype"
-					class="d-inline-block align-top"
-					width="30"
-					height="30"
-					alt="" />
-				Fruity Dance Sprite Sheet Generator
-			</a>
-			<div class="toggle-container position-fixed">
-				<input id="toggle" class="toggle" type="checkbox" />
-			</div>
-		</nav>
-
-		<!-- Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation) -->
-		<div class="container-fluid">
-			<div class="row justify-content-left">
-				<div id="sidebar_wrapper" class="col-xl-3 text-center">
-					<div id="sidebarContainer">
-						<div id="sidebar">
-							<form id="post-form" class="post-form" onsubmit="return false">
-								<div style="position: relative">
-									<input
-										style="margin: 0 auto"
-										id="files"
-										type="file"
-										multiple
-										hidden />
-									<label class="form-label rounded">
-										Upload Mode
-										<select
-											id="cumulative"
-											class="form-select"
-											style="margin-bottom: 4px">
-											<option value="cumulative">Transparent GIF</option>
-											<option>NOT Transparent GIF</option>
-										</select>
-									</label>
-									<label class="form-label rounded">
-										Collection
-										<select
-											name="collections"
-											class="form-select"
-											id="collection"></select>
-									</label>
-								</div>
-								<output id="result" />
-							</form>
-						</div>
-					</div>
+			<!--Bootstrap Header -->
+			<nav id="navbar" class="navbar navbar-expand-lg">
+				<a
+					class="navbar-brand"
+					href="https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/">
+					<img
+						id="navbar_logotype"
+						class="d-inline-block align-top"
+						width="30"
+						height="30"
+						alt="" />
+					Fruity Dance Sprite Sheet Generator
+				</a>
+				<div class="toggle-container position-fixed">
+					<input id="toggle" class="toggle" type="checkbox" />
 				</div>
+			</nav>
 
-				<!-- The edit section-->
-				<div class="col-xl-9 text-center" id="sections">
-					<div id="edit_section" class="section-wrapper">
-						<p class="collapse-button">
-							<img src="src/public/images/down-arrow-circle-md.png" />
-						</p>
-						<div id="popup">
-							<img id="popup_image" />
-						</div>
-						<h2>Edit</h2>
-						<form
-							id="settings"
-							class="form-area"
-							style="margin-bottom: 8px"
-							onsubmit="return false">
-							<label class="form-label rounded">
-								Rows
-								<input
-									type="number"
-									step="1"
-									value="1"
-									id="rows"
-									min="1"
-									max="40" />
-							</label>
-							<label class="form-label rounded">
-								Width
-								<input
-									type="number"
-									step="1"
-									value="80"
-									id="cell_width"
-									min="80"
-									max="150" />
-							</label>
-							<label class="form-label rounded">
-								Height
-								<input
-									type="number"
-									step="1"
-									value="80"
-									id="cell_height"
-									min="80"
-									max="150" />
-							</label>
-						</form>
-
-						<form class="form-area" onsubmit="return false">
-							<label class="form-label rounded"
-								>X-offset
-								<input
-									id="offset_x"
-									class="offsetControlls"
-									step="1"
-									type="number"
-									min="-150"
-									max="150"
-									disabled />
-							</label>
-							<label class="form-label rounded">
-								Multiplier
-								<input
-									type="number"
-									id="size_multiplier"
-									step="0.1"
-									min="0"
-									max="3"
-									disabled />
-							</label>
-							<label class="form-label rounded"
-								>Y-offset
-								<input
-									id="offset_y"
-									class="offsetControlls"
-									step="1"
-									type="number"
-									min="-150"
-									max="150"
-									disabled />
-							</label>
-							<button class="btn btn-warning btn-sm" id="delete" disabled>
-								Delete
-							</button>
-						</form>
-						<div id="preview-buttons">
-							<button id="start_preview" class="btn btn-outline-light btn-sm">
-								Start Preview
-							</button>
-							<button id="show_preview" class="btn btn-outline-light btn-sm">
-								Show / Hide
-							</button>
-							<button id="pause_preview" class="btn btn-outline-light btn-sm">
-								Pause Preview
-							</button>
-						</div>
-						<div id="frames_editor_container">
-							<table id="frames_editor"></table>
-						</div>
-					</div>
-
-					<!-- The output section -->
-					<div id="output_section" class="section-wrapper">
-						<p class="collapse-button">
-							<img src="src/public/images/down-arrow-circle-md.png" />
-						</p>
-						<h2>Output</h2>
-						<div id="container_canvas"></div>
-					</div>
-
-					<!-- The animation names section -->
-					<div id="names_section" class="section-wrapper">
-						<p class="collapse-button">
-							<img src="src/public/images/down-arrow-circle-md.png" />
-						</p>
-						<h2>Animation Names</h2>
-						<div id="row_names_container"></div>
-					</div>
-
-					<!-- The download section -->
-					<div id="export_section" class="section-wrapper">
-						<p class="collapse-button">
-							<img src="src/public/images/down-arrow-circle-md.png" />
-						</p>
-						<h2>Export</h2>
-						<div class="container">
-							<div
-								class="row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Download</h3>
-								<div class="col-5 align-items-center">
-									<input
-										id="filename"
-										class="form-text"
-										style="width: 100%"
-										placeholder="Filename..." />
-									<br />
-								</div>
-								<div class="col-5 d-grid">
-									<button id="downloadSpriteSheet" class="btn btn-success">
-										Download Sprite Sheet
-									</button>
-								</div>
-							</div>
-							<div
-								class="row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Save</h3>
-								<div class="col-5">
-									<input id="uploadJson" type="file" />
-								</div>
-								<div class="col-5 d-grid">
-									<button
-										id="downloadJson"
-										style="height: 76px"
-										class="btn btn-success">
-										Save Sprite Sheet (JSON)
-									</button>
-								</div>
-							</div>
-							<div class="row mb-2 p-2 border border-dark rounded">
-								<h3>Clear</h3>
-								<div class="col">
-									<button id="clear" class="btn btn-danger">
-										Clear Uploaded Images
-									</button>
-								</div>
+			<!-- Bootstrap container surounds page (fluid transitions for different sizes, good layout intergation) -->
+			<div class="container-fluid">
+				<div class="row justify-content-left">
+					<div id="sidebar_wrapper" class="col-xl-3 text-center">
+						<div id="sidebarContainer">
+							<div id="sidebar">
+								<form id="post-form" class="post-form" onsubmit="return false">
+									<div style="position: relative">
+										<input
+											style="margin: 0 auto"
+											id="files"
+											type="file"
+											multiple
+											hidden />
+										<label class="form-label rounded">
+											Upload Mode
+											<select
+												id="cumulative"
+												class="form-select"
+												style="margin-bottom: 4px">
+												<option value="cumulative">Transparent GIF</option>
+												<option>NOT Transparent GIF</option>
+											</select>
+										</label>
+										<label class="form-label rounded">
+											Collection
+											<select
+												name="collections"
+												class="form-select"
+												id="collection"></select>
+										</label>
+									</div>
+									<output id="result" />
+								</form>
 							</div>
 						</div>
 					</div>
 
-					<!-- The settings section -->
-					<div id="settings_section" class="section-wrapper">
-						<p class="collapse-button">
-							<img
-								src="/src/public/images/down-arrow-circle-md.png"
-								alt="Collapse" />
-						</p>
-						<h2>Settings</h2>
-						<form id="config_form">
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>App Limits</h3>
-								<label for="max_rows" class="form-label rounded"
-									>Max Rows
+					<!-- The edit section-->
+					<div class="col-xl-9 text-center" id="sections">
+						<div id="edit_section" class="section-wrapper">
+							<p class="collapse-button">
+								<img src="src/public/images/down-arrow-circle-md.png" />
+							</p>
+							<div id="popup">
+								<img id="popup_image" />
+							</div>
+							<h2>Edit</h2>
+							<form
+								id="settings"
+								class="form-area"
+								style="margin-bottom: 8px"
+								onsubmit="return false">
+								<label class="form-label rounded">
+									Rows
 									<input
 										type="number"
-										id="max_rows"
-										name="max_rows"
-										value="20" />
+										step="1"
+										value="1"
+										id="rows"
+										min="1"
+										max="40" />
 								</label>
-								<label for="max_upload_size" class="form-label rounded"
-									>Max Upload Size
+								<label class="form-label rounded">
+									Width
 									<input
-										type="text"
-										id="max_upload_size"
-										name="max_upload_size"
-										value="8mb" />
+										type="number"
+										step="1"
+										value="80"
+										id="cell_width"
+										min="80"
+										max="150" />
 								</label>
-							</div>
+								<label class="form-label rounded">
+									Height
+									<input
+										type="number"
+										step="1"
+										value="80"
+										id="cell_height"
+										min="80"
+										max="150" />
+								</label>
+							</form>
 
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Minimum Values</h3>
-								<label for="min_cell_width" class="form-label rounded"
-									>Min Width
+							<form class="form-area" onsubmit="return false">
+								<label class="form-label rounded"
+									>X-offset
+									<input
+										id="offset_x"
+										class="offsetControlls"
+										step="1"
+										type="number"
+										min="-150"
+										max="150"
+										disabled />
+								</label>
+								<label class="form-label rounded">
+									Multiplier
 									<input
 										type="number"
-										id="min_cell_width"
-										name="min_cell_width"
-										value="80" />
+										id="size_multiplier"
+										step="0.1"
+										min="0"
+										max="3"
+										disabled />
 								</label>
-								<label for="min_cell_height" class="form-label rounded"
-									>Min Height
+								<label class="form-label rounded"
+									>Y-offset
 									<input
+										id="offset_y"
+										class="offsetControlls"
+										step="1"
 										type="number"
-										id="min_cell_height"
-										name="min_cell_height"
-										value="80" />
+										min="-150"
+										max="150"
+										disabled />
 								</label>
-								<label for="min_x_offset" class="form-label rounded"
-									>Min X Offset
-									<input
-										type="number"
-										id="min_x_offset"
-										name="min_x_offset"
-										value="-20" />
-								</label>
-								<label for="min_y_offset" class="form-label rounded"
-									>Min Y Offset
-									<input
-										type="number"
-										id="min_y_offset"
-										name="min_y_offset"
-										value="-150" />
-								</label>
+								<button class="btn btn-warning btn-sm" id="delete" disabled>
+									Delete
+								</button>
+							</form>
+							<div id="preview-buttons">
+								<button id="start_preview" class="btn btn-outline-light btn-sm">
+									Start Preview
+								</button>
+								<button id="show_preview" class="btn btn-outline-light btn-sm">
+									Show / Hide
+								</button>
+								<button id="pause_preview" class="btn btn-outline-light btn-sm">
+									Pause Preview
+								</button>
 							</div>
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Maximum Values</h3>
-								<label for="max_cell_width" class="form-label rounded"
-									>Max Width
-									<input
-										type="number"
-										id="max_cell_width"
-										name="max_cell_width"
-										value="150" />
-								</label>
-								<label for="max_cell_height" class="form-label rounded"
-									>Max Height
-									<input
-										type="number"
-										id="max_cell_height"
-										name="max_cell_height"
-										value="150" />
-								</label>
-								<label for="max_x_offset" class="form-label rounded"
-									>Max X Offset
-									<input
-										type="number"
-										id="max_x_offset"
-										name="max_x_offset"
-										value="150" />
-								</label>
-								<label for="max_y_offset" class="form-label rounded"
-									>Max Y Offset
-									<input
-										type="number"
-										id="max_y_offset"
-										name="max_y_offset"
-										value="150" />
-								</label>
+							<div id="frames_editor_container">
+								<table id="frames_editor"></table>
 							</div>
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Image Adjustments</h3>
-								<label for="image_quality" class="form-label rounded"
-									>Image Quality
-									<input
-										type="number"
-										id="image_quality"
-										name="image_quality"
-										value="0.7" />
-								</label>
-								<label for="image_size_multiplier" class="form-label rounded"
-									>Image Size Multiplier
-									<input
-										type="number"
-										id="image_size_multiplier"
-										name="image_size_multiplier"
-										value="1" />
-								</label>
-							</div>
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Gif Adjustments</h3>
-								<label for="max_allowed_gif_frames" class="form-label rounded"
-									>Max Gif Frames
-									<input
-										type="number"
-										id="max_allowed_gif_frames"
-										name="max_allowed_gif_frames"
-										value="30" />
-								</label>
-								<label for="preview_fps" class="form-label rounded"
-									>Preview FPS
-									<input
-										type="number"
-										id="preview_fps"
-										name="preview_fps"
-										value="4" />
-								</label>
-							</div>
-							<div
-								class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-								<h3>Other</h3>
-								<label for="amount_of_collections" class="form-label rounded"
-									>Amount Collections
-									<input
-										type="number"
-										id="amount_of_collections"
-										name="amount_of_collections"
-										value="12" />
-								</label>
-								<label for="background" class="form-label rounded"
-									>Background
-									<input
-										type="text"
-										id="background"
-										name="background"
-										value="" />
-								</label>
+						</div>
 
-								<label for="warn_before_leaving_page" class="form-label rounded"
-									>Warn Before Leaving
-									<input
-										type="checkbox"
-										id="warn_before_leaving_page"
-										name="warn_before_leaving_page"
-										value="true"
-										checked />
-								</label>
+						<!-- The output section -->
+						<div id="output_section" class="section-wrapper">
+							<p class="collapse-button">
+								<img src="src/public/images/down-arrow-circle-md.png" />
+							</p>
+							<h2>Output</h2>
+							<div id="container_canvas"></div>
+						</div>
+
+						<!-- The animation names section -->
+						<div id="names_section" class="section-wrapper">
+							<p class="collapse-button">
+								<img src="src/public/images/down-arrow-circle-md.png" />
+							</p>
+							<h2>Animation Names</h2>
+							<div id="row_names_container"></div>
+						</div>
+
+						<!-- The download section -->
+						<div id="export_section" class="section-wrapper">
+							<p class="collapse-button">
+								<img src="src/public/images/down-arrow-circle-md.png" />
+							</p>
+							<h2>Export</h2>
+							<div class="container">
+								<div
+									class="row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Download</h3>
+									<div class="col-5 align-items-center">
+										<input
+											id="filename"
+											class="form-text"
+											style="width: 100%"
+											placeholder="Filename..." />
+										<br />
+									</div>
+									<div class="col-5 d-grid">
+										<button id="downloadSpriteSheet" class="btn btn-success">
+											Download Sprite Sheet
+										</button>
+									</div>
+								</div>
+								<div
+									class="row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Save</h3>
+									<div class="col-5">
+										<input id="uploadJson" type="file" />
+									</div>
+									<div class="col-5 d-grid">
+										<button
+											id="downloadJson"
+											style="height: 76px"
+											class="btn btn-success">
+											Save Sprite Sheet (JSON)
+										</button>
+									</div>
+								</div>
+								<div class="row mb-2 p-2 border border-dark rounded">
+									<h3>Clear</h3>
+									<div class="col">
+										<button id="clear" class="btn btn-danger">
+											Clear Uploaded Images
+										</button>
+									</div>
+								</div>
 							</div>
-						</form>
-						<button
-							id="apply_settings"
-							class="btn btn-warning"
-							onclick="location.reload()">
-							Apply Settings
-						</button>
-						<button
-							id="clear_settings"
-							class="btn btn-danger"
-							onclick="localStorage.clear(); location.reload()">
-							Restore Settings
-						</button>
-					</div>
-					<!-- Footer -->
-					<div id="about_section">
-						<a
-							class="link-light"
-							href="https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator"
-							id="currentVersion">
-						</a>
+						</div>
+
+						<!-- The settings section -->
+						<div id="settings_section" class="section-wrapper">
+							<p class="collapse-button">
+								<img
+									src="/src/public/images/down-arrow-circle-md.png"
+									alt="Collapse" />
+							</p>
+							<h2>Settings</h2>
+							<form id="config_form">
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>App Limits</h3>
+									<label for="max_rows" class="form-label rounded"
+										>Max Rows
+										<input
+											type="number"
+											id="max_rows"
+											name="max_rows"
+											value="20" />
+									</label>
+									<label for="max_upload_size" class="form-label rounded"
+										>Max Upload Size
+										<input
+											type="text"
+											id="max_upload_size"
+											name="max_upload_size"
+											value="8mb" />
+									</label>
+								</div>
+
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Minimum Values</h3>
+									<label for="min_cell_width" class="form-label rounded"
+										>Min Width
+										<input
+											type="number"
+											id="min_cell_width"
+											name="min_cell_width"
+											value="80" />
+									</label>
+									<label for="min_cell_height" class="form-label rounded"
+										>Min Height
+										<input
+											type="number"
+											id="min_cell_height"
+											name="min_cell_height"
+											value="80" />
+									</label>
+									<label for="min_x_offset" class="form-label rounded"
+										>Min X Offset
+										<input
+											type="number"
+											id="min_x_offset"
+											name="min_x_offset"
+											value="-20" />
+									</label>
+									<label for="min_y_offset" class="form-label rounded"
+										>Min Y Offset
+										<input
+											type="number"
+											id="min_y_offset"
+											name="min_y_offset"
+											value="-150" />
+									</label>
+								</div>
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Maximum Values</h3>
+									<label for="max_cell_width" class="form-label rounded"
+										>Max Width
+										<input
+											type="number"
+											id="max_cell_width"
+											name="max_cell_width"
+											value="150" />
+									</label>
+									<label for="max_cell_height" class="form-label rounded"
+										>Max Height
+										<input
+											type="number"
+											id="max_cell_height"
+											name="max_cell_height"
+											value="150" />
+									</label>
+									<label for="max_x_offset" class="form-label rounded"
+										>Max X Offset
+										<input
+											type="number"
+											id="max_x_offset"
+											name="max_x_offset"
+											value="150" />
+									</label>
+									<label for="max_y_offset" class="form-label rounded"
+										>Max Y Offset
+										<input
+											type="number"
+											id="max_y_offset"
+											name="max_y_offset"
+											value="150" />
+									</label>
+								</div>
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Image Adjustments</h3>
+									<label for="image_quality" class="form-label rounded"
+										>Image Quality
+										<input
+											type="number"
+											id="image_quality"
+											name="image_quality"
+											value="0.7" />
+									</label>
+									<label for="image_size_multiplier" class="form-label rounded"
+										>Image Size Multiplier
+										<input
+											type="number"
+											id="image_size_multiplier"
+											name="image_size_multiplier"
+											value="1" />
+									</label>
+								</div>
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Gif Adjustments</h3>
+									<label for="max_allowed_gif_frames" class="form-label rounded"
+										>Max Gif Frames
+										<input
+											type="number"
+											id="max_allowed_gif_frames"
+											name="max_allowed_gif_frames"
+											value="30" />
+									</label>
+									<label for="preview_fps" class="form-label rounded"
+										>Preview FPS
+										<input
+											type="number"
+											id="preview_fps"
+											name="preview_fps"
+											value="4" />
+									</label>
+								</div>
+								<div
+									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
+									<h3>Other</h3>
+									<label for="amount_of_collections" class="form-label rounded"
+										>Amount Collections
+										<input
+											type="number"
+											id="amount_of_collections"
+											name="amount_of_collections"
+											value="12" />
+									</label>
+									<label for="background" class="form-label rounded"
+										>Background
+										<input
+											type="text"
+											id="background"
+											name="background"
+											value="" />
+									</label>
+
+									<label
+										for="warn_before_leaving_page"
+										class="form-label rounded"
+										>Warn Before Leaving
+										<input
+											type="checkbox"
+											id="warn_before_leaving_page"
+											name="warn_before_leaving_page"
+											value="true"
+											checked />
+									</label>
+								</div>
+							</form>
+							<button
+								id="apply_settings"
+								class="btn btn-warning"
+								onclick="location.reload()">
+								Apply Settings
+							</button>
+							<button
+								id="clear_settings"
+								class="btn btn-danger"
+								onclick="localStorage.clear(); location.reload()">
+								Restore Settings
+							</button>
+						</div>
+						<!-- Footer -->
+						<div id="about_section">
+							<a
+								class="link-light"
+								href="https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator"
+								id="currentVersion">
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

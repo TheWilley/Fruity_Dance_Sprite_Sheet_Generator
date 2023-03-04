@@ -59,13 +59,14 @@
             text-align: left
 
         #result
-            background-color: rgb(33, 37, 41)
             border-radius: 4px
             margin-top: 10px
             max-height: calc(100vh - 380px)
             overflow: auto
             padding: 5px
             width: 100%
+            @include theme()
+                background-color: theme-get('row_names_background_color')
 
             &:empty::before
                 content: "No items"
@@ -92,9 +93,10 @@
 /*/ Dynamically assigned /*/
 .fixed_sidebar
     margin: 0 !important
-    background-color: #1c1c1c !important
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
     transition: all 0.5s
+    @include theme()
+        background-color: theme-get('sidebar_color')
 
 .fixed_container
     box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.418)
