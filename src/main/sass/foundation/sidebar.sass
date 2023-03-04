@@ -55,8 +55,9 @@
         .form-label
             display: block
             font-weight: bold
-            color: #ffffff9f
             text-align: left
+            @include theme()
+                color: theme-get('form_label_text_color')
 
         #result
             border-radius: 4px
@@ -70,8 +71,10 @@
 
             &:empty::before
                 content: "No items"
-                opacity: 0.5
+                opacity: 1
                 font-style: italic
+                @include theme()
+                    color: theme-get('form_label_text_color')
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
@@ -105,12 +108,15 @@
 /*/ Filepond /*/
 // The background color of the filepond drop area
 .filepond--panel-root
-    background-color: rgb(56, 56, 56) !important
+    @include theme()
+        background-color: theme-get('filepond--panel-root')
 
 // The background color of the drop circle
 .filepond--drip-blob
-    background-color: rgb(24, 24, 24) !important
+    @include theme()
+        background-color: theme-get('filepond--drop-blob') !important
 
 // The text color of the drop label
 .filepond--drop-label
-    color: rgb(159, 159, 159) !important
+    @include theme()
+        color: theme-get('filepond--drop-label')
