@@ -174,6 +174,7 @@ class EventListeners {
 		$(".toggle").on("click", () => {
 			// Set element of id "app" to toggle between "lightTheme" and "darkTheme"
 			$("#app").toggleClass("lightTheme darkTheme");
+			localStorage.setItem("theme", $("#app").attr("class"));
 		});
 	}
 
