@@ -38,13 +38,22 @@
 }
 
 .toggle-container {
+	transition: opacity 0.2s ease, border 0.2s ease, background-color 0.2s ease;
 	bottom: 0;
 	z-index: 9999;
 	padding: 8px;
-	border-top: 1px solid;
-	border-right: 1px solid;
+
 	border-radius: 0px 5px 0px 0px;
-	@include theme {
-		background-color: theme-get("navbar_color");
+	opacity: 30%;
+	background: none;
+
+	&:hover {
+		opacity: 100%;
+		border-top: 1px solid;
+		border-right: 1px solid;
+
+		@include theme {
+			background-color: theme-get("navbar_color");
+		}
 	}
 }
