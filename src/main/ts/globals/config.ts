@@ -113,8 +113,8 @@ class Configuration {
 					const root = document.documentElement;
 					if (value != null)
 						String(value)[0] == "#"
-							? root.style.setProperty("--background", String(value))
-							: root.style.setProperty("--background", `url(${value})`);
+							? this._state.app_container.style.background = String(value)
+							: this._state.app_container.style.background = `url(${value})`;
 				}
 			]
 		]).forEach((value, key) => {
