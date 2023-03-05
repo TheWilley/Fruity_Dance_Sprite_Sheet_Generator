@@ -1,4 +1,4 @@
-import { globals } from "./setup";
+import {globals} from "./setup";
 import DownloadUpload from "./downloadUpload";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
@@ -175,6 +175,11 @@ class EventListeners {
 			// Set element of id "app" to toggle between "lightTheme" and "darkTheme"
 			$("#app").toggleClass("lightTheme darkTheme");
 			localStorage.setItem("theme", $("#app").attr("class"));
+
+			// Always set backround color of root element to match theme
+			document.documentElement.style.background = window.getComputedStyle(
+				globals.config.state.app_container
+			).background;
 		});
 	}
 
