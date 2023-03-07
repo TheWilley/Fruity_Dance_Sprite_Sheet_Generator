@@ -71,6 +71,13 @@ Versions will be updated according to the following rules:
 
 OBS: Two version numbers may be increased at the same time if both a `feat` and `fix` is included in the release notes.
 
+### Why is the git history so messy?
+
+I'm still learning and I still make mistakes. At times, you may see the wrong author or different emails being used. I won't be changing the history to fix this, but I will try to keep it clean from now on.
+
+Here's a meme which reflects the situation:
+[![image.png](https://i.postimg.cc/26NYFH8j/image.png)](https://postimg.cc/wt2n9Qmn)
+
 ## Features
 
 ![image.png](https://i.postimg.cc/pd2SCDYM/image.png)
