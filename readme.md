@@ -73,7 +73,7 @@ OBS: Two version numbers may be increased at the same time if both a `feat` and 
 
 ## Features
 
-[![image.png](https://i.postimg.cc/pd2SCDYM/image.png)](https://postimg.cc/nXPTc9P3)
+![image.png](https://i.postimg.cc/pd2SCDYM/image.png)
 
 - Right-click on an image to sort it into a "collection". <br>
 - Upload one or many image files or a gif file to auto-extract its frames. If you upload a GIF, choose the upload mode. <br>
