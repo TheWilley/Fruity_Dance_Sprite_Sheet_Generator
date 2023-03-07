@@ -1,4 +1,4 @@
-import {globals} from "./setup";
+import { globals } from "./setup";
 import DownloadUpload from "./downloadUpload";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
@@ -107,7 +107,7 @@ class EventListeners {
 		/**
 		 * Checks if collection has been clicked
 		 */
-		$(this._state.collection).on("click", () => {
+		$(this._state.collection).on("change", () => {
 			this._graphicHandler.filterClass();
 		});
 
