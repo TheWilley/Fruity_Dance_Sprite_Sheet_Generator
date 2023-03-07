@@ -8,23 +8,25 @@ This project was made as a tool for the FL Studio plugin [Fruity Dance](https://
 
 This project has been refactored to use [TypeScript](https://www.typescriptlang.org/). You can find the original pure JavaScript release at the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) section of this GitHub page, **but it's recommended to use the TypeScript version.**
 
-### New TypeScript version
+### TypeScript version
 
-You have two options:
+You have three options:
 
-1. Download build
-2. Build from source
-3. https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/
+1. [Go to the GitHub pages website](https://thewilley.github.io/Fruity_Dance_Sprite_Sheet_Generator/)
+2. [Download build](#download-build)
+3. [Build from source](#build-from-source)
 
 #### Download build
 
 You can download the build from the [releases](https://github.com/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases) section of this GitHub page.
 
-After downloading, go into the `dist` folder. Inside, there is a `index.html` file. Open it with any modern browser.
+Open `index.html` in the `dist` folder with any modern browser.
 
 #### Build from source
 
-First, clone the project and `cd` into it. Once inside, install all needed dependencies:
+_OBS: [nodejs](https://nodejs.org/en/download/) is required_
+
+Firstly, clone the project and navigate into it with a terminal. Once inside, install all needed dependencies:
 
 ```
 $ npm i
@@ -36,13 +38,11 @@ Secondly, build the project:
 $ npm run build
 ```
 
-A `dist` folder should now be created. Inside, there is a `index.html` file. Open it with any modern browser.
-
-### Original JavaScript version
-
-Simply download the project and open the `index.html` file inside the `generator` folder to get started. The only thing you need is a modern browser to run it.
+A `dist` folder should now be created with a `index.html` file inside. Open it with any modern browser.
 
 ## Development
+
+_OBS: [nodejs](https://nodejs.org/en/download/) is required_
 
 Run `npm run dev` in the console and open `http://localhost:9000/dist/index.html` to get started. All changes to files will be automatically compiled and auto reload is enabled.
 
@@ -57,9 +57,23 @@ A `.git-hooks/commit-msg` file has been created to enforce [conventional commit 
 - `chmod +x '.git-hooks/commit-msg'`
 - `git config core.hooksPath '.git-hooks'`
 
+### Version handling
+
+Versions will be updated according to the following rules:
+
+```
+<major>.<minor>.<patch>
+```
+
+- The major version is seldom increased as it's hard to define any hard-set rules for it. Generally, it's only when the API no longer is compatible with older versions that this version is increased, but when that happens is a question of definition, i.e. when are there _enough_ changes? For this repo, the version will be increased when I feel that it warrants the changes made, or until I find a better way to handle this.
+- If `feat` is in the release notes, the minor version will be increased.
+- If `fix` is in the release notes, the patch version will be increased.
+
+OBS: Two version numbers may be increased at the same time if both a `feat` and `fix` is included in the release notes.
+
 ## Features
 
-![image](https://user-images.githubusercontent.com/89783791/219487771-f7902095-826e-413a-8db9-dba32b5482ff.png)
+[![image.png](https://i.postimg.cc/pd2SCDYM/image.png)](https://postimg.cc/nXPTc9P3)
 
 - Right-click on an image to sort it into a "collection". <br>
 - Upload one or many image files or a gif file to auto-extract its frames. If you upload a GIF, choose the upload mode. <br>
@@ -84,7 +98,7 @@ A `.git-hooks/commit-msg` file has been created to enforce [conventional commit 
         </tr>
         <tr>
             <td> <code> ctrl + u </code> / <code> ⌘ + u </code>
-            <td> Clear uploaded images </td>
+            <td> Clear uploaded images (i.e. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localstorage</a>) </td>
         </tr>
     </tbody>
 </table>
