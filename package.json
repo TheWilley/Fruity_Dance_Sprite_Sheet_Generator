@@ -9,7 +9,7 @@
 		"prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/main/ts/version.ts",
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
-		"deploy": "npm run build && release-it && npm run gena && gh-pages -d dist",
+		"deploy": "release-it && npm run build && npm run gena && gh-pages -d dist",
 		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
