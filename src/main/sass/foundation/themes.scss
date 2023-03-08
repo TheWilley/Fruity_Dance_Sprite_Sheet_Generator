@@ -44,7 +44,8 @@ $themes: (
 		// Other
 		"drop_target_background_color": #4aee4a24,
 		"row_names_background_color": #ffffff,
-		"complementary_color": #212529
+		"complementary_color": #212529,
+		"result_container_border": 1px solid #cbcaca
 	),
 	lightTheme: (
 		"page_background_color": $light--layer1,
@@ -73,7 +74,8 @@ $themes: (
 		// Other
 		"drop_target_background_color": #4aee4a24,
 		"row_names_background_color": #dddddd,
-		"complementary_color": #d6d6d6
+		"complementary_color": #d6d6d6,
+		"result_container_border": 1px solid #333333
 	)
 );
 

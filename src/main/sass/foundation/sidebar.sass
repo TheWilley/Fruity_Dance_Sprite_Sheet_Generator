@@ -85,7 +85,8 @@
                 margin-top: 5px
                 padding: 3px
                 min-width: fit-content
-                border: 0.13em solid #333333
+                @include theme()
+                    border: theme-get('result_container_border')
 
                 &:first-of-type
                     margin-top: 0px
