@@ -7,7 +7,7 @@ import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
-import {Octokit} from "octokit";
+import {LIB_VERSION} from "./version";
 
 // Global variable that holds all instances
 export let globals: Globals;
@@ -47,19 +47,12 @@ function createGlobals() {
  * Get latest release from github
  */
 async function addVersionNumber() {
-	const octokit = new Octokit();
-
-	const latestRelease = await octokit.request(
-		"GET /repos/TheWilley/Fruity_Dance_Sprite_Sheet_Generator/releases/latest",
-		{
-			owner: "OWNER",
-			repo: "REPO"
-		}
-	);
-
-	globals.config.state.currentVersion.innerText = latestRelease.data.tag_name;
-
-	console.log(latestRelease.data.tag_name);
+	// https://stackoverflow.com/a/67701490/10223638
+	if (LIB_VERSION == undefined) {
+		console.error("LIB_VERSION is undefined");
+		process.exit(1);
+	}
+	globals.config.state.currentVersion.innerText = LIB_VERSION;
 }
 
 /**
