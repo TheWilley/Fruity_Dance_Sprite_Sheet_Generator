@@ -69,7 +69,7 @@ Versions will be updated according to the following rules:
 - If `feat` is in the release notes, the minor version will be increased.
 - If `fix` is in the release notes, the patch version will be increased.
 
-OBS: Two version numbers may be increased at the same time if both a `feat` and `fix` is included in the release notes.
+OBS: The version number will be increased by one (i.e. `1.0.0` -> `1.0.1`). This means that if the minor version is increased, the patch version will be reset to `0`, and if the major version is increased, both the minor and patch version will be reset. However, note that the previous versions _did not followed this rule_. For example, I incorrectly increased the minor version from `2.1.0` to `2.2.1` when the version should have been increased to `2.2.0` instead. Altough this makes versioning a bit confusing, I will not be changing it, and will instead try to stay consistent from now on.
 
 ### Why is the git history so messy?
 
