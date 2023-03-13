@@ -1,11 +1,12 @@
-import { globals } from "../setup";
+import {globals} from "../setup";
 import CtxMenu from "../libs/ctxmenu.min/ctxmenu.min";
 import ImageInfo from "../imageInfo";
 import Preview from "../preview";
 import $ from "jquery";
 
 class GraphicHandler {
-	private _selectedItem: HTMLElement;
+	// TODO: this shoulld be an array
+	private _selectedItems: HTMLElement[] = [];
 	private _previousObject: HTMLElement = null;
 	private _previewObjects: Preview[] = [];
 	private _state = globals.config.state;
@@ -120,40 +121,44 @@ class GraphicHandler {
 	 * Removes an image from the table
 	 */
 	public remove() {
-		const currentObject = this._selectedItem;
-		// Get row / cell number
-		const rownumb = Number(currentObject.parentElement.dataset.x);
-		const cellnumb = Number(currentObject.parentElement.dataset.y);
+		for (const item of this._selectedItems) {
+			const currentObject = item;
+			// Get row / cell number
+			const rownumb = Number(currentObject.parentElement.dataset.x);
+			const cellnumb = Number(currentObject.parentElement.dataset.y);
 
-		// Step 1, remove from canvas
-		this.generateCanvas(
-			null,
-			rownumb,
-			cellnumb,
-			this._imageCollection.cellCollection[rownumb][cellnumb].xOffset,
-			this._imageCollection.cellCollection[rownumb][cellnumb].yOffset,
-			this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier,
-			"partOfCanvas"
-		);
+			// Step 1, remove from canvas
+			this.generateCanvas(
+				null,
+				rownumb,
+				cellnumb,
+				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset,
+				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset,
+				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier,
+				"partOfCanvas"
+			);
 
-		// Step 2, remove from array
-		this._imageCollection.cellCollection[rownumb][cellnumb] = new ImageInfo(
-			rownumb,
-			cellnumb
-		);
-		this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
-		this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
-		this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = 1; // Needed to avoid an error regarding null offset
+			// Step 2, remove from array
+			this._imageCollection.cellCollection[rownumb][cellnumb] = new ImageInfo(
+				rownumb,
+				cellnumb
+			);
+			this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = 0; // Needed to avoid an error regarding null offset
+			this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = 0; // Needed to avoid an error regarding null offset
+			this._imageCollection.cellCollection[rownumb][
+				cellnumb
+			].sizeMultiplier = 1; // Needed to avoid an error regarding null offset
 
-		// Step 3, remove regenerate and remove from grid
-		currentObject.parentNode.appendChild(this.generateImage());
-		currentObject.remove();
+			// Step 3, remove regenerate and remove from grid
+			currentObject.parentNode.appendChild(this.generateImage());
+			currentObject.remove();
 
-		// Step 4, redraw
-		this.redraw();
+			// Step 4, redraw
+			this.redraw();
 
-		// Step 5, disable controls
-		this.disableControls(true);
+			// Step 5, disable controls
+			this.disableControls(true);
+		}
 	}
 
 	/**
@@ -268,36 +273,63 @@ class GraphicHandler {
 	 * @param {object} currentObject - The target image element in the table
 	 */
 	public show_controls(currentObject: HTMLElement) {
-		this._selectedItem = currentObject;
+		/**
+		 * Disables controls if all selected items are null
+		 */
+		const disableIfAllNull = () => {
+			// Disable controls if the image src is not found
+			let disabledItems = 0;
+			for (const item of this._selectedItems) {
+				if (item.getAttribute("src") == null) {
+					disabledItems++;
+				}
+			}
+			if (disabledItems == this._selectedItems.length) {
+				this.disableControls(true);
+			} else {
+				this.disableControls(false);
+			}
+		};
 
-		// Disable controls if the image src is not found
-		if (currentObject.getAttribute("src") == null) {
-			this.disableControls(true);
-		} else {
-			this.disableControls(false);
-		}
+		/**
+		 * Handles the selection of a itemm
+		 */
+		const selectionHandler = () => {
+			// Apply green border
+			currentObject.style.border = "green solid 3px";
+
+			// Check if current object exist in the array
+			if (this._selectedItems.includes(currentObject)) {
+				// Remove the border
+				currentObject.style.border = "none";
+
+				// Remove the current object from the array
+				this._selectedItems.splice(
+					this._selectedItems.indexOf(currentObject),
+					1
+				);
+
+				// Unbind all events
+				if (currentObject != this._previousObject) {
+					$(this._state.offset_x).unbind();
+					$(this._state.offset_y).unbind();
+					$(this._state.size_multiplier).unbind();
+				}
+			} else {
+				this._selectedItems.push(currentObject);
+			}
+		};
+
+		// TODO: Change this to append to an array and then loop through it to apply selection to many elements
+		selectionHandler();
+		disableIfAllNull();
 
 		// Get row / cell number
 		const rownumb = Number(currentObject.parentElement.dataset.x);
 		const cellnumb = Number(currentObject.parentElement.dataset.y);
 
-		// Unbind all events
-		if (currentObject != this._previousObject) {
-			$(this._state.offset_x).unbind();
-			$(this._state.offset_y).unbind();
-			$(this._state.size_multiplier).unbind();
-		}
-
-		// Check if object has been accessed before
-		if (this._previousObject != null) {
-			this._previousObject.style.border = "1px solid gray";
-		}
-
 		// Make the previous object the current one
 		this._previousObject = currentObject;
-
-		// Apply green border
-		currentObject.style.border = "green solid 3px";
 
 		// Get offset
 		if (this._previousObject != null) {
@@ -314,7 +346,11 @@ class GraphicHandler {
 			this._state.offset_y.value = Yoffset;
 			this._state.size_multiplier.value = sizeMultiplier;
 
-			$([this._state.offset_x, this._state.offset_y, this._state.size_multiplier]).on("change", (event) => {
+			$([
+				this._state.offset_x,
+				this._state.offset_y,
+				this._state.size_multiplier
+			]).on("change", (event) => {
 				this.checkMinMax(event);
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset =
 					this._state.offset_x.value;
@@ -356,14 +392,6 @@ class GraphicHandler {
 		root.style.getPropertyValue("--show_preview") == "none"
 			? root.style.setProperty("--show_preview", "block")
 			: root.style.setProperty("--show_preview", "none");
-	}
-
-	public get selectedItem() {
-		return this._selectedItem;
-	}
-
-	public set selectedItem(value) {
-		this._selectedItem = value;
 	}
 
 	public get previewObjects() {
