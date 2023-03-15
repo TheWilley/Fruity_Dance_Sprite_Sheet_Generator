@@ -1,4 +1,4 @@
-import {globals} from "../setup";
+import { globals } from "../setup";
 import CtxMenu from "../libs/ctxmenu.min/ctxmenu.min";
 import ImageInfo from "../imageInfo";
 import Preview from "../preview";
@@ -7,7 +7,11 @@ import $ from "jquery";
 class GraphicHandler {
 	// TODO: this shoulld be an array
 	private _selectedItems: HTMLElement[] = [];
-	private _previousObject: HTMLElement = null;
+	private _previousValues = {
+		Xoffset: 0,
+		Yoffset: 0,
+		sizeMultiplier: 0,
+	};
 	private _previewObjects: Preview[] = [];
 	private _state = globals.config.state;
 	private _settings = globals.config.settings;
@@ -308,13 +312,6 @@ class GraphicHandler {
 					this._selectedItems.indexOf(currentObject),
 					1
 				);
-
-				// Unbind all events
-				if (currentObject != this._previousObject) {
-					$(this._state.offset_x).unbind();
-					$(this._state.offset_y).unbind();
-					$(this._state.size_multiplier).unbind();
-				}
 			} else {
 				this._selectedItems.push(currentObject);
 			}
@@ -324,15 +321,17 @@ class GraphicHandler {
 		selectionHandler();
 		disableIfAllNull();
 
-		// Get row / cell number
-		const rownumb = Number(currentObject.parentElement.dataset.x);
-		const cellnumb = Number(currentObject.parentElement.dataset.y);
+		// Unbind all events
+		$(this._state.offset_x).unbind();
+		$(this._state.offset_y).unbind();
+		$(this._state.size_multiplier).unbind();
 
-		// Make the previous object the current one
-		this._previousObject = currentObject;
+		// Go through all selected items
+		for (const item of this._selectedItems) {
+			// Get row / cell number
+			const rownumb = Number(item.parentElement.dataset.x);
+			const cellnumb = Number(item.parentElement.dataset.y);
 
-		// Get offset
-		if (this._previousObject != null) {
 			// Get stored values
 			const Xoffset =
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset;
@@ -346,18 +345,36 @@ class GraphicHandler {
 			this._state.offset_y.value = Yoffset;
 			this._state.size_multiplier.value = sizeMultiplier;
 
+			// Store previous values
+			this._previousValues = {
+				Xoffset: this._state.offset_x.value,
+				Yoffset: this._state.offset_y.value,
+				sizeMultiplier: this._state.size_multiplier.value,
+			};
+
+			// Bind events to the controls
 			$([
 				this._state.offset_x,
 				this._state.offset_y,
 				this._state.size_multiplier
 			]).on("change", (event) => {
+				const offsets = {
+					Xoffset: this._state.offset_x.value - this._previousValues.Xoffset,
+					Yoffset: this._state.offset_y.value - this._previousValues.Yoffset,
+					sizeMultiplier: this._state.size_multiplier.value - this._previousValues.sizeMultiplier,
+				};
+
+				// Check that we are not over the maximum value
 				this.checkMinMax(event);
-				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset =
-					this._state.offset_x.value;
-				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset =
-					this._state.offset_y.value;
-				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier =
-					this._state.size_multiplier.value;
+
+				// Update the values
+				// Offset = current value - previous value
+				// X = (current value - previous value) + (previous value + offset)
+				// For example: (2 - 3) + (3 + 1) = 1
+				// This makes each image move by the offset value relative to its previous value instead of the current value
+				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = (Xoffset - Number(this._previousValues.Xoffset)) + (Number(this._previousValues.Xoffset) + offsets.Xoffset);
+				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = (Yoffset - Number(this._previousValues.Yoffset)) + (Number(this._previousValues.Yoffset) + offsets.Yoffset);
+				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = (sizeMultiplier - Number(this._previousValues.sizeMultiplier)) + (Number(this._previousValues.sizeMultiplier) + offsets.sizeMultiplier);
 				this.redraw();
 			});
 		}
