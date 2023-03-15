@@ -126,6 +126,7 @@ class GraphicHandler {
 	 */
 	public remove() {
 		for (const item of this._selectedItems) {
+			console.log(this._selectedItems);
 			const currentObject = item;
 			// Get row / cell number
 			const rownumb = Number(currentObject.parentElement.dataset.x);
@@ -157,12 +158,16 @@ class GraphicHandler {
 			currentObject.parentNode.appendChild(this.generateImage());
 			currentObject.remove();
 
-			// Step 4, redraw
-			this.redraw();
-
-			// Step 5, disable controls
-			this.disableControls(true);
+			// Step 4, remove from selected items
+			// Since we are removing all selected items anyways, we can just clear the array
+			this._selectedItems = [];
 		}
+
+		// Step 5, redraw
+		this.redraw();
+
+		// Step 6, disable controls
+		this.disableControls(true);
 	}
 
 	/**
