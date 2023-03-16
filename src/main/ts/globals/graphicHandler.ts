@@ -5,7 +5,6 @@ import Preview from "../preview";
 import $ from "jquery";
 
 class GraphicHandler {
-	// TODO: this shoulld be an array
 	private _selectedItems: HTMLElement[] = [];
 	private _previousValues = {
 		Xoffset: 0,
@@ -80,6 +79,19 @@ class GraphicHandler {
 				);
 			};
 		}
+	}
+
+	/**
+	 * Clears the canvas manually
+	 */
+	private clearCanvasManual() {
+		const ctx = this._state.canvas.getContext("2d");
+		ctx.clearRect(
+			0,
+			0,
+			this._state.canvas.width,
+			this._state.canvas.height
+		);
 	}
 
 	/**
@@ -322,7 +334,7 @@ class GraphicHandler {
 			}
 		};
 
-		// TODO: Change this to append to an array and then loop through it to apply selection to many elements
+		// Handle selection graphics
 		selectionHandler();
 		disableIfAllNull();
 
@@ -377,12 +389,20 @@ class GraphicHandler {
 				// X = (current value - previous value) + (previous value + offset)
 				// For example: (2 - 3) + (3 + 1) = 1
 				// This makes each image move by the offset value relative to its previous value instead of the current value
-				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = (Xoffset - Number(this._previousValues.Xoffset)) + (Number(this._previousValues.Xoffset) + offsets.Xoffset);
-				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = (Yoffset - Number(this._previousValues.Yoffset)) + (Number(this._previousValues.Yoffset) + offsets.Yoffset);
-				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = (sizeMultiplier - Number(this._previousValues.sizeMultiplier)) + (Number(this._previousValues.sizeMultiplier) + offsets.sizeMultiplier);
-				this.redraw();
+				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = Number(((Xoffset - Number(this._previousValues.Xoffset)) + (Number(this._previousValues.Xoffset) + offsets.Xoffset)).toFixed(1));
+				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = Number(((Yoffset - Number(this._previousValues.Yoffset)) + (Number(this._previousValues.Yoffset) + offsets.Yoffset)).toFixed(1));
+				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = Number(((sizeMultiplier - Number(this._previousValues.sizeMultiplier)) + (Number(this._previousValues.sizeMultiplier) + offsets.sizeMultiplier)).toFixed(1));
 			});
 		}
+
+		// Add an additional event for redrawing the image as putting this in the loop above causes the image to be redrawn multiple times per change
+		$([
+			this._state.offset_x,
+			this._state.offset_y,
+			this._state.size_multiplier
+		]).on("change", () => {
+			this.redraw();
+		});
 	}
 
 	/**
