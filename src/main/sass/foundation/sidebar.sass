@@ -70,13 +70,6 @@
             @include theme()
                 background-color: theme-get('complementary_color')
 
-            &:empty::before
-                content: "No items"
-                opacity: 1
-                font-style: italic
-                @include theme()
-                    color: theme-get('form_label_text_color')
-
             .result-container
                 background: url('../../public/images/transparent.jpg')
                 overflow: hidden
