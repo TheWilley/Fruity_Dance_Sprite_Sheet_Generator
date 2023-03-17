@@ -1,14 +1,15 @@
 {
 	"name": "fruity_dance_sprite_sheet_generator",
-	"version": "2.2.2",
+	"version": "2.3.0",
 	"description": "<div align=center> <img width=\"200px\"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "webpack-dev-server --mode=development ",
+		"dev": "npm run prebuild && webpack-dev-server --mode=development ",
+		"prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/main/ts/version.ts",
 		"build": "webpack --progress",
 		"build:sass": "sass ./src/sass/main.sass",
-		"deploy": "npm run build && release-it && npm run gena && gh-pages -d dist",
+		"deploy": "release-it && npm run build && npm run gena && gh-pages -d dist",
 		"gena": "node ./artifact/zip_artifact.js"
 	},
 	"repository": {
@@ -34,6 +35,8 @@
 		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-n": "^15.6.1",
 		"eslint-plugin-promise": "^6.1.1",
+		"favicons": "^7.1.1",
+		"favicons-webpack-plugin": "^6.0.0",
 		"gh-pages": "^5.0.0",
 		"git-conventional-commits": "^2.5.1",
 		"html-webpack-plugin": "^5.5.0",

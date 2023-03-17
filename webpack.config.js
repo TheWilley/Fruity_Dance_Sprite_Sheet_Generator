@@ -6,6 +6,7 @@ require("style-loader");
 require("css-loader");
 require("sass-loader");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
 	entry: "./src/app.ts",
@@ -52,7 +53,8 @@ module.exports = {
 		new NodePolyfillPlugin(),
 		new HtmlWebpackPlugin({
 			template: "./src/index.html"
-		})
+		}),
+		new FaviconsWebpackPlugin('./src/public/favicon/favicon-32x32.png')
 	],
 	// http://localhost:9000/dist/index.html
 	devServer: {

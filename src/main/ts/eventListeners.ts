@@ -107,7 +107,7 @@ class EventListeners {
 		/**
 		 * Checks if collection has been clicked
 		 */
-		$(this._state.collection).on("click", () => {
+		$(this._state.collection).on("change", () => {
 			this._graphicHandler.filterClass();
 		});
 
@@ -139,7 +139,7 @@ class EventListeners {
 			"change",
 			(event: JQuery.ChangeEvent) => {
 				event.stopImmediatePropagation();
-				this._graphicHandler.checkMinMax(event);
+				this._graphicHandler.checkMinMax(0, 0, event);
 				if (this._table.checkEmptyCells()) this._table.addTable();
 			}
 		);
@@ -175,6 +175,11 @@ class EventListeners {
 			// Set element of id "app" to toggle between "lightTheme" and "darkTheme"
 			$("#app").toggleClass("lightTheme darkTheme");
 			localStorage.setItem("theme", $("#app").attr("class"));
+
+			// Always set backround color of root element to match theme
+			document.documentElement.style.background = window.getComputedStyle(
+				globals.config.state.app_container
+			).background;
 		});
 	}
 

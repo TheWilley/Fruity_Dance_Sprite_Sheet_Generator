@@ -14,7 +14,7 @@ $dark--layer5: #cfcfcf;
 $light--layer1: #ffffff;
 $light--layer2: #f6f6f6;
 $light--layer3: #dfdfdf;
-$light--layer4: #aaaaaa;
+$light--layer4: #d0d0d0;
 $light--layer5: #222222;
 
 /*/ Themes handler - https://stackoverflow.com/a/63221870 /*/
@@ -44,7 +44,8 @@ $themes: (
 		// Other
 		"drop_target_background_color": #4aee4a24,
 		"row_names_background_color": #ffffff,
-		"complementary_color": #212529
+		"complementary_color": #212529,
+		"result_container_border": 1px solid #cbcaca
 	),
 	lightTheme: (
 		"page_background_color": $light--layer1,
@@ -73,7 +74,8 @@ $themes: (
 		// Other
 		"drop_target_background_color": #4aee4a24,
 		"row_names_background_color": #dddddd,
-		"complementary_color": #d6d6d6
+		"complementary_color": #d6d6d6,
+		"result_container_border": 1px solid #333333
 	)
 );
 

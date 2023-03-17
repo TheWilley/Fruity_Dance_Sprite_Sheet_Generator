@@ -66,15 +66,9 @@
             overflow: auto
             padding: 5px
             width: 100%
+            min-height: 200px
             @include theme()
                 background-color: theme-get('complementary_color')
-
-            &:empty::before
-                content: "No items"
-                opacity: 1
-                font-style: italic
-                @include theme()
-                    color: theme-get('form_label_text_color')
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
@@ -85,6 +79,8 @@
                 margin-top: 5px
                 padding: 3px
                 min-width: fit-content
+                @include theme()
+                    border: theme-get('result_container_border')
 
                 &:first-of-type
                     margin-top: 0px

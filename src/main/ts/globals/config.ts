@@ -1,5 +1,5 @@
-import { globals } from "../setup";
-import { ValuesType } from "utility-types";
+import {globals} from "../setup";
+import {ValuesType} from "utility-types";
 import tippy from "tippy.js";
 
 // Configuration interface
@@ -50,74 +50,75 @@ class Configuration {
 
 	// Applies the settings
 	private runConfig() {
-		new Map<keyof IConfiguration, (value: ConfigurationAttributeTypes) => void>([
+		new Map<keyof IConfiguration, (value: ConfigurationAttributeTypes) => void>(
 			[
-				"max_rows",
-				(value: number) => {
-					this._state.rows.setAttribute("max", value);
-				}
-			],
-			[
-				"min_cell_width",
-				(value: number) => {
-					this._state.cell_width.setAttribute("min", value);
-					this._state.cell_width.value = value;
-				}
-			],
-			[
-				"max_cell_width",
-				(value: number) => {
-					this._state.cell_width.setAttribute("max", value);
-				}
-			],
-			[
-				"min_cell_height",
-				(value: number) => {
-					this._state.cell_height.setAttribute("min", value);
-					this._state.cell_height.value = value;
-				}
-			],
-			[
-				"max_cell_height",
-				(value: number) => {
-					this._state.cell_height.setAttribute("max", value);
-				}
-			],
-			[
-				"min_x_offset",
-				(value: number) => {
-					this._state.offset_x.setAttribute("min", value);
-				}
-			],
-			[
-				"max_x_offset",
-				(value: number) => {
-					this._state.offset_x.setAttribute("max", value);
-				}
-			],
-			[
-				"min_y_offset",
-				(value: number) => {
-					this._state.offset_y.setAttribute("min", value);
-				}
-			],
-			[
-				"max_y_offset",
-				(value: number) => {
-					this._state.offset_y.setAttribute("max", value);
-				}
-			],
-			[
-				"background",
-				(value: string) => {
-					const root = document.documentElement;
-					if (value != null)
-						String(value)[0] == "#"
-							? root.style.setProperty("--background", String(value))
-							: root.style.setProperty("--background", `url(${value})`);
-				}
+				[
+					"max_rows",
+					(value: number) => {
+						this._state.rows.setAttribute("max", value);
+					}
+				],
+				[
+					"min_cell_width",
+					(value: number) => {
+						this._state.cell_width.setAttribute("min", value);
+						this._state.cell_width.value = value;
+					}
+				],
+				[
+					"max_cell_width",
+					(value: number) => {
+						this._state.cell_width.setAttribute("max", value);
+					}
+				],
+				[
+					"min_cell_height",
+					(value: number) => {
+						this._state.cell_height.setAttribute("min", value);
+						this._state.cell_height.value = value;
+					}
+				],
+				[
+					"max_cell_height",
+					(value: number) => {
+						this._state.cell_height.setAttribute("max", value);
+					}
+				],
+				[
+					"min_x_offset",
+					(value: number) => {
+						this._state.offset_x.setAttribute("min", value);
+					}
+				],
+				[
+					"max_x_offset",
+					(value: number) => {
+						this._state.offset_x.setAttribute("max", value);
+					}
+				],
+				[
+					"min_y_offset",
+					(value: number) => {
+						this._state.offset_y.setAttribute("min", value);
+					}
+				],
+				[
+					"max_y_offset",
+					(value: number) => {
+						this._state.offset_y.setAttribute("max", value);
+					}
+				],
+				[
+					"background",
+					(value: string) => {
+						if (value != null)
+							String(value)[0] == "#"
+								? (this._state.app_container.style.background = String(value))
+								: (this._state.app_container.style.background = `url(${value})`);
+					}
+				]
 			]
-		]).forEach((value, key) => {
+		).forEach((value, key) => {
 			if (this._settings[key as keyof IConfiguration]) {
 				value(this._settings[key as keyof IConfiguration]);
 			}
@@ -196,8 +197,7 @@ class Configuration {
 						.value
 				) || defaultValues.amount_of_collections,
 			background:
-				(form.elements.namedItem("background") as HTMLInputElement).value ||
-				"",
+				(form.elements.namedItem("background") as HTMLInputElement).value || "",
 			warn_before_leaving_page:
 				(
 					form.elements.namedItem(
@@ -241,23 +241,28 @@ class Configuration {
 
 		// Object consiting of all keys from the IConfiguration interface and their corresponding tippy tooltips
 		const tooltips: IConfigurationTooltips = {
-			"max_rows": "The maximum amount of rows that can be created",
-			"min_cell_width": "The minimum width of a cell",
-			"min_cell_height": "The minimum height of a cell",
-			"min_x_offset": "The minimum X offset of a cell",
-			"min_y_offset": "The minimum Y offset of a cell",
-			"max_cell_width": "The maximum width of a cell",
-			"max_cell_height": "The maximum height of a cell",
-			"max_x_offset": "The maximum X offset of a cell",
-			"max_y_offset": "The maximum Y offset of a cell",
-			"max_upload_size": "The maximum file size of an image that can be uploaded",
-			"image_quality": "The image quality (1 = best quality, 0 = worst quality)",
-			"image_size_multiplier": "Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality",
-			"max_allowed_gif_frames": "The maximum amount of frames to be  exported from a gif",
-			"preview_fps": "The amount of frames per second that the preview will play at",
-			"amount_of_collections": "The amount of collections",
-			"background": "The background of the page. This can be a color in HEX, a local image or URL",
-			"warn_before_leaving_page": "Whether or not to warn the user before leaving the page"
+			max_rows: "The maximum amount of rows that can be created",
+			min_cell_width: "The minimum width of a cell",
+			min_cell_height: "The minimum height of a cell",
+			min_x_offset: "The minimum X offset of a cell",
+			min_y_offset: "The minimum Y offset of a cell",
+			max_cell_width: "The maximum width of a cell",
+			max_cell_height: "The maximum height of a cell",
+			max_x_offset: "The maximum X offset of a cell",
+			max_y_offset: "The maximum Y offset of a cell",
+			max_upload_size: "The maximum file size of an image that can be uploaded",
+			image_quality: "The image quality (1 = best quality, 0 = worst quality)",
+			image_size_multiplier:
+				"Multiplies the max proportions of an uploaded image (by default the minWidth/minHeight and maxWidth/maxHeight values). Higher value here means better image quality",
+			max_allowed_gif_frames:
+				"The maximum amount of frames to be  exported from a gif",
+			preview_fps:
+				"The amount of frames per second that the preview will play at",
+			amount_of_collections: "The amount of collections",
+			background:
+				"The background of the page. This can be a color in HEX, a local image or URL",
+			warn_before_leaving_page:
+				"Whether or not to warn the user before leaving the page"
 		};
 
 		return tooltips;
