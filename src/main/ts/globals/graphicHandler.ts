@@ -445,10 +445,6 @@ class GraphicHandler {
 					(Yoffset > this._settings.max_y_offset) ? this._settings.max_y_offset :
 						Yoffset;
 
-			// Update the values on html the elements
-			this._state.offset_x.value = new_Xoffset.toString();
-			this._state.offset_y.value = new_Yoffset.toString();
-
 			return [new_Xoffset, new_Yoffset];
 		}
 	}
