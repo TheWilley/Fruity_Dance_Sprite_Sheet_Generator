@@ -69,7 +69,7 @@ Versions will be updated according to the following rules:
 - If `feat` is in the release notes, the minor version will be increased.
 - If `fix` is in the release notes, the patch version will be increased.
 
-OBS: The version number will be increased by one (i.e. `1.0.0` -> `1.0.1`). This means that if the minor version is increased, the patch version will be reset to `0`, and if the major version is increased, both the minor and patch version will be reset. However, note that the previous versions _did not followed this rule_. For example, I incorrectly increased the minor version from `2.1.0` to `2.2.1` when the version should have been increased to `2.2.0` instead. Altough this makes versioning a bit confusing, I will not be changing it, and will instead try to stay consistent from now on.
+_OBS: The version number will be increased by one (i.e. `1.0.0` -> `1.0.1`). This means that if the minor version is increased, the patch version will be reset to `0`, and if the major version is increased, both the minor and patch version will be reset. However, note that the previous versions did not follow this rule. For example, I incorrectly increased the minor version from `2.1.0` to `2.2.1` when the version should have been increased to `2.2.0` instead. Altough this makes versioning a bit confusing, I will not be changing it, and will instead try to stay consistent from now on._
 
 ### Why is the git history so messy?
 
@@ -87,6 +87,7 @@ Here's a meme which reflects the situation:
   - If you're going to upload a gif with a transparent background, choose Upload mode: Transparent GIF.
   - Otherwise, choose Upload mode: NON Transparent GIF. <br>
 - Drag and drop images into the grid to place them. <br>
+- Click on one or many images to select and modify its offset or size.
 - Save your sprite sheet as a JSON file to load it later, or download the compiled sprite sheet image and text file.
 - Configure the generator in the settings section
 
