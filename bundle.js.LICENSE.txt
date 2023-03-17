@@ -55,13 +55,6 @@
  */
 
 /*!
- * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
- *
- * Copyright (c) 2014-2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-
-/*!
  * jQuery JavaScript Library v3.6.3
  * https://jquery.com/
  *
@@ -74,8 +67,6 @@
  *
  * Date: 2022-12-20T21:28Z
  */
-
-/*! fromentries. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
