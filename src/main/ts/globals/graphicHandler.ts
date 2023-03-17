@@ -374,15 +374,13 @@ class GraphicHandler {
 				this._state.offset_x,
 				this._state.offset_y,
 				this._state.size_multiplier
-			]).on("change", (event) => {
+			]).on("change", () => {
 				const offsets = {
 					Xoffset: this._state.offset_x.value - this._previousValues.Xoffset,
 					Yoffset: this._state.offset_y.value - this._previousValues.Yoffset,
 					sizeMultiplier: this._state.size_multiplier.value - this._previousValues.sizeMultiplier,
 				};
 
-				// Check that we are not over the maximum value
-				this.checkMinMax(event);
 
 				// Update the values
 				// Offset = current value - previous value
@@ -392,6 +390,12 @@ class GraphicHandler {
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = Number(((Xoffset - Number(this._previousValues.Xoffset)) + (Number(this._previousValues.Xoffset) + offsets.Xoffset)).toFixed(1));
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = Number(((Yoffset - Number(this._previousValues.Yoffset)) + (Number(this._previousValues.Yoffset) + offsets.Yoffset)).toFixed(1));
 				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier = Number(((sizeMultiplier - Number(this._previousValues.sizeMultiplier)) + (Number(this._previousValues.sizeMultiplier) + offsets.sizeMultiplier)).toFixed(1));
+
+				// Check that we are not over the maximum value
+				const correctedValues = this.checkMinMax(this._imageCollection.cellCollection[rownumb][cellnumb].xOffset, this._imageCollection.cellCollection[rownumb][cellnumb].yOffset);
+
+				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset = correctedValues[0];
+				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset = correctedValues[1];
 			});
 		}
 
@@ -409,20 +413,43 @@ class GraphicHandler {
 	 * Checks if the current value is under its minimum / over its maximum
 	 * @param {object} event
 	 */
-	checkMinMax(event: JQuery.ChangeEvent) {
-		if (
-			parseInt((event.target as HTMLInputElement).value) >
-			parseInt((event.target as HTMLInputElement).getAttribute("max"))
-		) {
-			const target = event.target as HTMLInputElement;
-			target.value = (event.target as HTMLInputElement).getAttribute("max");
+	checkMinMax(xOffset?: number, Yoffset?: number, event?: JQuery.ChangeEvent) {
+		// If there is an event, check against the html element value directly
+		if (event) {
+			if (
+				parseInt((event.target as HTMLInputElement).value) >
+				parseInt((event.target as HTMLInputElement).getAttribute("max"))
+			) {
+				const target = event.target as HTMLInputElement;
+				target.value = (event.target as HTMLInputElement).getAttribute("max");
+			}
+			if (
+				parseInt((event.target as HTMLInputElement).value) <
+				parseInt((event.target as HTMLInputElement).getAttribute("min"))
+			) {
+				const target = event.target as HTMLInputElement;
+				target.value = (event.target as HTMLInputElement).getAttribute("min");
+			}
 		}
-		if (
-			parseInt((event.target as HTMLInputElement).value) <
-			parseInt((event.target as HTMLInputElement).getAttribute("min"))
-		) {
-			const target = event.target as HTMLInputElement;
-			target.value = (event.target as HTMLInputElement).getAttribute("min");
+		// If there is no event, check against the stored values
+		else {
+			// Check that we are not over the maximum or under the minimum value for the x offset
+			const new_Xoffset =
+				(xOffset < this._settings.min_x_offset) ? this._settings.min_x_offset :
+					(xOffset > this._settings.max_x_offset) ? this._settings.max_x_offset :
+						xOffset;
+
+			// Check that we are not over the maximum or under the minimum value for the y offset			
+			const new_Yoffset =
+				(Yoffset < this._settings.min_y_offset) ? this._settings.min_y_offset :
+					(Yoffset > this._settings.max_y_offset) ? this._settings.max_y_offset :
+						Yoffset;
+
+			// Update the values on html the elements
+			this._state.offset_x.value = new_Xoffset.toString();
+			this._state.offset_y.value = new_Yoffset.toString();
+
+			return [new_Xoffset, new_Yoffset];
 		}
 	}
 
