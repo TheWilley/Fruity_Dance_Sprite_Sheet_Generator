@@ -27,6 +27,9 @@
 			rel="stylesheet"
 			href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
 			type="text/css" />
+		<script
+			src="https://kit.fontawesome.com/72ceba0bbe.js"
+			crossorigin="anonymous"></script>
 	</head>
 
 	<body id="app">
@@ -105,7 +108,7 @@
 								style="margin-bottom: 8px"
 								onsubmit="return false">
 								<label class="form-label rounded">
-									Rows
+									<i class="fa-solid fa-bars"></i>
 									<input
 										type="number"
 										step="1"
@@ -115,7 +118,7 @@
 										max="40" />
 								</label>
 								<label class="form-label rounded">
-									Width
+									<i class="fa-solid fa-text-width"></i>
 									<input
 										type="number"
 										step="1"
@@ -125,7 +128,7 @@
 										max="150" />
 								</label>
 								<label class="form-label rounded">
-									Height
+									<i class="fa-solid fa-text-height"></i>
 									<input
 										type="number"
 										step="1"
@@ -137,8 +140,8 @@
 							</form>
 
 							<form class="form-area" onsubmit="return false">
-								<label class="form-label rounded"
-									>X-offset
+								<label class="form-label rounded">
+									<i class="fa-solid fa-left-right fa-sm"></i>
 									<input
 										id="offset_x"
 										class="offsetControlls"
@@ -149,7 +152,8 @@
 										disabled />
 								</label>
 								<label class="form-label rounded">
-									Multiplier
+									<i
+										class="fa-solid fa-up-right-and-down-left-from-center fa-sm"></i>
 									<input
 										type="number"
 										id="size_multiplier"
@@ -158,8 +162,8 @@
 										max="3"
 										disabled />
 								</label>
-								<label class="form-label rounded"
-									>Y-offset
+								<label class="form-label rounded">
+									<i class="fa-solid fa-up-down fa-sm"></i>
 									<input
 										id="offset_y"
 										class="offsetControlls"
@@ -171,19 +175,19 @@
 								</label>
 							</form>
 							<div>
-								<button class="btn btn-warning btn-sm" id="delete" disabled>
-									Delete
+								<button class="btn btn-warning btn-sm m-0" id="delete" disabled>
+									<i class="fa-solid fa-trash" style="color: #ffffff"></i>
 								</button>
 							</div>
-							<div id="preview-buttons">
+							<div id="preview-buttons" class="mt-1">
 								<button id="start_preview" class="btn btn-outline-light btn-sm">
-									Start Preview
+									<i class="fa-solid fa-play"></i>
 								</button>
 								<button id="show_preview" class="btn btn-outline-light btn-sm">
-									Show / Hide
+									<i class="fa-solid fa-eye-slash"></i>
 								</button>
 								<button id="pause_preview" class="btn btn-outline-light btn-sm">
-									Pause Preview
+									<i class="fa-solid fa-pause"></i>
 								</button>
 							</div>
 							<div id="frames_editor_container">
