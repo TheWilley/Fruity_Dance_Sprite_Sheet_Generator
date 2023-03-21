@@ -145,6 +145,24 @@ class EventListeners {
 		);
 
 		/**
+		 * Flips image horizontally
+		 */
+		$(this._state.flip_horizontal).on(
+			"click", () => {
+				this._graphicHandler.flip("horizontal");
+			}
+		);
+
+		/**
+		 * Flips image vertically
+		 */
+		$(this._state.flip_vertical).on(
+			"click", () => {
+				this._graphicHandler.flip("vertical");
+			}
+		);
+
+		/**
 		 * Checks if config is changed
 		 */
 		$("#config_form").on("input", "input", (event) => {

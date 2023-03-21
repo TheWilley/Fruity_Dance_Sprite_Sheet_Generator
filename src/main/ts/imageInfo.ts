@@ -7,6 +7,8 @@ class ImageInfo {
 	private _xOffset;
 	private _yOffset;
 	private _sizeMultiplier;
+	private _isFlippedVertically;
+	private _isFlippedHorizontally;
 	private _imageSrc;
 
 	constructor(
@@ -15,6 +17,8 @@ class ImageInfo {
 		xOffset?: number,
 		yOffset?: number,
 		sizeMultiplier?: number,
+		isFlippedVertically?: boolean,
+		isFlippedHorizontally?: boolean,
 		imageSrc?: string
 	) {
 		this._x = x;
@@ -22,6 +26,8 @@ class ImageInfo {
 		this._xOffset = xOffset;
 		this._yOffset = yOffset;
 		this._sizeMultiplier = sizeMultiplier;
+		this._isFlippedVertically = isFlippedVertically;
+		this._isFlippedHorizontally = isFlippedHorizontally;
 		this._imageSrc = imageSrc;
 	}
 
@@ -63,6 +69,22 @@ class ImageInfo {
 
 	set yOffset(value: number) {
 		this._yOffset = value;
+	}
+
+	get isFlippedHorizontally() {
+		return this._isFlippedHorizontally;
+	}
+
+	set isFlippedHorizontally(value: boolean) {
+		this._isFlippedHorizontally = value;
+	}
+
+	get isFlippedVertically() {
+		return this._isFlippedVertically;
+	}
+
+	set isFlippedVertically(value: boolean) {
+		this._isFlippedVertically = value;
 	}
 
 	get imageSrc() {

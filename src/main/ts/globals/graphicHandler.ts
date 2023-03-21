@@ -27,6 +27,9 @@ class GraphicHandler {
 	 * @param {number} cellnumb - The cell number (X)
 	 * @param {number} Xoffset - The image offset in the X axis
 	 * @param {number} Yoffset - The image offset in the Y axis
+	 * @param {number} sizeMultiplier - The image size multiplier
+	 * @param {boolean} isFlippedVertically - If the image is flipped vertically
+	 * @param {boolean} isFlippedHorizontally - If the image is flipped horizontally
 	 * @param {('wholeCanvas'|'partOfCanvas')} clear - How much of the canvas to be cleared
 	 */
 	public generateCanvas(
@@ -36,6 +39,8 @@ class GraphicHandler {
 		Xoffset?: number,
 		Yoffset?: number,
 		sizeMultiplier?: number,
+		isFlippedVertically?: boolean,
+		isFlippedHorizontally?: boolean,
 		clear?: "wholeCanvas" | "partOfCanvas"
 	) {
 		// This is where we create the canvas and insert images
@@ -70,13 +75,29 @@ class GraphicHandler {
 
 			// Drawing of image
 			GeneratedCanvas.onload = function () {
-				ctx.drawImage(
-					GeneratedCanvas,
-					cell_width * cellnumb + Number(Xoffset),
-					cell_height * rownumb + Number(Yoffset),
-					cell_width * sizeMultiplier,
-					cell_height * sizeMultiplier
-				);
+				// Common parameters
+				let sx = cell_width * cellnumb + Number(Xoffset);
+				let sy = cell_height * rownumb + Number(Yoffset);
+				const sw = cell_width * sizeMultiplier;
+				const sh = cell_height * sizeMultiplier;
+
+				// Apply flipping if needed
+				if (isFlippedVertically) {
+					ctx.scale(1, -1);
+					sy = -(sy + sh);
+				}
+				if (isFlippedHorizontally) {
+					ctx.scale(-1, 1);
+					sx = -(sx + sw);
+				}
+
+				// Draw image
+				ctx.drawImage(GeneratedCanvas, sx, sy, sw, sh);
+
+				// Reset transformations if flipped
+				if (isFlippedVertically || isFlippedHorizontally) {
+					ctx.setTransform(1, 0, 0, 1, 0, 0);
+				}
 			};
 		}
 	}
@@ -109,6 +130,8 @@ class GraphicHandler {
 						cell.xOffset,
 						cell.yOffset,
 						cell.sizeMultiplier,
+						cell.isFlippedVertically,
+						cell.isFlippedHorizontally,
 						"wholeCanvas"
 					);
 				}
@@ -151,6 +174,8 @@ class GraphicHandler {
 				this._imageCollection.cellCollection[rownumb][cellnumb].xOffset,
 				this._imageCollection.cellCollection[rownumb][cellnumb].yOffset,
 				this._imageCollection.cellCollection[rownumb][cellnumb].sizeMultiplier,
+				this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedVertically,
+				this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedHorizontally,
 				"partOfCanvas"
 			);
 
@@ -277,10 +302,36 @@ class GraphicHandler {
 		};
 	}
 
-	public flipVertical() {
-		this._selectedItems.forEach((item) => {
+	public flip(direction: string) {
+		for (const item of this._selectedItems) {
+			const currentObject = item;
 
-		});
+			// Step 1, get row and cell number
+			const rownumb = Number(currentObject.parentElement.dataset.x);
+			const cellnumb = Number(currentObject.parentElement.dataset.y);
+
+			// Step 2, flip image vertically if not already flipped
+			if (direction == "horizontal") {
+				if (this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedVertically) {
+					this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedVertically = false;
+				}
+				else {
+					this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedVertically = true;
+				}
+			}
+			// Step 3, flip image isFlippedHorizontally if not already flipped
+			else if (direction == "vertical") {
+				if (this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedHorizontally) {
+					this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedHorizontally = false;
+				}
+				else {
+					this._imageCollection.cellCollection[rownumb][cellnumb].isFlippedHorizontally = true;
+				}
+			}
+		}
+
+		// Step 4, redraw
+		this.redraw();
 	}
 
 	/**
