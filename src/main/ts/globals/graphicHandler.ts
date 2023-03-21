@@ -138,7 +138,6 @@ class GraphicHandler {
 	 */
 	public remove() {
 		for (const item of this._selectedItems) {
-			console.log(this._selectedItems);
 			const currentObject = item;
 			// Get row / cell number
 			const rownumb = Number(currentObject.parentElement.dataset.x);
@@ -278,6 +277,12 @@ class GraphicHandler {
 		};
 	}
 
+	public flipVertical() {
+		this._selectedItems.forEach((item) => {
+
+		});
+	}
+
 	/**
 	 * Enables or disables the offset & delete settings
 	 * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
@@ -287,6 +292,8 @@ class GraphicHandler {
 		this._state.offset_y.disabled = enabled;
 		this._state.size_multiplier.disabled = enabled;
 		this._state.delete.disabled = enabled;
+		this._state.flip_horizontal.disabled = enabled;
+		this._state.flip_vertical.disabled = enabled;
 	}
 
 	/**
