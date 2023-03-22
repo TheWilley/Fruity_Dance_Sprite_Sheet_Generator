@@ -8,6 +8,7 @@ import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
 import { LIB_VERSION } from "./version";
+import * as bootstrap from "bootstrap";
 
 // Global variable that holds all instances
 export let globals: Globals;
