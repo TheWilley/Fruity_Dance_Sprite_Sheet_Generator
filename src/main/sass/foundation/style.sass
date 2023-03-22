@@ -1,5 +1,3 @@
-@use './themes' as *
-
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
     #settings
@@ -51,10 +49,6 @@ html
 
 /*/ All sections /*/
 #sections
-    h2, h3
-        @include theme()
-            color: theme-get('text_color')
-
     .collapse-button
         position: absolute
         top: 0
@@ -111,11 +105,6 @@ html
                     padding: -20px
                     border: none
                     opacity: 50%
-                    @include theme()
-                        background-color: theme-get('drop_target_background_color')
-
-                & tr>*:nth-child(10)
-                    display: var(--show_preview)
 
                 .rownumb
                     font-weight: normal
@@ -267,9 +256,6 @@ html
 /*/ Bootstrap /*/
 .btn-outline-light
     background: none !important
-    @include theme()
-        color: theme-get('text_color') !important
-        border-color: theme-get('text_color') !important
 
-        &:hover
-            opacity: 0.6
+    &:hover
+        opacity: 0.6

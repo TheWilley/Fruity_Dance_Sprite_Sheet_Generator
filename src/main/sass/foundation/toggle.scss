@@ -1,6 +1,4 @@
 /*/ https://codepen.io/mrozilla/pen/OJJNjRb /*/
-@use "./themes.scss" as *;
-
 // magic
 .toggle {
 	--size: 2rem;
@@ -51,9 +49,5 @@
 		opacity: 100%;
 		border-top: 1px solid;
 		border-right: 1px solid;
-
-		@include theme {
-			background-color: theme-get("navbar_color");
-		}
 	}
 }
