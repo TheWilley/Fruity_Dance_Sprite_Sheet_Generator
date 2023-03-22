@@ -35,9 +35,7 @@
 
 /*/ Main /*/
 #sidebar
-    @include theme()
-        background-color: theme-get('sidebar_color')
-
+    background-color: var(--bs-secondary-bg)
     border-radius: 5px
     padding: 10px
     margin-top: 20px
@@ -56,8 +54,6 @@
             display: block
             font-weight: bold
             text-align: left
-            @include theme()
-                color: theme-get('form_label_text_color')
 
         #result
             border-radius: 4px
@@ -67,8 +63,7 @@
             padding: 5px
             width: 100%
             min-height: 200px
-            @include theme()
-                background-color: theme-get('complementary_color')
+            background-color: var(--bs-tertiary-bg)
 
             .result-container
                 background: url('../../public/images/transparent.jpg')
