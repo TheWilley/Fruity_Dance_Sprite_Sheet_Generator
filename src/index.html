@@ -276,98 +276,124 @@
 							<p class="collapse-button"></p>
 							<h2>Settings</h2>
 							<form id="config_form">
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
-									<h3>App Limits</h3>
-									<label for="max_rows" class="form-label rounded"
-										>Max Rows
-										<input
-											type="number"
-											id="max_rows"
-											name="max_rows"
-											value="20" />
-									</label>
-									<label for="max_upload_size" class="form-label rounded"
-										>Max Upload Size
-										<input
-											type="text"
-											id="max_upload_size"
-											name="max_upload_size"
-											value="8mb" />
-									</label>
+								<div class="row justify-content-center">
+									<div
+										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										<h3>App Limits</h3>
+										<label for="max_rows" class="form-label rounded"
+											>Max Rows
+											<input
+												type="number"
+												id="max_rows"
+												name="max_rows"
+												value="20" />
+										</label>
+										<label for="max_upload_size" class="form-label rounded"
+											>Max Upload Size
+											<input
+												type="text"
+												id="max_upload_size"
+												name="max_upload_size"
+												value="8mb" />
+										</label>
+									</div>
+									<div
+										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										<h3>Other</h3>
+										<label
+											for="amount_of_collections"
+											class="form-label rounded"
+											>Amount Collections
+											<input
+												type="number"
+												id="amount_of_collections"
+												name="amount_of_collections"
+												value="12" />
+										</label>
+										<label for="background" class="form-label rounded"
+											>Background
+											<input
+												type="text"
+												id="background"
+												name="background"
+												value="" />
+										</label>
+									</div>
 								</div>
 
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
-									<h3>Minimum Values</h3>
-									<label for="min_cell_width" class="form-label rounded"
-										>Min Width
-										<input
-											type="number"
-											id="min_cell_width"
-											name="min_cell_width"
-											value="80" />
-									</label>
-									<label for="min_cell_height" class="form-label rounded"
-										>Min Height
-										<input
-											type="number"
-											id="min_cell_height"
-											name="min_cell_height"
-											value="80" />
-									</label>
-									<label for="min_x_offset" class="form-label rounded"
-										>Min X Offset
-										<input
-											type="number"
-											id="min_x_offset"
-											name="min_x_offset"
-											value="-20" />
-									</label>
-									<label for="min_y_offset" class="form-label rounded"
-										>Min Y Offset
-										<input
-											type="number"
-											id="min_y_offset"
-											name="min_y_offset"
-											value="-150" />
-									</label>
-								</div>
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
-									<h3>Maximum Values</h3>
-									<label for="max_cell_width" class="form-label rounded"
-										>Max Width
-										<input
-											type="number"
-											id="max_cell_width"
-											name="max_cell_width"
-											value="150" />
-									</label>
-									<label for="max_cell_height" class="form-label rounded"
-										>Max Height
-										<input
-											type="number"
-											id="max_cell_height"
-											name="max_cell_height"
-											value="150" />
-									</label>
-									<label for="max_x_offset" class="form-label rounded"
-										>Max X Offset
-										<input
-											type="number"
-											id="max_x_offset"
-											name="max_x_offset"
-											value="150" />
-									</label>
-									<label for="max_y_offset" class="form-label rounded"
-										>Max Y Offset
-										<input
-											type="number"
-											id="max_y_offset"
-											name="max_y_offset"
-											value="150" />
-									</label>
+								<div class="row justify-content-center">
+									<div
+										class="form-area col-4 m-2 p-2 align-items-first rounded">
+										<h3>Minimum Values</h3>
+										<label for="min_cell_width" class="form-label rounded"
+											>Min Width
+											<input
+												type="number"
+												id="min_cell_width"
+												name="min_cell_width"
+												value="80" />
+										</label>
+										<label for="min_cell_height" class="form-label rounded"
+											>Min Height
+											<input
+												type="number"
+												id="min_cell_height"
+												name="min_cell_height"
+												value="80" />
+										</label>
+										<label for="min_x_offset" class="form-label rounded"
+											>Min X Offset
+											<input
+												type="number"
+												id="min_x_offset"
+												name="min_x_offset"
+												value="-20" />
+										</label>
+										<label for="min_y_offset" class="form-label rounded"
+											>Min Y Offset
+											<input
+												type="number"
+												id="min_y_offset"
+												name="min_y_offset"
+												value="-150" />
+										</label>
+									</div>
+									<div
+										class="form-area col-4 m-2 p-2 align-items-first rounded">
+										<h3>Maximum Values</h3>
+										<label for="max_cell_width" class="form-label rounded"
+											>Max Width
+											<input
+												type="number"
+												id="max_cell_width"
+												name="max_cell_width"
+												value="150" />
+										</label>
+										<label for="max_cell_height" class="form-label rounded"
+											>Max Height
+											<input
+												type="number"
+												id="max_cell_height"
+												name="max_cell_height"
+												value="150" />
+										</label>
+										<label for="max_x_offset" class="form-label rounded"
+											>Max X Offset
+											<input
+												type="number"
+												id="max_x_offset"
+												name="max_x_offset"
+												value="150" />
+										</label>
+										<label for="max_y_offset" class="form-label rounded"
+											>Max Y Offset
+											<input
+												type="number"
+												id="max_y_offset"
+												name="max_y_offset"
+												value="150" />
+										</label>
+									</div>
 								</div>
 								<div class="row justify-content-center">
 									<div
@@ -415,37 +441,23 @@
 										</label>
 									</div>
 								</div>
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
-									<h3>Other</h3>
-									<label for="amount_of_collections" class="form-label rounded"
-										>Amount Collections
-										<input
-											type="number"
-											id="amount_of_collections"
-											name="amount_of_collections"
-											value="12" />
-									</label>
-									<label for="background" class="form-label rounded"
-										>Background
-										<input
-											type="text"
-											id="background"
-											name="background"
-											value="" />
-									</label>
-
-									<label
-										for="warn_before_leaving_page"
-										class="form-label rounded"
-										>Warn Before Leaving
-										<input
-											type="checkbox"
-											id="warn_before_leaving_page"
-											name="warn_before_leaving_page"
-											value="true"
-											checked />
-									</label>
+								<div class="row justify-content-center">
+									<div
+										class="form-area col-12 m-2 p-2 align-items-first rounded">
+										<h3>Checkboxes</h3>
+										<label
+											for="warn_before_leaving_page"
+											class="form-label rounded"
+											>Warn Before Leaving
+											<input
+												type="checkbox"
+												id="warn_before_leaving_page"
+												role="button"
+												name="warn_before_leaving_page"
+												value="true"
+												checked />
+										</label>
+									</div>
 								</div>
 							</form>
 							<button
