@@ -227,44 +227,26 @@
 						<div id="export_section" class="section-wrapper">
 							<div class="collapse-button"></div>
 							<h2>Export</h2>
-							<div class="container">
-								<div
-									class="row mb-3 p-2 justify-content-center align-items-first rounded">
+							<div class="row justify-content-center">
+								<div class="form-area col m-2 p-2 rounded">
 									<h3>Download</h3>
-									<div class="col-5 align-items-center">
+									<div class="my-auto">
 										<input
 											id="filename"
-											class="form-text"
-											style="width: 100%"
+											class="form-text form-control"
 											placeholder="Filename..." />
 										<br />
-									</div>
-									<div class="col-5 d-grid">
 										<button id="downloadSpriteSheet" class="btn btn-success">
 											Download Sprite Sheet
 										</button>
 									</div>
 								</div>
-								<div
-									class="row mb-3 p-2 justify-content-center align-items-first rounded">
+								<div class="form-area col m-2 p-2 rounded">
 									<h3>Save</h3>
-									<div class="col-5">
-										<input id="uploadJson" type="file" />
-									</div>
-									<div class="col-5 d-grid">
-										<button
-											id="downloadJson"
-											style="height: 76px"
-											class="btn btn-success">
-											Save Sprite Sheet (JSON)
-										</button>
-									</div>
-								</div>
-								<div class="row mb-2 p-2 rounded">
-									<h3>Clear</h3>
-									<div class="col">
-										<button id="clear" class="btn btn-danger">
-											Clear Uploaded Images
+									<div class="my-auto">
+										<input id="uploadJson" type="file" class="" />
+										<button id="downloadJson" class="btn btn-success">
+											Save Sprite Sheet
 										</button>
 									</div>
 								</div>
@@ -278,7 +260,7 @@
 							<form id="config_form">
 								<div class="row justify-content-center">
 									<div
-										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										class="form-area col-md-6 m-2 p-2 align-items-first rounded">
 										<h3>App Limits</h3>
 										<label for="max_rows" class="form-label rounded"
 											>Max Rows
@@ -298,7 +280,7 @@
 										</label>
 									</div>
 									<div
-										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										class="form-area col-md-6 m-2 p-2 align-items-first rounded">
 										<h3>Other</h3>
 										<label
 											for="amount_of_collections"
@@ -470,7 +452,7 @@
 								id="clear_settings"
 								class="btn btn-danger"
 								onclick="localStorage.clear(); location.reload()">
-								Restore Settings
+								Restore To Default
 							</button>
 						</div>
 						<!-- Footer -->
