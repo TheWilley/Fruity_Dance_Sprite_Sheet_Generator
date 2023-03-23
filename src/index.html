@@ -93,105 +93,116 @@
 								<img id="popup_image" />
 							</div>
 							<h2>Edit</h2>
-							<form
-								id="settings"
-								class="form-area"
-								style="margin-bottom: 8px"
-								onsubmit="return false">
-								<label class="form-label rounded">
-									<i class="fa-solid fa-bars"></i>
-									<input
-										type="number"
-										step="1"
-										value="1"
-										id="rows"
-										min="1"
-										max="40" />
-								</label>
-								<label class="form-label rounded">
-									<i class="fa-solid fa-text-width"></i>
-									<input
-										type="number"
-										step="1"
-										value="80"
-										id="cell_width"
-										min="80"
-										max="150" />
-								</label>
-								<label class="form-label rounded">
-									<i class="fa-solid fa-text-height"></i>
-									<input
-										type="number"
-										step="1"
-										value="80"
-										id="cell_height"
-										min="80"
-										max="150" />
-								</label>
-							</form>
+							<div class="form-area rounded p-3">
+								<form
+									id="settings"
+									class="form-area"
+									style="margin-bottom: 8px"
+									onsubmit="return false">
+									<label class="form-label rounded">
+										<i class="fa-solid fa-bars"></i>
+										<input
+											type="number"
+											step="1"
+											value="1"
+											id="rows"
+											min="1"
+											max="40" />
+									</label>
+									<label class="form-label rounded">
+										<i class="fa-solid fa-text-width"></i>
+										<input
+											type="number"
+											step="1"
+											value="80"
+											id="cell_width"
+											min="80"
+											max="150" />
+									</label>
+									<label class="form-label rounded">
+										<i class="fa-solid fa-text-height"></i>
+										<input
+											type="number"
+											step="1"
+											value="80"
+											id="cell_height"
+											min="80"
+											max="150" />
+									</label>
+								</form>
 
-							<form class="form-area" onsubmit="return false">
-								<label class="form-label rounded">
-									<i class="fa-solid fa-left-right fa-sm"></i>
-									<input
-										id="offset_x"
-										class="offsetControlls"
-										step="1"
-										type="number"
-										min="-150"
-										max="150"
-										disabled />
-								</label>
-								<label class="form-label rounded">
-									<i
-										class="fa-solid fa-up-right-and-down-left-from-center fa-sm"></i>
-									<input
-										type="number"
-										id="size_multiplier"
-										step="0.1"
-										min="0"
-										max="3"
-										disabled />
-								</label>
-								<label class="form-label rounded">
-									<i class="fa-solid fa-up-down fa-sm"></i>
-									<input
-										id="offset_y"
-										class="offsetControlls"
-										step="1"
-										type="number"
-										min="-150"
-										max="150"
-										disabled />
-								</label>
-							</form>
-							<div>
-								<button
-									class="btn btn-outline-light btn-sm m-0"
-									id="flip_horizontal"
-									disabled>
-									<i class="fa-regular fa-image fa-flip-horizontal"></i>
-								</button>
-								<button class="btn btn-warning btn-sm m-0" id="delete" disabled>
-									<i class="fa-solid fa-trash" style="color: #ffffff"></i>
-								</button>
-								<button
-									class="btn btn-outline-light btn-sm m-0"
-									id="flip_vertical"
-									disabled>
-									<i class="fa-regular fa-image fa-flip-vertical"></i>
-								</button>
-							</div>
-							<div id="preview-buttons" class="mt-1">
-								<button id="start_preview" class="btn btn-outline-light btn-sm">
-									<i class="fa-solid fa-play"></i>
-								</button>
-								<button id="show_preview" class="btn btn-outline-light btn-sm">
-									<i class="fa-solid fa-eye-slash"></i>
-								</button>
-								<button id="pause_preview" class="btn btn-outline-light btn-sm">
-									<i class="fa-solid fa-pause"></i>
-								</button>
+								<form class="form-area" onsubmit="return false">
+									<label class="form-label rounded">
+										<i class="fa-solid fa-left-right fa-sm"></i>
+										<input
+											id="offset_x"
+											class="offsetControlls"
+											step="1"
+											type="number"
+											min="-150"
+											max="150"
+											disabled />
+									</label>
+									<label class="form-label rounded">
+										<i
+											class="fa-solid fa-up-right-and-down-left-from-center fa-sm"></i>
+										<input
+											type="number"
+											id="size_multiplier"
+											step="0.1"
+											min="0"
+											max="3"
+											disabled />
+									</label>
+									<label class="form-label rounded">
+										<i class="fa-solid fa-up-down fa-sm"></i>
+										<input
+											id="offset_y"
+											class="offsetControlls"
+											step="1"
+											type="number"
+											min="-150"
+											max="150"
+											disabled />
+									</label>
+								</form>
+								<div>
+									<button
+										class="btn btn-outline-light btn-sm m-0"
+										id="flip_horizontal"
+										disabled>
+										<i class="fa-regular fa-image fa-flip-horizontal"></i>
+									</button>
+									<button
+										class="btn btn-warning btn-sm m-0"
+										id="delete"
+										disabled>
+										<i class="fa-solid fa-trash" style="color: #ffffff"></i>
+									</button>
+									<button
+										class="btn btn-outline-light btn-sm m-0"
+										id="flip_vertical"
+										disabled>
+										<i class="fa-regular fa-image fa-flip-vertical"></i>
+									</button>
+								</div>
+								<div id="preview-buttons" class="mt-1">
+									<button
+										id="start_preview"
+										class="btn btn-outline-light btn-sm">
+										<i class="fa-solid fa-play"></i>
+									</button>
+									<button
+										id="show_preview"
+										class="btn btn-outline-light btn-sm">
+										<i class="fa-solid fa-eye-slash"></i>
+									</button>
+									<button
+										id="pause_preview"
+										class="btn btn-outline-light btn-sm">
+										<i class="fa-solid fa-pause"></i>
+									</button>
+								</div>
 							</div>
 							<div id="frames_editor_container">
 								<table id="frames_editor"></table>
@@ -358,45 +369,51 @@
 											value="150" />
 									</label>
 								</div>
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first border-dark rounded">
-									<h3>Image Adjustments</h3>
-									<label for="image_quality" class="form-label rounded"
-										>Image Quality
-										<input
-											type="number"
-											id="image_quality"
-											name="image_quality"
-											value="0.7" />
-									</label>
-									<label for="image_size_multiplier" class="form-label rounded"
-										>Image Size Multiplier
-										<input
-											type="number"
-											id="image_size_multiplier"
-											name="image_size_multiplier"
-											value="1" />
-									</label>
-								</div>
-								<div
-									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
-									<h3>Gif Adjustments</h3>
-									<label for="max_allowed_gif_frames" class="form-label rounded"
-										>Max Gif Frames
-										<input
-											type="number"
-											id="max_allowed_gif_frames"
-											name="max_allowed_gif_frames"
-											value="30" />
-									</label>
-									<label for="preview_fps" class="form-label rounded"
-										>Preview FPS
-										<input
-											type="number"
-											id="preview_fps"
-											name="preview_fps"
-											value="4" />
-									</label>
+								<div class="row justify-content-center">
+									<div
+										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										<h3>Image Adjustments</h3>
+										<label for="image_quality" class="form-label rounded"
+											>Image Quality
+											<input
+												type="number"
+												id="image_quality"
+												name="image_quality"
+												value="0.7" />
+										</label>
+										<label
+											for="image_size_multiplier"
+											class="form-label rounded"
+											>Image Size Multiplier
+											<input
+												type="number"
+												id="image_size_multiplier"
+												name="image_size_multiplier"
+												value="1" />
+										</label>
+									</div>
+									<div
+										class="form-area col-6 m-2 p-2 align-items-first rounded">
+										<h3>Gif Adjustments</h3>
+										<label
+											for="max_allowed_gif_frames"
+											class="form-label rounded"
+											>Max Gif Frames
+											<input
+												type="number"
+												id="max_allowed_gif_frames"
+												name="max_allowed_gif_frames"
+												value="30" />
+										</label>
+										<label for="preview_fps" class="form-label rounded"
+											>Preview FPS
+											<input
+												type="number"
+												id="preview_fps"
+												name="preview_fps"
+												value="4" />
+										</label>
+									</div>
 								</div>
 								<div
 									class="form-area row mb-3 p-2 justify-content-center align-items-first rounded">
