@@ -1,5 +1,3 @@
-@use './themes' as *
-
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
     #settings
@@ -13,16 +11,16 @@
     #navbar
         text-align: center !important
 
-/*/ Main /*/
-// Sets the background color and removed initial padding/margin
-#app_container
-    @include theme()
-        background-color: theme-get('page_background_color') !important
-        color: theme-get('text_color')
-    &*
-        transition: color 1s
-        transition: background-color 1s
+@media screen and (max-width: 700px)
+    .row
+        flex-direction: column
+        align-items: center
 
+        .form-area
+            max-width: 100% !important
+            width: 93% !important
+
+/*/ Main /*/
 html
     width: 100%
     height: 100%
@@ -35,34 +33,9 @@ html
 
         input
             border: none
-            @include theme()
-                background-color: theme-get('form_input_background_color')
 
         select
             border: none
-            @include theme()
-                color: theme-get('form_input_color')
-                background-color: theme-get('form_input_background_color')
-
-        // Top level container
-        .container-fluid
-            @include theme()
-                background-color: theme-get('page_background_color')
-
-/* Navbar /*/
-#navbar
-    @include theme()
-        background-color: theme-get('navbar_color')
-
-    a
-        text-decoration: none !important
-        @include theme()
-            color: theme-get('text_color')
-
-        &:hover
-            transition: color 0.3s
-            @include theme()
-                color: theme-get('navbar_hover_color')
 
 /*/ Sections wrapper /*/
 .section-wrapper
@@ -73,8 +46,8 @@ html
     padding: 10px
     overflow-x: auto
     position: relative
-    @include theme()
-        background-color: theme-get('section_background_color')
+    background-color: var(--bs-secondary-bg)
+    overflow-x: hidden
 
     &:hover
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.726)
@@ -86,10 +59,6 @@ html
 
 /*/ All sections /*/
 #sections
-    h2, h3
-        @include theme()
-            color: theme-get('text_color')
-
     .collapse-button
         position: absolute
         top: 0
@@ -118,14 +87,6 @@ html
         td
             padding: 12px
 
-        .form-area
-            @include theme()
-                background-color: theme-get('section_background_color')
-
-        #table_head
-            @include theme()
-                background-color: theme-get('table_side_color')
-
         #delete
             margin: 0 auto
             margin-bottom: 10px
@@ -139,8 +100,7 @@ html
                 padding: 10px
                 margin: 0 auto
                 border: 1px solid rgb(112, 112, 112)
-                @include  theme()
-                    background-color: theme-get('table_side_color')
+                background-color: var(--bs-tertiary-bg)
 
                 .dropzones
                     position: relative
@@ -152,18 +112,11 @@ html
                     padding: -20px
                     border: none
                     opacity: 50%
-                    @include theme()
-                        background-color: theme-get('drop_target_background_color')
-
-                & tr>*:nth-child(10)
-                    display: var(--show_preview)
 
                 .rownumb
                     font-weight: normal
                     border: none
                     padding: 8px
-                    @include theme()
-                        background-color: theme-get('table_side_color')
 
                 .immg-grid
                     width: 70px
@@ -204,8 +157,9 @@ html
         position: relative
         margin: 3px
         align-items: end
-        @include theme()
-            background-color: theme-get('form_area_background_color')
+        background-color: var(--bs-tertiary-bg)
+        max-width: fit-content
+        margin: 0 auto
 
         .form-label
             width: 80px
@@ -213,8 +167,7 @@ html
             text-align: center
             margin: 3px
             padding: 0px
-            @include theme()
-                background-color: theme-get('form_label_background_color')
+            background-color: var(--bs-form-control-bg)
 
             input
                 width: 100%
@@ -231,19 +184,37 @@ html
             margin: 0 auto
             border: none
             border-bottom: 1px solid rgba(112, 112, 112, 0.301)
+            color: var(--bs-form-control-color)
             text-align: center
             height: 35px
-            @include theme()
-                background: theme-get('row_names_background_color')
+            background-color: var(--bs-form-control-bg)
 
             &:last-child
                 border-bottom: none
+                cursor: not-allowed
 
     // Export section
     #export_section
         .container > div
-            @include theme()
-                background-color: theme-get('form_area_background_color')
+            background-color: var(--bs-tertiary-bg)
+
+        .form-area
+            max-width: 30%
+            width: fit-content
+
+        input
+            height: 45px
+            color: black
+
+        .form-label
+            width: 100%
+            margin-bottom: 15px
+
+            input
+                width: 100%
+
+        button
+            width: 100%
 
     // About section
     #about_section
@@ -263,6 +234,9 @@ html
                 background-image: url("../../public/images/transparent.jpg")
 
     #settings_section
+        .form-area
+            max-width: 30%
+
         .form-label
             width: 160px
 
@@ -302,9 +276,6 @@ html
     display: block
     text-align: left
 
-    img
-        margin-left: 14px
-
 .navbar-dark .navbar-toggler
     margin-right: 14px
 
@@ -314,9 +285,6 @@ html
 /*/ Bootstrap /*/
 .btn-outline-light
     background: none !important
-    @include theme()
-        color: theme-get('text_color') !important
-        border-color: theme-get('text_color') !important
 
-        &:hover
-            opacity: 0.6
+    &:hover
+        opacity: 0.6
