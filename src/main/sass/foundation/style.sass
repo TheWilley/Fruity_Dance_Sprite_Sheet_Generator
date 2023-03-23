@@ -1,3 +1,5 @@
+:root
+    --show_preview: block
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
     #settings
@@ -101,6 +103,9 @@ html
                 margin: 0 auto
                 border: 1px solid rgb(112, 112, 112)
                 background-color: var(--bs-tertiary-bg)
+
+                tr > :nth-child(10)
+                    display: var(--show_preview)
 
                 .dropzones
                     position: relative
