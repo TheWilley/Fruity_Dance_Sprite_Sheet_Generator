@@ -47,6 +47,7 @@ html
     overflow-x: auto
     position: relative
     background-color: var(--bs-secondary-bg)
+    overflow-x: hidden
 
     &:hover
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.726)
@@ -55,6 +56,10 @@ html
         font-size: 45px !important
         text-decoration: none !important
         padding-bottom: 8px
+
+    input
+        background-color: var(--bs-form-control-bg)
+        color: var(--bs-form-control-color)
 
 /*/ All sections /*/
 #sections
@@ -166,7 +171,7 @@ html
             text-align: center
             margin: 3px
             padding: 0px
-            background-color: var(--bs-tertiary-bg)
+            background-color: var(--bs-dark-bg-subtle)
 
             input
                 width: 100%
@@ -183,6 +188,7 @@ html
             margin: 0 auto
             border: none
             border-bottom: 1px solid rgba(112, 112, 112, 0.301)
+            color: var(--bs-form-control-color)
             text-align: center
             height: 35px
             background-color: var(--bs-form-control-bg)
