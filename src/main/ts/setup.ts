@@ -53,7 +53,7 @@ async function addVersionNumber() {
 		console.error("LIB_VERSION is undefined");
 		process.exit(1);
 	}
-	globals.config.state.currentVersion.innerText = LIB_VERSION;
+	globals.config.state.currentVersion.innerText = "v" + LIB_VERSION;
 }
 
 /**
