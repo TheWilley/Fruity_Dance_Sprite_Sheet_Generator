@@ -75,16 +75,16 @@ module.exports = {
 	},
 	// Other rules...
 	plugins: [
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: __dirname + '/src/public/google56310369e394ee27.html' },
+			],
+		}),
 		new NodePolyfillPlugin(),
 		new HtmlWebpackPlugin({
 			template: "./src/index.html"
 		}),
 		new FaviconsWebpackPlugin('./src/public/favicon/favicon-32x32.png'),
-		new CopyWebpackPlugin({
-			patterns: [
-				{ from: './src/public/google56310369e394ee27.html', to: 'dist' },
-			],
-		}),
 	],
 	// http://localhost:9000/dist/index.html
 	devServer: {
