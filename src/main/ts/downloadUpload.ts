@@ -266,6 +266,8 @@ class DownloadUpload {
 			_xOffset: number;
 			_yOffset: number;
 			_sizeMultiplier: number;
+			_isFlippedVertically: boolean;
+			_isFlippedHorizontally: boolean;
 			_imageSrc: string;
 		};
 
@@ -286,6 +288,8 @@ class DownloadUpload {
 						cell._xOffset,
 						cell._yOffset,
 						cell._sizeMultiplier,
+						cell._isFlippedVertically,
+						cell._isFlippedHorizontally,
 						cell._imageSrc
 					);
 				}

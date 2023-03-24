@@ -145,6 +145,24 @@ class EventListeners {
 		);
 
 		/**
+		 * Flips image horizontally
+		 */
+		$(this._state.flip_horizontal).on(
+			"click", () => {
+				this._graphicHandler.flip("horizontal");
+			}
+		);
+
+		/**
+		 * Flips image vertically
+		 */
+		$(this._state.flip_vertical).on(
+			"click", () => {
+				this._graphicHandler.flip("vertical");
+			}
+		);
+
+		/**
 		 * Checks if config is changed
 		 */
 		$("#config_form").on("input", "input", (event) => {
@@ -172,14 +190,12 @@ class EventListeners {
 		 * Toggles between light and dark theme
 		 */
 		$(".toggle").on("click", () => {
-			// Set element of id "app" to toggle between "lightTheme" and "darkTheme"
-			$("#app").toggleClass("lightTheme darkTheme");
-			localStorage.setItem("theme", $("#app").attr("class"));
-
-			// Always set backround color of root element to match theme
-			document.documentElement.style.background = window.getComputedStyle(
-				globals.config.state.app_container
-			).background;
+			if (document.documentElement.getAttribute("data-bs-theme") == "dark") {
+				document.documentElement.setAttribute("data-bs-theme", "light");
+			}
+			else {
+				document.documentElement.setAttribute("data-bs-theme", "dark");
+			}
 		});
 	}
 

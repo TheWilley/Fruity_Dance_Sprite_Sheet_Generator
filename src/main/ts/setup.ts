@@ -7,7 +7,8 @@ import Configuration from "./globals/config";
 import ImageCollection from "./globals/imageCollection";
 import MouseHandler from "./mouseHandler";
 import Table from "./globals/table";
-import {LIB_VERSION} from "./version";
+import { LIB_VERSION } from "./version";
+import * as bootstrap from "bootstrap";
 
 // Global variable that holds all instances
 export let globals: Globals;
@@ -52,7 +53,7 @@ async function addVersionNumber() {
 		console.error("LIB_VERSION is undefined");
 		process.exit(1);
 	}
-	globals.config.state.currentVersion.innerText = LIB_VERSION;
+	globals.config.state.currentVersion.innerText = "v" + LIB_VERSION;
 }
 
 /**

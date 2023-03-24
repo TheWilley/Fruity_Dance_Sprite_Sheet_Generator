@@ -1,0 +1,60 @@
+#ctx-menu-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 998;
+}
+.ctx-menu-wrapper {
+	color: var(--bs-form-control);
+	background-color: var(--bs-form-control-bg);
+	font-family: var(--font-family-base);
+	box-shadow: 4px 4px 3px -2px rgba(0, 0, 0, 0.1);
+	padding: 3px 0 3px 0;
+	border: 1px solid #b1b1b1;
+	border-radius: 5px;
+	font-size: 12px;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	position: absolute;
+	z-index: 999;
+	white-space: nowrap;
+}
+.ctx-menu-item {
+	padding: 2px 10px 2px 10px;
+	border-radius: 1px;
+	cursor: pointer;
+	transition: background-color 0.1s;
+}
+.ctx-menu-item:hover {
+	background-color: rgba(0, 0, 0, 0.13);
+}
+.ctx-menu-item:active {
+	transition: background-color 0s;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.ctx-menu-separator {
+	height: 1px;
+	margin: 3px 0 3px 0;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.ctx-menu-hasIcon img {
+	min-width: 16px;
+	max-width: 16px;
+	max-height: 16px;
+	position: relative;
+	margin-right: 8px;
+	pointer-events: none;
+	user-select: none;
+}
+.ctx-menu-item img[src] {
+	float: left;
+}
+.ctx-menu-hasIcon .ctx-menu-item {
+	vertical-align: middle;
+	max-height: 20px;
+}
