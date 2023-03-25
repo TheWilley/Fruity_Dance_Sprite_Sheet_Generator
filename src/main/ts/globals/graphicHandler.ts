@@ -118,43 +118,45 @@ class GraphicHandler {
 	/**
 	 * Redraws canvas
 	 */
-	public redraw(moveToTop?: boolean) {
+	public redraw(moveToTop?: boolean, image?: ImageInfo) {
+		// Insert images in normal order
+		this._imageCollection.cellCollection.forEach((row) => {
+			// TODO: Change this to a interface
+			row.forEach((cell) => {
+				if (cell.imageSrc != undefined) {
+					this.generateCanvas(
+						cell.imageSrc,
+						cell.x,
+						cell.y,
+						cell.xOffset,
+						cell.yOffset,
+						cell.sizeMultiplier,
+						cell.isFlippedVertically,
+						cell.isFlippedHorizontally,
+						"wholeCanvas"
+					);
+				}
+			});
+		});
+
+		// Insert images in reverse order to switch positions, effectively moving the selected images to the top
 		if (moveToTop) {
 			this._imageCollection.cellCollection.slice().reverse().forEach((row) => {
-				// TODO: Change this to a interface
 				row.slice().reverse().forEach((cell) => {
-					if (cell.imageSrc != undefined) {
-						this.generateCanvas(
-							cell.imageSrc,
-							cell.x,
-							cell.y,
-							cell.xOffset,
-							cell.yOffset,
-							cell.sizeMultiplier,
-							cell.isFlippedVertically,
-							cell.isFlippedHorizontally,
-							"wholeCanvas"
-						);
-					}
-				});
-			});
-		}
-		else {
-			this._imageCollection.cellCollection.forEach((row) => {
-				// TODO: Change this to a interface
-				row.forEach((cell) => {
-					if (cell.imageSrc != undefined) {
-						this.generateCanvas(
-							cell.imageSrc,
-							cell.x,
-							cell.y,
-							cell.xOffset,
-							cell.yOffset,
-							cell.sizeMultiplier,
-							cell.isFlippedVertically,
-							cell.isFlippedHorizontally,
-							"wholeCanvas"
-						);
+					if (image == cell) {
+						if (cell.imageSrc != undefined) {
+							this.generateCanvas(
+								cell.imageSrc,
+								cell.x,
+								cell.y,
+								cell.xOffset,
+								cell.yOffset,
+								cell.sizeMultiplier,
+								cell.isFlippedVertically,
+								cell.isFlippedHorizontally,
+								"wholeCanvas"
+							);
+						}
 					}
 				});
 			});
@@ -165,7 +167,14 @@ class GraphicHandler {
 	 * Moves the selected image to the top layer
 	 */
 	public moveUp() {
-		this.redraw(true);
+		// Get the selected image
+		const selectedImage = this._selectedItems[0];
+
+		// Get row / cell number
+		const rownumb = Number(selectedImage.parentElement.dataset.x);
+		const cellnumb = Number(selectedImage.parentElement.dataset.y);
+
+		this.redraw(true, this._imageCollection.cellCollection[rownumb][cellnumb]);
 	}
 
 	/**
@@ -374,7 +383,8 @@ class GraphicHandler {
 		this._state.delete.disabled = enabled;
 		this._state.flip_horizontal.disabled = enabled;
 		this._state.flip_vertical.disabled = enabled;
-		this._state.move_to_top.disabled = enabled;
+
+		this._state.move_to_top.disabled = enabled || this._selectedItems.length > 1;
 	}
 
 	/**
