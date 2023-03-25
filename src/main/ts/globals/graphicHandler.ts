@@ -118,25 +118,54 @@ class GraphicHandler {
 	/**
 	 * Redraws canvas
 	 */
-	public redraw() {
-		this._imageCollection.cellCollection.forEach((row) => {
-			// TODO: Change this to a interface
-			row.forEach((cell) => {
-				if (cell.imageSrc != undefined) {
-					this.generateCanvas(
-						cell.imageSrc,
-						cell.x,
-						cell.y,
-						cell.xOffset,
-						cell.yOffset,
-						cell.sizeMultiplier,
-						cell.isFlippedVertically,
-						cell.isFlippedHorizontally,
-						"wholeCanvas"
-					);
-				}
+	public redraw(moveToTop?: boolean) {
+		if (moveToTop) {
+			this._imageCollection.cellCollection.slice().reverse().forEach((row) => {
+				// TODO: Change this to a interface
+				row.slice().reverse().forEach((cell) => {
+					if (cell.imageSrc != undefined) {
+						this.generateCanvas(
+							cell.imageSrc,
+							cell.x,
+							cell.y,
+							cell.xOffset,
+							cell.yOffset,
+							cell.sizeMultiplier,
+							cell.isFlippedVertically,
+							cell.isFlippedHorizontally,
+							"wholeCanvas"
+						);
+					}
+				});
 			});
-		});
+		}
+		else {
+			this._imageCollection.cellCollection.forEach((row) => {
+				// TODO: Change this to a interface
+				row.forEach((cell) => {
+					if (cell.imageSrc != undefined) {
+						this.generateCanvas(
+							cell.imageSrc,
+							cell.x,
+							cell.y,
+							cell.xOffset,
+							cell.yOffset,
+							cell.sizeMultiplier,
+							cell.isFlippedVertically,
+							cell.isFlippedHorizontally,
+							"wholeCanvas"
+						);
+					}
+				});
+			});
+		}
+	}
+
+	/**
+	 * Moves the selected image to the top layer
+	 */
+	public moveUp() {
+		this.redraw(true);
 	}
 
 	/**
@@ -345,6 +374,7 @@ class GraphicHandler {
 		this._state.delete.disabled = enabled;
 		this._state.flip_horizontal.disabled = enabled;
 		this._state.flip_vertical.disabled = enabled;
+		this._state.move_to_top.disabled = enabled;
 	}
 
 	/**

@@ -162,6 +162,12 @@ class EventListeners {
 			}
 		);
 
+		$(this._state.move_to_top).on(
+			"click", () => {
+				this._graphicHandler.moveUp();
+			}
+		);
+
 		/**
 		 * Checks if config is changed
 		 */
