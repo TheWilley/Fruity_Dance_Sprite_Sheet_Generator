@@ -81,7 +81,6 @@ class DownloadUpload {
 	) {
 		// Declare constants
 		const zip = new JSZip();
-		const zipFilename = `${filename}.zip`;
 		const output = new Image();
 		output.src = canvas.toDataURL();
 
@@ -89,27 +88,36 @@ class DownloadUpload {
 		if (this.checkAnimationNames(this.parseFrameNames(frameNamesContainer))) {
 			// Check for invalid characters in filename
 			if (
-				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true ||
-				filename == ""
+				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true
 			) {
-				alert("Illegal file name!");
-			} else {
-				// Zip image and text file
-				zip.file(
-					`${filename}.png`,
-					output.src.substring(output.src.indexOf(",") + 1),
-					{ base64: true }
-				);
-				zip.file(
-					`${filename}.txt`,
-					this.parseFrameNames(frameNamesContainer).join("\n")
-				);
-
-				// Save file
-				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
-					saveAs(content, zipFilename);
-				});
+				alert("Cannot use special characters in filename!");
+				return;
 			}
+
+			// Check if filename is empty
+			if (filename == "") {
+				if (confirm("Filename cannot be empty. Do you want to use default name?")) {
+					filename = "downloadedSpriteSheet";
+				} else {
+					return;
+				}
+			}
+
+			// Zip image and text file
+			zip.file(
+				`${filename}.png`,
+				output.src.substring(output.src.indexOf(",") + 1),
+				{ base64: true }
+			);
+			zip.file(
+				`${filename}.txt`,
+				this.parseFrameNames(frameNamesContainer).join("\n")
+			);
+
+			// Save file
+			zip.generateAsync({ type: "blob" }).then((content: Blob) => {
+				saveAs(content, `${filename}.zip`);
+			});
 		}
 	}
 
