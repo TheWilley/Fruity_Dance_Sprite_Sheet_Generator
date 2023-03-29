@@ -219,6 +219,41 @@ class EventListeners {
 			content: "Collapse",
 			delay: [500, 0]
 		});
+
+		tippy("#flip_horizontal", {
+			content: "Flip image horizontally",
+			delay: [500, 0]
+		});
+
+		tippy("#flip_vertical", {
+			content: "Flip image vertically",
+			delay: [500, 0]
+		});
+
+		tippy("#move_to_top", {
+			content: "Move image to top",
+			delay: [500, 0]
+		});
+
+		tippy("#delete", {
+			content: "Delete image",
+			delay: [500, 0]
+		});
+
+		tippy("#start_preview", {
+			content: "Start preview",
+			delay: [500, 0]
+		});
+
+		tippy("#pause_preview", {
+			content: "Pause preview",
+			delay: [500, 0]
+		});
+
+		tippy("#show_preview", {
+			content: "Show or hide preview",
+			delay: [500, 0]
+		});
 	}
 }
 
