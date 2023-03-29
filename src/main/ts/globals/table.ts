@@ -97,7 +97,10 @@ class Table {
 			rowName.setAttribute("value", x + 1 == this._state.rows.value ? "Held" : "R" + String(x + 1));
 
 			// Disable the last row
-			if (x + 1 == this._state.rows.value) rowName.setAttribute("disabled", "true");
+			if (x + 1 == this._state.rows.value) {
+				rowName.setAttribute("disabled", "true");
+				rowName.classList.add("row-name-disabled");
+			}
 
 			// Create row name arrow
 			const rowNameArrow = document.createElement("i");

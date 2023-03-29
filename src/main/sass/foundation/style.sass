@@ -96,6 +96,9 @@ html
                 width: 100px
                 display: inline-block
 
+            .row-name-disabled
+                cursor: not-allowed
+
             .row-name-arrow::before
                 position: absolute
                 top: calc( 50% - 12px )
@@ -189,26 +192,6 @@ html
             input
                 width: 100%
                 text-align: center
-
-    // Names section
-    #names_section
-        padding: 10px
-        overflow-x: auto
-
-        #row_names_container .row-names
-            font-family: monospace
-            display: block
-            margin: 0 auto
-            border: none
-            border-bottom: 1px solid rgba(112, 112, 112, 0.301)
-            color: var(--bs-form-control-color)
-            text-align: center
-            height: 35px
-            background-color: var(--bs-form-control-bg)
-
-            &:last-child
-                border-bottom: none
-                cursor: not-allowed
 
     // Export section
     #export_section
