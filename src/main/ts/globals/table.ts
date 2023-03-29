@@ -63,7 +63,7 @@ class Table {
 		sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
 		this._state.frames_editor.innerHTML =
-			"<thead id='table_head'><td class=\"rownumb\"> </td><td width=\"80\" height=\"20\">F1</td><td width=\"80\" height=\"20\">F2</td><td width=\"80\" height=\"20\">F3</td><td width=\"80\" height=\"20\">F4</td><td width=\"80\" height=\"20\">F5</td><td width=\"80\" height=\"20\">F6</td><td width=\"80\" height=\"20\">F7</td><td width=\"80\" height=\"20\">F8</td><td><b>Preview</b></td></thead>";
+			"<thead id='table_head'><td class=\"rownumb\"> Rows </td><td width=\"80\" height=\"20\">F1</td><td width=\"80\" height=\"20\">F2</td><td width=\"80\" height=\"20\">F3</td><td width=\"80\" height=\"20\">F4</td><td width=\"80\" height=\"20\">F5</td><td width=\"80\" height=\"20\">F6</td><td width=\"80\" height=\"20\">F7</td><td width=\"80\" height=\"20\">F8</td><td><b>Preview</b></td></thead>";
 
 		// Stop all objects
 		this._graphicHandler.previewObjects.forEach((object) => {
@@ -87,11 +87,27 @@ class Table {
 			const rowNumb = document.createElement("th");
 			rowNumb.setAttribute("scope", "row");
 			rowNumb.className = "rownumb";
-			rowNumb.innerHTML =
-				x + 1 == this._state.rows.value ? "<b> Held </b>" : "R" + String(x + 1);
+
+			// Create row name
+			// TODO: The row name should be able to be hidden
+			const rowName = document.createElement("input");
+			rowName.setAttribute("type", "text");
+			rowName.setAttribute("id", "row_name" + String(x + 1));
+			rowName.className = "row-name form-control text-center";
+			rowName.setAttribute("value", x + 1 == this._state.rows.value ? "Held" : "R" + String(x + 1));
+
+			// Create row name arrow
+			const rowNameArrow = document.createElement("i");
+			rowNameArrow.className = "fas fa-arrow-right position-relative row-name-arrow";
+			rowNameArrow.style.padding = "2px 2px";
+
+			// Append all elements
+			rowNumb.appendChild(rowName);
+			rowNumb.appendChild(rowNameArrow);
 			table_row.appendChild(rowNumb);
 			this._state.frames_editor.appendChild(table_row);
 
+			// Loop trough and add cells
 			for (let y = 0; y <= 7; y++) {
 				// Here we add a tempobject to the grid to store for later usage
 				const tempobject = new ImageInfo(x, y);
