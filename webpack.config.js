@@ -8,6 +8,7 @@ require("sass-loader");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	entry: "./src/app.ts",
@@ -85,6 +86,7 @@ module.exports = {
 			template: "./src/index.html"
 		}),
 		new FaviconsWebpackPlugin('./src/public/favicon/favicon-32x32.png'),
+		new BundleAnalyzerPlugin()
 	],
 	// http://localhost:9000/dist/index.html
 	devServer: {
