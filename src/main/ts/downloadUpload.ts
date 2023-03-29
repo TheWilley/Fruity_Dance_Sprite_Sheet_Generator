@@ -56,12 +56,13 @@ class DownloadUpload {
 	 * Parses animation names from textarea
 	 * @returns Array of animation names
 	 */
-	parseFrameNames(frameNamesContainer: HTMLElement) {
+	parseFrameNames(frameNamesTextBoxes: HTMLCollection) {
 		// Holds all animation names
 		const frameNames: string[] = [];
+		console.log(frameNamesTextBoxes);
 
 		// Get all animation names from div element
-		for (const element of frameNamesContainer.children as unknown as HTMLInputElement[]) {
+		for (const element of frameNamesTextBoxes as unknown as HTMLInputElement[]) {
 			frameNames.push(element.value);
 		}
 
@@ -71,12 +72,12 @@ class DownloadUpload {
 	/**
 	 * Compress sprite sheet along with a text file into a ZIP, then downloads it
 	 * @param {Object} canvas - The canvas element (sprite sheet)
-	 * @param {*} frameNamesContainer - The animations names
+	 * @param {*} frameNamesTextBoxes - The animations names
 	 * @param {*} filename - The filename of the exported ZIP
 	 */
 	public downloadZIP(
 		canvas: HTMLCanvasElement,
-		frameNamesContainer: HTMLElement,
+		frameNamesTextBoxes: HTMLCollection,
 		filename: string
 	) {
 		// Declare constants
@@ -85,7 +86,7 @@ class DownloadUpload {
 		output.src = canvas.toDataURL();
 
 		// Check if animation names are correct before continuing with the export
-		if (this.checkAnimationNames(this.parseFrameNames(frameNamesContainer))) {
+		if (this.checkAnimationNames(this.parseFrameNames(frameNamesTextBoxes))) {
 			// Check for invalid characters in filename
 			if (
 				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true
@@ -111,7 +112,7 @@ class DownloadUpload {
 			);
 			zip.file(
 				`${filename}.txt`,
-				this.parseFrameNames(frameNamesContainer).join("\n")
+				this.parseFrameNames(frameNamesTextBoxes).join("\n")
 			);
 
 			// Save file
@@ -141,10 +142,11 @@ class DownloadUpload {
 	 * Saves a json file containing data about sprite sheet
 	 */
 	public saveJson() {
+		if (!this.checkAnimationNames(this.parseFrameNames(document.getElementsByClassName("row-name")))) return;
 		const object = {
 			spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
 			rows: this._state.rows.value,
-			rowNames: this.parseFrameNames(this._state.row_names_container).join(
+			rowNames: this.parseFrameNames(document.getElementsByClassName("row-name")).join(
 				"\n"
 			),
 			width: this._state.cell_width.value,
@@ -315,11 +317,8 @@ class DownloadUpload {
 			const names = json.split("\n");
 
 			// Set the value of each input to the corresponding name
-			for (const [
-				index,
-				element
-			] of this._state.row_names_container.childNodes.entries()) {
-				element.value = names[index];
+			for (const [index, element] of Array(document.getElementsByClassName("row-name") as HTMLCollectionOf<HTMLInputElement>).entries()) {
+				element[index].value = names[index];
 			}
 		};
 

@@ -34,7 +34,7 @@ class EventListeners {
 						this._state.filename.value = "savedSpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
-							this._state.row_names_container,
+							document.getElementsByClassName("row-name"),
 							this._state.filename.value
 						);
 						this._state.filename.value = "";
@@ -55,7 +55,7 @@ class EventListeners {
 			event.stopImmediatePropagation();
 			this._downloadUpload.downloadZIP(
 				this._state.canvas,
-				this._state.row_names_container,
+				document.getElementsByClassName("row-name"),
 				this._state.filename.value
 			);
 		});

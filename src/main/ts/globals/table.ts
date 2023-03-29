@@ -88,13 +88,16 @@ class Table {
 			rowNumb.setAttribute("scope", "row");
 			rowNumb.className = "rownumb";
 
-			// Create row name
+			// Create row names
 			// TODO: The row name should be able to be hidden
 			const rowName = document.createElement("input");
 			rowName.setAttribute("type", "text");
 			rowName.setAttribute("id", "row_name" + String(x + 1));
 			rowName.className = "row-name form-control text-center";
 			rowName.setAttribute("value", x + 1 == this._state.rows.value ? "Held" : "R" + String(x + 1));
+
+			// Disable the last row
+			if (x + 1 == this._state.rows.value) rowName.setAttribute("disabled", "true");
 
 			// Create row name arrow
 			const rowNameArrow = document.createElement("i");
@@ -160,33 +163,6 @@ class Table {
 
 		// Add to object
 		this._state.addElement(canvas_element);
-
-		// Clear div
-		this._state.row_names_container.innerHTML = "";
-
-		// Generate text in textarea
-		for (let line = 1; line <= this._state.rows.value; line++) {
-			// Create input field for frame names
-			const row_name = document.createElement("input");
-
-			// Set attributes for input fields
-			row_name.setAttribute("type", "text");
-			row_name.setAttribute("id", "row_name" + line);
-
-			// Check if "held" should be added
-			if (line == this._state.rows.value) {
-				row_name.setAttribute("value", "Held");
-				row_name.setAttribute("disabled", "true");
-			} else {
-				row_name.setAttribute("value", "Row " + line);
-			}
-
-			// Set class
-			row_name.setAttribute("class", "row-names");
-
-			// Append input field to div
-			this._state.row_names_container.appendChild(row_name);
-		}
 	}
 }
 
