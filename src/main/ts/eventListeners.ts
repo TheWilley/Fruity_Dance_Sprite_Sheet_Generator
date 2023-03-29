@@ -221,12 +221,12 @@ class EventListeners {
 		});
 
 		tippy("#flip_horizontal", {
-			content: "Flip image horizontally",
+			content: "Flip image vertically",
 			delay: [500, 0]
 		});
 
 		tippy("#flip_vertical", {
-			content: "Flip image vertically",
+			content: "Flip image horizontally",
 			delay: [500, 0]
 		});
 
