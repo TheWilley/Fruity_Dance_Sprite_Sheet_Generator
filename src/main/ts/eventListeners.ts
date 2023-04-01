@@ -31,7 +31,7 @@ class EventListeners {
 					case "e": // Export
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						this._state.filename.value = "downloadedSpriteSheet";
+						this._state.filename.value = "SpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
 							document.getElementsByClassName("row-name"),

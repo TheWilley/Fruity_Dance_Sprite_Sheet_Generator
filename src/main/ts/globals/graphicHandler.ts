@@ -292,7 +292,6 @@ class GraphicHandler {
 				element.parentElement.style.display = "block";
 			}
 		}
-		localStorage.setItem("images", this._state.result.innerHTML);
 	}
 
 	/**

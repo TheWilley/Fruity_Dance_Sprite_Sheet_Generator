@@ -59,7 +59,6 @@ class Table {
 	 */
 	addTable() {
 		// Add all elements from last time
-		this._state.result.innerHTML = localStorage.getItem("images");
 		sessionStorage.imagenumb = localStorage.getItem("imagenumb");
 
 		this._state.frames_editor.innerHTML =

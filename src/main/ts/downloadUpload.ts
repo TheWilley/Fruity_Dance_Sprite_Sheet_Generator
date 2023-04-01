@@ -98,7 +98,7 @@ class DownloadUpload {
 			// Check if filename is empty
 			if (filename == "") {
 				if (confirm("Filename cannot be empty. Do you want to use default name?")) {
-					filename = "downloadedSpriteSheet";
+					filename = "Spritesheet";
 				} else {
 					return;
 				}
@@ -130,11 +130,7 @@ class DownloadUpload {
 			return;
 		}
 
-		// Reset local storage
-		localStorage.setItem("images", "");
-		localStorage.setItem("imagenumb", "");
 		this._graphicHandler.disableControls(true);
-
 		location.reload();
 	}
 
@@ -151,7 +147,8 @@ class DownloadUpload {
 			),
 			width: this._state.cell_width.value,
 			height: this._state.cell_height.value,
-			tableObject: this._imageCollection.cellCollection
+			tableObject: this._imageCollection.cellCollection,
+			uploadedImages: this._state.result.innerHTML
 		};
 
 		// Create a blob of the data
@@ -160,7 +157,7 @@ class DownloadUpload {
 		});
 
 		// Save the file
-		saveAs(fileToSave, "savedSpritSheet.json");
+		saveAs(fileToSave, "savedWorkspace.json");
 	}
 
 	/**
@@ -332,6 +329,7 @@ class DownloadUpload {
 			this._state.cell_height.value = json.height;
 
 			this._table.addTable();
+			this._state.result.innerHTML = json.uploadedImages;
 			setAnimationNames(json.rowNames);
 			this._imageCollection.cellCollection = itterateJson(json.tableObject);
 			this._table.iterateTable();

@@ -93,7 +93,6 @@ class CompressImages {
 		sessionStorage.imagenumb = Number(sessionStorage.imagenumb) + 1;
 
 		// Add div to local storage
-		localStorage.setItem("images", this._state.result.innerHTML);
 		localStorage.setItem("imagenumb", sessionStorage.imagenumb);
 	}
 
