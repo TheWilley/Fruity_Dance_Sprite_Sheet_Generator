@@ -31,7 +31,7 @@ class EventListeners {
 					case "e": // Export
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						this._state.filename.value = "savedSpriteSheet";
+						this._state.filename.value = "downloadedSpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
 							document.getElementsByClassName("row-name"),
@@ -252,7 +252,7 @@ class EventListeners {
 		});
 
 		tippy("#show_preview", {
-			content: "Show or hide preview and row names",
+			content: "Show or hide preview and rows",
 			delay: [500, 0]
 		});
 	}
