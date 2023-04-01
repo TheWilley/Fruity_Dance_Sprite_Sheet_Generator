@@ -268,7 +268,7 @@ class GraphicHandler {
 	 */
 	public previewImage(preview: boolean) {
 		if (preview) {
-			this._state.popup.style.transform = "translate(-50%, 300px)";
+			this._state.popup.style.transform = "translate(-50%, 302px)";
 			this._state.mouse_circle.style.opacity = "100%";
 			this._state.delete.style.outline = "2px solid red";
 			this._state.delete.style.borderColor = "red";
