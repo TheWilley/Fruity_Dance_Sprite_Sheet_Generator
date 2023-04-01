@@ -557,6 +557,16 @@ class GraphicHandler {
 			: root.style.setProperty("--show_preview", "none");
 	}
 
+	/**
+	 Shows or hides row names columns in table
+	 */
+	public show_rowname() {
+		const root = document.documentElement;
+		root.style.getPropertyValue("--show_rowname") == "none"
+			? root.style.setProperty("--show_rowname", "table-cell")
+			: root.style.setProperty("--show_rowname", "none");
+	}
+
 	public get previewObjects() {
 		return this._previewObjects;
 	}

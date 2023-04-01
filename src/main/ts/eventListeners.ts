@@ -95,6 +95,7 @@ class EventListeners {
 		$(this._state.show_preview).on("click", (event) => {
 			event.stopImmediatePropagation();
 			this._graphicHandler.show_preview();
+			this._graphicHandler.show_rowname();
 		});
 
 		/**
@@ -251,7 +252,7 @@ class EventListeners {
 		});
 
 		tippy("#show_preview", {
-			content: "Show or hide preview",
+			content: "Show or hide preview and row names",
 			delay: [500, 0]
 		});
 	}

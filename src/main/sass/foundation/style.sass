@@ -1,5 +1,7 @@
 :root
     --show_preview: block
+    --show_rowname: table-cell
+
 /*/ Media Queries /*/
 @media only screen and (max-width: 889px)
     #settings
@@ -121,6 +123,9 @@ html
                 tr > :nth-child(10)
                     display: var(--show_preview)
 
+                tr > :nth-child(1)
+                    display: var(--show_rowname)
+
                 .dropzones
                     position: relative
 
@@ -136,6 +141,7 @@ html
                     font-weight: normal
                     border: none
                     padding: 8px
+                    display: table-cell
 
                 .immg-grid
                     width: 70px
