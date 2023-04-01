@@ -192,18 +192,6 @@ class EventListeners {
 		 * Removes all autocomplete from inputs
 		 */
 		$("input").attr("autocomplete", "off");
-
-		/**
-		 * Toggles between light and dark theme
-		 */
-		$(".toggle").on("click", () => {
-			if (document.documentElement.getAttribute("data-bs-theme") == "dark") {
-				document.documentElement.setAttribute("data-bs-theme", "light");
-			}
-			else {
-				document.documentElement.setAttribute("data-bs-theme", "dark");
-			}
-		});
 	}
 
 	/**
