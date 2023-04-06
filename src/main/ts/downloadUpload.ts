@@ -341,6 +341,7 @@ class DownloadUpload {
 		 */
 		const uploadJson = FilePond.create(document.querySelector("#uploadJson"), {
 			// Settings
+			// TODO: Make this work properly as layout is broken
 			labelIdle:
 				"Drag & Drop your <b> JSON </b> file or <span class=\"filepond--label-action\"> Browse </span>",
 			maxFileSize: "10mb",
@@ -352,7 +353,7 @@ class DownloadUpload {
 			},
 
 			server: {
-				process: (error: any) => {
+				process: (fieldName, currentFile, metadata, load, error, progress, abort) => {
 					const file = uploadJson.getFile() as FilePondFileExtender;
 					if (
 						JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
@@ -365,7 +366,7 @@ class DownloadUpload {
 							uploadJson.removeFile();
 						}, 500);
 					} else {
-						error("File is not a sprite sheet!");
+						error("JSON is not a valid workspace!");
 					}
 				}
 			}
