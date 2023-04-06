@@ -73,12 +73,10 @@ class DownloadUpload {
 	 * Compress sprite sheet along with a text file into a ZIP, then downloads it
 	 * @param {Object} canvas - The canvas element (sprite sheet)
 	 * @param {*} frameNamesTextBoxes - The animations names
-	 * @param {*} filename - The filename of the exported ZIP
 	 */
 	public downloadZIP(
 		canvas: HTMLCanvasElement,
 		frameNamesTextBoxes: HTMLCollection,
-		filename: string
 	) {
 		// Declare constants
 		const zip = new JSZip();
@@ -87,23 +85,8 @@ class DownloadUpload {
 
 		// Check if animation names are correct before continuing with the export
 		if (this.checkAnimationNames(this.parseFrameNames(frameNamesTextBoxes))) {
-			// Check for invalid characters in filename
-			if (
-				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true
-			) {
-				alert("Cannot use special characters in filename!");
-				return;
-			}
-
-			// Check if filename is empty
-			if (filename == "") {
-				if (confirm("Filename cannot be empty. Do you want to use default name?")) {
-					filename = "Spritesheet";
-				} else {
-					return;
-				}
-			}
-
+			// Set default filename
+			const filename = "spriteSheet";
 			// Zip image and text file
 			zip.file(
 				`${filename}.png`,

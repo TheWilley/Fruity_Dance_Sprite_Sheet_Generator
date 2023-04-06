@@ -31,13 +31,10 @@ class EventListeners {
 					case "e": // Export
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						this._state.filename.value = "SpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
 							document.getElementsByClassName("row-name"),
-							this._state.filename.value
 						);
-						this._state.filename.value = "";
 						break;
 					case "u": // Clear uploaded images
 						event.stopImmediatePropagation();
@@ -56,7 +53,6 @@ class EventListeners {
 			this._downloadUpload.downloadZIP(
 				this._state.canvas,
 				document.getElementsByClassName("row-name"),
-				this._state.filename.value
 			);
 		});
 
