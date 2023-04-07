@@ -84,7 +84,7 @@ Here's a meme which reflects the situation:
   - Otherwise, choose Upload mode: NON Transparent GIF. <br>
 - Drag and drop images into the grid to place them. <br>
 - Click on one or many images to select and modify its offset or size.
-- Save your sprite sheet as a JSON file to load it later, or download the compiled sprite sheet image and text file.
+- Save your sprite sheet and loaded images as a JSON file to load them later, or download the compiled sprite sheet image and text file.
 - Configure the generator in the settings section
 
 ## Keyboard shortcuts

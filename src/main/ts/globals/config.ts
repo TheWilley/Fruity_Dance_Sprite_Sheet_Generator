@@ -1,5 +1,5 @@
-import {globals} from "../setup";
-import {ValuesType} from "utility-types";
+import { globals } from "../setup";
+import { ValuesType } from "utility-types";
 import tippy from "tippy.js";
 
 // Configuration interface
@@ -228,7 +228,7 @@ class Configuration {
 			preview_fps: 4,
 			amount_of_collections: 12,
 			background: "",
-			warn_before_leaving_page: false
+			warn_before_leaving_page: true
 		};
 
 		return settings;
