@@ -119,11 +119,20 @@ class GraphicHandler {
 	 * Redraws canvas
 	 */
 	public redraw(moveToTop?: boolean, image?: ImageInfo) {
+		let cellToMoveToTop: ImageInfo;
+
 		// Insert images in normal order
 		this._imageCollection.cellCollection.forEach((row) => {
 			// TODO: Change this to a interface
 			row.forEach((cell) => {
 				if (cell.imageSrc != undefined) {
+					// If the image is supposed to be moved to the top, store it in a variable and skip it
+					if (moveToTop && image === cell) {
+						cellToMoveToTop = cell;
+						return;
+					}
+
+					// Insert the image
 					this.generateCanvas(
 						cell.imageSrc,
 						cell.x,
@@ -139,27 +148,19 @@ class GraphicHandler {
 			});
 		});
 
-		// Insert images in reverse order to switch positions, effectively moving the selected images to the top
+		// Insert the picked image again last to put it on top
 		if (moveToTop) {
-			this._imageCollection.cellCollection.slice().reverse().forEach((row) => {
-				row.slice().reverse().forEach((cell) => {
-					if (image == cell) {
-						if (cell.imageSrc != undefined) {
-							this.generateCanvas(
-								cell.imageSrc,
-								cell.x,
-								cell.y,
-								cell.xOffset,
-								cell.yOffset,
-								cell.sizeMultiplier,
-								cell.isFlippedVertically,
-								cell.isFlippedHorizontally,
-								"wholeCanvas"
-							);
-						}
-					}
-				});
-			});
+			this.generateCanvas(
+				cellToMoveToTop.imageSrc,
+				cellToMoveToTop.x,
+				cellToMoveToTop.y,
+				cellToMoveToTop.xOffset,
+				cellToMoveToTop.yOffset,
+				cellToMoveToTop.sizeMultiplier,
+				cellToMoveToTop.isFlippedVertically,
+				cellToMoveToTop.isFlippedHorizontally,
+				"wholeCanvas"
+			);
 		}
 	}
 
