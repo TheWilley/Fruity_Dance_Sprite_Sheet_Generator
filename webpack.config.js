@@ -85,7 +85,21 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: "./src/index.html"
 		}),
-		new FaviconsWebpackPlugin('./src/public/favicon/favicon-32x32.png'),
+		new FaviconsWebpackPlugin({
+			logo: './src/public/favicon/favicon-32x32.png',
+			favicons: {
+				icons: {
+					favicons: false,
+					appleStartup: false,
+					coast: false,
+					yandex: false
+				},
+				favicons: {
+					sizes: [32],
+					type: 'image/png'
+				}
+			}
+		}),
 		new BundleAnalyzerPlugin()
 	],
 	// http://localhost:9000/dist/index.html
