@@ -28,7 +28,6 @@ interface IConfiguration {
 	amount_of_collections: number; // The amount of collections
 	background: string; // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
 	background_opacity: number; // The opacity of the background
-	warn_before_leaving_page: boolean; // Warn user before leaving page to not discard any progress
 }
 
 type ConfigurationAttributeTypes = ValuesType<IConfiguration>;
@@ -210,13 +209,7 @@ class Configuration {
 			background_opacity:
 				parseInt(
 					(form.elements.namedItem("background_opacity") as HTMLInputElement).value
-				) || defaultValues.background_opacity,
-			warn_before_leaving_page:
-				(
-					form.elements.namedItem(
-						"warn_before_leaving_page"
-					) as HTMLInputElement
-				).checked || defaultValues.warn_before_leaving_page
+				) || defaultValues.background_opacity
 		};
 
 		return settings;
@@ -242,7 +235,6 @@ class Configuration {
 			amount_of_collections: 12,
 			background: "",
 			background_opacity: 0,
-			warn_before_leaving_page: false
 		};
 
 		return settings;
@@ -276,9 +268,7 @@ class Configuration {
 			background:
 				"The background of the page. This can be a color in HEX a or URL",
 			background_opacity:
-				"The darkness of the background",
-			warn_before_leaving_page:
-				"Whether or not to warn the user before leaving the page"
+				"The darkness of the background"
 		};
 
 		return tooltips;
@@ -297,12 +287,7 @@ class Configuration {
 		// Loop through all the settings and set the value of each input feild
 		for (const key in this._settings) {
 			const input = form.elements.namedItem(key) as HTMLInputElement;
-			// Check if input is of type boolean
-			if (input.type == "checkbox") {
-				input.checked = this._settings[key as keyof IConfiguration] as boolean;
-			} else {
-				input.value = String(this._settings[key as keyof IConfiguration]);
-			}
+			input.value = String(this._settings[key as keyof IConfiguration]);
 
 			// Set the tooltip of the coresponing input feild
 			tippy(input, {
