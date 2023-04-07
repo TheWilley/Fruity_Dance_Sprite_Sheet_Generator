@@ -276,7 +276,7 @@ class Configuration {
 			background:
 				"The background of the page. This can be a color in HEX a or URL",
 			background_opacity:
-				"The opacity of the background. 0 = transparent, 100 = opaque",
+				"The darkness of the background",
 			warn_before_leaving_page:
 				"Whether or not to warn the user before leaving the page"
 		};
