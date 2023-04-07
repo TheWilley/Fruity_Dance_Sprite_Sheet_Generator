@@ -228,7 +228,7 @@ class Configuration {
 			preview_fps: 4,
 			amount_of_collections: 12,
 			background: "",
-			warn_before_leaving_page: true
+			warn_before_leaving_page: false
 		};
 
 		return settings;
