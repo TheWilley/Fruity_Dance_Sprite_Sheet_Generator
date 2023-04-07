@@ -56,13 +56,12 @@ class DownloadUpload {
 	 * Parses animation names from textarea
 	 * @returns Array of animation names
 	 */
-	parseFrameNames(frameNamesTextBoxes: HTMLCollection) {
+	parseFrameNames(frameNamesContainer: HTMLElement) {
 		// Holds all animation names
 		const frameNames: string[] = [];
-		console.log(frameNamesTextBoxes);
 
 		// Get all animation names from div element
-		for (const element of frameNamesTextBoxes as unknown as HTMLInputElement[]) {
+		for (const element of frameNamesContainer.children as unknown as HTMLInputElement[]) {
 			frameNames.push(element.value);
 		}
 
@@ -72,36 +71,45 @@ class DownloadUpload {
 	/**
 	 * Compress sprite sheet along with a text file into a ZIP, then downloads it
 	 * @param {Object} canvas - The canvas element (sprite sheet)
-	 * @param {*} frameNamesTextBoxes - The animations names
+	 * @param {*} frameNamesContainer - The animations names
+	 * @param {*} filename - The filename of the exported ZIP
 	 */
 	public downloadZIP(
 		canvas: HTMLCanvasElement,
-		frameNamesTextBoxes: HTMLCollection,
+		frameNamesContainer: HTMLElement,
+		filename: string
 	) {
 		// Declare constants
 		const zip = new JSZip();
+		const zipFilename = `${filename}.zip`;
 		const output = new Image();
 		output.src = canvas.toDataURL();
 
 		// Check if animation names are correct before continuing with the export
-		if (this.checkAnimationNames(this.parseFrameNames(frameNamesTextBoxes))) {
-			// Set default filename
-			const filename = "spriteSheet";
-			// Zip image and text file
-			zip.file(
-				`${filename}.png`,
-				output.src.substring(output.src.indexOf(",") + 1),
-				{ base64: true }
-			);
-			zip.file(
-				`${filename}.txt`,
-				this.parseFrameNames(frameNamesTextBoxes).join("\n")
-			);
+		if (this.checkAnimationNames(this.parseFrameNames(frameNamesContainer))) {
+			// Check for invalid characters in filename
+			if (
+				/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(filename) == true ||
+				filename == ""
+			) {
+				alert("Illegal file name!");
+			} else {
+				// Zip image and text file
+				zip.file(
+					`${filename}.png`,
+					output.src.substring(output.src.indexOf(",") + 1),
+					{ base64: true }
+				);
+				zip.file(
+					`${filename}.txt`,
+					this.parseFrameNames(frameNamesContainer).join("\n")
+				);
 
-			// Save file
-			zip.generateAsync({ type: "blob" }).then((content: Blob) => {
-				saveAs(content, `${filename}.zip`);
-			});
+				// Save file
+				zip.generateAsync({ type: "blob" }).then((content: Blob) => {
+					saveAs(content, zipFilename);
+				});
+			}
 		}
 	}
 
@@ -113,7 +121,11 @@ class DownloadUpload {
 			return;
 		}
 
+		// Reset local storage
+		localStorage.setItem("images", "");
+		localStorage.setItem("imagenumb", "");
 		this._graphicHandler.disableControls(true);
+
 		location.reload();
 	}
 
@@ -121,17 +133,15 @@ class DownloadUpload {
 	 * Saves a json file containing data about sprite sheet
 	 */
 	public saveJson() {
-		if (!this.checkAnimationNames(this.parseFrameNames(document.getElementsByClassName("row-name")))) return;
 		const object = {
 			spriteSheetId: "cWqgPFdGN5", // Identifies the json as a sprite sheet
 			rows: this._state.rows.value,
-			rowNames: this.parseFrameNames(document.getElementsByClassName("row-name")).join(
+			rowNames: this.parseFrameNames(this._state.row_names_container).join(
 				"\n"
 			),
 			width: this._state.cell_width.value,
 			height: this._state.cell_height.value,
-			tableObject: this._imageCollection.cellCollection,
-			uploadedImages: this._state.result.innerHTML
+			tableObject: this._imageCollection.cellCollection
 		};
 
 		// Create a blob of the data
@@ -140,7 +150,7 @@ class DownloadUpload {
 		});
 
 		// Save the file
-		saveAs(fileToSave, "savedWorkspace.json");
+		saveAs(fileToSave, "savedSpritSheet.json");
 	}
 
 	/**
@@ -297,8 +307,11 @@ class DownloadUpload {
 			const names = json.split("\n");
 
 			// Set the value of each input to the corresponding name
-			for (const [index, element] of Array(document.getElementsByClassName("row-name") as HTMLCollectionOf<HTMLInputElement>).entries()) {
-				element[index].value = names[index];
+			for (const [
+				index,
+				element
+			] of this._state.row_names_container.childNodes.entries()) {
+				element.value = names[index];
 			}
 		};
 
@@ -312,7 +325,6 @@ class DownloadUpload {
 			this._state.cell_height.value = json.height;
 
 			this._table.addTable();
-			this._state.result.innerHTML = json.uploadedImages;
 			setAnimationNames(json.rowNames);
 			this._imageCollection.cellCollection = itterateJson(json.tableObject);
 			this._table.iterateTable();
@@ -324,10 +336,9 @@ class DownloadUpload {
 		 */
 		const uploadJson = FilePond.create(document.querySelector("#uploadJson"), {
 			// Settings
-			// TODO: Make this work properly as layout is broken
 			labelIdle:
 				"Drag & Drop your <b> JSON </b> file or <span class=\"filepond--label-action\"> Browse </span>",
-			maxFileSize: "10mb",
+			maxFileSize: "30mb",
 			allowFileTypeValidation: true,
 			acceptedFileTypes: ["application/json"],
 			credits: false,
@@ -336,7 +347,7 @@ class DownloadUpload {
 			},
 
 			server: {
-				process: (fieldName, currentFile, metadata, load, error, progress, abort) => {
+				process: (error: any) => {
 					const file = uploadJson.getFile() as FilePondFileExtender;
 					if (
 						JSON.parse(atob(file.getFileEncodeDataURL().substring(29)))
@@ -349,7 +360,7 @@ class DownloadUpload {
 							uploadJson.removeFile();
 						}, 500);
 					} else {
-						error("JSON is not a valid workspace!");
+						error("File is not a sprite sheet!");
 					}
 				}
 			}
