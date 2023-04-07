@@ -27,6 +27,7 @@ interface IConfiguration {
 	preview_fps: number; // The FPS of a preview
 	amount_of_collections: number; // The amount of collections
 	background: string; // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
+	background_opacity: number; // The opacity of the background
 	warn_before_leaving_page: boolean; // Warn user before leaving page to not discard any progress
 }
 
@@ -111,10 +112,18 @@ class Configuration {
 				[
 					"background",
 					(value: string) => {
+						console.log(value);
 						if (value != null)
 							String(value)[0] == "#"
 								? (document.documentElement.style.background = String(value))
 								: (document.documentElement.style.background = `url(${value})`);
+					}
+				],
+				[
+					"background_opacity",
+					(value: string) => {
+						this._state.background_opacity.value = value;
+						this._state.overlay.style.background = `rgba(0, 0, 0, ${Number(value) / 100})`;
 					}
 				]
 			]
@@ -198,6 +207,10 @@ class Configuration {
 				) || defaultValues.amount_of_collections,
 			background:
 				(form.elements.namedItem("background") as HTMLInputElement).value || "",
+			background_opacity:
+				parseInt(
+					(form.elements.namedItem("background_opacity") as HTMLInputElement).value
+				) || defaultValues.background_opacity,
 			warn_before_leaving_page:
 				(
 					form.elements.namedItem(
@@ -228,6 +241,7 @@ class Configuration {
 			preview_fps: 4,
 			amount_of_collections: 12,
 			background: "",
+			background_opacity: 0,
 			warn_before_leaving_page: false
 		};
 
@@ -261,6 +275,8 @@ class Configuration {
 			amount_of_collections: "The amount of collections",
 			background:
 				"The background of the page. This can be a color in HEX a or URL",
+			background_opacity:
+				"The opacity of the background. 0 = transparent, 100 = opaque",
 			warn_before_leaving_page:
 				"Whether or not to warn the user before leaving the page"
 		};

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark" class="p-3 text-body">
+<html data-bs-theme="dark" class="text-body">
 	<head>
 		<title>Fruity Dance Sprite Sheet Generator</title>
 		<meta charset="UTF-8" />
@@ -24,7 +24,11 @@
 	</head>
 
 	<body id="app">
-		<div id="app_container">
+		<!-- Used behind the scenes, not part of layout-->
+		<div id="overlay">
+
+		<!-- App container for all content -->
+		<div id="app_container" class="p-3">
 			<!-- Used behind the scenes, not part of layout-->
 			<div id="mouse_circle"></div>
 			<div id="gif_frames"></div>
@@ -285,15 +289,6 @@
 												name="amount_of_collections"
 												value="12" />
 										</label>
-										<label for="background" class="form-label rounded"
-											>Background
-											<input
-												type="text"
-												id="background"
-												name="background"
-												placeholder="Background..."
-												value="" />
-										</label>
 									</div>
 								</div>
 
@@ -432,6 +427,28 @@
 												name="warn_before_leaving_page"
 												value="true"
 												checked />
+										</label>
+									</div>
+									<div
+										class="form-area col-12 m-2 p-2 align-items-first rounded">
+										<h3>Background</h3>
+										<label for="background" class="form-label rounded"
+											>Background
+											<input
+												type="text"
+												id="background"
+												name="background"
+												placeholder="Background..."
+												value="" />
+										</label>
+										<label for="background_opacity" class="form-label rounded"
+											>Background Opacity
+											<input
+												type="range"
+												id="background_opacity"
+												name="background_opacity"
+												placeholder="Background..."
+												value="" />
 										</label>
 									</div>
 								</div>
