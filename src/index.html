@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark" class="p-3 text-body">
+<html data-bs-theme="dark" class="text-body">
 	<head>
 		<title>Fruity Dance Sprite Sheet Generator</title>
 		<meta charset="UTF-8" />
@@ -24,7 +24,11 @@
 	</head>
 
 	<body id="app">
-		<div id="app_container">
+		<!-- Used behind the scenes, not part of layout-->
+		<div id="overlay">
+
+		<!-- App container for all content -->
+		<div id="app_container" class="p-3">
 			<!-- Used behind the scenes, not part of layout-->
 			<div id="mouse_circle"></div>
 			<div id="gif_frames"></div>
@@ -184,8 +188,16 @@
 										disabled>
 										<i class="fa-regular fa-image fa-flip-horizontal"></i>
 									</button>
+									<div class="mt-1">
+										<button
+											id="move_to_top"
+											class="btn btn-outline-light btn-sm m-0"
+											disabled>
+											<i class="fa-solid fa-clone"></i>
+										</button>
+									</div>
 								</div>
-								<div id="preview-buttons" class="mt-1">
+								<div id="preview-buttons" class="mt-2">
 									<button
 										id="start_preview"
 										class="btn btn-outline-light btn-sm">
@@ -215,13 +227,6 @@
 							<div id="container_canvas"></div>
 						</div>
 
-						<!-- The animation names section -->
-						<div id="names_section" class="section-wrapper">
-							<div class="collapse-button"></div>
-							<h2>Animation Names</h2>
-							<div id="row_names_container"></div>
-						</div>
-
 						<!-- The download section -->
 						<div id="export_section" class="section-wrapper">
 							<div class="collapse-button"></div>
@@ -229,24 +234,16 @@
 							<div class="row justify-content-center">
 								<div class="form-area col m-2 p-2 rounded align-self-center">
 									<h3>Download</h3>
-									<label for="filename" class="form-label rounded"
-										>Filename
-										<input
-											id="filename"
-											class="form-text"
-											placeholder="Filename..." />
-									</label>
-									<br />
 									<button id="downloadSpriteSheet" class="btn btn-success">
 										Download Sprite Sheet
 									</button>
 								</div>
 								<div class="form-area col m-2 p-2 rounded align-self-center">
-									<h3>Save</h3>
+									<h3>Workspace</h3>
 									<div class="my-auto">
-										<input id="uploadJson" type="file" class="" />
+										<input id="uploadJson" type="file" />
 										<button id="downloadJson" class="btn btn-success">
-											Save Sprite Sheet
+											Save Workspace
 										</button>
 									</div>
 								</div>
@@ -291,15 +288,6 @@
 												id="amount_of_collections"
 												name="amount_of_collections"
 												value="12" />
-										</label>
-										<label for="background" class="form-label rounded"
-											>Background
-											<input
-												type="text"
-												id="background"
-												name="background"
-												placeholder="Background..."
-												value="" />
 										</label>
 									</div>
 								</div>
@@ -427,18 +415,23 @@
 								<div class="row justify-content-center">
 									<div
 										class="form-area col-12 m-2 p-2 align-items-first rounded">
-										<h3>Checkboxes</h3>
-										<label
-											for="warn_before_leaving_page"
-											class="form-label rounded"
-											>Warn Before Leaving
+										<h3>Background</h3>
+										<label for="background" class="form-label rounded"
+											>HEX / URL
 											<input
-												type="checkbox"
-												id="warn_before_leaving_page"
-												role="button"
-												name="warn_before_leaving_page"
-												value="true"
-												checked />
+												type="text"
+												id="background"
+												name="background"
+												placeholder="#4287f5"
+												value="" />
+										</label>
+										<label for="background_opacity" class="form-label rounded"
+											>Darkness
+											<input
+												type="range"
+												id="background_opacity"
+												name="background_opacity"
+												value="" />
 										</label>
 									</div>
 								</div>

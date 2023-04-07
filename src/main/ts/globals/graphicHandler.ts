@@ -118,11 +118,21 @@ class GraphicHandler {
 	/**
 	 * Redraws canvas
 	 */
-	public redraw() {
+	public redraw(moveToTop?: boolean, image?: ImageInfo) {
+		let cellToMoveToTop: ImageInfo;
+
+		// Insert images in normal order
 		this._imageCollection.cellCollection.forEach((row) => {
 			// TODO: Change this to a interface
 			row.forEach((cell) => {
 				if (cell.imageSrc != undefined) {
+					// If the image is supposed to be moved to the top, store it in a variable and skip it
+					if (moveToTop && image === cell) {
+						cellToMoveToTop = cell;
+						return;
+					}
+
+					// Insert the image
 					this.generateCanvas(
 						cell.imageSrc,
 						cell.x,
@@ -137,6 +147,35 @@ class GraphicHandler {
 				}
 			});
 		});
+
+		// Insert the picked image again last to put it on top
+		if (moveToTop) {
+			this.generateCanvas(
+				cellToMoveToTop.imageSrc,
+				cellToMoveToTop.x,
+				cellToMoveToTop.y,
+				cellToMoveToTop.xOffset,
+				cellToMoveToTop.yOffset,
+				cellToMoveToTop.sizeMultiplier,
+				cellToMoveToTop.isFlippedVertically,
+				cellToMoveToTop.isFlippedHorizontally,
+				"wholeCanvas"
+			);
+		}
+	}
+
+	/**
+	 * Moves the selected image to the top layer
+	 */
+	public moveUp() {
+		// Get the selected image
+		const selectedImage = this._selectedItems[0];
+
+		// Get row / cell number
+		const rownumb = Number(selectedImage.parentElement.dataset.x);
+		const cellnumb = Number(selectedImage.parentElement.dataset.y);
+
+		this.redraw(true, this._imageCollection.cellCollection[rownumb][cellnumb]);
 	}
 
 	/**
@@ -230,7 +269,7 @@ class GraphicHandler {
 	 */
 	public previewImage(preview: boolean) {
 		if (preview) {
-			this._state.popup.style.transform = "translate(-50%, 300px)";
+			this._state.popup.style.transform = "translate(-50%, 302px)";
 			this._state.mouse_circle.style.opacity = "100%";
 			this._state.delete.style.outline = "2px solid red";
 			this._state.delete.style.borderColor = "red";
@@ -254,7 +293,6 @@ class GraphicHandler {
 				element.parentElement.style.display = "block";
 			}
 		}
-		localStorage.setItem("images", this._state.result.innerHTML);
 	}
 
 	/**
@@ -345,6 +383,8 @@ class GraphicHandler {
 		this._state.delete.disabled = enabled;
 		this._state.flip_horizontal.disabled = enabled;
 		this._state.flip_vertical.disabled = enabled;
+
+		this._state.move_to_top.disabled = enabled || this._selectedItems.length > 1;
 	}
 
 	/**
@@ -515,6 +555,16 @@ class GraphicHandler {
 		root.style.getPropertyValue("--show_preview") == "none"
 			? root.style.setProperty("--show_preview", "block")
 			: root.style.setProperty("--show_preview", "none");
+	}
+
+	/**
+	 Shows or hides row names columns in table
+	 */
+	public show_rowname() {
+		const root = document.documentElement;
+		root.style.getPropertyValue("--show_rowname") == "none"
+			? root.style.setProperty("--show_rowname", "table-cell")
+			: root.style.setProperty("--show_rowname", "none");
 	}
 
 	public get previewObjects() {

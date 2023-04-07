@@ -31,13 +31,10 @@ class EventListeners {
 					case "e": // Export
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						this._state.filename.value = "savedSpriteSheet";
 						this._downloadUpload.downloadZIP(
 							this._state.canvas,
-							this._state.row_names_container,
-							this._state.filename.value
+							document.getElementsByClassName("row-name"),
 						);
-						this._state.filename.value = "";
 						break;
 					case "u": // Clear uploaded images
 						event.stopImmediatePropagation();
@@ -55,8 +52,7 @@ class EventListeners {
 			event.stopImmediatePropagation();
 			this._downloadUpload.downloadZIP(
 				this._state.canvas,
-				this._state.row_names_container,
-				this._state.filename.value
+				document.getElementsByClassName("row-name"),
 			);
 		});
 
@@ -95,6 +91,7 @@ class EventListeners {
 		$(this._state.show_preview).on("click", (event) => {
 			event.stopImmediatePropagation();
 			this._graphicHandler.show_preview();
+			this._graphicHandler.show_rowname();
 		});
 
 		/**
@@ -128,8 +125,7 @@ class EventListeners {
 		 * Runs Before leaving page
 		 */
 		$(window).on("beforeunload", () => {
-			if (this._settings.warn_before_leaving_page)
-				return "Your changes might not be saved";
+			return "Your changes might not be saved";
 		});
 
 		/**
@@ -162,6 +158,12 @@ class EventListeners {
 			}
 		);
 
+		$(this._state.move_to_top).on(
+			"click", () => {
+				this._graphicHandler.moveUp();
+			}
+		);
+
 		/**
 		 * Checks if config is changed
 		 */
@@ -185,18 +187,6 @@ class EventListeners {
 		 * Removes all autocomplete from inputs
 		 */
 		$("input").attr("autocomplete", "off");
-
-		/**
-		 * Toggles between light and dark theme
-		 */
-		$(".toggle").on("click", () => {
-			if (document.documentElement.getAttribute("data-bs-theme") == "dark") {
-				document.documentElement.setAttribute("data-bs-theme", "light");
-			}
-			else {
-				document.documentElement.setAttribute("data-bs-theme", "dark");
-			}
-		});
 	}
 
 	/**
@@ -211,6 +201,41 @@ class EventListeners {
 
 		tippy(".collapse-button", {
 			content: "Collapse",
+			delay: [500, 0]
+		});
+
+		tippy("#flip_horizontal", {
+			content: "Flip image vertically",
+			delay: [500, 0]
+		});
+
+		tippy("#flip_vertical", {
+			content: "Flip image horizontally",
+			delay: [500, 0]
+		});
+
+		tippy("#move_to_top", {
+			content: "Move image to top",
+			delay: [500, 0]
+		});
+
+		tippy("#delete", {
+			content: "Delete image",
+			delay: [500, 0]
+		});
+
+		tippy("#start_preview", {
+			content: "Start preview",
+			delay: [500, 0]
+		});
+
+		tippy("#pause_preview", {
+			content: "Pause preview",
+			delay: [500, 0]
+		});
+
+		tippy("#show_preview", {
+			content: "Show or hide preview and rows",
 			delay: [500, 0]
 		});
 	}

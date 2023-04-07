@@ -19,7 +19,6 @@ export let globals: Globals;
 export function init() {
 	createGlobals();
 	addVersionNumber();
-	checkTheme();
 
 	new DragHandler().run();
 	new EventListeners().run();
@@ -54,15 +53,4 @@ async function addVersionNumber() {
 		process.exit(1);
 	}
 	globals.config.state.currentVersion.innerText = "v" + LIB_VERSION;
-}
-
-/**
- * Checks if the user has a theme preference
- */
-function checkTheme() {
-	if (localStorage.getItem("theme") === "lightTheme") {
-		document.body.classList.add("lightTheme");
-	} else {
-		document.body.classList.add("darkTheme");
-	}
 }

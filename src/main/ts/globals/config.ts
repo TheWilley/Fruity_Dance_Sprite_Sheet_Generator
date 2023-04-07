@@ -1,5 +1,5 @@
-import {globals} from "../setup";
-import {ValuesType} from "utility-types";
+import { globals } from "../setup";
+import { ValuesType } from "utility-types";
 import tippy from "tippy.js";
 
 // Configuration interface
@@ -27,7 +27,7 @@ interface IConfiguration {
 	preview_fps: number; // The FPS of a preview
 	amount_of_collections: number; // The amount of collections
 	background: string; // A custom background, must be a link to an image / path to a local one OR a color in HEX (null will mean default)
-	warn_before_leaving_page: boolean; // Warn user before leaving page to not discard any progress
+	background_opacity: number; // The opacity of the background
 }
 
 type ConfigurationAttributeTypes = ValuesType<IConfiguration>;
@@ -111,10 +111,18 @@ class Configuration {
 				[
 					"background",
 					(value: string) => {
+						console.log(value);
 						if (value != null)
 							String(value)[0] == "#"
-								? (this._state.app_container.style.background = String(value))
-								: (this._state.app_container.style.background = `url(${value})`);
+								? (document.documentElement.style.background = String(value))
+								: (document.documentElement.style.background = `url(${value})`);
+					}
+				],
+				[
+					"background_opacity",
+					(value: string) => {
+						this._state.background_opacity.value = value;
+						this._state.overlay.style.background = `rgba(0, 0, 0, ${Number(value) / 100})`;
 					}
 				]
 			]
@@ -198,12 +206,10 @@ class Configuration {
 				) || defaultValues.amount_of_collections,
 			background:
 				(form.elements.namedItem("background") as HTMLInputElement).value || "",
-			warn_before_leaving_page:
-				(
-					form.elements.namedItem(
-						"warn_before_leaving_page"
-					) as HTMLInputElement
-				).checked || defaultValues.warn_before_leaving_page
+			background_opacity:
+				parseInt(
+					(form.elements.namedItem("background_opacity") as HTMLInputElement).value
+				) || defaultValues.background_opacity
 		};
 
 		return settings;
@@ -228,7 +234,7 @@ class Configuration {
 			preview_fps: 4,
 			amount_of_collections: 12,
 			background: "",
-			warn_before_leaving_page: false
+			background_opacity: 0,
 		};
 
 		return settings;
@@ -260,9 +266,9 @@ class Configuration {
 				"The amount of frames per second that the preview will play at",
 			amount_of_collections: "The amount of collections",
 			background:
-				"The background of the page. This can be a color in HEX, a local image or URL",
-			warn_before_leaving_page:
-				"Whether or not to warn the user before leaving the page"
+				"The background of the page. This can be a color in HEX a or URL",
+			background_opacity:
+				"The darkness of the background"
 		};
 
 		return tooltips;
@@ -281,12 +287,7 @@ class Configuration {
 		// Loop through all the settings and set the value of each input feild
 		for (const key in this._settings) {
 			const input = form.elements.namedItem(key) as HTMLInputElement;
-			// Check if input is of type boolean
-			if (input.type == "checkbox") {
-				input.checked = this._settings[key as keyof IConfiguration] as boolean;
-			} else {
-				input.value = String(this._settings[key as keyof IConfiguration]);
-			}
+			input.value = String(this._settings[key as keyof IConfiguration]);
 
 			// Set the tooltip of the coresponing input feild
 			tippy(input, {
