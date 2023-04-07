@@ -260,7 +260,7 @@ class Configuration {
 				"The amount of frames per second that the preview will play at",
 			amount_of_collections: "The amount of collections",
 			background:
-				"The background of the page. This can be a color in HEX, a local image or URL",
+				"The background of the page. This can be a color in HEX a or URL",
 			warn_before_leaving_page:
 				"Whether or not to warn the user before leaving the page"
 		};
