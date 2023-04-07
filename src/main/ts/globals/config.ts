@@ -113,8 +113,8 @@ class Configuration {
 					(value: string) => {
 						if (value != null)
 							String(value)[0] == "#"
-								? (this._state.app_container.style.background = String(value))
-								: (this._state.app_container.style.background = `url(${value})`);
+								? (document.documentElement.style.background = String(value))
+								: (document.documentElement.style.background = `url(${value})`);
 					}
 				]
 			]
