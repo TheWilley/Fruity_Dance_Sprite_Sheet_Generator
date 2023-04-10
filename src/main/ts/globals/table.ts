@@ -1,5 +1,4 @@
 import Preview from "../preview";
-import ImageInfo from "../imageInfo";
 import { globals } from "../setup";
 
 class Table {
@@ -30,31 +29,6 @@ class Table {
 	}
 
 	/**
-	 * Checks if all cells are empty in the table
-	 * @returns True | False
-	 */
-	checkEmptyCells() {
-		// Check if there is any image added and warn user
-		let allCellsEmpty = true;
-
-		this._imageCollection.cellCollection.forEach((e1) => {
-			e1.forEach((e2) => {
-				if (e2.imageSrc != "" && e2.imageSrc != undefined) {
-					allCellsEmpty = false;
-				}
-			});
-		});
-
-		if (!allCellsEmpty) {
-			if (!confirm("This action will discard your sprite sheet! Continue?")) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
 	 * Creates the editor table
 	 */
 	addTable() {
@@ -71,14 +45,9 @@ class Table {
 
 		// Clear arrays
 		this._graphicHandler.previewObjects = [];
-		this._imageCollection.cellCollection = [];
 
 		// Loop trough and add rows
 		for (let x = 0; x < this._state.rows.value; x++) {
-			/* For every row, add another row to the 2D array in @getSet.js.
-			This way, the array is dynamic. */
-			this._imageCollection.cellCollection.push([]);
-
 			// Generate tanle rows
 			const table_row = document.createElement("TR");
 
@@ -114,13 +83,6 @@ class Table {
 
 			// Loop trough and add cells
 			for (let y = 0; y <= 7; y++) {
-				// Here we add a tempobject to the grid to store for later usage
-				const tempobject = new ImageInfo(x, y);
-				this._imageCollection.cellCollection[x][y] = tempobject;
-				this._imageCollection.cellCollection[x][y].xOffset = 0;
-				this._imageCollection.cellCollection[x][y].yOffset = 0;
-				this._imageCollection.cellCollection[x][y].sizeMultiplier = 1;
-
 				// Generate table cells
 				const table_cell = document.createElement("TD");
 				table_cell.setAttribute("data-x", String(x));
@@ -128,7 +90,7 @@ class Table {
 				table_cell.classList.add("dropzones");
 
 				// Generate image
-				const image_cell = this._graphicHandler.generateImage();
+				const image_cell = this._graphicHandler.generateImage(this._imageCollection.cellCollection[x][y].imageSrc);
 
 				// Append all elemments
 				table_cell.appendChild(image_cell);
@@ -147,10 +109,12 @@ class Table {
 		// Canvas Creation
 		const canvas_element = document.createElement("canvas");
 
+		// Remove old canvas
 		if (this._state.canvas != null) {
 			this._state.canvas.remove();
 		}
 
+		// Set canvas attributes
 		canvas_element.setAttribute(
 			"height",
 			String(this._state.cell_height.value * this._state.rows.value)
@@ -161,10 +125,13 @@ class Table {
 		);
 		canvas_element.setAttribute("id", "canvas");
 
-		this._state.container_canvas.appendChild(canvas_element);
 
-		// Add to object
+		// Append canvas and add to state
+		this._state.container_canvas.appendChild(canvas_element);
 		this._state.addElement(canvas_element);
+
+		// Redraw canvas
+		this._graphicHandler.redraw();
 	}
 }
 

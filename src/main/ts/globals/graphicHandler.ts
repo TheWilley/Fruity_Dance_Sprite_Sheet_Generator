@@ -182,9 +182,12 @@ class GraphicHandler {
 	 * Generates an image element
 	 * @returns {object} - The image element
 	 */
-	public generateImage() {
+	public generateImage(imagesrc?: string) {
 		// Generate image cells
 		const image = document.createElement("IMG") as HTMLImageElement;
+
+		// Set image source
+		if (imagesrc) image.src = imagesrc;
 
 		// Set all image_cell attributes
 		image.setAttribute("class", "immg-grid");

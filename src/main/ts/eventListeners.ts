@@ -136,7 +136,7 @@ class EventListeners {
 			(event: JQuery.ChangeEvent) => {
 				event.stopImmediatePropagation();
 				this._graphicHandler.checkMinMax(0, 0, event);
-				if (this._table.checkEmptyCells()) this._table.addTable();
+				this._table.addTable();
 			}
 		);
 
