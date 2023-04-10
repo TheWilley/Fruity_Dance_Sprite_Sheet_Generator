@@ -132,6 +132,8 @@ class Table {
 
 		// Redraw canvas
 		this._graphicHandler.redraw();
+
+		this._graphicHandler.disableControls(true);
 	}
 }
 
