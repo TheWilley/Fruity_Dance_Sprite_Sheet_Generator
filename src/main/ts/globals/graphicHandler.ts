@@ -252,8 +252,8 @@ class GraphicHandler {
 	 * Restarts or stops the preview
 	 * @param {boolean} restart - True: Restart preview; False: Stop preview;
 	 */
-	public configPreview(restart: boolean) {
-		if (restart == true) {
+	public configPreview() {
+		if (this._previewObjects[0].getPauseState == true) {
 			this._previewObjects.forEach((obj) => {
 				if (obj.getPauseState == true) {
 					obj.restart();
@@ -373,6 +373,18 @@ class GraphicHandler {
 
 		// Step 4, redraw
 		this.redraw();
+	}
+
+	/**
+	 * Selects all images
+	 */
+	public selectAll() {
+		// Step 1, get all image elements
+		const allImageElements = document.querySelectorAll<HTMLElement>(".dropzones img");
+		// Step 2, check if all elements are selected
+		for (const element of allImageElements) {
+			this.show_controls(element);
+		}
 	}
 
 	/**

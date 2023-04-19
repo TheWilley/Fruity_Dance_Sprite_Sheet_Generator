@@ -75,14 +75,15 @@ class EventListeners {
 		 * Checks if start preview button has been clicked
 		 */
 		$(this._state.start_preview).on("click", () => {
-			this._graphicHandler.configPreview(true);
+			this._graphicHandler.configPreview();
 		});
 
 		/**
-		 * Checks if pause preview button has been clicked
+		 * Checks if select all button has been clicked
 		 */
-		$(this._state.pause_preview).on("click", () => {
-			this._graphicHandler.configPreview(false);
+		$(this._state.select_all).on("click", () => {
+			// Select all images
+			this._graphicHandler.selectAll();
 		});
 
 		/**
