@@ -89,7 +89,6 @@ module.exports = {
 			logo: './src/public/favicon/favicon-32x32.png',
 			favicons: {
 				icons: {
-					favicons: false,
 					appleStartup: false,
 					coast: false,
 					yandex: false
