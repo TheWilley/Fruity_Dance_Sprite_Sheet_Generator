@@ -240,6 +240,11 @@ class EventListeners {
 			content: "Show or hide preview and rows",
 			delay: [500, 0]
 		});
+
+		tippy("#select_all", {
+			content: "Select all images",
+			delay: [500, 0]
+		});
 	}
 }
 
