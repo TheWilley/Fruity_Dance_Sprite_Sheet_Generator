@@ -137,6 +137,7 @@ class EventListeners {
 			(event: JQuery.ChangeEvent) => {
 				event.stopImmediatePropagation();
 				this._graphicHandler.checkMinMax(0, 0, event);
+				this._graphicHandler.removeSelected();
 				this._table.addTable();
 			}
 		);

@@ -403,6 +403,14 @@ class GraphicHandler {
 	}
 
 	/**
+	 * Removes all selected items
+	 */
+	public removeSelected() {
+		this._selectedItems = [];
+		this.disableControls(true);
+	}
+
+	/**
 	 * Shows controls for a cell in the table
 	 * @param {object} currentObject - The target image element in the table
 	 */
