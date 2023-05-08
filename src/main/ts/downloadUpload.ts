@@ -327,7 +327,7 @@ class DownloadUpload {
 			// TODO: Make this work properly as layout is broken
 			labelIdle:
 				"Drag & Drop your <b> JSON </b> file or <span class=\"filepond--label-action\"> Browse </span>",
-			maxFileSize: "10mb",
+			maxFileSize: "30mb",
 			allowFileTypeValidation: true,
 			acceptedFileTypes: ["application/json"],
 			credits: false,

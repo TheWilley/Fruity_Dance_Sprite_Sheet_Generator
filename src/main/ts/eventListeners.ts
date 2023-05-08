@@ -75,14 +75,15 @@ class EventListeners {
 		 * Checks if start preview button has been clicked
 		 */
 		$(this._state.start_preview).on("click", () => {
-			this._graphicHandler.configPreview(true);
+			this._graphicHandler.configPreview();
 		});
 
 		/**
-		 * Checks if pause preview button has been clicked
+		 * Checks if select all button has been clicked
 		 */
-		$(this._state.pause_preview).on("click", () => {
-			this._graphicHandler.configPreview(false);
+		$(this._state.select_all).on("click", () => {
+			// Select all images
+			this._graphicHandler.selectAll();
 		});
 
 		/**
@@ -136,7 +137,8 @@ class EventListeners {
 			(event: JQuery.ChangeEvent) => {
 				event.stopImmediatePropagation();
 				this._graphicHandler.checkMinMax(0, 0, event);
-				if (this._table.checkEmptyCells()) this._table.addTable();
+				this._graphicHandler.removeSelected();
+				this._table.addTable();
 			}
 		);
 
@@ -236,6 +238,11 @@ class EventListeners {
 
 		tippy("#show_preview", {
 			content: "Show or hide preview and rows",
+			delay: [500, 0]
+		});
+
+		tippy("#select_all", {
+			content: "Select all images",
 			delay: [500, 0]
 		});
 	}

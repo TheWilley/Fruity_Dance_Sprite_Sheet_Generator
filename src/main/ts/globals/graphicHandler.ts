@@ -182,9 +182,12 @@ class GraphicHandler {
 	 * Generates an image element
 	 * @returns {object} - The image element
 	 */
-	public generateImage() {
+	public generateImage(imagesrc?: string) {
 		// Generate image cells
 		const image = document.createElement("IMG") as HTMLImageElement;
+
+		// Set image source
+		if (imagesrc) image.src = imagesrc;
 
 		// Set all image_cell attributes
 		image.setAttribute("class", "immg-grid");
@@ -249,8 +252,8 @@ class GraphicHandler {
 	 * Restarts or stops the preview
 	 * @param {boolean} restart - True: Restart preview; False: Stop preview;
 	 */
-	public configPreview(restart: boolean) {
-		if (restart == true) {
+	public configPreview() {
+		if (this._previewObjects[0].getPauseState == true) {
 			this._previewObjects.forEach((obj) => {
 				if (obj.getPauseState == true) {
 					obj.restart();
@@ -373,6 +376,18 @@ class GraphicHandler {
 	}
 
 	/**
+	 * Selects all images
+	 */
+	public selectAll() {
+		// Step 1, get all image elements
+		const allImageElements = document.querySelectorAll<HTMLElement>(".dropzones img");
+		// Step 2, check if all elements are selected
+		for (const element of allImageElements) {
+			this.show_controls(element);
+		}
+	}
+
+	/**
 	 * Enables or disables the offset & delete settings
 	 * @param {boolean} enabled - True: Elements are disabled; False: Elements are enabled
 	 */
@@ -385,6 +400,14 @@ class GraphicHandler {
 		this._state.flip_vertical.disabled = enabled;
 
 		this._state.move_to_top.disabled = enabled || this._selectedItems.length > 1;
+	}
+
+	/**
+	 * Removes all selected items
+	 */
+	public removeSelected() {
+		this._selectedItems = [];
+		this.disableControls(true);
 	}
 
 	/**
