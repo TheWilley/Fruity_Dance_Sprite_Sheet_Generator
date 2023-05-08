@@ -98,8 +98,7 @@ module.exports = {
 					type: 'image/png'
 				}
 			}
-		}),
-		new BundleAnalyzerPlugin()
+		})
 	],
 	// http://localhost:9000/dist/index.html
 	devServer: {
