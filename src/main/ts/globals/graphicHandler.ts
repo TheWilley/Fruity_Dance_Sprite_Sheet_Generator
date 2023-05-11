@@ -380,10 +380,18 @@ class GraphicHandler {
 	 */
 	public selectAll() {
 		// Step 1, get all image elements
+		let all_images_null = true;
 		const allImageElements = document.querySelectorAll<HTMLElement>(".dropzones img");
 		// Step 2, check if all elements are selected
 		for (const element of allImageElements) {
-			this.show_controls(element);
+			if ((element as HTMLImageElement).src != "") {
+				this.show_controls(element);
+				all_images_null = false;
+			}
+		}
+
+		if (all_images_null) {
+			alert("No images in grid");
 		}
 	}
 
