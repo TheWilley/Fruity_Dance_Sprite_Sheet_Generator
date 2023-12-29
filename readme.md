@@ -1,4 +1,4 @@
-<h1>❗❗❗<a href="https://github.com/TheWilley/FruityDancitor">This project is depricated and a new version have been released under the name <u>FruityDancitor</u>.</a>❗❗❗</h1>
+<h1>❗❗❗<a href="https://github.com/TheWilley/FruityDancitor">This project is deprecated and a new version have been released under the name <u>FruityDancitor</u>.</a>❗❗❗</h1>
 
 ---
 
