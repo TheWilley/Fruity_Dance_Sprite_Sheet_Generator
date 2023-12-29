@@ -1,3 +1,7 @@
+<h1>❗❗❗<a href="https://github.com/TheWilley/FruityDancitor">This project is depricated and a new version have been released under the name <u>FruityDancitor</u>.</a>❗❗❗</h1>
+
+---
+
 # Fruity Dance Sprite Sheet Generator
 
 <div align=center> <img width="200px"src='logotype.png'> <br> <h3> An Editor & Generator for the Fruity Dance plugin</h3> </div> <br>
